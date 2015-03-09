@@ -1,0 +1,36 @@
+{
+	"name":"danzabar/wasp",
+	"description": "A PHP framework designed for REST Apis and small Apps",
+	"authors": [
+		{
+			"name":"Daniel Cox",
+			"email":"danzabian@gmail.com",
+			"homepage":"http://www.valeska.co.uk"
+		}
+	],
+	"require": {
+		"symfony/config": "3.0.*@dev",
+		"symfony/console": "3.0.*@dev",
+		"doctrine/common": "2.5.*@dev",
+		"symfony/proxy-manager-bridge": "3.0.*@dev",
+		"symfony/dependency-injection": "3.0.*@dev",
+		"symfony/filesystem": "3.0.*@dev",
+		"symfony/http-foundation": "3.0.*@dev",
+		"symfony/event-dispatcher": "3.0.*@dev",
+		"symfony/routing": "3.0.*@dev",
+		"symfony/debug": "3.0.*@dev",
+		"doctrine/orm": "*",
+		"twig/twig": "1.*",
+		"symfony/validator": "3.0.*@dev"
+	},
+	"require-dev": {
+		"satooshi/php-coveralls": "dev-master",
+		"mockery/mockery": "dev-master"
+	},
+	"minimum-stability": "dev",
+	"autoload": {
+		"psr-4": {
+			"Wasp\\":"src/"
+		}
+	}
+}
