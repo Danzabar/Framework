@@ -1,0 +1,7 @@
+parameters:
+    test: value
+
+services:
+    excep: 
+        class: Wasp\Exceptions\DI\InvalidServiceDirectory
+        arguments: ["test"]

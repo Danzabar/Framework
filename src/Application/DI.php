@@ -2,6 +2,7 @@
 
 use Symfony\Component\DependencyInjection\ContainerBuilder,
 	Symfony\Component\Config\FileLocator,
+	Wasp\Exceptions,
 	Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -28,6 +29,13 @@ class DI
 	protected static $container;
 
 	/**
+	 * Loader instance
+	 *
+	 * @var Object
+	 */
+	protected static $loader;
+
+	/**
 	 * An array of mocks for depedencies
 	 *
 	 * @var Array
@@ -50,6 +58,73 @@ class DI
 	public function __construct($directory = NULL)
 	{
 		$this->directory = $directory;
+	}
+
+	/**
+	 * Builds the DI container
+	 *
+	 * @return DI
+	 * @author Dan Cox
+	 */
+	public function build()
+	{
+		// We must have a directory set;
+		if(is_null($this->directory))
+		{
+			throw new Exceptions\DI\InvalidServiceDirectory($this);
+		}
+
+		// This just builds the components, ready to load a service definition file
+		static::$container = new ContainerBuilder;
+		static::$loader = new YamlFileLoader(static::$container, new FileLocator($this->directory));
+
+		return $this;
+	}
+
+	/**
+	 * Loads a file by name
+	 *
+	 * @return DI
+	 * @author Dan Cox
+	 */
+	public function load($filename)
+	{
+		static::$loader->load($filename.'.yml');
+		return $this;
+	}
+
+	/**
+	 * Returns a service
+	 *
+	 * @return Mixed
+	 * @author Dan Cox
+	 */
+	public function get($service)
+	{
+		// If we have a mock version, serve that up instead.
+		if(array_key_exists($service, static::$mocks))
+		{
+			return static::$mocks[$service];
+		}
+
+		return static::$container->get($service);
+	}
+
+	/**
+	 * Get param by name
+	 *
+	 * @return Mixed
+	 * @author Dan Cox
+	 */
+	public function param($key)
+	{
+		// Again if we have a mocked version, use that
+		if(array_key_exists($key, static::$params))
+		{
+			return static::$params[$key];
+		}
+
+		return static::$container->getParameter($key);
 	}
 
 	/**

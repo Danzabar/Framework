@@ -72,5 +72,38 @@ class DITest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(Array(), $di->getParams());
 	}
 
+	/**
+	 * Build the DI and add mocks/params
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_Build()
+	{
+		$di = new DI;
+		$di->setDirectory(__DIR__);
+		$di->build()->load('service');
+
+		$this->assertInstanceOf('Wasp\Exceptions\DI\InvalidServiceDirectory', $di->get('excep'));
+		$this->assertEquals('value', $di->param('test'));
+
+		// Mock the values
+		$mockClass = new StdClass;
+		$mockClass->test = 'foo';
+
+		$di->addMock('excep', $mockClass);
+
+		$this->assertEquals('foo', $di->get('excep')->test);
+
+		$di->addParam('test', 'bar');
+
+		$this->assertEquals('bar', $di->param('test'));
+
+		$di->clearMocks();
+
+		$this->assertInstanceOf('Wasp\Exceptions\DI\InvalidServiceDirectory', $di->get('excep'));
+		$this->assertEquals('value', $di->param('test'));
+	}
+
 
 } // END class DITest extends \PHPUnit_Framework_TestCase
