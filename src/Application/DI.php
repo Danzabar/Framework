@@ -58,6 +58,7 @@ class DI
 	public function __construct($directory = NULL)
 	{
 		$this->directory = $directory;
+		static::$container = new ContainerBuilder;
 	}
 
 	/**
@@ -75,9 +76,7 @@ class DI
 		}
 
 		// This just builds the components, ready to load a service definition file
-		static::$container = new ContainerBuilder;
 		static::$loader = new YamlFileLoader(static::$container, new FileLocator($this->directory));
-
 		return $this;
 	}
 
