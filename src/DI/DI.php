@@ -36,22 +36,9 @@ class DI
 	protected static $loader;
 
 	/**
-	 * An array of mocks for depedencies
-	 *
-	 * @var Array
-	 */
-	protected static $mocks;
-
-	/**
-	 * An array of mock parameters similar to above
-	 *
-	 * @var Array
-	 */
-	protected static $params;
-
-	/**
 	 * Set up class settings
 	 *
+	 * @param String $directory
 	 * @return void
 	 * @author Dan Cox
 	 */
@@ -81,8 +68,35 @@ class DI
 	}
 
 	/**
+	 * Compiles the container
+	 *
+	 * @return DI
+	 * @author Dan Cox
+	 */
+	public function compile()
+	{
+		static::$container->compile();
+		return $this;
+	}
+
+	/**
+	 * Register a compiler pass class
+	 *
+	 * @param Object $pass
+	 * @return DI
+	 * @author Dan Cox
+	 */
+	public function addCompilerPass($pass)
+	{
+		static::$container->addCompilerPass($pass);
+
+		return $this;
+	}
+
+	/**
 	 * Loads a file by name
 	 *
+	 * @param String $filename
 	 * @return DI
 	 * @author Dan Cox
 	 */
@@ -95,129 +109,25 @@ class DI
 	/**
 	 * Returns a service
 	 *
+	 * @param String $service
 	 * @return Mixed
 	 * @author Dan Cox
 	 */
 	public function get($service)
 	{
-		// If we have a mock version, serve that up instead.
-		if(array_key_exists($service, static::$mocks))
-		{
-			return static::$mocks[$service];
-		}
-
 		return static::$container->get($service);
 	}
 
 	/**
 	 * Get param by name
 	 *
+	 * @param String $key
 	 * @return Mixed
 	 * @author Dan Cox
 	 */
 	public function param($key)
 	{
-		// Again if we have a mocked version, use that
-		if(array_key_exists($key, static::$params))
-		{
-			return static::$params[$key];
-		}
-
 		return static::$container->getParameter($key);
-	}
-
-	/**
-	 * Clears all the mocks we may have set
-	 *
-	 * @return DI
-	 * @author Dan Cox
-	 */
-	public function clearMocks()
-	{
-		static::$mocks = Array();
-		static::$params = Array();
-		
-		return $this;
-	}
-
-	/**
-	 * Adds a mocked item into the container
-	 *
-	 * @return DI
-	 * @author Dan Cox
-	 */
-	public function addMock($key, $object)
-	{
-		static::$mocks[$key] = $object;
-		
-		return $this;
-	}
-
-	/**
-	 * Removes a single mock by key
-	 *
-	 * @return DI
-	 * @author Dan Cox
-	 */
-	public function removeMock($key)
-	{
-		if(array_key_exists($key, static::$mocks))
-		{
-			unset(static::$mocks[$key]);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Adds a mocked parameter
-	 *
-	 * @return DI
-	 * @author Dan Cox
-	 */
-	public function addParam($key, $value)
-	{
-		static::$params[$key] = $value;
-
-		return $this;
-	}
-
-	/**
-	 * Removes a param by key
-	 *
-	 * @return DI
-	 * @author Dan Cox
-	 */
-	public function removeParam($key)
-	{
-		if(array_key_exists($key, static::$params))
-		{
-			unset(static::$params[$key]);
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Returns all mocks
-	 *
-	 * @return Array
-	 * @author Dan Cox
-	 */
-	public function getMocks()
-	{
-		return static::$mocks;
-	}
-
-	/**
-	 * Returns all params
-	 *
-	 * @return Array
-	 * @author Dan Cox
-	 */
-	public function getParams()
-	{
-		return static::$params;
 	}
 
 	/**
@@ -234,7 +144,6 @@ class DI
 	 * Sets the value of directory
 	 *
 	 * @param String $directory The directory in which we find the services YAML files
-	 *
 	 * @return DI
 	 */
 	public function setDirectory($directory)

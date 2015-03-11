@@ -15,7 +15,7 @@ class ServiceMockeryLibrary
 	 *
 	 * @var Array
 	 */
-	protected static $services;
+	protected static $services = Array();
 
 	/**
 	 * Adds an item to the library
