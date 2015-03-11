@@ -1,6 +1,6 @@
 <?php namespace Wasp\Application;
 
-use Wasp\Application\DI;
+use Wasp\DI\DI;
 
 /**
  * Application class

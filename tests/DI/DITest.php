@@ -1,6 +1,6 @@
 <?php
 
-use Wasp\Application\DI;
+use Wasp\DI\DI;
 
 /**
  * Test case for the DI class

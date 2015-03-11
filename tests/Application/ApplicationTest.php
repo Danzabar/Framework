@@ -47,7 +47,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 		// Keep the default settings
 		$app->build();
 
-		$this->assertInstanceOf('Wasp\Application\DI', $app->getDI());
+		$this->assertInstanceOf('Wasp\DI\DI', $app->getDI());
 	}
 	
 } // END class ApplicationTest extends \PHPUnit_Framework_TestCase

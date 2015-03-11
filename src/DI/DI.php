@@ -1,4 +1,4 @@
-<?php namespace Wasp\Application;
+<?php namespace Wasp\DI;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder,
 	Symfony\Component\Config\FileLocator,

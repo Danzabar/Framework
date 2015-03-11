@@ -1,7 +1,7 @@
 <?php
 
 use Wasp\Exceptions\DI\InvalidServiceDirectory,
-	Wasp\Application\DI;
+	Wasp\DI\DI;
 
 /**
  * Test case for the invalid sevrice directory exception class
@@ -26,7 +26,7 @@ class InvalidServiceDirectoryTest extends \PHPUnit_Framework_TestCase
 
 		} catch (InvalidServiceDirectory $e) {
 
-			$this->assertInstanceOf('Wasp\Application\DI', $e->getDI());
+			$this->assertInstanceOf('Wasp\DI\DI', $e->getDI());
 		}
 	}
 
