@@ -42,76 +42,27 @@ class ServiceMockeryTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Test adding a new mockery instance to the library
+	 * Test that you can add and remove service mocks.
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function test_addingToLibrary()
+	public function test_basicAddingRemoving()
 	{
 		$mock = new ServiceMockery('database');
 		$mock->add();
 
-		$this->assertEquals($mock->getMock(), $this->library->find('database'));
-	}
+		$library = new ServiceMockeryLibrary;
 
-	/**
-	 * A proper version of the above test
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_addingWithMockeryMethods()
-	{
-		$mock = new ServiceMockery('database');
-		$mock->add();
-
-		// Add some mockery methods
-		$mock->getMock()->shouldReceive('test')->andReturn(true);
-
-		$m = $this->library->find('database');
-
-		$this->assertTrue($m->test());
-	}
-
-	/**
-	 * Test removing the mockery
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_addRemove()
-	{
-		$mock = new ServiceMockery('database');
-		$mock->add();
-
-		$this->assertEquals($mock->getMock(), $this->library->find('database'));
+		$this->assertEquals('database', $library->find('database'));
+		$this->assertEquals('database', $mock->getLibrary()->find('database'));
 
 		$mock->remove();
 
-		$this->assertNull($this->library->find('database'));
+		$this->assertEquals(NULL, $library->find('database'));
+		$this->assertEquals(NULL, $mock->getLibrary()->find('database'));
 	}
 
-	/**
-	 * Test getting all and clearing from the library
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_allandClear()
-	{
-		$mock1 = new ServiceMockery('db');
-		$mock2 = new ServiceMockery('test');
-
-		$mock1->add();
-		$mock2->add();
-
-		$this->assertTrue(count($this->library->all()) == 2);
-		
-		$this->library->clear();
-
-		$this->assertEquals(0, count($this->library->all()));
-	}
 
 
 } // END class ServiceMockeryTest extends \PHPUnit_Framework_TestCase

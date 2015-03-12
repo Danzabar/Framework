@@ -1,7 +1,6 @@
 <?php namespace Wasp\DI;
 
-use Wasp\DI\ServiceMockeryLibrary,
-	\Mockery as m;
+use Wasp\DI\ServiceMockeryLibrary;
 
 /**
  * Service mockery class is used to create mockery instances of the DI services
@@ -12,13 +11,6 @@ use Wasp\DI\ServiceMockeryLibrary,
  */
 class ServiceMockery
 {
-	/**
-	 * Mockery instance of the Service
-	 *
-	 * @var Object	
-	 */
-	protected $mockery;
-
 	/**
 	 * The name of the service
 	 *
@@ -42,21 +34,18 @@ class ServiceMockery
 	public function __construct($name)
 	{
 		$this->serviceName = $name;
-
-		// Create a new mockery instance of this.
-		$this->mockery = m::mock($name);	
 		$this->library = new ServiceMockeryLibrary;
 	}
 
 	/**
-	 * Returns the Mockery object
+	 * Returns this instance of the Library
 	 *
-	 * @return Mockery
+	 * @return ServiceMockLibrary
 	 * @author Dan Cox
 	 */
-	public function getMock()
+	public function getLibrary()
 	{
-		return $this->mockery;
+		return $this->library;
 	}
 
 	/**
@@ -67,7 +56,7 @@ class ServiceMockery
 	 */
 	public function add()
 	{
-		$this->library->add($this->serviceName, $this->mockery);						
+		$this->library->add($this->serviceName);						
 		return $this;
 	}
 

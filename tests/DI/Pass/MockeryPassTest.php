@@ -43,15 +43,15 @@ class MockeryPassTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_compileAndRegister()
 	{
-		$mock = new ServiceMockery('excep');	
+		$mock = new ServiceMockery('service');	
 		$mock->add();
 
 		$this->DI->addCompilerPass(new MockeryPass);
 		$this->DI->compile();
 
-		$this->DI->get('excep')->shouldReceive('test')->andReturn(true);
+		$this->DI->get('service')->shouldReceive('test')->andReturn(true);
 
-		$this->assertTrue($this->DI->get('excep')->test());
+		$this->assertTrue($this->DI->get('service')->test());
 	}
 	
 } // END class MockeryPassTest extends \PHPUnit_Framework_TestCase

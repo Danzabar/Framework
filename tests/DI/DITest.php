@@ -38,7 +38,7 @@ class DITest extends \PHPUnit_Framework_TestCase
 		$di->setDirectory(__DIR__);
 		$di->build()->load('service');
 
-		$this->assertInstanceOf('Wasp\Exceptions\DI\InvalidServiceDirectory', $di->get('excep'));
+		$this->assertInstanceOf('Service', $di->get('service'));
 		$this->assertEquals('value', $di->param('test'));
 	}
 

@@ -21,13 +21,12 @@ class ServiceMockeryLibrary
 	 * Adds an item to the library
 	 *
 	 * @param String $name -  The name of the service
-	 * @param Object $object - The mockery class instance
 	 * @return ServiceMockeryLibrary
 	 * @author Dan Cox
 	 */
-	public function add($name, $object)
+	public function add($name)
 	{
-		static::$services[$name] = $object;	
+		static::$services[$name] = $name;	
 		return $this;
 	}
 
@@ -35,7 +34,7 @@ class ServiceMockeryLibrary
 	 * Finds a service by Name
 	 *
 	 * @param String $name - The name of the service
-	 * @return Object|NULL
+	 * @return String|NULL
 	 * @author Dan Cox
 	 */
 	public function find($name)

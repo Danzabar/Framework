@@ -2,6 +2,10 @@ parameters:
     test: value
 
 services:
-    excep: 
-        class: Wasp\Exceptions\DI\InvalidServiceDirectory
-        arguments: ["test"]
+    service: 
+        class: Service
+        arguments: ["@library"]
+        tags:
+            - { name: container.injectable }
+    library:
+        class: Library

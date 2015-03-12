@@ -47,7 +47,10 @@ class MockeryPass implements CompilerPassInterface
 			{
 				// Get the current definition
 				$def = $this->container->getDefinition($service);
-				$def->setClass($definition);
+				$def->setClass('Wasp\DI\ServiceMockeryDecorator');
+				
+				// Add the mockery name as a definition;
+				$def->setArguments([$definition]);
 
 				// Replace its current definition
 				$this->container->setDefinition($service, $def);
