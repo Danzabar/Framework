@@ -20,4 +20,6 @@ class Library
 	{
 		return 'bar';
 	}
+
+
 } // END class Library

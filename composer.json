@@ -19,7 +19,6 @@
 		"symfony/event-dispatcher": "3.0.*@dev",
 		"symfony/routing": "3.0.*@dev",
 		"symfony/debug": "3.0.*@dev",
-		"danzabar/config":"2.x",
 		"doctrine/orm": "*",
 		"twig/twig": "1.*",
 		"symfony/validator": "3.0.*@dev"

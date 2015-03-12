@@ -25,4 +25,15 @@ Trait DependencyInjectionAwareTrait {
 	{
 		$this->DI = $DI;
 	}
+
+	/**
+	 * Returns the DI
+	 *
+	 * @return DI
+	 * @author Dan Cox
+	 */
+	public function getDI()
+	{
+		return $this->DI;
+	}
 }

@@ -33,14 +33,25 @@ class Service
 	}
 
 	/**
-	 * Returns the Library
+	 * Test func
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function getLibrary()
+	public function fs()
 	{
-		return $this->library;
+		return $this->DI->get('fs');
+	}
+
+	/**
+	 * Test fun
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function useLibrary()
+	{
+		return $this->library->foo();
 	}
 	
 } // END class Service

@@ -1577,12 +1577,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "d141c5b1b302d4d746e38ccc95ffe215129a8557"
+                "reference": "491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/d141c5b1b302d4d746e38ccc95ffe215129a8557",
-                "reference": "d141c5b1b302d4d746e38ccc95ffe215129a8557",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8",
+                "reference": "491dcbbf450ed41aeb78ccf5ea2d88ce5d457bd8",
                 "shasum": ""
             },
             "require": {
@@ -1634,7 +1634,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2015-03-03 20:10:54"
+            "time": "2015-03-10 22:19:46"
         },
         {
             "name": "satooshi/php-coveralls",

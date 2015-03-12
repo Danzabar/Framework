@@ -9,3 +9,5 @@ services:
             - { name: container.injectable }
     library:
         class: Library
+    fs:
+        class: Symfony\Component\Filesystem\Filesystem
