@@ -13,41 +13,32 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
 
 	/**
-	 * Test the basic getters and setters of the application class
+	 * Test registering a test environment
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function test_init()
+	public function test_registeringEnvironment()
 	{
 		$app = new Application;
+		$app->registerEnvironment('TestEnv', 'TestEnvClass');
 
-		// By Default our DI should point to src/config/core.yml
-		$this->assertEquals('core', $app->getCoreServiceFile());
-		$this->assertEquals(CONFIG, $app->getDIDirectory());
-
-		// Set new values
-		$app->setCoreServiceFile('services');
-		$app->setDIDirectory(APPLICATION);
-
-		$this->assertEquals('services', $app->getCoreServiceFile());
-		$this->assertEquals(APPLICATION, $app->getDIDirectory());
+		$this->assertEquals('TestEnvClass', $app->getEnvironment('TestEnv'));
 	}
 
 	/**
-	 * Test building a DI instance from the App;
+	 * Test the failing of get environment
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function test_buildDI()
+	public function test_getEnvironmentFail()
 	{
-		$app = new Application;
-		
-		// Keep the default settings
-		$app->build();
+		$this->setExpectedException("Wasp\Exceptions\Application\UnknownEnvironment");
 
-		$this->assertInstanceOf('Wasp\DI\DI', $app->getDI());
+		$app = new Application;
+		$app->getEnvironment("None");
 	}
+
 	
 } // END class ApplicationTest extends \PHPUnit_Framework_TestCase

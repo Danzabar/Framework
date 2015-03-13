@@ -1,6 +1,7 @@
 <?php namespace Wasp\Application;
 
-use Wasp\DI\DI;
+use Wasp\Environment\Environment,
+	Wasp\Exceptions\Application\UnknownEnvironment;
 
 /**
  * Application class
@@ -11,111 +12,83 @@ use Wasp\DI\DI;
  */
 class Application
 {
+	/**
+	 * Registered environments
+	 *
+	 * @var Array
+	 */
+	protected $environments = [];
+
+	/**
+	 * Loads an environment by name
+	 *
+	 * @param String $name - The name of the environment
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function loadEnv($name)
+	{
+		// Get the Environment's class
+		$class = $this->getEnvironment($name);
 	
-	/**
-	 * The core service file name
-	 *
-	 * @var string
-	 */
-	protected $coreServiceFile;
+		// Create reflection and invoke a new instance
+		$reflection = new \ReflectionClass($class);
+		$instance = $reflection->newInstance();
 
-	/**
-	 * The Directory where service files are stored
-	 *
-	 * @var string
-	 */
-	protected $DIDirectory;
-
-	/**
-	 * Instance of the DependencyInjection Class
-	 *
-	 * @var Object
-	 */
-	protected $DI;
-
-	/**
-	 * Sets default values for the DI and Application
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function __construct()
-	{
-		// This ensures that even if no other config is specified
-		// We use basic core framework
-		$this->coreServiceFile = 'core';
-		$this->DIDirectory = dirname(__DIR__) . '/Config/';
+		// Call the Load method;
+		$instance->load($this);
 	}
 
 	/**
-	 * Builds an app container using the DI
+	 * Registers an environment so it can be used in App start up.
 	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function build()
-	{
-		$this->DI = new DI($this->DIDirectory);
-		$this->DI->build()->load($this->coreServiceFile);
-	}
-
-	/**
-	 * Returns the DI Instance
-	 *
-	 * @return DI
-	 * @author Dan Cox
-	 */
-	public function getDI()
-	{
-		return $this->DI;
-	}
-
-	/**
-	 * Sets the file name for core services
-	 *
-	 * @param String $file - the file name without extension
+	 * @param String $name - the name of the environment
+	 * @param String $class - fully qualified class name as a string
 	 * @return Application
 	 * @author Dan Cox
 	 */
-	public function setCoreServiceFile($file)
+	public function registerEnvironment($name, $class)
 	{
-		$this->coreServiceFile = $file;
+		$this->environments[$name] = $class;
 		return $this;
 	}
 
 	/**
-	 * Returns the current value for the core service file
+	 * Gets an environments class name by its label
 	 *
+	 * @param String $name - the name of the environment
 	 * @return String
 	 * @author Dan Cox
 	 */
-	public function getCoreServiceFile()
+	public function getEnvironment($name)
 	{
-		return $this->coreServiceFile;
+		if(array_key_exists($name, $this->environments))
+		{
+			return $this->environments[$name];
+		}
+
+		// Not found
+		throw new UnknownEnvironment($name);
 	}
 
 	/**
-	 * Sets the directory that the DI class looks in
+	 * Removes the registered environment from the Application.
 	 *
-	 * @param String $directory
+	 * @param String $name - the environment name
 	 * @return Application
 	 * @author Dan Cox
 	 */
-	public function setDIDirectory($directory)
+	public function deregisterEnvironment($name)
 	{
-		$this->DIDirectory = $directory;
-		return $this;
-	}
+		if(array_key_exists($name, $this->environments))
+		{
+			unset($this->environments[$name]);
+			return $this;
+		}
 
-	/**
-	 * Returns the value for the DI Directory var
-	 *
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function getDIDirectory()
-	{
-		return $this->DIDirectory;
+		// Throw exception
+		throw new UnknownEnvironment($name);
 	}
+	
 
 } // END class Application
