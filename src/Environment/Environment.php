@@ -36,6 +36,7 @@ class Environment
 	public function load(Application $App)
 	{
 		$this->App = $App;
+		$this->DI = new DI(dirname(__DIR__) . '/Config/');
 
 		// If the Child Environment Class has a Setup function, call it.
 		if(method_exists($this, 'setup'))
@@ -48,16 +49,27 @@ class Environment
 
 	/**
 	 * Loads the DI with a specific Service File
+	 * Important to note that this function does not use the CACHED DI Container.
 	 *
 	 * @param String $serviceFile - the name of the service YAML file
-	 * @param String $serviceDirectory -  the location of the service YAML file
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function createDI($serviceFile = 'core', $serviceDirectory = NULL)
+	public function createDI($serviceFile = 'core')
 	{
-		$this->DI = new DI( (is_null($serviceDirectory) ? dirname(__DIR__) . '/Config/' : $serviceDirectory) );	
 		$this->DI->build()->load($serviceFile);
+	}
+
+	/**
+	 * Creates a DI instance from Cache;
+	 *
+	 * @param String $serviceFile - the name of the service YAML file
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function createDIFromCache($serviceFile = 'core')
+	{
+		$this->DI->buildContainerFromCache($serviceFile);
 	}
 
 	/**

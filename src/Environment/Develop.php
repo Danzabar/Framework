@@ -23,9 +23,9 @@ class Develop extends Environment implements EnvironmentInterface
 	public function setup()
 	{
 		// Create the DI
-		$this->createDI();
 		$this->DI->addCompilerPass(new ContainerInjectionPass);
-		$this->DI->compile();
+
+		$this->createDIFromCache();
 	}
 
 } // END class Develop extends Environment implements EnvironmentInterface

@@ -3,6 +3,8 @@
 use Symfony\Component\DependencyInjection\ContainerBuilder,
 	Symfony\Component\Config\FileLocator,
 	Wasp\Exceptions,
+	Symfony\Component\DependencyInjection\Dumper\PhpDumper,
+	Symfony\Component\Config\ConfigCache,
 	Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -36,6 +38,13 @@ class DI
 	protected static $loader;
 
 	/**
+	 * Config Cache Instance
+	 *
+	 * @var Object
+	 */
+	protected $cache;
+
+	/**
 	 * Set up class settings
 	 *
 	 * @param String $directory
@@ -45,6 +54,8 @@ class DI
 	public function __construct($directory = NULL)
 	{
 		$this->directory = $directory;
+		$this->cache = new ConfigCache(dirname(__DIR__) . '/Application/Cache/AppCache.php', False);
+
 		static::$container = new ContainerBuilder;
 	}
 
@@ -76,6 +87,46 @@ class DI
 	public function compile()
 	{
 		static::$container->compile();
+		return $this;
+	}
+
+	/**
+	 * Attempts to use cache or creates cache
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function buildContainerFromCache($serviceFile)
+	{
+		if(!$this->cache->isFresh())
+		{
+			$this
+				->build()
+				->load($serviceFile)
+				->compile()
+				->cache();
+
+		} else
+		{
+			static::$container = new \Wasp\Application\Cache\AppCache;
+		}
+	}
+
+	/**
+	 * Caches the compiled container
+	 *
+	 * @return DI
+	 * @author Dan Cox
+	 */
+	public function cache()
+	{
+		$dump = new PhpDumper(static::$container);
+		
+		$this->cache->write(
+			$dump->dump(['class' => 'AppCache', 'namespace' => 'Wasp\Application']), 
+			static::$container->getResources()
+		);
+
 		return $this;
 	}
 
