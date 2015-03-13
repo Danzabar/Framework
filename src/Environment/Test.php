@@ -1,7 +1,9 @@
 <?php namespace Wasp\Environment;
 
 use Wasp\Environment\Environment,
-	Wasp\Environment\EnvironmentInterface;
+	Wasp\Environment\EnvironmentInterface,
+	Wasp\DI\Pass\MockeryPass,
+	Wasp\DI\Pass\ContainerInjectionPass;
 
 /**
  * Environment Class for the Test environment.
@@ -21,7 +23,11 @@ class Test extends Environment Implements EnvironmentInterface
 	 */
 	public function setup()
 	{
-
+		$this->DI->registerCompilerPass(new MockeryPass);
+		$this->DI->registerCompilerPass(new ContainerInjectionPass);
+		
+		// No need to cache here. 
+		$this->createDI();
 	}
 
 

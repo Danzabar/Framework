@@ -36,9 +36,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$this->application = new Application;
-		$this->application->build();
-
-		$this->DI = $this->application->getDI();
+		$this->application->loadEnv('test');
+		$this->DI = $this->application->env->getDI();
 	}
 
 	/**
@@ -50,8 +49,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	public function tearDown()
 	{
 		m::close();
-
-		$this->DI->clearMocks();
 	}
 	
 } // END class TestCase extends \PHPUnit_Framework_TestCase
