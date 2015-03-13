@@ -123,7 +123,7 @@ class DI
 		$dump = new PhpDumper(static::$container);
 		
 		$this->cache->write(
-			$dump->dump(['class' => 'AppCache', 'namespace' => 'Wasp\Application']), 
+			$dump->dump(['class' => 'AppCache', 'namespace' => 'Wasp\Application\Cache']), 
 			static::$container->getResources()
 		);
 

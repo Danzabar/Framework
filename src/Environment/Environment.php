@@ -57,7 +57,7 @@ class Environment
 	 */
 	public function createDI($serviceFile = 'core')
 	{
-		$this->DI->build()->load($serviceFile);
+		$this->DI->build()->load($serviceFile)->compile();
 	}
 
 	/**
