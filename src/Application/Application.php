@@ -20,6 +20,18 @@ class Application
 	protected $environments = [];
 
 	/**
+	 * Set up Application Defaults
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function __construct()
+	{
+		// Default Environments
+		$this->registerEnvironment('develop',  'Wasp\Environment\Develop');
+	}
+
+	/**
 	 * Loads an environment by name
 	 *
 	 * @param String $name - The name of the environment
@@ -89,6 +101,5 @@ class Application
 		// Throw exception
 		throw new UnknownEnvironment($name);
 	}
-	
 
 } // END class Application

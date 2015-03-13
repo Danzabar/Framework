@@ -4,15 +4,15 @@ use Wasp\Environment\Environment,
 	Wasp\Environment\EnvironmentInterface;
 
 /**
- * The development environment class
+ * Environment Class for the Test environment.
  *
  * @package Wasp
  * @subpackage Environment
  * @author Dan Cox
  */
-class Develop extends Environment implements EnvironmentInterface
+class Test extends Environment Implements EnvironmentInterface
 {
-	
+
 	/**
 	 * Setup the environment properties
 	 *
@@ -24,4 +24,5 @@ class Develop extends Environment implements EnvironmentInterface
 
 	}
 
-} // END class Develop extends Environment implements EnvironmentInterface
+
+} // END class Test extends Environment Implements EnvironmentInterface

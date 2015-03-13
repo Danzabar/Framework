@@ -4,17 +4,17 @@ use Wasp\Environment\Environment,
 	Wasp\Environment\EnvironmentInterface;
 
 /**
- * The development environment class
+ * The Production environment
  *
  * @package Wasp
  * @subpackage Environment
  * @author Dan Cox
  */
-class Develop extends Environment implements EnvironmentInterface
+class Production extends Environment implements EnvironmentInterface
 {
-	
+
 	/**
-	 * Setup the environment properties
+	 * Setup environment properties
 	 *
 	 * @return void
 	 * @author Dan Cox
@@ -23,5 +23,6 @@ class Develop extends Environment implements EnvironmentInterface
 	{
 
 	}
+	
+} // END class Production extends Environment implements EnvironmentInterface
 
-} // END class Develop extends Environment implements EnvironmentInterface

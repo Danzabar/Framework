@@ -40,5 +40,17 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 		$app->getEnvironment("None");
 	}
 
+	/**
+	 * Test loading an environment
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_loadEnvironment()
+	{
+		$app = new Application;
+		$app->loadEnv('develop');
+	}
+
 	
 } // END class ApplicationTest extends \PHPUnit_Framework_TestCase
