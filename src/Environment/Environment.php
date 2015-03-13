@@ -58,7 +58,6 @@ class Environment
 	{
 		$this->DI = new DI( (is_null($serviceDirectory) ? dirname(__DIR__) . '/Config/' : $serviceDirectory) );	
 		$this->DI->build()->load($serviceFile);
-		$this->DI->compile();
 	}
 
 	/**
