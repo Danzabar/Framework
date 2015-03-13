@@ -21,7 +21,8 @@ class Develop extends Environment implements EnvironmentInterface
 	 */
 	public function setup()
 	{
-
+		// Create the DI
+		$this->createDI();
 	}
 
 } // END class Develop extends Environment implements EnvironmentInterface

@@ -20,6 +20,13 @@ class Application
 	protected $environments = [];
 
 	/**
+	 * An environment instance
+	 *
+	 * @var Object
+	 */
+	public $env;
+
+	/**
 	 * Set up Application Defaults
 	 *
 	 * @return void
@@ -48,7 +55,7 @@ class Application
 		$instance = $reflection->newInstance();
 
 		// Call the Load method;
-		$instance->load($this);
+		$this->env = $instance->load($this);
 	}
 
 	/**

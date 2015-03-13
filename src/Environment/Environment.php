@@ -42,6 +42,8 @@ class Environment
 		{
 			$this->setup();
 		}
+
+		return $this;
 	}
 
 	/**
@@ -52,11 +54,22 @@ class Environment
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function createDI($serviceFile = 'core', $serviceDirectory = dirname(__DIR__) . '/Config/')
+	public function createDI($serviceFile = 'core', $serviceDirectory = NULL)
 	{
-		$this->DI = new DI($serviceDirectory);	
+		$this->DI = new DI( (is_null($serviceDirectory) ? dirname(__DIR__) . '/Config/' : $serviceDirectory) );	
 		$this->DI->build()->load($serviceFile);
 		$this->DI->compile();
+	}
+
+	/**
+	 * Returns the DI Instance
+	 *
+	 * @return Object|NULL
+	 * @author Dan Cox
+	 */
+	public function getDI()
+	{
+		return $this->DI;
 	}
 
 

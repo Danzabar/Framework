@@ -50,6 +50,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	{
 		$app = new Application;
 		$app->loadEnv('develop');
+
+		$this->assertInstanceOf('Wasp\DI\DI', $app->env->getDI());
 	}
 
 	
