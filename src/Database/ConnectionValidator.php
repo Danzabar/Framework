@@ -112,7 +112,7 @@ class ConnectionValidator
 		// Add model directories
 		if (array_key_exists('models', $this->raw))
 		{
-			if(is_array($this->raw['models']))
+			if (is_array($this->raw['models']))
 			{
 				$this->connection->models = $this->raw['models'];
 			} else

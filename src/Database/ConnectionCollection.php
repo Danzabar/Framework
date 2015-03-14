@@ -54,7 +54,7 @@ class ConnectionCollection
 	 */
 	public function find($name)
 	{
-		if(array_key_exists($name, $this->connections))
+		if (array_key_exists($name, $this->connections))
 		{
 			return $this->connections[$name];
 		}

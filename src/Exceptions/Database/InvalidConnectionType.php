@@ -34,7 +34,7 @@ class InvalidConnectionType extends \Exception
 		$this->type = $type;
 		$this->allowed = $allowed;
 
-		parent::__construct("An invalid connection type was used $type, connections can be one of: ". join(',', array_keys($allowed)), $code, $previous);
+		parent::__construct("An invalid connection type was used $type, connections can be one of: " . join(',', array_keys($allowed)), $code, $previous);
 	}
 
 	/**
