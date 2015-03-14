@@ -106,10 +106,9 @@ class DI
 				->compile()
 				->cache();
 
-		} else
-		{
-			static::$container = new \Wasp\Application\Cache\AppCache;
 		}
+
+		static::$container = new \Wasp\Application\Cache\AppCache;
 	}
 
 	/**
@@ -179,6 +178,17 @@ class DI
 	public function param($key)
 	{
 		return static::$container->getParameter($key);
+	}
+
+	/**
+	 * Returns the Container
+	 *
+	 * @return Object
+	 * @author Dan Cox
+	 */
+	public function getContainer()
+	{
+		return static::$container;
 	}
 
 	/**
