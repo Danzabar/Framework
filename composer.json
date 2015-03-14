@@ -30,7 +30,8 @@
 	"minimum-stability": "dev",
 	"autoload": {
 		"psr-4": {
-			"Wasp\\":"src/"
+			"Wasp\\":"src/",
+			"Wasp\\Test\\":"tests/"
 		}
 	}
 }

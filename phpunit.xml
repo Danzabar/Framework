@@ -21,7 +21,8 @@ phpunit -c phpunit.xml
 
 	<filter>
 		<blacklist>
-			<directory suffix=".php">../src/Application/Cache/</directory>
+			<directory suffix=".php">../src/Application/Cache</directory>
+			<directory suffix=",php">/Services</directory>
 		</blacklist>
 	</filter>
 

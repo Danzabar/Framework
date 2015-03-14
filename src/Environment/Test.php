@@ -23,8 +23,8 @@ class Test extends Environment Implements EnvironmentInterface
 	 */
 	public function setup()
 	{
-		$this->DI->registerCompilerPass(new MockeryPass);
-		$this->DI->registerCompilerPass(new ContainerInjectionPass);
+		$this->DI->addCompilerPass(new MockeryPass);
+		$this->DI->addCompilerPass(new ContainerInjectionPass);
 		
 		// No need to cache here. 
 		$this->createDI();

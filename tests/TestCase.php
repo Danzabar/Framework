@@ -1,7 +1,4 @@
-<?php
-
-use Wasp\Application\Application
-	\Mockery as m;
+<?php namespace Wasp\Test;
 
 /**
  * Test case base that provides application access
@@ -35,7 +32,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$this->application = new Application;
+		$this->application = new \Wasp\Application\Application;
 		$this->application->loadEnv('test');
 		$this->DI = $this->application->env->getDI();
 	}
@@ -48,7 +45,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 */
 	public function tearDown()
 	{
-		m::close();
+		\Mockery::close();
 	}
 	
 } // END class TestCase extends \PHPUnit_Framework_TestCase
