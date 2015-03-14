@@ -56,5 +56,19 @@ class DITest extends \PHPUnit_Framework_TestCase
 		$di->build();
 	}
 
+	/**
+	 * Test the caching functionality
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_cache()
+	{
+		$di = new DI(CONFIG);
+		$di->buildContainerFromCache('core');
+
+		$this->assertTrue(class_exists('Wasp\Application\Cache\AppCache'));
+	}
+
 
 } // END class DITest extends \PHPUnit_Framework_TestCase
