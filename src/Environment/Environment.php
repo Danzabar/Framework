@@ -39,7 +39,7 @@ class Environment
 		$this->DI = new DI(dirname(__DIR__) . '/Config/');
 
 		// If the Child Environment Class has a Setup function, call it.
-		if(method_exists($this, 'setup'))
+		if (method_exists($this, 'setup'))
 		{
 			$this->setup();
 		}

@@ -71,7 +71,7 @@ class Connection
 	 */
 	public function connect($name, $type = 'Annotation')
 	{
-		if(array_key_exists($type, $this->ConnectionTypeMap))
+		if (array_key_exists($type, $this->ConnectionTypeMap))
 		{
 			$this->connection = $this->collection->find($name);
 			
