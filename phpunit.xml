@@ -17,11 +17,12 @@ phpunit -c phpunit.xml
 		<testsuite name="Unit tests">
 			<directory>./tests/</directory>
 		</testsuite>
-		<filter>
-			<blacklist>
-				<file>/src/Application/Cache/AppCache.php</file>
-			</blacklist>
-		</filter>
 	</testsuites>
+
+	<filter>
+		<blacklist>
+			<directory>./src/Application/Cache/</directory>
+		</blacklist>
+	</filter>
 
 </phpunit>
