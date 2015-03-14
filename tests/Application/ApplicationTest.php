@@ -27,6 +27,26 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test registering and deregistering environments
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_deregisterEnvironment()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Application\UnknownEnvironment');
+
+		$app = new Application;
+		$app->registerEnvironment('TestEnv', 'TestEnvClass');
+
+		$this->assertEquals('TestEnvClass', $app->getEnvironment('TestEnv'));
+
+		$app->deregisterEnvironment('TestEnv');
+
+		$app->getEnvironment('TestEnv');
+	}
+
+	/**
 	 * Test the failing of get environment
 	 *
 	 * @return void

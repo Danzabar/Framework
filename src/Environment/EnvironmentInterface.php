@@ -28,5 +28,4 @@ Interface EnvironmentInterface
 	 */
 	public function setup();
 
-
 }
