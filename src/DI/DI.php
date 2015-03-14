@@ -186,7 +186,7 @@ class DI
 	 * @return Object
 	 * @author Dan Cox
 	 */
-	public function getContainer()
+	public static function getContainer()
 	{
 		return static::$container;
 	}

@@ -28,7 +28,7 @@ class ContainerInjectionPass implements CompilerPassInterface
 			// Inject the Container
 			$definition = $container->findDefinition($serviceId);
 
-			$definition->addMethodCall('setDI', ['DI' => $container->get('service_container')]);
+			$definition->addMethodCall('setDI', ['DI' => \Wasp\DI\DI::getContainer()]);
 		}
 	}
 

@@ -4,8 +4,8 @@ services:
         arguments: ["@connections"]
     connections:
         class: Wasp\Database\ConnectionCollection
-        tags:
-            - { name: container.injectable }
+        calls:
+            - [setDI, ["@service_container"]]
     connection_validator:
         class: Wasp\Database\ConnectionValidator
         scope: prototype
