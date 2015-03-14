@@ -20,9 +20,17 @@ class ConnectionsTest extends TestCase
 	 */
 	public function test_addConnections()
 	{
-		$this->DI->get('connections')->add('test', ['test']);
+		$this->DI->get('connections')->add('test', [
+			'driver'		=> 'mysqli',
+			'user'			=> 'user',
+			'debug'			=> false
+		]);
 
-		$this->assertEquals(['test'], $this->DI->get('connections')->find('test'));
+		$connection = $this->DI->get('connections')->find('test');
+		$this->assertEquals('mysqli', $connection->details['driver']);
+		$this->assertEquals('user', $connection->details['user']);
+		$this->assertFalse($connection->debug);
+		$this->assertEquals(Array(), $connection->models);
 	}
 
 	/**
@@ -37,8 +45,6 @@ class ConnectionsTest extends TestCase
 
 		$this->DI->get('connections')->find('fake');
 	}
-
-
 
 } // END class ConnectionsTest extends TestCase
 

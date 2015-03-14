@@ -1,6 +1,7 @@
 <?php namespace Wasp\Database;
 
-use Wasp\Exceptions\Database\InvalidConnection;
+use Wasp\Exceptions\Database\InvalidConnection,
+	Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
  * The Collection class for Database Connections
@@ -11,6 +12,8 @@ use Wasp\Exceptions\Database\InvalidConnection;
  */
 class ConnectionCollection
 {
+	use DependencyInjectionAwareTrait;
+
 	/**
 	 * An Array of Connection Configurations
 	 *
@@ -38,7 +41,8 @@ class ConnectionCollection
 	 */
 	public function add($name, $configuration = Array())
 	{
-		$this->connections[$name] = $configuration;
+		$this->connections[$name] = $this->DI->get('connection_validator')
+											 ->load($configuration, 'Array');
 	}
 
 	/**

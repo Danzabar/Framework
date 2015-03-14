@@ -4,5 +4,10 @@ services:
         arguments: ["@connections"]
     connections:
         class: Wasp\Database\ConnectionCollection
+        tags:
+            - { name: container.injectable }
+    connection_validator:
+        class: Wasp\Database\ConnectionValidator
+        scope: prototype
     fs:
         class: Symfony\Component\Filesystem\Filesystem
