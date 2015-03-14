@@ -68,7 +68,7 @@ class DI
 	public function build()
 	{
 		// We must have a directory set;
-		if(is_null($this->directory))
+		if (is_null($this->directory))
 		{
 			throw new Exceptions\DI\InvalidServiceDirectory($this);
 		}
@@ -98,7 +98,7 @@ class DI
 	 */
 	public function buildContainerFromCache($serviceFile)
 	{
-		if(!$this->cache->isFresh())
+		if (!$this->cache->isFresh())
 		{
 			$this
 				->build()
@@ -152,7 +152,7 @@ class DI
 	 */
 	public function load($filename)
 	{
-		static::$loader->load($filename.'.yml');
+		static::$loader->load($filename . '.yml');
 		return $this;
 	}
 

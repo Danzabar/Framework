@@ -20,6 +20,7 @@ class InvalidServiceDirectory extends \Exception
 	/**
 	 * Fire Exception
 	 *
+	 * @param \Wasp\DI\DI $DI
 	 * @return void
 	 * @author Dan Cox
 	 */

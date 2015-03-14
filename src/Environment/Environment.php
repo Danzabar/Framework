@@ -30,7 +30,7 @@ class Environment
 	/**
 	 * Sets the App and DI instances and Calls the Child Class function if exists
 	 *
-	 * @return void
+	 * @return Environment
 	 * @author Dan Cox
 	 */
 	public function load(Application $App)
