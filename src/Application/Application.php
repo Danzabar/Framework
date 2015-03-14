@@ -35,7 +35,7 @@ class Application
 	public function __construct()
 	{
 		// Default Environments
-		$this->registerEnvironment('develop',  'Wasp\Environment\Develop');
+		$this->registerEnvironment('develop', 'Wasp\Environment\Develop');
 		$this->registerEnvironment('production', 'Wasp\Environment\Production');
 		$this->registerEnvironment('test', 'Wasp\Environment\Test');
 	}
@@ -83,7 +83,7 @@ class Application
 	 */
 	public function getEnvironment($name)
 	{
-		if(array_key_exists($name, $this->environments))
+		if (array_key_exists($name, $this->environments))
 		{
 			return $this->environments[$name];
 		}
@@ -101,7 +101,7 @@ class Application
 	 */
 	public function deregisterEnvironment($name)
 	{
-		if(array_key_exists($name, $this->environments))
+		if (array_key_exists($name, $this->environments))
 		{
 			unset($this->environments[$name]);
 			return $this;

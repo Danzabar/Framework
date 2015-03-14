@@ -19,6 +19,7 @@ class UnknownEnvironment extends \Exception
 	/**
 	 * Fire exception
 	 *
+	 * @param string $env
 	 * @return void
 	 * @author Dan Cox
 	 */

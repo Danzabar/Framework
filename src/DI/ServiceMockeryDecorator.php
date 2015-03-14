@@ -52,7 +52,7 @@ class ServiceMockeryDecorator
 	/**
 	 * Proxy for settings
 	 *
-	 * @return void
+	 * @return ServiceMockeryDecorator
 	 * @author Dan Cox
 	 */
 	public function __set($key, $value)

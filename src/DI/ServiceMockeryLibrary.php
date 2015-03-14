@@ -39,7 +39,7 @@ class ServiceMockeryLibrary
 	 */
 	public function find($name)
 	{
-		if(array_key_exists($name, static::$services)) 
+		if (array_key_exists($name, static::$services)) 
 		{
 			return static::$services[$name];
 		}
@@ -56,7 +56,7 @@ class ServiceMockeryLibrary
 	 */
 	public function remove($name)
 	{
-		if(array_key_exists($name, static::$services))
+		if (array_key_exists($name, static::$services))
 		{
 			unset(static::$services[$name]);	
 		}

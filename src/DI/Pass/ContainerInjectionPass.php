@@ -23,7 +23,7 @@ class ContainerInjectionPass implements CompilerPassInterface
 		$containerInjectables = $container->findTaggedServiceIds('container.injectable');
 
 		// These classes are tagged as having the DependencyInjectionAware Traits. 
-		foreach($containerInjectables as $serviceId => $tags)
+		foreach ($containerInjectables as $serviceId => $tags)
 		{
 			// Inject the Container
 			$definition = $container->findDefinition($serviceId);
