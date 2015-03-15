@@ -109,5 +109,71 @@ class ConnectionsTest extends TestCase
 	   	$connection->connect('test', 'Fake');	
 	}
 
+	/**
+	 * Test a full working connection
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_fullConnectionAnnotationMetaData()
+	{
+		$this->DI->get('connections')
+				 ->add('wasp', Array(
+					 'driver'		=> 'pdo_mysql',
+					 'user'			=> 'user',
+					 'models'		=> '',
+					 'database'		=> 'wasp'
+				 ));
+
+		$connection = $this->DI->get('connection');
+		$connection->connect('wasp');
+
+		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
+	}
+
+	/**
+	 * Test a full working YML metadata connection
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_fullConnectionYAMLMetaData()
+	{
+		$this->DI->get('connections')
+				 ->add('wasp', Array(
+				 	'driver'		=> 'pdo_mysql',
+					'user'			=> 'user',
+					'models'		=> '',
+					'database'		=> 'wasp'
+				 ));
+
+		$connection = $this->DI->get('connection');
+		$connection->connect('wasp');
+
+		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
+	}
+
+	/**
+	 * Test a full working XML connection
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_fullConnectionXMLMetaData()
+	{
+		$this->DI->get('connections')
+				 ->add('wasp', Array(
+				 	'driver'		=> 'pdo_mysql',
+					'user'			=> 'user',
+					'models'		=> '',
+					'database'		=> 'wasp'
+				 ));
+
+		$connection = $this->DI->get('connection');
+		$connection->connect('wasp');
+
+		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
+	}
+
 } // END class ConnectionsTest extends TestCase
 

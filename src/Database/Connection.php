@@ -56,8 +56,7 @@ class Connection
 		$this->typeMap = Array(
 			'Annotation'		=> 'createMetaDataFromAnnotation',
 			'YAML'				=> 'createMetaDataFromYAML',
-			'XML'				=> 'createMetaDataFromXML',
-			'None'				=> 'createConfiguration'
+			'XML'				=> 'createMetaDataFromXML'
 		);
 	}
 
@@ -127,17 +126,5 @@ class Connection
 	{
 		$this->setup = Setup::createXMLMetadataConfiguration($this->connection->models, $this->connection->debug);
 	}
-
-	/**
-	 * Creates a basic configuration with no metadata
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function createConfiguration()
-	{
-		$this->setup = Setup::createConfiguration($this->connection->debug);
-	}
-
 
 } // END class Connection
