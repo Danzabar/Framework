@@ -1,5 +1,7 @@
 <?php namespace Wasp\Database;
 
+use Wasp\Utils\TypeMapTrait;
+
 /**
  * The Connection Validator takes connections in multiple forms and returns a standardized object
  *
@@ -9,6 +11,8 @@
  */
 class ConnectionValidator
 {
+	use TypeMapTrait;
+
 	/**
 	 * The raw connection input
 	 *
@@ -31,15 +35,6 @@ class ConnectionValidator
 	protected $connection;
 
 	/**
-	 * Type function mappings
-	 *
-	 * @var Array
-	 */
-	protected $typeMappings = [
-		'Array'				=> 'convertFromArray'
-	];
-
-	/**
 	 * Set up class vars
 	 *
 	 * @author Dan Cox
@@ -48,6 +43,10 @@ class ConnectionValidator
 	{
 		$this->connection = new \STDClass;
 		$this->defaults();
+		
+		$this->typeMap = Array(
+			'Array'			=> 'convertFromArray'
+		);
 	}
 
 	/**
@@ -79,17 +78,11 @@ class ConnectionValidator
 	 */
 	public function load($raw, $type = 'Array')
 	{
-		if (array_key_exists($type, $this->typeMappings))
-		{
-			$this->raw = $raw;
-			$this->type = $type;
+		$this->raw = $raw;
+		$this->type = $type;
 
-			call_user_func([$this, $this->typeMappings[$type]]);		
-			
-			return $this->connection;
-		}
-
-		throw new InvalidConnectionType($type, $this->typeMappings);
+		$this->map($type, 'InvalidConnectionType');
+		return $this->connection;
 	}
 
 	/**
