@@ -10,7 +10,7 @@ before_script:
     - mysql -e "CREATE USER 'user'@'localhost';" -uroot
     - mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;" -uroot
     - mysql -e "FLUSH PRIVILEGES;" -uroot
-    - mysql -e "CREATE DATASE IF NOT EXISTS wasp;" -uroot
+    - mysql -e "CREATE DATABASE IF NOT EXISTS wasp;" -uroot
 
 script:
     - mkdir -p build/logs
