@@ -9,5 +9,8 @@ services:
     connection_validator:
         class: Wasp\Database\ConnectionValidator
         scope: prototype
+    database:
+        class: Wasp\Database\Database
+        arguments: ["@connection"]
     fs:
         class: Symfony\Component\Filesystem\Filesystem
