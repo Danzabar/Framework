@@ -1,7 +1,6 @@
 <?php namespace Wasp\Database;
 
 use Wasp\Database\ConnectionCollection,
-	Wasp\Exceptions\Database\InvalidMetaDataType,
 	Wasp\Utils\TypeMapTrait,
 	Doctrine\ORM\EntityManager,
 	Doctrine\ORM\Tools\Setup;
@@ -15,7 +14,7 @@ use Wasp\Database\ConnectionCollection,
  */
 class Connection
 {
-	use Wasp\Utils\TypeMapTrait;
+	use TypeMapTrait;
 
 	/**
 	 * Instance of the Connection Collections class
@@ -50,12 +49,7 @@ class Connection
 	 *
 	 * @var Array
 	 */
-	protected $typeMap = [
-		'Annotation'		=> 'createMetaDataFromAnnotation',
-		'YAML'				=> 'createMetaDataFromYAML',
-		'XML'				=> 'createMetaDataFromXML',
-		'None'				=> 'createConfiguration'
-	];
+	protected $typeMap;
 
 	/**
 	 * Load the collection
@@ -65,6 +59,13 @@ class Connection
 	public function __construct(ConnectionCollection $collection)
 	{
 		$this->collection = $collection;
+
+		$this->typeMap = Array(
+			'Annotation'		=> 'createMetaDataFromAnnotation',
+			'YAML'				=> 'createMetaDataFromYAML',
+			'XML'				=> 'createMetaDataFromXML',
+			'None'				=> 'createConfiguration'
+		);
 	}
 
 	/**
@@ -75,7 +76,7 @@ class Connection
 	public function connect($name, $type = 'Annotation')
 	{
 		$this->connection = $this->collection->find($name);
-		$this->map($type, 'InvalidMetaDataType');
+		$this->map($type, 'Wasp\Exceptions\Database\InvalidMetaDataType');
 		$this->createEntityManager();
 	}
 

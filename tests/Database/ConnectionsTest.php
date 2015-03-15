@@ -46,5 +46,68 @@ class ConnectionsTest extends TestCase
 		$this->DI->get('connections')->find('fake');
 	}
 
+	/**
+	 * Test adding a connection that has an array of models
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_addConnectionWithModelArray()
+	{
+		$this->DI->get('connections')->add('testModelsArray', [
+			'models'		=> ["test/", "test-dir/"]
+		]);
+
+		$connection = $this->DI->get('connections')->find('testModelsArray');
+		$this->assertEquals(["test/", "test-dir/"], $connection->models);
+	}
+
+	/**
+	 * Test adding a connection that has a single model
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_addConnectionWithSingleModel()
+	{
+		$this->DI->get('connections')->add('testModelSingle', [
+			'models'		=> 'test'
+		]);
+
+		$connection = $this->DI->get('connections')->find('testModelSingle');
+		$this->assertEquals(["test"], $connection->models);
+	}
+
+	/**
+	 * Test a failing validation due to an unknown type
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_connectionValidationFail()
+	{
+		$this->setExpectedException("Wasp\Exceptions\Database\InvalidConnectionType");
+
+		$this->DI->get('connections')
+				 ->add('test', Array(), 'Fake');
+	}
+
+	/**
+	 * Test a connection fail through an unknown type
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_connectionConnectFail()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Database\InvalidMetaDataType');
+
+		$this->DI->get('connections')
+				 ->add('test', Array(), 'Array');
+
+		$connection = $this->DI->get('connection');
+	   	$connection->connect('test', 'Fake');	
+	}
+
 } // END class ConnectionsTest extends TestCase
 

@@ -81,7 +81,7 @@ class ConnectionValidator
 		$this->raw = $raw;
 		$this->type = $type;
 
-		$this->map($type, 'InvalidConnectionType');
+		$this->map($type, 'Wasp\Exceptions\Database\InvalidConnectionType');
 		return $this->connection;
 	}
 

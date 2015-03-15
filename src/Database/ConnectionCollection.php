@@ -39,10 +39,10 @@ class ConnectionCollection
 	 * @return ConnectionCollection
 	 * @author Dan Cox
 	 */
-	public function add($name, $configuration = Array())
+	public function add($name, $configuration = Array(), $type = 'Array')
 	{
 		$this->connections[$name] = $this->DI->get('connection_validator')
-											 ->load($configuration, 'Array');
+											 ->load($configuration, $type);
 	}
 
 	/**
