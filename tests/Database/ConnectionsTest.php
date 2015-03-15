@@ -148,7 +148,7 @@ class ConnectionsTest extends TestCase
 				 ));
 
 		$connection = $this->DI->get('connection');
-		$connection->connect('wasp');
+		$connection->connect('wasp', 'YAML');
 
 		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
 	}
@@ -170,7 +170,7 @@ class ConnectionsTest extends TestCase
 				 ));
 
 		$connection = $this->DI->get('connection');
-		$connection->connect('wasp');
+		$connection->connect('wasp', 'XML');
 
 		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
 	}
