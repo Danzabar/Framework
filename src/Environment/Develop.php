@@ -1,8 +1,7 @@
 <?php namespace Wasp\Environment;
 
 use Wasp\Environment\Environment,
-	Wasp\Environment\EnvironmentInterface,
-	Wasp\DI\Pass\ContainerInjectionPass;
+	Wasp\Environment\EnvironmentInterface;
 
 /**
  * The development environment class
@@ -22,9 +21,6 @@ class Develop extends Environment implements EnvironmentInterface
 	 */
 	public function setup()
 	{
-		// Create the DI
-		$this->DI->addCompilerPass(new ContainerInjectionPass);
-
 		$this->createDIFromCache();
 	}
 
