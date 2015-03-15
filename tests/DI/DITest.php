@@ -39,6 +39,7 @@ class DITest extends \PHPUnit_Framework_TestCase
 		$di->build()->load('service');
 
 		$this->assertInstanceOf('Service', $di->get('service'));
+		$this->assertInstanceOf('Symfony\Component\DependencyInjection\ContainerBuilder', $di->get('service')->getDI());
 		$this->assertEquals('value', $di->param('test'));
 	}
 
@@ -68,6 +69,7 @@ class DITest extends \PHPUnit_Framework_TestCase
 		$di->buildContainerFromCache('core');
 
 		$this->assertTrue(class_exists('Wasp\Application\Cache\AppCache'));
+		$this->assertInstanceOf('Wasp\Application\Cache\AppCache', $di->get('connections')->getDI());
 	}
 
 

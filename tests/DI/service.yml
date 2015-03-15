@@ -5,8 +5,8 @@ services:
     service: 
         class: Service
         arguments: ["@library"]
-        tags:
-            - { name: container.injectable }
+        calls:
+            - [setDi, ["@service_container"]]
     library:
         class: Library
     fs:

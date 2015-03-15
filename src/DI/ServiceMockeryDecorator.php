@@ -25,6 +25,10 @@ class ServiceMockeryDecorator
 	public function __construct($service)
 	{
 		$this->mockery = \Mockery::mock($service);
+
+		// Add a call for the DI
+		$this->mockery->shouldReceive('getDI')->andReturn($this->mockery);
+		$this->mockery->shouldReceive('setDI')->andReturn($this->mockery);
 	}
 
 	/**
