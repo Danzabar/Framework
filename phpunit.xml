@@ -13,17 +13,18 @@ phpunit -c phpunit.xml
 	syntaxCheck="false"
 	bootstrap="./tests/bootstrap.php">
 
+	<filter>
+		<blacklist>
+			<directory>src/Application/Cache</directory>
+			<directory>tests/Services/</directory>
+		</blacklist>
+	</filter>
+
+
 	<testsuites>
 		<testsuite name="Unit tests">
 			<directory>./tests/</directory>
 		</testsuite>
 	</testsuites>
-
-	<filter>
-		<blacklist>
-			<directory suffix=".php">../src/Application/Cache</directory>
-			<directory suffix=",php">/Services</directory>
-		</blacklist>
-	</filter>
 
 </phpunit>
