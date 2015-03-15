@@ -45,13 +45,6 @@ class Connection
 	protected $setup;
 
 	/**
-	 * Mapped metadata strings to class functions
-	 *
-	 * @var Array
-	 */
-	protected $typeMap;
-
-	/**
 	 * Load the collection
 	 *
 	 * @author Dan Cox
