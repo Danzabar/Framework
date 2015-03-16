@@ -13,6 +13,13 @@ use Wasp\Test\TestCase,
 class DatabaseMockedTest extends TestCase
 {
 	/**
+	 * A mock of an entity
+	 *
+	 * @var Object
+	 */
+	protected $returnStub;
+
+	/**
 	 * Setup test env
 	 *
 	 * @return void
@@ -23,6 +30,10 @@ class DatabaseMockedTest extends TestCase
 		// Create the Service Mockerys before running the parent setup
 		$database = new ServiceMockery('connection');
 		$database->add();
+
+		$this->returnStub = new STDClass;
+		$this->returnStub->foo = 'bar';
+
 
 		parent::setUp();
 	}
@@ -66,19 +77,58 @@ class DatabaseMockedTest extends TestCase
 	 */
 	public function test_databaseFind()
 	{
-		$returnStub = new STDClass;
-		$returnStub->foo = 'bar';
-
 		$connection = $this->DI->get('connection');
 		$connection->shouldReceive('connection')->andReturn($connection);
-		$connection->shouldReceive('find')->with('Test', 1)->andReturn($returnStub);
+		$connection->shouldReceive('find')->with('Test', 1)->andReturn($this->returnStub);
 
 		$result = $this->DI->get('database')
 						   ->setEntity('Test')
 						   ->find(1);
 
-		$this->assertEquals($returnStub, $result);
+		$this->assertEquals($this->returnStub, $result);
 		$this->assertEquals('bar', $result->foo);
 	}	
+
+	/**
+	 * Test the find one by function with a mock
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_databaseFindOneBy()
+	{
+		$connection = $this->DI->get('connection');
+		$connection->shouldReceive('connection')->andReturn($connection);
+		$connection->shouldReceive('getRepository')->with('Test')->andReturn($connection);
+		$connection->shouldReceive('findOneBy')->with(Array('test' => 'value'), Array(), NULL, NULL)->andReturn($this->returnStub);
+
+		$result = $this->DI->get('database')
+						   ->setEntity('Test')
+						   ->findOneBy(['test' => 'value']);
+		
+		$this->assertEquals($this->returnStub, $result);
+		$this->assertEquals('bar', $result->foo);
+	}
 	
+	/**
+	 * Test the get function mock
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_databaseGet()
+	{
+		$connection = $this->DI->get('connection');
+		$connection->shouldReceive('connection')->andReturn($connection);
+		$connection->shouldReceive('getRepository')->with('Test')->andReturn($connection);
+		$connection->shouldReceive('findBy')->with(Array(), Array(), NULL, NULL)->andReturn([$this->returnStub]);
+
+		$results = $this->DI->get('database')
+							->setEntity('Test')
+							->get();
+
+		$this->assertTrue(is_array($results));
+		$this->assertEquals('bar', $results[0]->foo);
+	}
+
 } // END class DatabaseMockedTest extends TestCase

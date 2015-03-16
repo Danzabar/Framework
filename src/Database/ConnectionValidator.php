@@ -115,10 +115,7 @@ class ConnectionValidator
 		}
 
 		// Check if debug is set
-		if (array_key_exists('debug', $this->raw))
-		{
-			$this->connection->debug = $this->raw['debug'];
-		}
+		$this->connection->debug = (isset($this->raw['debug']) ? $this->raw['debug'] : true);
 	}
 
 } // END class ConnectionValidator

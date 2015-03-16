@@ -50,7 +50,7 @@ class Database
 	/**
 	 * Find an entity entry by its identifier
 	 *
-	 * @param Mixed $indentifier - An id that relates to this entities identifier
+	 * @param Mixed $identifier - An id that relates to this entities identifier
 	 * @return Object
 	 * @author Dan Cox
 	 */
@@ -59,6 +59,40 @@ class Database
 		return $this->connection
 					->connection()
 					->find($this->entity, $identifier);
+	}
+
+	/**
+	 * Finds a single record by params.
+	 *
+	 * @param Array $params - An array of parameters
+	 * @param Array $order - The query order
+	 * @return Object
+	 * @author Dan Cox
+	 */
+	public function findOneBy($params = Array(), $order = Array())
+	{
+		return $this->connection
+					->connection()
+					->getRepository($this->entity)
+					->findOneBy($params, $order, NULL, NULL);
+	}
+
+	/**
+	 * Find multiple records from a repository
+	 *
+	 * @param Array $params - An assoc array of params
+	 * @param Array $order  - Query order
+	 * @param Integer $limit - Query limit
+	 * @param Integer $offset - Query offset
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function get($params = Array(), $order = Array(), $limit = NULL, $offset = NULL)
+	{
+		return $this->connection
+					->connection()
+					->getRepository($this->entity)
+					->findBy($params, $order, $limit, $offset);
 	}
 
 	/**
