@@ -1,7 +1,8 @@
 <?php
 
 use Wasp\Test\TestCase,
-	Wasp\DI\ServiceMockery;
+	Wasp\DI\ServiceMockery,
+	\Mockery as m;
 
 /**
  * Test Case for the Database Class
@@ -20,6 +21,13 @@ class DatabaseMockedTest extends TestCase
 	protected $returnStub;
 
 	/**
+	 * A stubbed query builder
+	 *
+	 * @var Object
+	 */
+	protected $builderStub;
+
+	/**
 	 * Setup test env
 	 *
 	 * @return void
@@ -34,6 +42,7 @@ class DatabaseMockedTest extends TestCase
 		$this->returnStub = new STDClass;
 		$this->returnStub->foo = 'bar';
 
+		$this->builderStub = m::mock('queryBuilder');
 
 		parent::setUp();
 	}
@@ -129,6 +138,27 @@ class DatabaseMockedTest extends TestCase
 
 		$this->assertTrue(is_array($results));
 		$this->assertEquals('bar', $results[0]->foo);
+	}
+
+	/**
+	 * Test the query builder function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_queryBuilder()
+	{
+		$connection = $this->DI->get('connection');
+		$connection->shouldReceive('connection')->andReturn($connection);
+		$connection->shouldReceive('createQueryBuilder')->andReturn($this->builderStub);
+		$this->builderStub->shouldReceive('from')->with('Test', 'u')->andReturn($this->builderStub);
+		$this->builderStub->query = 'foo';
+
+		$builder = $this->DI->get('database')
+							->setEntity('Test')
+							->queryBuilder();
+
+		$this->assertEquals('foo', $builder->query);
 	}
 
 } // END class DatabaseMockedTest extends TestCase

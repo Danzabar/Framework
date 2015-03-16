@@ -84,7 +84,7 @@ class Database
 	 * @param Array $order  - Query order
 	 * @param Integer $limit - Query limit
 	 * @param Integer $offset - Query offset
-	 * @return void
+	 * @return Array
 	 * @author Dan Cox
 	 */
 	public function get($params = Array(), $order = Array(), $limit = NULL, $offset = NULL)
@@ -93,6 +93,24 @@ class Database
 					->connection()
 					->getRepository($this->entity)
 					->findBy($params, $order, $limit, $offset);
+	}
+
+	/**
+	 * Returns the query builder class
+	 *
+	 * @return Object
+	 * @author Dan Cox
+	 */
+	public function queryBuilder()
+	{
+		$builder = $this->connection
+					 	->connection()
+					 	->createQueryBuilder();
+
+		// Set the entity
+		$builder->from($this->entity, 'u');
+
+		return $builder;
 	}
 
 	/**
