@@ -25,6 +25,9 @@ class EntityMockTest extends TestCase
 		$dbMock = new ServiceMockery('database');
 		$dbMock->add();
 
+		$conMock = new ServiceMockery('connection');
+		$conMock->add();
+
 		parent::setUp();
 	}
 	
@@ -67,6 +70,72 @@ class EntityMockTest extends TestCase
 
 		$this->assertEquals(1, $result->Id);
 		$this->assertEquals('foo', $result->name);
+	}
+
+	/**
+	 * Test a mocked save on an entity
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_save()
+	{
+		$connection = $this->DI->get('connection');
+		$connection->shouldReceive('connection')->andReturn($connection);
+		$connection->shouldReceive('persist')->once();
+		$connection->shouldReceive('flush')->once();
+
+		$entity = new Test;
+		$entity->name = 'foo';
+		$entity->save();
+	}
+
+	/**
+	 * Test deleting a entity
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_delete()
+	{
+		$entity = new Test;
+		$entity->Id = 1;
+		$entity->name = 'test';
+
+		$connection = $this->DI->get('connection');
+		$connection->shouldReceive('connection')->andReturn($connection);
+		$connection->shouldReceive('remove')->with($entity)->once();
+		$connection->shouldReceive('flush')->once();
+
+		$entity->delete();
+	}
+
+	/**
+	 * Test setting an invalid key
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_accessToInvalidKeySet()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Entity\AccessToInvalidKey');
+
+		$entity = new Test;
+		$entity->id = 1;
+	}
+
+	/**
+	 * Test getting an invalid key
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_accessToInvalidKeyGet()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Entity\AccessToInvalidKey');
+
+		$entity = new Test;
+		$entity->id;
 	}
 	
 } // END class EntityMockTest extends TestCase

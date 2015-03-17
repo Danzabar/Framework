@@ -29,6 +29,35 @@ class Entity
 	}
 
 	/**
+	 * Saves the current state of the Entity
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function save()
+	{
+		$connection = self::get('connection');
+
+		// Persist and flush
+		$connection->connection()->persist();
+		$connection->connection()->flush();
+	}
+
+	/**
+	 * Delete the current iteration of the entity.
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function delete()
+	{
+		$connection = self::get('connection');
+
+		$connection->connection()->remove($this);
+		$connection->connection()->flush();
+	}
+
+	/**
 	 * Magic Getter for entities
 	 *
 	 * @param Mixed $key
