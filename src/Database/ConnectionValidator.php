@@ -109,7 +109,6 @@ class ConnectionValidator
 	/**
 	 * Sets the models directory
 	 *
-	 * @param String|Array $Dir - the model directory as a string or an array of directorys
 	 * @return void
 	 * @author Dan Cox
 	 */
