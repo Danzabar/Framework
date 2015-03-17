@@ -213,5 +213,15 @@ class DI
 		return $this;
 	}
 
+	/**
+	 * Returns the DI Container
+	 *
+	 * @return Object
+	 * @author Dan Cox
+	 */
+	public static function getContainer()
+	{
+		return static::$container;
+	}
 
 } // END class DI
