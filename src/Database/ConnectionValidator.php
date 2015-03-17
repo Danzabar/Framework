@@ -93,7 +93,44 @@ class ConnectionValidator
 	 */
 	public function convertFromArray()
 	{
-		// Setup the details array
+		// Map the details
+		$this->mapDetailsFromArray();
+
+		// Models Directory
+		if (isset($this->raw['models']))
+		{
+			$this->setModelsDirectory($this->raw['models']);
+		}
+
+		// Check if debug is set
+		$this->connection->debug = (isset($this->raw['debug']) ? $this->raw['debug'] : true);
+	}
+
+	/**
+	 * Sets the models directory
+	 *
+	 * @param String|Array $Dir - the model directory as a string or an array of directorys
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function setModelsDirectory($dir)
+	{
+		if (!is_array($dir))
+		{
+			$dir = Array($dir);
+		}
+
+		$this->connection->models = $dir;
+	}
+
+	/**
+	 * Maps details from the raw variable to the connection
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function mapDetailsFromArray()
+	{
 		foreach (array_keys($this->connection->details) as $key) 
 		{
 			if (array_key_exists($key, $this->raw))
@@ -101,16 +138,6 @@ class ConnectionValidator
 				$this->connection->details[$key] = $this->raw[$key];		
 			}
 		}
-
-		// Add model directories
-		if (array_key_exists('models', $this->raw))
-		{
-			$models = (is_array($this->raw['models']) ? $this->raw['models'] : Array($this->raw['models']));
-			$this->connection->models = $models;
-		}
-
-		// Check if debug is set
-		$this->connection->debug = (isset($this->raw['debug']) ? $this->raw['debug'] : true);
 	}
 
 } // END class ConnectionValidator
