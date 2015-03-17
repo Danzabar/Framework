@@ -24,7 +24,7 @@ Trait TypeMapTrait
 	 */
 	public function map($type, $notFoundException = 'Exception')
 	{
-		if(array_key_exists($type, $this->typeMap))
+		if (array_key_exists($type, $this->typeMap))
 		{
 			call_user_func([$this, $this->typeMap[$type]]);
 		} else
