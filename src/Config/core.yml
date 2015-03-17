@@ -11,6 +11,7 @@ services:
         scope: prototype
     database:
         class: Wasp\Database\Database
-        arguments: ["@connection"]
+        arguments:
+            - "@connection"
     fs:
         class: Symfony\Component\Filesystem\Filesystem

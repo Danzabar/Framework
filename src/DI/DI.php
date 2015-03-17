@@ -181,17 +181,6 @@ class DI
 	}
 
 	/**
-	 * Returns the Container
-	 *
-	 * @return Object
-	 * @author Dan Cox
-	 */
-	public static function getContainer()
-	{
-		return static::$container;
-	}
-
-	/**
 	 * Gets the value of directory
 	 *
 	 * @return String

@@ -46,6 +46,10 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	public function tearDown()
 	{
 		\Mockery::close();
+
+		// Clear the mocks
+		$library = new \Wasp\DI\ServiceMockeryLibrary;
+		$library->clear();
 	}
 	
 } // END class TestCase extends \PHPUnit_Framework_TestCase
