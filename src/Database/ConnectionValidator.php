@@ -106,7 +106,7 @@ class ConnectionValidator
 		if (array_key_exists('models', $this->raw))
 		{
 			$models = (is_array($this->raw['models']) ? $this->raw['models'] : Array($this->raw['models']));
-			$this->connection['models'] = $models;
+			$this->connection->models = $models;
 		}
 
 		// Check if debug is set
