@@ -105,13 +105,8 @@ class ConnectionValidator
 		// Add model directories
 		if (array_key_exists('models', $this->raw))
 		{
-			if (is_array($this->raw['models']))
-			{
-				$this->connection->models = $this->raw['models'];
-			} else
-			{
-				$this->connection->models[] = $this->raw['models'];
-			}
+			$models = (is_array($this->raw['models']) ? $this->raw['models'] : Array($this->raw['models']));
+			$this->connection['models'] = $models;
 		}
 
 		// Check if debug is set
