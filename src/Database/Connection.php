@@ -3,6 +3,7 @@
 use Wasp\Database\ConnectionCollection,
 	Wasp\Utils\TypeMapTrait,
 	Doctrine\ORM\EntityManager,
+	Doctrine\ORM\Tools\SchemaTool,
 	Doctrine\ORM\Tools\Setup;
 
 /**
@@ -125,6 +126,17 @@ class Connection
 	public function createMetaDataFromXML()
 	{
 		$this->setup = Setup::createXMLMetadataConfiguration($this->connection->models, $this->connection->debug);
+	}
+
+	/**
+	 * Returns an instanced Schema Tool
+	 *
+	 * @return SchemaTool
+	 * @author Dan Cox
+	 */
+	public function getSchemaTool()
+	{
+		return new SchemaTool($this->entityManager);
 	}
 
 } // END class Connection

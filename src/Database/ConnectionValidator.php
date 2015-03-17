@@ -61,7 +61,7 @@ class ConnectionValidator
 			'driver'		=> 'pdo_mysql',
 			'user'			=> 'root',
 			'password'		=> '',
-			'database'		=> ''
+			'dbname'		=> ''
 		);
 
 		$this->connection->models = Array();

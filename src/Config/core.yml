@@ -1,7 +1,8 @@
 services:
     connection:
         class: Wasp\Database\Connection
-        arguments: ["@connections"]
+        arguments: 
+            - "@connections"
     connections:
         class: Wasp\Database\ConnectionCollection
         calls:
@@ -13,5 +14,11 @@ services:
         class: Wasp\Database\Database
         arguments:
             - "@connection"
+    schema:
+        class: Wasp\Database\Schema
+        lazy: true
+        arguments:
+            - "@connection"
     fs:
         class: Symfony\Component\Filesystem\Filesystem
+        lazy: true

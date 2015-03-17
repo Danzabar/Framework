@@ -122,7 +122,7 @@ class ConnectionsTest extends TestCase
 					 'driver'		=> 'pdo_mysql',
 					 'user'			=> 'user',
 					 'models'		=> '',
-					 'database'		=> 'wasp'
+					 'dbname'		=> 'wasp'
 				 ));
 
 		$connection = $this->DI->get('connection');
