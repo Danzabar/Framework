@@ -39,7 +39,7 @@ class Entity
 		$connection = self::get('connection');
 
 		// Persist and flush
-		$connection->connection()->persist();
+		$connection->connection()->persist($this);
 		$connection->connection()->flush();
 	}
 

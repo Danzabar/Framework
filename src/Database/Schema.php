@@ -97,6 +97,29 @@ class Schema
 	}
 
 	/**
+	 * Drops all the tables
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function dropTables()
+	{
+		$this->schema->dropSchema($this->loadMetaData());
+	}
+
+	/**
+	 * Drops tables for given classes
+	 *
+	 * @param Array|String $classes
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function dropTable($classes)
+	{
+		$this->schema->dropSchema($classes);
+	}
+
+	/**
 	 * Drops the database
 	 *
 	 * @author Dan Cox

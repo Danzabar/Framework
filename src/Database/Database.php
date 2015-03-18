@@ -96,6 +96,28 @@ class Database
 	}
 
 	/**
+	 * Performs a query from a string
+	 *
+	 * @param String $query
+	 * @return Mixed
+	 * @author Dan Cox
+	 */
+	public function raw($query, $execute = true)
+	{
+		$query = $this->connection
+					  ->connection()
+					  ->getConnection()
+					  ->prepare($query);
+		
+		if ($execute)
+		{
+			$query->execute();
+		}
+
+		return $query;
+	}
+
+	/**
 	 * Returns the query builder class
 	 *
 	 * @return Object
