@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eaed9d46615d75d609f284b2d66a0d3f",
+    "hash": "91faaa5874ce4a15adb1ee8093f603c5",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -216,12 +216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "ade7702fb8a0c9c980b22168dd6eb5a55a5b4c2a"
+                "reference": "23cdbfae8d673d79bb06790a126c96f8b648a052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/ade7702fb8a0c9c980b22168dd6eb5a55a5b4c2a",
-                "reference": "ade7702fb8a0c9c980b22168dd6eb5a55a5b4c2a",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/23cdbfae8d673d79bb06790a126c96f8b648a052",
+                "reference": "23cdbfae8d673d79bb06790a126c96f8b648a052",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +281,73 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-03-02 16:47:59"
+            "time": "2015-03-15 09:03:43"
+        },
+        {
+            "name": "doctrine/data-fixtures",
+            "version": "2.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/data-fixtures.git",
+                "reference": "a433e021548ff6c2a2626aa359cce4eff111e0f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/a433e021548ff6c2a2626aa359cce4eff111e0f7",
+                "reference": "a433e021548ff6c2a2626aa359cce4eff111e0f7",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "~2.4",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/dbal": "~2.4",
+                "doctrine/orm": "~2.4",
+                "phpunit/phpunit": "~3.7"
+            },
+            "suggest": {
+                "doctrine/dbal": "For loading DBAL fixtures",
+                "doctrine/mongodb": "For loading MongoDB fixtures",
+                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
+                "doctrine/orm": "For loading ORM fixtures",
+                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Fixture": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/",
+                    "role": "Creator"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@hotmail.com"
+                }
+            ],
+            "description": "Data Fixtures for all Doctrine tools",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "Fixture",
+                "database",
+                "persistence"
+            ],
+            "time": "2014-03-25 05:01:26"
         },
         {
             "name": "doctrine/dbal",
@@ -289,12 +355,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "facca9fab536a7885328badb87e13bb305ff3f19"
+                "reference": "3b901cd314d1f79a54c93131d634aad507114b34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/facca9fab536a7885328badb87e13bb305ff3f19",
-                "reference": "facca9fab536a7885328badb87e13bb305ff3f19",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/3b901cd314d1f79a54c93131d634aad507114b34",
+                "reference": "3b901cd314d1f79a54c93131d634aad507114b34",
                 "shasum": ""
             },
             "require": {
@@ -353,7 +419,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2015-03-13 16:43:15"
+            "time": "2015-03-16 15:54:31"
         },
         {
             "name": "doctrine/inflector",
@@ -813,12 +879,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DependencyInjection.git",
-                "reference": "787a7b82fb30f6e6c3b0014fb3da10956249fa49"
+                "reference": "6379aea0dc137bab0c1dee990d1c2bb5e8994bfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/787a7b82fb30f6e6c3b0014fb3da10956249fa49",
-                "reference": "787a7b82fb30f6e6c3b0014fb3da10956249fa49",
+                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/6379aea0dc137bab0c1dee990d1c2bb5e8994bfd",
+                "reference": "6379aea0dc137bab0c1dee990d1c2bb5e8994bfd",
                 "shasum": ""
             },
             "require": {
@@ -862,7 +928,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-13 18:00:11"
+            "time": "2015-03-17 12:50:12"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1156,12 +1222,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "193c42313ce478d8934ea616f69fbe7b3ff713ea"
+                "reference": "4f34a70029a975e871d6410c658e26a1511cbb15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/193c42313ce478d8934ea616f69fbe7b3ff713ea",
-                "reference": "193c42313ce478d8934ea616f69fbe7b3ff713ea",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/4f34a70029a975e871d6410c658e26a1511cbb15",
+                "reference": "4f34a70029a975e871d6410c658e26a1511cbb15",
                 "shasum": ""
             },
             "require": {
@@ -1206,7 +1272,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-13 10:36:02"
+            "time": "2015-03-17 12:43:12"
         },
         {
             "name": "symfony/validator",
@@ -1285,12 +1351,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "eecf85e903322e425ea921fd2588238f632965d2"
+                "reference": "7ee4aec238949225a25f174318dc84167e5f360d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/eecf85e903322e425ea921fd2588238f632965d2",
-                "reference": "eecf85e903322e425ea921fd2588238f632965d2",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7ee4aec238949225a25f174318dc84167e5f360d",
+                "reference": "7ee4aec238949225a25f174318dc84167e5f360d",
                 "shasum": ""
             },
             "require": {
@@ -1334,7 +1400,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-03-06 07:12:47"
+            "time": "2015-03-17 17:21:28"
         },
         {
             "name": "zendframework/zend-code",
@@ -1825,6 +1891,7 @@
         "symfony/event-dispatcher": 20,
         "symfony/routing": 20,
         "symfony/debug": 20,
+        "doctrine/data-fixtures": 20,
         "symfony/validator": 20,
         "satooshi/php-coveralls": 20,
         "mockery/mockery": 20

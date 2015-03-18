@@ -19,6 +19,11 @@ services:
         lazy: true
         arguments:
             - "@connection"
+    fixtures:
+        class: Wasp\Database\FixtureManager
+        lazy: true
+        arguments:
+            - "@connection"
     fs:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
