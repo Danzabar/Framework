@@ -14,11 +14,10 @@ services:
         class: Wasp\Database\Database
         arguments:
             - "@connection"
-    schema:
-        class: Wasp\Database\Schema
-        lazy: true
-        arguments:
-            - "@connection"
+    dispatcher:
+        class: Wasp\Controller\Dispatcher
+        calls:
+            - [setDI, ["@service_container"]]
     fixtures:
         class: Wasp\Database\FixtureManager
         lazy: true
@@ -27,3 +26,17 @@ services:
     fs:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
+    response_api:
+        class: Symfony\Component\HttpFoundation\Response
+        lazy: true
+    response:
+        class: Wasp\Controller\Response
+        lazy: true
+        calls:
+           - [setDI, ["@service_container"]]
+    schema:
+        class: Wasp\Database\Schema
+        lazy: true
+        arguments:
+            - "@connection"
+
