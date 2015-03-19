@@ -39,7 +39,7 @@ class Response
 	{
 		$response = $this->createResponse();
 		$response->setContent(json_encode($content));
-		$response->setCode($code);
+		$response->setStatusCode($code);
 
 		return $response;
 	}
@@ -56,7 +56,7 @@ class Response
 	{
 		$response = $this->createResponse();
 		$response->setContent($content);
-		$response->setCode($code);
+		$response->setStatusCode($code);
 
 		return $response;
 	}

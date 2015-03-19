@@ -31,5 +31,16 @@ class Controller extends BaseController
 	{	
 		return $this->response->make('Foo', 200);
 	}
+
+	/**
+	 * Redirect
+	 *
+	 * @return Response
+	 * @author Dan Cox
+	 */
+	public function redirect()
+	{
+		return $this->response->redirect('/');
+	}
 	
 } // END class Controller extends BaseController

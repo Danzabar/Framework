@@ -29,6 +29,7 @@ services:
     response_api:
         class: Symfony\Component\HttpFoundation\Response
         lazy: true
+        scope: prototype
     response:
         class: Wasp\Controller\Response
         lazy: true

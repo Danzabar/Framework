@@ -52,6 +52,9 @@ class MockeryPass implements CompilerPassInterface
 				// Add the mockery name as a definition;
 				$def->setArguments([$definition]);
 
+				// Incase it is a prototype scoped class
+				$def->setScope('container');
+
 				// Replace its current definition
 				$this->container->setDefinition($service, $def);
 			}			

@@ -40,7 +40,7 @@ class ControllerTest extends TestCase
 		$api = $this->DI->get('response_api');
 
 		$api->shouldReceive('setContent')->with("Test");
-		$api->shouldReceive('setCode')->with(200);
+		$api->shouldReceive('setStatusCode')->with(200);
 		$api->shouldReceive('send');
 
 		$dispatch = $this->DI->get('dispatcher');
@@ -59,12 +59,31 @@ class ControllerTest extends TestCase
 		$api = $this->DI->get('response_api');
 		
 		$api->shouldReceive('setContent')->with("Foo");
-		$api->shouldReceive('setCode')->with(200);
+		$api->shouldReceive('setStatusCode')->with(200);
 		$api->shouldReceive('send');
 
 		$dispatch = $this->DI->get('dispatcher');
 		$dispatch->dispatch($action);	
+	}
 
+	/**
+	 * Test the redirect object
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_redirect()
+	{
+		$action = 'Wasp\Test\Controller\Controller::redirect';
+
+		$dispatch = $this->DI->get('dispatcher');
+
+		ob_start();
+			$dispatch->dispatch($action);
+			$contents = ob_get_contents();
+		ob_end_clean();
+
+		$this->assertContains('Redirecting', $contents);
 	}
 
 } // END class ControllerTest extends TestCase
