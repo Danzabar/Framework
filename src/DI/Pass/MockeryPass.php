@@ -41,24 +41,37 @@ class MockeryPass implements CompilerPassInterface
 		// Grab the service definitions from the library.
 		$definitions = $this->getLibraryDefinitions();
 
-		foreach ($definitions as $service => $definition)
+		foreach ($definitions as $service => $mockery)
 		{
 			if ($this->container->hasDefinition($service))
 			{
 				// Get the current definition
-				$def = $this->container->getDefinition($service);
-				$def->setClass('Wasp\DI\ServiceMockeryDecorator');
-				
-				// Add the mockery name as a definition;
-				$def->setArguments([$definition]);
-
-				// Incase it is a prototype scoped class
-				$def->setScope('container');
+				$def = $this->transformDefinition($this->container->getDefinition($service), $mockery);
 
 				// Replace its current definition
 				$this->container->setDefinition($service, $def);
 			}			
 		}
+	}
+
+	/**
+	 * Transforms the Definition into one we can use for mocks
+	 *
+	 * @return Object
+	 * @author Dan Cox
+	 */
+	public function transformDefinition($definition, $mockery)
+	{
+		// Set the class to the mockery decorator
+		$definition->setClass('Wasp\DI\ServiceMockeryDecorator');
+		
+		// Add the mockery name as a definition;
+		$definition->setArguments([$mockery]);
+
+		// Incase it is a prototype scoped class
+		$definition->setScope('container');
+
+		return $definition;
 	}
 
 	/**
