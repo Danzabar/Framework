@@ -35,6 +35,9 @@ services:
         lazy: true
         calls:
            - [setDI, ["@service_container"]]
+    request:
+        class: Wasp\Routing\Request
+        lazy: true
     schema:
         class: Wasp\Database\Schema
         lazy: true

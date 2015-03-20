@@ -40,6 +40,7 @@ class Response
 		$response = $this->createResponse();
 		$response->setContent(json_encode($content));
 		$response->setStatusCode($code);
+		$response->headers->set('Content-Type', 'application/json');
 
 		return $response;
 	}
