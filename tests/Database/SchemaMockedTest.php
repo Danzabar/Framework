@@ -101,6 +101,24 @@ class SchemaMockedTest extends TestCase
 
 		$this->DI->get('schema')->create();
 	}
+
+	/**
+	 * Test dropping a table
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_DropTable()
+	{
+		$connection = $this->DI->get('connection');
+		$connection->shouldReceive('getSchemaTool')->once()->andReturn($this->schema);
+		$connection->shouldReceive('connection')->once()->andReturn($connection);
+		$connection->shouldReceive('getMetadataFactory')->once()->andReturn($this->metadataFactory);
+		
+		$this->schema->shouldReceive('dropSchema')->once()->with('Wasp\Test\Entity\Entities\Test');
+
+		$this->DI->get('schema')->dropTable('Wasp\Test\Entity\Entities\Test');
+	}
 	
 	/**
 	 * Get SQL from an update
