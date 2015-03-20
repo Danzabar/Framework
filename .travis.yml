@@ -17,4 +17,5 @@ script:
     - phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
+    - rm -rf src/Application/Cache/AppCache.php
     - php vendor/bin/coveralls -v
