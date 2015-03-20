@@ -37,10 +37,26 @@ class Response
 	 */
 	public function json($content = Array(), $code = 200)
 	{
-		$response = $this->createResponse();
-		$response->setContent(json_encode($content));
+		$response = $this->DI->get('jsonresponse_api');
+		$response->setData($content);
 		$response->setStatusCode($code);
-		$response->headers->set('Content-Type', 'application/json');
+
+		return $response;
+	}
+
+	/**
+	 * Returns a jsonp response
+	 *
+	 * @param String $handler - the name of the handler
+	 * @param Array $content
+	 * @param Integer $code
+	 * @return Symfony\Component\HttpFoundation\Response
+	 * @author Dan Cox
+	 */
+	public function jsonp($handler, $content = Array(), $code = 200)
+	{
+		$response = $this->json($content, $code);
+		$response->setCallback($handler);
 
 		return $response;
 	}

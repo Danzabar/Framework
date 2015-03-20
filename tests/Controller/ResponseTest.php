@@ -55,4 +55,37 @@ class ResponseTest extends TestCase
 
 	}
 
+	/**
+	 * Test creating a json response
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_jsonResponse()
+	{
+		$res = $this->DI->get('response');
+		$result = ['status' => 'success', 'data' => ['test' => 'foo']];
+
+		$json = $res->json($result, 200);
+
+		$this->assertEquals($result, json_decode($json->getContent(), true));
+		$this->assertEquals(200, $json->getStatusCode());
+	}
+
+	/**
+	 * Test creating a jsonp response
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_jsonpResponse()
+	{
+		$res = $this->DI->get('response');
+
+		$jsonp = $res->jsonp('Handler', ['foo' => 'bar'], 202);
+
+		$this->assertContains("Handler", $jsonp->getContent());
+		$this->assertEquals(202, $jsonp->getStatusCode());
+	}
+
 } // END class ResponseTest extends TestCase

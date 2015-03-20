@@ -26,6 +26,10 @@ services:
     fs:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
+    jsonresponse_api:
+        class: Symfony\Component\HttpFoundation\JsonResponse
+        lazy: true
+        scope: prototype
     response_api:
         class: Symfony\Component\HttpFoundation\Response
         lazy: true
