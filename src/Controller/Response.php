@@ -1,9 +1,8 @@
 <?php namespace Wasp\Controller;
 
-
 use Wasp\DI\DependencyInjectionAwareTrait,
-	Symfony\Component\HttpFoundation\RedirectResponse;
-
+	Symfony\Component\HttpFoundation\RedirectResponse,
+	Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  * Response class deals with returning responses and redirections

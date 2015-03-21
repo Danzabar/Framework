@@ -42,9 +42,18 @@ services:
     request:
         class: Wasp\Routing\Request
         lazy: true
+    route_collection:
+        class: Symfony\Component\Routing\RouteCollection
+    route:
+        class: Wasp\Routing\Route
+        calls:
+            - [setDI, ["@service_container"]]
     schema:
         class: Wasp\Database\Schema
         lazy: true
         arguments:
             - "@connection"
+    session:
+        class: Symfony\Component\HttpFoundation\Session\Session
+        lazy: true
 

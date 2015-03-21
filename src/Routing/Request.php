@@ -55,7 +55,7 @@ class Request
 	}
 
 	/**
-	 * undocumented function
+	 * Call method for calling functions from the created request object 
 	 *
 	 * @return void
 	 * @author Dan Cox
