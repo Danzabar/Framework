@@ -110,4 +110,27 @@ class DatabaseFunctionalTest extends TestCase
 		$this->assertEquals('zim', $results4[0]->name);
 	}
 
+	/**
+	 * Test the raw query
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 **/
+	public function test_RawQueries()
+	{
+		$this->DI->get('schema')->update();
+
+		$query = $this->DI->get('database')
+						  ->raw(sprintf(
+						  		"INSERT INTO Test (`name`) VALUES ('%s')", 'Bob'
+						  	));
+
+		$select = $this->DI->get('database')->raw("SELECT * FROM Test", false);
+		$select->execute();
+		$results = $select->fetch();
+
+		$this->assertEquals(1, $select->rowCount());
+		$this->assertEquals('Bob', $results['name']);
+	}
+
 } // END class DatabaseFunctionalTest extends TestCase
