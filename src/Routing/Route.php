@@ -104,20 +104,7 @@ class Route
 	 **/
 	public function addPrefix($prefix)
 	{
-		$this->activeGroup->addPrefix($prefix);
-		return $this;
-	}
-
-	/**
-	 * Sets the Host of the current Active group
-	 *
-	 * @param String $host
-	 * @return Route
-	 * @author Dan Cox
-	 **/
-	public function setHost($host)
-	{
-		$this->activeGroup->setHost($host);
+		$this->activeGroup->addPrefix($prefix);			
 		return $this;
 	}
 

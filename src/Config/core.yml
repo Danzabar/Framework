@@ -56,4 +56,8 @@ services:
     session:
         class: Symfony\Component\HttpFoundation\Session\Session
         lazy: true
-
+    url:
+        class: Wasp\Routing\URL
+        lazy: true
+        calls:
+            - [setDI, ["@service_container"]]

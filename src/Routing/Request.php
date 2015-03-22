@@ -21,12 +21,14 @@ class Request
 	/**
 	 * Get the request object from the current global var
 	 *
-	 * @return void
+	 * @return SymRequest
 	 * @author Dan Cox
 	 */
 	public function fromGlobals()
 	{
 		$this->request = SymRequest::createFromGlobals();
+
+		return $this->request;
 	}
 
 	/**
@@ -35,14 +37,16 @@ class Request
 	 * @param String $uri
 	 * @param String $type
 	 * @param Array $params
-	 * @return void
+	 * @return SymRequest
 	 * @author Dan Cox
 	 */
 	public function make($uri, $type = 'GET', $params = Array())
 	{
 		$this->request = SymRequest::create($uri, $type, $params);
-	}
 
+		return $this->request;
+	}
+	
 	/**
 	 * Magic Getter for the request object
 	 *

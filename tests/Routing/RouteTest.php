@@ -49,7 +49,6 @@ class RouteTest extends TestCase
 		$route->group(Array(), function($route) {
 			$route->add('test.group', '/', Array('GET'), Array('controller' => 'test'));
 			$route->addPrefix('/group');	
-			$route->setHost('www.test.com');
 		});
 
 		$match = $collection->get('test.group');
