@@ -24,6 +24,7 @@ class URLTest extends TestCase
 
 		// Add a new route;
 		$this->DI->get('route')->add('test.url', '/url', Array('controller' => 'Test::Test'));
+		$this->DI->get('route')->add('test.post', '/url', Array('controller' => 'Test::post'));
 	}
 
 	/**
@@ -37,6 +38,7 @@ class URLTest extends TestCase
 		$url = $this->DI->get('url');
 
 		$this->assertEquals('/url', $url->route('test.url'));
+		$this->assertEquals('/url', $url->route('test.post'));
 	}
 
 } // END class URLTest extends TestCase
