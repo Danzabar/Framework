@@ -22,11 +22,12 @@
 		"doctrine/orm": "*",
 		"doctrine/data-fixtures": "2.0.*@dev",
 		"twig/twig": "1.*",
+		"mockery/mockery": "dev-master",
+		"symfony/templating": "3.0.*@dev",
 		"symfony/validator": "3.0.*@dev"
 	},
 	"require-dev": {
-		"satooshi/php-coveralls": "dev-master",
-		"mockery/mockery": "dev-master"
+		"satooshi/php-coveralls": "dev-master"
 	},
 	"minimum-stability": "dev",
 	"autoload": {
