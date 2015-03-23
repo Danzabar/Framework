@@ -66,6 +66,29 @@ class TemplateTest extends TestCase
 		$this->assertContains("twig test", $output);
 		$this->assertContains("bar", $output);
 	}
+
+	/**
+	 * Add both engines and test both templates
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_delegation()
+	{
+		$this->DI->get('twigengine')->create();
+		$this->DI->get('phpengine')->create();
+
+		$this->DI->get('template')
+				 ->addEngine($this->DI->get('twigengine'))
+				 ->addEngine($this->DI->get('phpengine')->getEngine())
+				 ->start();
+
+		$php = $this->DI->get('template')->make('phptest.php', ['foo' => 'bar']);
+		$twig = $this->DI->get('template')->make('twigtest.html.twig', ['foo' => 'bar']);
+
+		$this->assertContains('PHP engine', $php);
+		$this->assertContains('twig test', $twig);
+	}
 	
 
 } // END class TemplateTest extends TestCase
