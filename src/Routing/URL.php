@@ -18,21 +18,21 @@ class URL
 	/**
 	 * Instance of the Url Generator
 	 *
-	 * @var Symfony\Component\Routing\Generator\UrlGenerator
+	 * @var \Symfony\Component\Routing\Generator\UrlGenerator
 	 **/
 	protected $generator;
 
 	/**
 	 * Instance of the Request Context
 	 *
-	 * @var Symfony\Component\Routing\RequestContext
+	 * @var \Symfony\Component\Routing\RequestContext
 	 **/
 	protected $context;
 
 	/**
 	 * Returns a instance of the Request Context class
 	 *
-	 * @return Symfony\Component\Routing\RouteContext
+	 * @return \Symfony\Component\Routing\RouteContext
 	 * @author Dan Cox
 	 **/
 	public function context()
@@ -43,7 +43,7 @@ class URL
 	/**
 	 * Creates the URL Generator object
 	 *
-	 * @return Symfony\Component\Routing\Generator\UrlGenerator
+	 * @return \Symfony\Component\Routing\Generator\UrlGenerator
 	 * @author Dan Cox
 	 **/
 	public function generator()

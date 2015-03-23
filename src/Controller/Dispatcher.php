@@ -91,7 +91,7 @@ class Dispatcher
 	/**
 	 * Fires method using the reflection instance
 	 *
-	 * @return void
+	 * @return Mixed
 	 * @author Dan Cox
 	 */
 	public function fire()

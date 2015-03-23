@@ -46,7 +46,7 @@ class FixtureManager
 	/**
 	 * Fixture list from the Directory loader
 	 *
-	 * @var Object
+	 * @var Array
 	 */
 	protected $fixtureList;
 
