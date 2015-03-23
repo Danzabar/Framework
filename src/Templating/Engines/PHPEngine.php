@@ -3,6 +3,7 @@
 use Symfony\Component\Templating\PhpEngine as Engine,
 	Symfony\Component\Templating\TemplateNameParser,
 	Symfony\Component\Templating\Loader\FilesystemLoader,
+	Symfony\Component\Templating\Helper\SlotsHelper,
 	Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
@@ -42,6 +43,18 @@ class PHPEngine
 		);
 
 		$this->engine = new Engine(new TemplateNameParser, $this->loader);
+		$this->registerHelpers();
+	}
+
+	/**
+	 * Registers standard helpers
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function registerHelpers()
+	{
+		$this->engine->set(new SlotsHelper);
 	}
 
 	/**
