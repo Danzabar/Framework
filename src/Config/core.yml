@@ -58,6 +58,7 @@ services:
         lazy: true
     phpengine:
         class: Wasp\Templating\Engines\PHPEngine
+        lazy: true
         calls:
             - [setDI, ["@service_container"]]
     template:
@@ -67,6 +68,7 @@ services:
             - [setDI, ["@service_container"]]
     twigengine:
         class: Wasp\Templating\Engines\TwigEngine
+        lazy: true
         calls:
             - [setDI, ["@service_container"]]
     url:
