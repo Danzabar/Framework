@@ -19,19 +19,17 @@ class ConsoleApplication extends SymfonyApplication
 	 * Adds a command into the application
 	 *
 	 * @param \Symfony\Component\Console\Command\Command $command
-	 * @return ConsoleApplication
+	 * @return void
 	 * @author Dan Cox
 	 */
 	public function add(SymfonyCommand $command)
 	{
 		if(is_a($command, '\Wasp\Commands\BaseCommand'))
 		{	
-			$command->setDI = $this->DI;
+			$command->setDI($this->DI);
 		}	
 
 		parent::add($command);
-
-		return $this;
 	}
 
 } // END class ConsoleApplication extends SymfonyApplication

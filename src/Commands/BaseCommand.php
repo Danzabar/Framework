@@ -75,10 +75,8 @@ class BaseCommand extends SymfonyCommand
 	public function __construct()
 	{
 		parent::__construct($this->name);
-		parent::setDescription($this->description);
-
+		$this->setDescription($this->description);
 		$this->argumentInputMappings();
-
 		$this->setup();
 	}
 
@@ -105,7 +103,7 @@ class BaseCommand extends SymfonyCommand
 	 */
 	public function argument($name, $description, $required = 'required')
 	{
-		parent::addArgument(
+		$this->addArgument(
 			$name, 
 			$this->getArgumentMapValue('arguments', $required), 
 			$description
@@ -124,7 +122,7 @@ class BaseCommand extends SymfonyCommand
 	 */
 	public function option($name, $description, $required = 'optional', $keyBinding  = NULL)
 	{
-		parent::addOption(
+		$this->addOption(
 			$name,
 			$keyBinding,
 			$this->getArgumentMapValue('options', $required),
