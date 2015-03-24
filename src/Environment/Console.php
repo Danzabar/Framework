@@ -4,24 +4,24 @@ use Wasp\Environment\Environment,
 	Wasp\Environment\EnvironmentInterface;
 
 /**
- * The development environment class
+ * Environment class for the console application
  *
  * @package Wasp
  * @subpackage Environment
  * @author Dan Cox
  */
-class Develop extends Environment implements EnvironmentInterface
+class Console extends Environment Implements EnvironmentInterface
 {
-	
+
 	/**
-	 * Setup the environment properties
+	 * Setup environment properties
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
 	public function setup()
 	{
-		$this->createDIFromCache();
+		$this->createDI();
 	}
 
-} // END class Develop extends Environment implements EnvironmentInterface
+} // END class Console extends Environment Implements EnvironmentInterface

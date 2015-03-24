@@ -83,7 +83,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	public function test_loadEnvironment()
 	{
 		$app = new Application;
-		$app->loadEnv('develop');
+		$app->loadEnv('test');
 
 		$this->assertInstanceOf('Wasp\DI\DI', $app->env->getDI());
 		$this->assertInstanceOf('Symfony\Component\Filesystem\Filesystem', $app->env->getDI()->get('fs'));

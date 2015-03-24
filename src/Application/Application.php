@@ -35,9 +35,8 @@ class Application
 	public function __construct()
 	{
 		// Default Environments
-		$this->registerEnvironment('develop', 'Wasp\Environment\Develop');
-		$this->registerEnvironment('production', 'Wasp\Environment\Production');
 		$this->registerEnvironment('test', 'Wasp\Environment\Test');
+		$this->registerEnvironment('console', 'Wasp\Environment\Console');
 	}
 
 	/**

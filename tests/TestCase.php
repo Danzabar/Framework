@@ -25,6 +25,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	protected $DI;
 
 	/**
+	 * The environment on which to build
+	 *
+	 * @var String
+	 */
+	protected $env;	
+
+	/**
 	 * Set up test class
 	 *
 	 * @return void
@@ -32,8 +39,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
+		if(is_null($this->env))
+		{
+			$this->env = 'test';
+		}
+
 		$this->application = new \Wasp\Application\Application;
-		$this->application->loadEnv('test');
+		$this->application->loadEnv($this->env);
 		$this->DI = $this->application->env->getDI();
 	}
 
