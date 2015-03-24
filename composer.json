@@ -16,6 +16,7 @@
 		"symfony/dependency-injection": "3.0.*@dev",
 		"symfony/filesystem": "3.0.*@dev",
 		"symfony/http-foundation": "3.0.*@dev",
+		"symfony/finder": "3.0.*@dev",
 		"symfony/event-dispatcher": "3.0.*@dev",
 		"symfony/routing": "3.0.*@dev",
 		"symfony/debug": "3.0.*@dev",

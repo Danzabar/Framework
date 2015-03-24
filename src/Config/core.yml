@@ -10,6 +10,16 @@ services:
     connection_validator:
         class: Wasp\Database\ConnectionValidator
         scope: prototype
+    console:
+        class: Wasp\Console\ConsoleApplication
+        lazy: true
+        calls:
+            - [setDI, ["@service_container"]]
+    commandloader:
+        class: Wasp\Console\CommandLoader
+        lazy: true
+        calls:
+            - [setDI, ["@service_container"]]
     database:
         class: Wasp\Database\Database
         arguments:
@@ -18,6 +28,10 @@ services:
         class: Wasp\Controller\Dispatcher
         calls:
             - [setDI, ["@service_container"]]
+    finder:
+        class: Symfony\Component\Finder\Finder
+        lazy: true
+        scope: prototype
     fixtures:
         class: Wasp\Database\FixtureManager
         lazy: true
