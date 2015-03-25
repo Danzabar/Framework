@@ -31,7 +31,7 @@ class TestCommand extends BaseCommand
 	 */
 	public function setup()
 	{
-
+		$this->argument('test', 'a test argument');
 	}
 
 	/**
@@ -42,7 +42,7 @@ class TestCommand extends BaseCommand
 	 */
 	public function fire()
 	{
-
+		$this->output->writeln($this->input->getArgument('test'));
 	}
 	
 } // END class TestCommand extends BaseCommand

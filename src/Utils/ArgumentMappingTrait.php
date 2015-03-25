@@ -57,7 +57,7 @@ Trait ArgumentMappingTrait
 	 */
 	public function getArgumentMapValue($mapName, $key)
 	{
-		if($this->checkArgumentMapValue())
+		if($this->checkArgumentMapValue($mapName, $key))
 		{
 			return $this->maps[$mapName][$key];
 		}
