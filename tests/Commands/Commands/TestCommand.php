@@ -31,7 +31,9 @@ class TestCommand extends BaseCommand
 	 */
 	public function setup()
 	{
-		$this->argument('test', 'a test argument');
+		$this
+			->argument('test', 'a test argument')
+			->option('flag', '');
 	}
 
 	/**
@@ -43,6 +45,11 @@ class TestCommand extends BaseCommand
 	public function fire()
 	{
 		$this->output->writeln($this->input->getArgument('test'));
+
+		if($this->input->hasOption('flag'))
+		{
+			$this->output->writeln('flag set');
+		}
 	}
 	
 } // END class TestCommand extends BaseCommand

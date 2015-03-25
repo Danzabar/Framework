@@ -98,7 +98,7 @@ class BaseCommand extends SymfonyCommand
 	 * @param String $name
 	 * @param String $description
 	 * @param String $required
-	 * @return void
+	 * @return BaseCommand
 	 * @author Dan Cox
 	 */
 	public function argument($name, $description, $required = 'required')
@@ -108,6 +108,8 @@ class BaseCommand extends SymfonyCommand
 			$this->getArgumentMapValue('arguments', $required), 
 			$description
 		);
+
+		return $this;
 	}
 
 	/**
@@ -117,7 +119,7 @@ class BaseCommand extends SymfonyCommand
 	 * @param String $description
 	 * @param String $required
 	 * @param String $keyBinding
-	 * @return void
+	 * @return BaseCommand
 	 * @author Dan Cox
 	 */
 	public function option($name, $description, $required = 'optional', $keyBinding  = NULL)
@@ -128,6 +130,8 @@ class BaseCommand extends SymfonyCommand
 			$this->getArgumentMapValue('options', $required),
 			$description
 		);
+
+		return $this;
 	}
 
 	/**

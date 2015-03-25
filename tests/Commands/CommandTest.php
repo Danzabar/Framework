@@ -58,5 +58,26 @@ class CommandTest extends TestCase
 
 		$this->assertContains('foo', $CT->getDisplay());
 	}
+
+	/**
+	 * Test setting the flag option on the test command..
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_options()
+	{
+		$command = $this->DI->get('console')
+							->find('test:command');	
+		
+		$CT = new CommandTester($command);
+		$CT->execute([
+			'command'		=> $command->getName(),
+			'test'			=> 'foo',
+			'--flag'		=> true
+		]);
+
+		$this->assertContains('flag set', $CT->getDisplay());	
+	}
 	
 } // END class CommandTest extends TestCase
