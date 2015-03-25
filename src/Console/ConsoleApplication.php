@@ -24,7 +24,7 @@ class ConsoleApplication extends SymfonyApplication
 	 */
 	public function add(SymfonyCommand $command)
 	{
-		if(is_a($command, '\Wasp\Commands\BaseCommand'))
+		if (is_a($command, '\Wasp\Commands\BaseCommand'))
 		{	
 			$command->setDI($this->DI);
 		}	

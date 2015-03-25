@@ -122,7 +122,7 @@ class BaseCommand extends SymfonyCommand
 	 * @return BaseCommand
 	 * @author Dan Cox
 	 */
-	public function option($name, $description, $required = 'optional', $keyBinding  = NULL)
+	public function option($name, $description, $required = 'optional', $keyBinding = NULL)
 	{
 		$this->addOption(
 			$name,
@@ -137,8 +137,8 @@ class BaseCommand extends SymfonyCommand
 	/**
 	 * Execution script for the command
 	 *
-	 * @param Object $input
-	 * @param Object $output
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
 	 * @return void
 	 * @author Dan Cox
 	 */

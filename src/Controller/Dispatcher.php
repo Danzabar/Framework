@@ -78,7 +78,7 @@ class Dispatcher
 	public function formatResponse()
 	{
 		// If the response is not a response object, create it. 
-		if(!is_object($this->response))
+		if (!is_object($this->response))
 		{
 			// Create the response
 			$this->response = $this->DI->get('response')->make($this->response, 200);
