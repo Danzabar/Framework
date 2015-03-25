@@ -44,7 +44,7 @@ class Template
 	 */
 	public function start()
 	{
-		if(is_null($this->directory))
+		if (is_null($this->directory))
 		{
 			throw new DirectoryNotSet;
 		}
