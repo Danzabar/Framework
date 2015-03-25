@@ -1,5 +1,7 @@
 <?php namespace Wasp\Utils;
 
+use Wasp\Exceptions\Utils\InvalidMapKey;
+
 /**
  * Argument Mapping Trait
  *
@@ -14,7 +16,7 @@ Trait ArgumentMappingTrait
 	 *
 	 * @var Array
 	 */
-	protected $maps;
+	protected $maps = [];
 
 	/**
 	 * Adds an argument map
@@ -45,6 +47,8 @@ Trait ArgumentMappingTrait
 
 			return array_key_exists($key, $map);
 		}
+
+		throw new InvalidMapKey($mapName);
 	}
 
 	/**
@@ -61,5 +65,7 @@ Trait ArgumentMappingTrait
 		{
 			return $this->maps[$mapName][$key];
 		}
+
+		throw new InvalidMapKey($key);
 	}
 }
