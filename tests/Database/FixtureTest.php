@@ -70,6 +70,7 @@ class FixtureTest extends TestCase
 		$result2 = Wasp\Test\Entity\Entities\Test::db()->get();
 
 		$this->assertEquals(Array(), $result2);
+		$this->assertEquals(__DIR__ . '/Fixtures/', $FM->getDirectory());
 	}
 
 } // END class FixtureTest extends TestCase
