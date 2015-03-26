@@ -32,4 +32,20 @@ class CommandLoaderTest extends TestCase
 		$this->assertInstanceOf('Wasp\Test\Commands\Commands\TestCommand', $command);
 	}
 
+	/**
+	 * Test loading from a file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_loadFromFile()
+	{
+		$loader = $this->DI->get('commandloader');
+		$loader->fromFile(__DIR__ . '/CommandLoad.php');
+
+		$command = $this->DI->get('console')->find('database:schema');
+
+		$this->assertInstanceOf('Wasp\Commands\Database\DatabaseSchema', $command);
+	}
+
 } // END class CommandLoaderTest extends TestCase
