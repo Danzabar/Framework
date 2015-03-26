@@ -47,6 +47,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		$this->application = new \Wasp\Application\Application;
 		$this->application->loadEnv($this->env);
 		$this->DI = $this->application->env->getDI();
+
+		if(property_exists($this, 'commands') && is_array($this->commands))
+		{
+			$this->DI->get('commandloader')->fromArray($this->commands);	
+		}
 	}
 
 	/**

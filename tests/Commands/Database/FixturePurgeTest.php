@@ -5,26 +5,25 @@ use Wasp\Test\TestCase,
 	Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Test Class for the Fixture Import command
+ * Test case for the fixture purge command
  *
  * @package Wasp
  * @subpackage Tests\Commands
  * @author Dan Cox
  */
-class FixtureImportTest extends TestCase
+class FixturePurgeTest extends TestCase
 {
-	
 	/**
-	 * Array of commands used by the test
+	 * Array of commands that the test uses
 	 *
 	 * @var Array
 	 */
 	protected $commands = [
-		'Wasp\Commands\Database\FixtureImport'
+		'Wasp\Commands\Database\FixturePurge'
 	];
-
+	
 	/**
-	 * Setup test env
+	 * Set up test env
 	 *
 	 * @return void
 	 * @author Dan Cox
@@ -38,50 +37,50 @@ class FixtureImportTest extends TestCase
 	}
 
 	/**
-	 * Test just running a fixture import
+	 * Purge without setting the directory
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function test_runImportWithoutDirectory()
+	public function test_purgeWithoutDirectory()
 	{
 		$fixtures = $this->DI->get('fixtures');
-		$command = $this->DI->get('console')->find('fixture:import');
+		$command = $this->DI->get('console')->find('fixture:purge');
 
 		$fixtures->shouldReceive('load')->once();
-		$fixtures->shouldReceive('import')->once();
-	
+		$fixtures->shouldReceive('purge')->once();
+
 		$CT = new CommandTester($command);
 		$CT->execute([
 			'command'		=> $command->getName()
 		]);
 
-		$this->assertContains('Success', $CT->getDisplay());
+		$this->assertContains("Success", $CT->getDisplay());
 	}
 
 	/**
-	 * Test adding the directory parameter as well
+	 * Purge with directory set
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function test_runImportAfterChangingDirectory()
-	{	
+	public function test_purgeWithDirectory()
+	{
 		$fixtures = $this->DI->get('fixtures');
-		$command = $this->DI->get('console')->find('fixture:import');
+		$command = $this->DI->get('console')->find('fixture:purge');
 
-		$fixtures->shouldReceive('setDirectory')->with('test')->once();
+		$fixtures->shouldReceive('setDirectory')->with('Test')->once();
 		$fixtures->shouldReceive('load')->once();
-		$fixtures->shouldReceive('import')->once();
-	
+		$fixtures->shouldReceive('purge')->once();
+
 		$CT = new CommandTester($command);
 		$CT->execute([
 			'command'		=> $command->getName(),
-			'directory'		=> 'test'
+			'directory'		=> "Test"
 		]);
 
-		$this->assertContains('Success', $CT->getDisplay());
-
+		$this->assertContains("Success", $CT->getDisplay());
 	}
 
-} // END class FixtureImportTest extends TestCase
+} // END class FixturePurgeTest extends TestCase
+

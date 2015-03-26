@@ -15,6 +15,15 @@ class DatabaseSchemaTest extends TestCase
 {
 
 	/**
+	 * Array of commands used by the test
+	 *
+	 * @var Array
+	 */
+	protected $commands = [
+		'Wasp\Commands\Database\DatabaseSchema'
+	];
+
+	/**
 	 * Set up test env
 	 *
 	 * @return void
@@ -26,8 +35,6 @@ class DatabaseSchemaTest extends TestCase
 		$mock->add();
 
 		parent::setUp();
-
-		$this->DI->get('commandloader')->fromArray(['Wasp\Commands\Database\DatabaseSchema']);
 	}
 
 	/**
