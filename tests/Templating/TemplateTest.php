@@ -89,6 +89,21 @@ class TemplateTest extends TestCase
 		$this->assertContains('PHP engine', $php);
 		$this->assertContains('twig test', $twig);
 	}
+
+	/**
+	 * Test that start function throws an exception if no directory is set
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_failOnStart()
+	{
+		$this->setExpectedException("Wasp\Exceptions\Templating\DirectoryNotSet");
+
+		$this->DI->get('template')
+				 ->setDirectory(null)
+				 ->start();
+	}
 	
 
 } // END class TemplateTest extends TestCase
