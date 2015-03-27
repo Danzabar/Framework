@@ -62,6 +62,10 @@ services:
         class: Wasp\Routing\Route
         calls:
             - [setDI, ["@service_container"]]
+    router:
+        class: Wasp\Routing\Router
+        calls:
+            - [setDI, ["@service_container"]]
     schema:
         class: Wasp\Database\Schema
         lazy: true

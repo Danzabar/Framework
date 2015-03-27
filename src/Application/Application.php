@@ -36,7 +36,6 @@ class Application
 	{
 		// Default Environments
 		$this->registerEnvironment('test', 'Wasp\Environment\Test');
-		$this->registerEnvironment('console', 'Wasp\Environment\Console');
 	}
 
 	/**

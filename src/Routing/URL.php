@@ -32,7 +32,7 @@ class URL
 	/**
 	 * Returns a instance of the Request Context class
 	 *
-	 * @return \Symfony\Component\Routing\RouteContext
+	 * @return \Symfony\Component\Routing\RequestContext
 	 * @author Dan Cox
 	 **/
 	public function context()

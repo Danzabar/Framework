@@ -46,6 +46,17 @@ class Request
 
 		return $this->request;
 	}
+
+	/**
+	 * Returns the current request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Request
+	 * @author Dan Cox
+	 */
+	public function getRequest()
+	{
+		return $this->request;
+	}
 	
 	/**
 	 * Magic Getter for the request object

@@ -52,10 +52,11 @@ class Dispatcher
 	 * Creates a new reflection from the given action
 	 *
 	 * @param String $action
+	 * @param Array $params
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function dispatch($action)
+	public function dispatch($action, Array $params = Array())
 	{
 		$this->extract($action);
 		
@@ -63,7 +64,7 @@ class Dispatcher
 		$this->reflection = new \ReflectionClass($this->controller);		
 
 		// Fire the method
-		$this->response = $this->fire();
+		$this->response = $this->fire($params);
 
 		// Analyse the response
 		$this->formatResponse();
@@ -91,15 +92,16 @@ class Dispatcher
 	/**
 	 * Fires method using the reflection instance
 	 *
+	 * @param Array $params
 	 * @return Mixed
 	 * @author Dan Cox
 	 */
-	public function fire()
+	public function fire(Array $params)
 	{
 		$instance = $this->reflection->newInstanceArgs(['DI' => $this->DI]);
 		$method = $this->reflection->getMethod($this->method);
 
-		return $method->invokeArgs($instance, Array());
+		return $method->invokeArgs($instance, $params);
 	}
 
 	/**
