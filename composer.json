@@ -1,5 +1,5 @@
 {
-	"name":"danzabar/wasp",
+	"name":"wasp/framework",
 	"description": "A PHP framework designed for REST Apis and small Apps",
 	"authors": [
 		{
