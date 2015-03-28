@@ -27,6 +27,13 @@ class Application
 	public $env;
 
 	/**
+	 * DI instance from the environment
+	 *
+	 * @var Object
+	 **/
+	protected $DI;
+
+	/**
 	 * Set up Application Defaults
 	 *
 	 * @return void
@@ -36,6 +43,24 @@ class Application
 	{
 		// Default Environments
 		$this->registerEnvironment('test', 'Wasp\Environment\Test');
+	}
+
+	/**
+	 * Responds to the current request
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 **/
+	public function respond()
+	{
+		$request = $this->DI->get('request')->fromGlobals();
+
+		// Resolve the route to get a response
+		$response = $this->DI->get('router')
+							 ->resolve($request->getURI());
+
+		// Send the response
+		$response->send();
 	}
 
 	/**
@@ -56,6 +81,7 @@ class Application
 
 		// Call the Load method;
 		$this->env = $instance->load($this);
+		$this->DI = $this->env->getDI();
 	}
 
 	/**

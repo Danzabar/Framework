@@ -69,7 +69,7 @@ class Router
 	 * Resolve a uri to a route and Dispatches
 	 *
 	 * @param String $uri
-	 * @return void
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @author Dan Cox
 	 */
 	public function resolve($uri)
@@ -80,7 +80,7 @@ class Router
 		$this->extractParams();
 
 		$dispatcher = $this->DI->get('dispatcher');
-		$dispatcher->dispatch($this->match['controller'], $this->params);
+		return $dispatcher->dispatch($this->match['controller'], $this->params);
 	}
 
 	/**

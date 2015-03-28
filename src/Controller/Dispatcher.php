@@ -53,7 +53,7 @@ class Dispatcher
 	 *
 	 * @param String $action
 	 * @param Array $params
-	 * @return void
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @author Dan Cox
 	 */
 	public function dispatch($action, Array $params = Array())
@@ -67,13 +67,13 @@ class Dispatcher
 		$this->response = $this->fire($params);
 
 		// Analyse the response
-		$this->formatResponse();
+		return $this->formatResponse();
 	}
 
 	/**
 	 * Formats the response
 	 *
-	 * @return Void
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @author Dan Cox
 	 */
 	public function formatResponse()
@@ -85,8 +85,7 @@ class Dispatcher
 			$this->response = $this->DI->get('response')->make($this->response, 200);
 		} 
 
-		// Send it
-		$this->response->send();
+		return $this->response;
 	}
 
 	/**

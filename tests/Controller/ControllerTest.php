@@ -77,13 +77,10 @@ class ControllerTest extends TestCase
 		$action = 'Wasp\Test\Controller\Controller::redirect';
 
 		$dispatch = $this->DI->get('dispatcher');
+		
+		$response = $dispatch->dispatch($action);
 
-		ob_start();
-			$dispatch->dispatch($action);
-			$contents = ob_get_contents();
-		ob_end_clean();
-
-		$this->assertContains('Redirecting', $contents);
+		$this->assertContains('Redirecting', $response->getContent());
 	}
 
 } // END class ControllerTest extends TestCase
