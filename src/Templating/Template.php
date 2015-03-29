@@ -1,8 +1,7 @@
 <?php namespace Wasp\Templating;
 
 use Symfony\Component\Templating\DelegatingEngine,
-	Wasp\Exceptions\Templating\DirectoryNotSet,
-	Wasp\DI\DependencyInjectionAwareTrait;
+	Wasp\Exceptions\Templating\DirectoryNotSet;
 
 /**
  * Template class
@@ -13,8 +12,6 @@ use Symfony\Component\Templating\DelegatingEngine,
  */
 class Template
 {
-	use DependencyInjectionAwareTrait;
-	
 	/**
 	 * Instance of the Delegation Engine
 	 *

@@ -3,8 +3,7 @@
 use Symfony\Component\Templating\PhpEngine as Engine,
 	Symfony\Component\Templating\TemplateNameParser,
 	Symfony\Component\Templating\Loader\FilesystemLoader,
-	Symfony\Component\Templating\Helper\SlotsHelper,
-	Wasp\DI\DependencyInjectionAwareTrait;
+	Symfony\Component\Templating\Helper\SlotsHelper;
 
 /**
  * The php engine for templating
@@ -15,8 +14,6 @@ use Symfony\Component\Templating\PhpEngine as Engine,
  */
 class PHPEngine
 {
-	use DependencyInjectionAwareTrait;
-
 	/**
 	 * An instance of the PhpEngine Class
 	 *
@@ -32,6 +29,24 @@ class PHPEngine
 	protected $loader;
 
 	/**
+	 * Instanced Template class
+	 *
+	 * @var Wasp\Templating\Template
+	 **/
+	protected $template;
+
+	/**
+	 * Add dependencies
+	 *
+	 * @param Wasp\Templating\Template
+	 * @author Dan Cox
+	 **/
+	public function __construct($template)
+	{
+		$this->template = $template;
+	}
+
+	/**
 	 * Creates instances of engines and loader class
 	 *
 	 * @author Dan Cox
@@ -39,7 +54,7 @@ class PHPEngine
 	public function create()
 	{
 		$this->loader = new FilesystemLoader(
-			$this->DI->get('template')->getDirectory() . '%name%'
+			$this->template->getDirectory() . '%name%'
 		);
 
 		$this->engine = new Engine(new TemplateNameParser, $this->loader);

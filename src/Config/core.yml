@@ -18,8 +18,8 @@ services:
     commandloader:
         class: Wasp\Console\CommandLoader
         lazy: true
-        calls:
-            - [setDI, ["@service_container"]]
+        arguments:
+            - "@console"
     database:
         class: Wasp\Database\Database
         arguments:
@@ -60,8 +60,8 @@ services:
         class: Symfony\Component\Routing\RouteCollection
     route:
         class: Wasp\Routing\Route
-        calls:
-            - [setDI, ["@service_container"]]
+        arguments:
+            - "@route_collection"
     router:
         class: Wasp\Routing\Router
         calls:
@@ -77,20 +77,20 @@ services:
     phpengine:
         class: Wasp\Templating\Engines\PHPEngine
         lazy: true
-        calls:
-            - [setDI, ["@service_container"]]
+        arguments:
+            - "@template"
     template:
         class: Wasp\Templating\Template
         lazy: true
-        calls:
-            - [setDI, ["@service_container"]]
     twigengine:
         class: Wasp\Templating\Engines\TwigEngine
         lazy: true
-        calls:
-            - [setDI, ["@service_container"]]
+        arguments:
+            - "@template"
+            - "@fs"
     url:
         class: Wasp\Routing\URL
         lazy: true
-        calls:
-            - [setDI, ["@service_container"]]
+        arguments:
+            - "@request"
+            - "@route_collection"

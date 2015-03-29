@@ -1,7 +1,5 @@
 <?php namespace Wasp\Console;
 
-use Wasp\DI\DependencyInjectionAwareTrait;
-
 /**
  * Command loader class loads commands into the console application in a variation of ways
  *
@@ -11,7 +9,24 @@ use Wasp\DI\DependencyInjectionAwareTrait;
  */
 class CommandLoader
 {
-	use DependencyInjectionAwareTrait;
+
+	/**
+	 * Instance of the console class
+	 *
+	 * @var \Wasp\Console\ConsoleApplication
+	 **/
+	protected $console;
+
+	/**
+	 * Get dependencies
+	 *
+	 * @param \Wasp\Console\ConsoleApplication $console
+	 * @author Dan Cox
+	 **/
+	public function __construct($console)
+	{
+		$this->console = $console;
+	}
 
 	/**
 	 * Loads commands listed as an array inside a file
@@ -54,7 +69,7 @@ class CommandLoader
 		$reflection = new \ReflectionClass($command);
 		$instance = $reflection->newInstance();
 
-		$this->DI->get('console')->add($instance);
+		$this->console->add($instance);
 	}
 
 	

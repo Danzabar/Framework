@@ -1,7 +1,6 @@
 <?php namespace Wasp\Templating\Engines;
 
 use Symfony\Component\Templating\EngineInterface,
-	Wasp\DI\DependencyInjectionAwareTrait,
 	\Twig_Loader_Filesystem as Loader,
 	\Twig_Environment as Environment;
 
@@ -14,8 +13,6 @@ use Symfony\Component\Templating\EngineInterface,
  */
 class TwigEngine implements EngineInterface
 {
-	use DependencyInjectionAwareTrait;
-
 	/**
 	 * Filesystem loader
 	 *
@@ -31,6 +28,33 @@ class TwigEngine implements EngineInterface
 	protected $environment;
 
 	/**
+	 * Instance of the FileSystem
+	 *
+	 * @var \Symfony\Component\Filesystem\Filesystem
+	 **/
+	protected $fs;
+
+	/**
+	 * Instance of the template class
+	 *
+	 * @var \Wasp\Templating\Template
+	 **/
+	protected $template;
+
+	/**
+	 * Load dependencies
+	 *
+	 * @param \Wasp\Templating\Template $template
+	 * @param \Symfony\Component\Filesystem\Filesystem
+	 * @author Dan Cox
+	 **/
+	public function __construct($template, $fs)
+	{
+		$this->template = $template;
+		$this->fs = $fs;
+	}
+
+	/**
 	 * Creates the environment
 	 *
 	 * @return void
@@ -38,7 +62,7 @@ class TwigEngine implements EngineInterface
 	 */
 	public function create()
 	{
-		$this->loader = new Loader($this->DI->get('template')->getDirectory());
+		$this->loader = new Loader($this->template->getDirectory());
 		$this->environment = new Environment($this->loader, []);
 	}
 
@@ -63,9 +87,7 @@ class TwigEngine implements EngineInterface
 	 */
 	public function exists($name)
 	{
-		$fs = $this->DI->get('fs');
-
-		return $fs->exists($this->DI->get('template')->getDirectory() . $name);
+		return $this->fs->exists($this->template->getDirectory() . $name);
 	}
 
 	/**

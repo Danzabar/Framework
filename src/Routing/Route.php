@@ -1,7 +1,6 @@
 <?php namespace Wasp\Routing;
 
-use Symfony\Component\Routing\Route as SymfonyRoute,
-	Wasp\DI\DependencyInjectionAwareTrait;
+use Symfony\Component\Routing\Route as SymfonyRoute;
 
 /**
  * Adds routes and route groups to the collection
@@ -12,7 +11,13 @@ use Symfony\Component\Routing\Route as SymfonyRoute,
  **/
 class Route
 {
-	use DependencyInjectionAwareTrait;
+
+	/**
+	 * Route collection instance
+	 *
+	 * @var \Symfony\Component\Routing\RouteCollection
+	 **/
+	protected $collection;
 
 	/**
 	 * Instance of Symfony Collection
@@ -20,6 +25,17 @@ class Route
 	 * @var Object
 	 **/
 	protected $activeGroup;
+
+	/**
+	 * Load dependencies
+	 *
+	 * @param \Symfony\Component\Routing\RouteCollection $routeCollection
+ 	 * @author Dan Cox
+	 **/
+	public function __construct($routeCollection)
+	{
+		$this->collection = $routeCollection;
+	}
 
 	/**
 	 * Creates a simple route
@@ -73,7 +89,7 @@ class Route
 
 		} else 
 		{
-			$this->DI->get('route_collection')->add($name, $route);
+			$this->collection->add($name, $route);
 		}		
 	}
 
@@ -116,8 +132,7 @@ class Route
 	 **/
 	public function addGroup()
 	{
-		$this->DI->get('route_collection')
-				 ->addCollection($this->activeGroup);
+		$this->collection->addCollection($this->activeGroup);
 
 		$this->activeGroup = NULL;
 	}

@@ -55,5 +55,4 @@ class RouteTest extends TestCase
 		$this->assertEquals('/group/', $match->getPath());
 	}
 
-
 } // END class RouteTest extends TestCase

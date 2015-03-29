@@ -30,6 +30,33 @@ class URL
 	protected $context;
 
 	/**
+	 * Instance of the request class
+	 *
+	 * @var \Wasp\Routing\Request
+	 **/
+	protected $request;
+
+	/**
+	 * Instance of the route collection class
+	 *
+	 * @var \Symfony\Component\Routing\RouteCollection
+	 **/
+	protected $collection;
+
+	/**
+	 * Load dependencies
+	 *
+	 * @param \Wasp\Routing\Request $request
+	 * @param \Symfony\Component\Routing\RouteCollection $collection
+	 * @author Dan Cox
+	 **/
+	public function __construct($request, $collection)
+	{
+		$this->request = $request;
+		$this->collection = $collection;
+	}
+
+	/**
 	 * Returns a instance of the Request Context class
 	 *
 	 * @return \Symfony\Component\Routing\RequestContext
@@ -48,10 +75,10 @@ class URL
 	 **/
 	public function generator()
 	{
-		$request = $this->DI->get('request')->fromGlobals();
+		$request = $this->request->fromGlobals();
 
 		return $this->generator = new UrlGenerator(
-			   $this->DI->get('route_collection'),
+			   $this->collection,
 			   $this->context()->fromRequest($request)
 		);
 	}
