@@ -79,6 +79,10 @@ services:
         lazy: true
         arguments:
             - "@template"
+    profile:
+        class: Wasp\Application\Profile
+        arguments:
+            - "@fs"
     template:
         class: Wasp\Templating\Template
         lazy: true
