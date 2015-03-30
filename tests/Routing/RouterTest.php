@@ -47,4 +47,22 @@ class RouterTest extends TestCase
 		$this->DI->get('router')->resolve('/test');
 	}
 
+	/**
+	 * Test resolving a route with arguments
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_withArguments()
+	{
+		$dispatcher = $this->DI->get('dispatcher');
+		$dispatcher->shouldReceive('dispatch')->with('TestController::Action', ['id' => 4])->once();
+
+		$this->DI->get('request')->make('/test/4', 'GET');
+		$this->DI->get('route')
+				 ->add('test.params', '/test/{id}', ['GET'], ['controller' => 'TestController::Action']);
+
+		$this->DI->get('router')->resolve('/test/4');
+	}
+
 } // END class RouterTest extends TestCase
