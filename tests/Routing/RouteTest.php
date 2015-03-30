@@ -55,4 +55,22 @@ class RouteTest extends TestCase
 		$this->assertEquals('/group/', $match->getPath());
 	}
 
+	/**
+	 * Test setting up and finding restful routes
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_restRoutes()
+	{
+		$route = $this->DI->get('route');
+		$collection = $this->DI->get('route_collection');
+
+		$route->rest('blogs', '/blog', 'BlogController');
+
+		$match = $collection->get('blogs.new');
+
+		$this->assertEquals('/blog/new', $match->getPath());
+	}
+
 } // END class RouteTest extends TestCase

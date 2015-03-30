@@ -19,14 +19,18 @@ Trait TypeMapTrait
 	/**
 	 * Calls the mapped function type
 	 *
+	 * @param String $type
+	 * @param String $notFoundException
+	 * @param Array $params
+	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function map($type, $notFoundException = 'Exception')
+	public function map($type, $notFoundException = 'Exception', $params  = Array())
 	{
 		if (array_key_exists($type, $this->typeMap))
 		{
-			call_user_func([$this, $this->typeMap[$type]]);
+			call_user_func_array([$this, $this->typeMap[$type]], $params);
 		} else
 		{
 			throw new $notFoundException($type, $this->typeMap);
