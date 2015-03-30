@@ -1,6 +1,7 @@
 <?php 
 
-use Wasp\Application\Application;
+use Wasp\Application\Application,
+	Wasp\DI\ServiceMockery;
 
 /**
  * Test Case for the Application Class
@@ -11,6 +12,21 @@ use Wasp\Application\Application;
  */
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
+
+	/**
+	 * Tear down test env
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function tearDown()
+	{
+		\Mockery::close();
+
+		// Clear the mocks
+		$library = new \Wasp\DI\ServiceMockeryLibrary;
+		$library->clear();
+	}
 
 	/**
 	 * Test registering a test environment
@@ -87,6 +103,33 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Wasp\DI\DI', $app->env->getDI());
 		$this->assertInstanceOf('Symfony\Component\Filesystem\Filesystem', $app->env->getDI()->get('fs'));
+	}
+
+	/**
+	 * Test the respond function
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_mockRespond()
+	{
+		$requestMock = new ServiceMockery('request');
+		$requestMock->add();
+		$routerMock = new ServiceMockery('router');
+		$routerMock->add();
+
+		$app = new Application;
+		$app->loadEnv('test');
+
+		$request = $app->getDI()->get('request');
+		$router = $app->getDI()->get('router');
+
+		$request->shouldReceive('fromGlobals')->once()->andReturn($request);
+		$request->shouldReceive('getURI')->once()->andReturn('/test');
+		$router->shouldReceive('resolve')->once()->with('/test')->andReturn($router);
+		$router->shouldReceive('send')->once();
+
+		$app->respond();
 	}
 
 	

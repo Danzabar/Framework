@@ -135,4 +135,15 @@ class Application
 		throw new UnknownEnvironment($name);
 	}
 
+	/**
+	 * Returns the DI instance
+	 *
+	 * @return \Wasp\DI\DI
+	 * @author Dan Cox
+	 */
+	public function getDI()
+	{
+		return $this->DI;
+	}
+
 } // END class Application
