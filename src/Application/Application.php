@@ -20,6 +20,13 @@ class Application
 	protected $environments = [];
 
 	/**
+	 * DI instance from the environment
+	 *
+	 * @var \Wasp\DI\DI
+	 **/
+	protected $DI;
+
+	/**
 	 * An environment instance
 	 *
 	 * @var Object
@@ -27,12 +34,13 @@ class Application
 	public $env;
 
 	/**
-	 * DI instance from the environment
+	 * A setup instance of the profile class
 	 *
-	 * @var Object
+	 * @var \Wasp\Application\Profile
 	 **/
-	protected $DI;
+	public $profile;	
 
+	
 	/**
 	 * Set up Application Defaults
 	 *
