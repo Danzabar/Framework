@@ -39,7 +39,7 @@ class ProfileTest extends TestCase
 	{	
 		$profile = $this->DI->get('profile');
 		$profile->setDirectory(__DIR__ . '/profiles/');
-		$profile->addFiles(['application']);
+		$profile->addFiles('application');
 		$profile->addProfile('Test', 'develop');
 		$profile->hostname = 'Test';
 
@@ -47,6 +47,22 @@ class ProfileTest extends TestCase
 		$this->assertEquals(['application' => ['foo' => 'zim', 'test' => 'case']], $profile->getSettings());
 		$this->assertEquals(['application'], $profile->getFiles());
 		$this->assertEquals(__DIR__ . '/profiles/', $profile->getDirectory());
+	}
+
+	/**
+	 * Test that an empty array is returned if the file doesnt exist
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_fileDoesNotExist()
+	{
+		$profile = $this->DI->get('profile');
+		$profile->setDirectory(__DIR__ . '/profiles/');
+		$profile->addFiles('test');
+		$profile->settings();
+
+		$this->assertEquals(['test' => []], $profile->getSettings());
 	}
 
 } // END class ProfileTest extends TestCase
