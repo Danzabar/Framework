@@ -21,10 +21,15 @@ services:
         arguments:
             - "@console"
     event_dispatch:
-        class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+        class: Symfony\Component\EventDispatcher\EventDispatcher
         lazy: true
         arguments:
             - "@service_container"
+    event_register:
+        class: Wasp\Events\EventRegister
+        lazy: true
+        arguments:
+            - "@event_dispatch"
     database:
         class: Wasp\Database\Database
         arguments:
