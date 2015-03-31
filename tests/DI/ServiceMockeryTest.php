@@ -63,6 +63,21 @@ class ServiceMockeryTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(NULL, $mock->getLibrary()->find('database'));
 	}
 
+	/**
+	 * Test getting a decorator without adding this to the library
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_getMockDecoratorWithoutAdding()
+	{
+		$mock = new ServiceMockery('template');
+
+		$m = $mock->getMock();
+
+		$this->assertInstanceOf('Wasp\DI\ServiceMockeryDecorator', $m);
+	}
+
 
 
 } // END class ServiceMockeryTest extends \PHPUnit_Framework_TestCase
