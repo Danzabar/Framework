@@ -20,6 +20,11 @@ services:
         lazy: true
         arguments:
             - "@console"
+    event_dispatch:
+        class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+        lazy: true
+        arguments:
+            - "@service_container"
     database:
         class: Wasp\Database\Database
         arguments:
