@@ -3,6 +3,7 @@
 use Symfony\Component\DependencyInjection\ContainerBuilder,
 	Symfony\Component\Config\FileLocator,
 	Wasp\Exceptions,
+	Wasp\DI\ExtensionRegister,
 	Symfony\Component\DependencyInjection\Dumper\PhpDumper,
 	Symfony\Component\Config\ConfigCache,
 	Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -45,6 +46,13 @@ class DI
 	protected $cache;
 
 	/**
+	 * Instance of the extension register
+	 *
+	 * @var Wasp\DI\ExtensionRegister
+	 */
+	protected $extensions;
+
+	/**
 	 * Set up class settings
 	 *
 	 * @param String $directory
@@ -54,8 +62,9 @@ class DI
 	public function __construct($directory = NULL)
 	{
 		$this->directory = $directory;
-		$this->cache = new ConfigCache(dirname(__DIR__) . '/Application/Cache/AppCache.php', False);
+		$this->extensions = new ExtensionRegister;
 
+		$this->cache = new ConfigCache(dirname(__DIR__) . '/Application/Cache/AppCache.php', False);
 		static::$container = new ContainerBuilder;
 	}
 
@@ -73,9 +82,23 @@ class DI
 			throw new Exceptions\DI\InvalidServiceDirectory($this);
 		}
 
+		// Load extensions, if there are any
+		$this->loadExtensions();
+
 		// This just builds the components, ready to load a service definition file
 		static::$loader = new YamlFileLoader(static::$container, new FileLocator($this->directory));
 		return $this;
+	}
+
+	/**
+	 * Loads registered extensions if there are any
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function loadExtensions()
+	{
+		$this->extensions->register(static::$container);	
 	}
 
 	/**
@@ -211,6 +234,17 @@ class DI
 	public static function getContainer()
 	{
 		return static::$container;
+	}
+
+	/**
+	 * Returns the extension instance
+	 *
+	 * @return Wasp\DI\ExtensionRegister
+	 * @author Dan Cox
+	 */
+	public function extensions()
+	{
+		return $this->extensions;
 	}
 
 } // END class DI
