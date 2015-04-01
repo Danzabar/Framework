@@ -125,7 +125,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 		$router = $app->getDI()->get('router');
 
 		$request->shouldReceive('fromGlobals')->once()->andReturn($request);
-		$request->shouldReceive('getURI')->once()->andReturn('/test');
+		$request->shouldReceive('getRequestUri')->once()->andReturn('/test');
 		$router->shouldReceive('resolve')->once()->with('/test')->andReturn($router);
 		$router->shouldReceive('send')->once();
 
