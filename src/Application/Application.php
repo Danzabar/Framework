@@ -65,7 +65,7 @@ class Application
 
 		// Resolve the route to get a response
 		$response = $this->DI->get('router')
-							 ->resolve($request->getURI());
+							 ->resolve($request->getRequestUri());
 
 		// Send the response
 		$response->send();
