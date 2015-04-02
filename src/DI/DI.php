@@ -73,7 +73,7 @@ class DI
 	 *
 	 * @var string
 	 **/
-	protected $cache_class;
+	protected $cache_class = 'AppCache';
 
 	/**
 	 * Set up class settings
@@ -82,14 +82,13 @@ class DI
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($directory = NULL, $cache_directory = NULL, $cache_namespace = NULL, $cache_class = NULL)
+	public function __construct($directory = NULL, $cache_directory = NULL, $cache_namespace = NULL)
 	{
 		$this->directory = $directory;
 		$this->extensions = new ExtensionRegister;
 		$this->cache_directory = (!is_null($cache_directory) ? $cache_directory : dirname(__DIR__) . '/Application/Cache/AppCache.php');
 		$this->cache_namespace = (!is_null($cache_namespace) ? $cache_namespace : 'Wasp\Application\Cache');
-		$this->cache_class = (!is_null($cache_class) ? $cache_class : 'AppCache');
-
+		
 		$this->cache = new ConfigCache($this->cache_directory, False);
 		static::$container = new ContainerBuilder;
 	}
