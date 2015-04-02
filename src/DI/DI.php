@@ -62,11 +62,18 @@ class DI
 
 	/**
 	 * Fully qualified class name for cache.
-	 * eg Wasp\Cache\AppCache
+	 * eg Wasp\Cache
 	 *
 	 * @var string
 	 */
 	protected $cache_namespace;
+
+	/**
+	 * Class name of the Cache
+	 *
+	 * @var string
+	 **/
+	protected $cache_class;
 
 	/**
 	 * Set up class settings
@@ -75,12 +82,13 @@ class DI
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($directory = NULL, $cache_directory = NULL, $cache_namespace = NULL)
+	public function __construct($directory = NULL, $cache_directory = NULL, $cache_namespace = NULL, $cache_class = NULL)
 	{
 		$this->directory = $directory;
 		$this->extensions = new ExtensionRegister;
 		$this->cache_directory = (!is_null($cache_directory) ? $cache_directory : dirname(__DIR__) . '/Application/Cache/AppCache.php');
-		$this->cache_namespace = (!is_null($cache_namespace) ? $cache_namespace : 'Wasp\Application\Cache\AppCache');
+		$this->cache_namespace = (!is_null($cache_namespace) ? $cache_namespace : 'Wasp\Application\Cache');
+		$this->cache_class = (!is_null($cache_class) ? $cache_class : 'AppCache');
 
 		$this->cache = new ConfigCache($this->cache_directory, False);
 		static::$container = new ContainerBuilder;
@@ -148,7 +156,7 @@ class DI
 				->cache();
 		}
 
-		$container = new \ReflectionClass($this->cache_namespace);
+		$container = new \ReflectionClass($this->cache_namespace . '\\' .$this->cache_class);
 
 		static::$container = $container->newInstance();
 	}
@@ -162,10 +170,9 @@ class DI
 	public function cache()
 	{
 		$dump = new PhpDumper(static::$container);
-		$cache = new \ReflectionClass($this->cache_namespace);
 		
 		$this->cache->write(
-			$dump->dump(['class' => $cache->getShortName(), 'namespace' => $this->cache_namespace]), 
+			$dump->dump(['class' => $this->cache_class, 'namespace' => $this->cache_namespace]), 
 			static::$container->getResources()
 		);
 
