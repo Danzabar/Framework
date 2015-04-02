@@ -53,18 +53,36 @@ class DI
 	protected $extensions;
 
 	/**
+	 * Location of the AppCache
+	 * eg. /var/www/wasp/cache/AppCache.php
+	 *
+	 * @var string
+	 */
+	protected $cache_directory;
+
+	/**
+	 * Fully qualified class name for cache.
+	 * eg Wasp\Cache\AppCache
+	 *
+	 * @var string
+	 */
+	protected $cache_namespace;
+
+	/**
 	 * Set up class settings
 	 *
 	 * @param String $directory
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct($directory = NULL)
+	public function __construct($directory = NULL, $cache_directory = NULL, $cache_namespace = NULL)
 	{
 		$this->directory = $directory;
 		$this->extensions = new ExtensionRegister;
+		$this->cache_directory = (!is_null($cache_directory) ? $cache_directory : dirname(__DIR__) . '/Application/Cache/AppCache.php');
+		$this->cache_namespace = (!is_null($cache_namespace) ? $cache_namespace : 'Wasp\Application\Cache\AppCache');
 
-		$this->cache = new ConfigCache(dirname(__DIR__) . '/Application/Cache/AppCache.php', False);
+		$this->cache = new ConfigCache($this->cache_directory, False);
 		static::$container = new ContainerBuilder;
 	}
 
@@ -128,10 +146,11 @@ class DI
 				->load($serviceFile)
 				->compile()
 				->cache();
-
 		}
 
-		static::$container = new \Wasp\Application\Cache\AppCache;
+		$container = new \ReflectionClass($this->cache_namespace);
+
+		static::$container = $container->newInstance();
 	}
 
 	/**

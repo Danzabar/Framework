@@ -36,7 +36,8 @@ class Environment
 	public function load(Application $App)
 	{
 		$this->App = $App;
-		$this->DI = new DI(dirname(__DIR__) . '/Config/');
+
+		$this->DIInstance();
 
 		// If the Child Environment Class has a Setup function, call it.
 		if (method_exists($this, 'setup'))
@@ -45,6 +46,28 @@ class Environment
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Creates a DI instance using the settings from the Application Profile
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function DIInstance()
+	{
+		$profile = $this->App->profile;
+		$di_cache_dir = NULL;
+		$di_cache_ns = NULL;
+
+		if(!is_null($profile))
+		{
+			$settings = $profile->getSettings();
+			$di_cache_dir = (isset($settings['application']['di_cache_directory']) ? $settings['application']['di_cache_directory'] : NULL);
+			$di_cache_ns = (isset($settings['application']['di_cache_namespace']) ? $settings['application']['di_cache_namespace'] : NULL);			
+		}
+
+		$this->DI = new DI(dirname(__DIR__) . '/Config/', $di_cache_dir, $di_cache_ns);
 	}
 
 	/**
