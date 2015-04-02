@@ -162,9 +162,10 @@ class DI
 	public function cache()
 	{
 		$dump = new PhpDumper(static::$container);
+		$cache = new \ReflectionClass($this->cache_namespace);
 		
 		$this->cache->write(
-			$dump->dump(['class' => 'AppCache', 'namespace' => 'Wasp\Application\Cache']), 
+			$dump->dump(['class' => $cache->getShortName(), 'namespace' => $this->cache_namespace]), 
 			static::$container->getResources()
 		);
 
