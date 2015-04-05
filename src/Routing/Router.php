@@ -120,4 +120,15 @@ class Router
 		return $match->match($this->uri);
 	}
 
+	/**
+	 * Returns the Matched route
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function currentRoute()
+	{
+		return $this->match;
+	}
+
 } // END class Router

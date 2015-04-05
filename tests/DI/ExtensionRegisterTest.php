@@ -28,19 +28,6 @@ class ExtensionRegisterTest extends TestCase
 	}
 
 	/**
-	 * Tear down test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function tearDown()
-	{
-		parent::tearDown();
-
-		ExtensionRegister::clearExtensions();
-	}
-
-	/**
 	 * Test that the services have been compiled
 	 *
 	 * @return void

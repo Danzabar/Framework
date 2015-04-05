@@ -67,6 +67,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		// Clear the mocks
 		$library = new \Wasp\DI\ServiceMockeryLibrary;
 		$library->clear();
+
+		$extensions = new \Wasp\DI\ExtensionRegister;
+		$extensions->clearExtensions();
 	}
 	
 } // END class TestCase extends \PHPUnit_Framework_TestCase

@@ -1,0 +1,3 @@
+services:
+    testfilter:
+        class: Wasp\Test\Filters\FilterExtension\TestFilter
