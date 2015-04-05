@@ -53,21 +53,50 @@ class Dispatcher
 	 *
 	 * @param String $action
 	 * @param Array $params
+	 * @param Array $filters
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @author Dan Cox
 	 */
-	public function dispatch($action, Array $params = Array())
+	public function dispatch($action, Array $params = Array(), Array $filters = Array())
 	{
 		$this->extract($action);
 		
 		// Create the Reflection
 		$this->reflection = new \ReflectionClass($this->controller);		
 
+		// Before dispatch filters
+		$this->before($filters);
+
 		// Fire the method
 		$this->response = $this->fire($params);
 
 		// Analyse the response
 		return $this->formatResponse();
+	}
+
+	/**
+	 * Triggers a single filter
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function triggerFilter($filter, $method)
+	{
+		$filter = $this->DI->get('filter')->prepare();
+		$filter->fire($filter, $method);
+	}
+
+	/**
+	 * Checks and fires before filters
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function before(Array $filters)
+	{
+		if (array_key_exists('before', $filters)) {
+			$this->triggerFilter($filters['before']['filter'], $filters['before']['method']);		
+		}
 	}
 
 	/**

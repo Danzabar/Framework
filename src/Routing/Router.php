@@ -37,6 +37,13 @@ class Router
 	protected $params;
 
 	/**
+	 * An Array of active filters for this route
+	 *
+	 * @var Array
+	 */
+	protected $filters;
+
+	/**
 	 * Request Context instance
 	 *
 	 * @var \Symfony\Component\Routing\RequestContext
@@ -78,9 +85,10 @@ class Router
 		$this->match = $this->match();
 
 		$this->extractParams();
+		$this->extractFilters();
 
 		$dispatcher = $this->DI->get('dispatcher');
-		return $dispatcher->dispatch($this->match['controller'], $this->params);
+		return $dispatcher->dispatch($this->match['controller'], $this->params, $this->filters);
 	}
 
 	/**
@@ -98,6 +106,25 @@ class Router
 			if (!in_array($key, $standardKeys))
 			{
 				$this->params[$key] = $potential;
+			}
+		}
+	}
+
+	/**
+	 * Extracts filter details from the matched route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function extractFilters()
+	{	
+		$this->filters = [];
+		$filterKeys = ['before', 'after'];
+
+		foreach ($filterKeys as $fk)
+		{
+			if (array_key_exists($fk, $this->match)) {
+				$this->filters[$fk] = Array('filter' => $this->match[$fk][0], 'method' => $this->match[$fk][1]);
 			}
 		}
 	}
