@@ -71,6 +71,30 @@ class Environment
 	}
 
 	/**
+	 * Creates the templating engines and adds them to the delegator
+	 *
+	 * @param String $directory
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function startTemplating($directory)
+	{
+		$twig = $this->DI->get('twigengine');
+		$php = $this->DI->get('phpengine');
+
+		$this->DI->get('template')
+				 ->setDirectory($directory);
+		
+		$twig->create();
+		$php->create();
+
+		$this->DI->get('template')
+				 ->addEngine($twig)
+				 ->addEngine($php->getEngine())
+				 ->start();
+	}
+
+	/**
 	 * Loads the DI with a specific Service File
 	 * Important to note that this function does not use the CACHED DI Container.
 	 *

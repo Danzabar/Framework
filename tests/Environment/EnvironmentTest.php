@@ -64,6 +64,25 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Wasp\Application\Cache\AppCache', $env->getDI()->getContainer());
 	}
 
+	/**
+	 * Test starting the delegation engine
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_startTemplating()
+	{
+		$env = new Environment;
+		$env->load($this->app);
+		$env->createDI('core');
+
+		$env->startTemplating(dirname(__DIR__) . '/Templating/Templates/');
+
+		$str = $env->getDI()->get('template')->make('phptest.php', ['foo' => 'bar']);
+		
+		$this->assertContains('The PHP engine', $str);		
+	}
+
 	
 } // END class EnvironmentTest extends \PHPUnit_Framework_TestCase
 
