@@ -72,5 +72,19 @@ class DITest extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('Wasp\Application\Cache\AppCache', $di->get('connections')->getDI());
 	}
 
+	/**
+	 * Test the extension register function from the DI class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function  test_extensionRegistrar()
+	{
+		$di = new DI(CONFIG);
+		$di->build()->load('core');
+
+		$this->assertInstanceOf('Wasp\DI\ExtensionRegister', $di->extensions());
+	}
+
 
 } // END class DITest extends \PHPUnit_Framework_TestCase
