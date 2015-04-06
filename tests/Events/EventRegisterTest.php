@@ -70,5 +70,19 @@ class EventRegisterTest extends TestCase
 		$register->fire('event.test', Array('foo' => 'test', 'bar' => 'test'));
 	}
 
+	/**
+	 * Test firing an event that does not have a registered event class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_firingEventWithNoType()
+	{
+		$register = $this->DI->get('event_register');
+		$event = $register->initEvent('event.notype', Array());
+
+		$this->assertInstanceOf('Symfony\Component\EventDispatcher\Event', $event);
+	}
+
 } // END class EventRegisterTest extends TestCase
 
