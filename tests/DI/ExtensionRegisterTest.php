@@ -51,4 +51,20 @@ class ExtensionRegisterTest extends TestCase
 		$extension->getXsdValidationBasePath();
 	}
 
+	/**
+	 * Test loading extensions from a file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_loadFromFile()
+	{
+		$register = new ExtensionRegister;
+		$register->clearExtensions();
+		$register->loadFromFile(__DIR__ . '/Extension/Extensions.php');
+
+		$this->assertContains('Wasp\Test\DI\Extension\TestExtension', $register->getExtensions());
+	}
+
+
 } // END class ExtensionRegisterTest extends TestCase

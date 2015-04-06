@@ -59,8 +59,8 @@ class ExtensionRegister
 	public function loadFromFile($file)
 	{
 		$fs = new Filesystem;
-		
-		if ($this->exists($file))
+
+		if ($fs->exists($file))
 		{
 			$extensions = require $file;
 
