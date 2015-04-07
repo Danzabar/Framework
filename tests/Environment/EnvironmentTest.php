@@ -1,6 +1,10 @@
 <?php
 
 use Wasp\Environment\Environment,
+	Wasp\DI\ServiceMockery,
+	Wasp\DI\ServiceMockeryLibrary,
+	Wasp\Application\Profile,
+	Symfony\Component\Filesystem\Filesystem,
 	Wasp\Application\Application;
 
 /**
@@ -81,6 +85,47 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 		$str = $env->getDI()->get('template')->make('phptest.php', ['foo' => 'bar']);
 		
 		$this->assertContains('The PHP engine', $str);		
+	}
+
+	/**
+	 * Test adding the twig configuration
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_templatingWithTwigConfig()
+	{
+		$profile = new Profile(new Filesystem);
+		$profile->setSettings(['templates' => Array('twig' => Array('debug' => true))]);
+
+		$this->app->profile = $profile;
+
+		$env = new Environment;
+		$env->load($this->app);
+	
+		$env->getDI()->addCompilerPass(new \Wasp\DI\Pass\MockeryPass);
+
+		$t = new ServiceMockery('twigengine');
+		$t->add();
+
+		$temp = new ServiceMockery('template');
+		$temp->add();
+
+		$env->createDI();
+		$twig = $env->getDI()->get('twigengine');
+		$template = $env->getDI()->get('template');
+
+		$twig->shouldReceive('create')->once()->with(Array('debug' => true));
+		$template->shouldReceive('setDirectory')->andReturn($template);
+		$template->shouldReceive('getDirectory')->andReturn(__DIR__);
+		$template->shouldReceive('addEngine')->andReturn($template);
+		$template->shouldReceive('start');
+
+		$env->startTemplating(dirname(__DIR__) . '/Templating/Templates/');
+
+		// Clean Up
+		$library = new ServiceMockeryLibrary();
+		$library->clear();
 	}
 
 	

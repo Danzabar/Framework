@@ -174,6 +174,19 @@ class Profile
 	}
 
 	/**
+	 * Set the profile settings
+	 *
+	 * @param Array $settings
+	 * @return Profile
+	 * @author Dan Cox
+	 */
+	public function setSettings(Array $settings)
+	{	
+		$this->settings = $settings;
+		return $this;
+	}
+
+	/**
 	 * Returns the current set base directory
 	 *
 	 * @return String

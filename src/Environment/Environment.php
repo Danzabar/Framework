@@ -21,6 +21,13 @@ class Environment
 	protected $App;
 
 	/**
+	 * Settings as defined by the profile
+	 *
+	 * @var Array
+	 */
+	protected $settings;
+
+	/**
 	 * The DI instance
 	 *
 	 * @var Object
@@ -36,6 +43,8 @@ class Environment
 	public function load(Application $App)
 	{
 		$this->App = $App;
+
+		$this->settings = (!is_null($this->App->profile) ? $this->App->profile->getSettings() : Array());
 
 		$this->DIInstance();
 
@@ -56,16 +65,8 @@ class Environment
 	 */
 	public function DIInstance()
 	{
-		$profile = $this->App->profile;
-		$di_cache_dir = NULL;
-		$di_cache_ns = NULL;
-
-		if(!is_null($profile))
-		{
-			$settings = $profile->getSettings();
-			$di_cache_dir = (isset($settings['application']['di_cache_directory']) ? $settings['application']['di_cache_directory'] : NULL);
-			$di_cache_ns = (isset($settings['application']['di_cache_namespace']) ? $settings['application']['di_cache_namespace'] : NULL);			
-		}
+		$di_cache_dir = (isset($this->settings['application']['di_cache_directory']) ? $this->settings['application']['di_cache_directory'] : NULL);
+		$di_cache_ns = (isset($this->settings['application']['di_cache_namespace']) ? $this->settings['application']['di_cache_namespace'] : NULL);			
 
 		$this->DI = new DI(dirname(__DIR__) . '/Config/', $di_cache_dir, $di_cache_ns);
 	}
@@ -82,10 +83,12 @@ class Environment
 		$twig = $this->DI->get('twigengine');
 		$php = $this->DI->get('phpengine');
 
+		$twigConfig = (isset($this->settings['templates']['twig']) ? $this->settings['templates']['twig'] : Array());
+
 		$this->DI->get('template')
 				 ->setDirectory($directory);
 		
-		$twig->create();
+		$twig->create($twigConfig);
 		$php->create();
 
 		$this->DI->get('template')
