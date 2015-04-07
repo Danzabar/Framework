@@ -104,6 +104,25 @@ class TemplateTest extends TestCase
 				 ->setDirectory(null)
 				 ->start();
 	}
+
+	/**
+	 * Test twigs ability to use the container
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_twigDI()
+	{
+		$this->DI->get('twigengine')->create(['strict_variables' => 'true']);
+
+		$this->DI->get('template')
+				 ->addEngine($this->DI->get('twigengine'))
+				 ->start();
+
+		$temp = $this->DI->get('template')->make('twigDITest.html.twig');
+	
+		$this->assertContains($this->DI->get('template')->getDirectory(), $temp);
+	}
 	
 
 } // END class TemplateTest extends TestCase

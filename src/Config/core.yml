@@ -38,6 +38,11 @@ services:
         class: Wasp\Controller\Dispatcher
         calls:
             - [setDI, ["@service_container"]]
+    diawaretwig:
+        class: Wasp\Templating\DIAwareTwigContainer
+        lazy: true
+        arguments:
+            - "@service_container"
     finder:
         class: Symfony\Component\Finder\Finder
         lazy: true
@@ -107,6 +112,7 @@ services:
         arguments:
             - "@template"
             - "@fs"
+            - "@diawaretwig"
     url:
         class: Wasp\Routing\URL
         lazy: true

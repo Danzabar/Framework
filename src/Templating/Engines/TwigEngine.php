@@ -42,28 +42,41 @@ class TwigEngine implements EngineInterface
 	protected $template;
 
 	/**
+	 * An instance of the twig specific container
+	 *
+	 * @var \Wasp\Templating\DIAwareTwigContainer
+	 */
+	protected $container;
+
+	/**
 	 * Load dependencies
 	 *
-	 * @param \Wasp\Templating\Template $template
-	 * @param \Symfony\Component\Filesystem\Filesystem
+	 * @param \Wasp\Templating\Template $template $template
+	 * @param \Symfony\Component\Filesystem\Filesystem $fs
+	 * @param \Wasp\Templating\DIAwareTwigContainer $twigContainer
 	 * @author Dan Cox
 	 **/
-	public function __construct($template, $fs)
+	public function __construct($template, $fs, $twigContainer)
 	{
 		$this->template = $template;
 		$this->fs = $fs;
+		$this->container = $twigContainer;
 	}
 
 	/**
 	 * Creates the environment
 	 *
+	 * @param Array $settings
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function create()
+	public function create(Array $settings = Array())
 	{
 		$this->loader = new Loader($this->template->getDirectory());
-		$this->environment = new Environment($this->loader, []);
+		$this->environment = new Environment($this->loader, $settings);
+
+		// Add Globals
+		$this->environment->addGlobal('app', $this->container);
 	}
 
 	/**
