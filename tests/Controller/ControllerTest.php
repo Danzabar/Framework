@@ -24,6 +24,9 @@ class ControllerTest extends TestCase
 		$apiMock = new ServiceMockery('response_api');
 		$apiMock->add();
 
+		$filterMock = new ServiceMockery('filter');
+		$filterMock->add();
+
 		parent::setUp();
 	}
 
@@ -81,6 +84,27 @@ class ControllerTest extends TestCase
 		$response = $dispatch->dispatch($action);
 
 		$this->assertContains('Redirecting', $response->getContent());
+	}
+
+	/**
+	 * Test dispatching with filters attached
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_dispatchingWithFilters()
+	{
+		$filter = $this->DI->get('filter');
+		$filter->shouldReceive('prepare')->once()->andReturn($filter);
+		$filter->shouldReceive('fire')->with('test', 'method')->once();
+
+		$api = $this->DI->get('response_api');
+		$api->shouldReceive('setContent')->once();
+		$api->shouldReceive('setStatusCode')->once();
+
+
+		$dispatch = $this->DI->get('dispatcher');
+		$dispatch->dispatch('Wasp\Test\Controller\Controller::returnObject', Array(), Array('before' => ['filter' => 'test', 'method' => 'method']));	
 	}
 
 } // END class ControllerTest extends TestCase

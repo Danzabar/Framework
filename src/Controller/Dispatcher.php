@@ -82,8 +82,8 @@ class Dispatcher
 	 */
 	public function triggerFilter($filter, $method)
 	{
-		$filter = $this->DI->get('filter')->prepare();
-		$filter->fire($filter, $method);
+		$filters = $this->DI->get('filter')->prepare();
+		$filters->fire($filter, $method);
 	}
 
 	/**
