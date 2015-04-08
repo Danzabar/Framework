@@ -36,11 +36,8 @@ class Entity
 	 */
 	public function save()
 	{
-		$connection = self::get('connection');
-
-		// Persist and flush
-		$connection->connection()->persist($this);
-		$connection->connection()->flush();
+		$db = self::get('database');
+		$db->save($this);
 	}
 
 	/**
@@ -51,10 +48,8 @@ class Entity
 	 */
 	public function delete()
 	{
-		$connection = self::get('connection');
-
-		$connection->connection()->remove($this);
-		$connection->connection()->flush();
+		$db = self::get('database');
+		$db->remove($this);
 	}
 
 	/**

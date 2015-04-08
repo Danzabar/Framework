@@ -25,9 +25,6 @@ class EntityMockTest extends TestCase
 		$dbMock = new ServiceMockery('database');
 		$dbMock->add();
 
-		$conMock = new ServiceMockery('connection');
-		$conMock->add();
-
 		parent::setUp();
 	}
 	
@@ -80,10 +77,8 @@ class EntityMockTest extends TestCase
 	 */
 	public function test_save()
 	{
-		$connection = $this->DI->get('connection');
-		$connection->shouldReceive('connection')->andReturn($connection);
-		$connection->shouldReceive('persist')->once();
-		$connection->shouldReceive('flush')->once();
+		$db = $this->DI->get('database');
+		$db->shouldReceive('save')->once();
 
 		$entity = new Test;
 		$entity->name = 'foo';
@@ -98,15 +93,12 @@ class EntityMockTest extends TestCase
 	 */
 	public function test_delete()
 	{
+		$db = $this->DI->get('database');
+		$db->shouldReceive('remove')->once();
+
 		$entity = new Test;
 		$entity->Id = 1;
 		$entity->name = 'test';
-
-		$connection = $this->DI->get('connection');
-		$connection->shouldReceive('connection')->andReturn($connection);
-		$connection->shouldReceive('remove')->with($entity)->once();
-		$connection->shouldReceive('flush')->once();
-
 		$entity->delete();
 	}
 

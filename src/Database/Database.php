@@ -96,6 +96,32 @@ class Database
 	}
 
 	/**
+	 * Saves an entities state
+	 *
+	 * @param Object $entity
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function save($entity)
+	{
+		$this->connection->connection()->persist($entity);
+		$this->connection->connection()->flush();
+	}
+
+	/**
+	 * Remove an entity
+	 *
+	 * @param Object $entity
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function remove($entity)
+	{
+		$this->connection->connection()->remove($entity);
+		$this->connection->connection()->flush();
+	}
+
+	/**
 	 * Performs a query from a string
 	 *
 	 * @param String $query
