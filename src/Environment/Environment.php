@@ -1,6 +1,7 @@
 <?php namespace Wasp\Environment;
 
 use Wasp\Application\Application,
+	Wasp\DI\DICompilerPassRegister,
 	Wasp\DI\DI;
 
 
@@ -69,6 +70,24 @@ class Environment
 		$di_cache_ns = (isset($this->settings['application']['di_cache_namespace']) ? $this->settings['application']['di_cache_namespace'] : NULL);			
 
 		$this->DI = new DI(dirname(__DIR__) . '/Config/', $di_cache_dir, $di_cache_ns);
+
+		$this->loadRegisterCompilerPasses();
+	}
+
+	/**
+	 * Loads registered compiler passes
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function loadRegisterCompilerPasses()
+	{
+		$passes = DICompilerPassRegister::getPasses();
+
+		foreach ($passes as $pass)
+		{
+			$this->DI->registerCompilerPass($pass);
+		}
 	}
 
 	/**

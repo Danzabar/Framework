@@ -18,6 +18,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	protected $application;
 
 	/**
+	 * An array of compiler passes to register once the DI is created
+	 *
+	 * @var Array
+	 */
+	protected $passes;
+
+	/**
 	 * Instance of the WASP DI
 	 *
 	 * @var Object
@@ -44,6 +51,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
 			$this->env = 'test';
 		}
 
+		$this->registerPasses();
+
 		$this->application = new \Wasp\Application\Application;
 		$this->application->loadEnv($this->env);
 		$this->DI = $this->application->env->getDI();
@@ -51,6 +60,20 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		if(property_exists($this, 'commands') && is_array($this->commands))
 		{
 			$this->DI->get('commandloader')->fromArray($this->commands);	
+		}
+	}
+
+	/**
+	 * Registers passes specified in the test
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function registerPasses()
+	{
+		if (!is_null($this->passes))
+		{
+			DICompilerPassRegister::add($this->passes);
 		}
 	}
 

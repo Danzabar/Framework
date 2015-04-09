@@ -172,4 +172,15 @@ class Database
 		return $this->entity;
 	}
 
+	/**
+	 * Returns the entity Manager
+	 *
+	 * @return Object
+	 * @author Dan Cox
+	 */
+	public function entityManager()
+	{	
+		return $this->connection->connection();
+	}
+
 } // END class Database
