@@ -42,7 +42,7 @@ class DICompilerPassRegister
 			$class = Array($class);
 		}	
 
-		static::$passes[] = array_merge(static::$passes, $class);
+		static::$passes = array_merge(static::$passes, $class);
 	}
 
 	/**

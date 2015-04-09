@@ -1,5 +1,8 @@
 <?php namespace Wasp\Test;
 
+use Wasp\DI\DICompilerPassRegister;
+
+
 /**
  * Test case base that provides application access
  *
@@ -93,6 +96,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
 		$extensions = new \Wasp\DI\ExtensionRegister;
 		$extensions->clearExtensions();
+
+		DICompilerPassRegister::clear();
 	}
 	
 } // END class TestCase extends \PHPUnit_Framework_TestCase

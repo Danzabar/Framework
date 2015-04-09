@@ -86,7 +86,9 @@ class Environment
 
 		foreach ($passes as $pass)
 		{
-			$this->DI->registerCompilerPass($pass);
+			$reflection = new \ReflectionClass($pass);
+
+			$this->DI->addCompilerPass($reflection->newInstance());
 		}
 	}
 
