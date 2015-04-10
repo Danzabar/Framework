@@ -61,6 +61,7 @@ class ConnectionValidator
 			'driver'		=> 'pdo_mysql',
 			'user'			=> 'root',
 			'password'		=> '',
+			'memory'		=> false,
 			'dbname'		=> ''
 		);
 
