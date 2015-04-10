@@ -31,7 +31,7 @@ class DatabaseMockery
 	}
 
 	/**
-	 * Creates the standard lite connection
+	 * Creates the standard sqlite connection
 	 *
 	 * @param String $entityDirectory
 	 * @return void
@@ -52,6 +52,17 @@ class DatabaseMockery
 		$this->database = new Database($this->DI->get('connection'));
 
 		$this->DI->get('schema')->update();
+	}
+
+	/**
+	 * Removes all the mocked rows and tables
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function clearMockedData()
+	{
+		$this->DI->get('schema')->dropDatabase();
 	}
 
 	/**

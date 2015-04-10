@@ -16,9 +16,9 @@ class DatabaseMockeryTest extends TestCase
 {
 
 	/**
-	 * undocumented class variable
+	 * Register Compiler passes
 	 *
-	 * @var string
+	 * @var Array
 	 */
 	protected $passes = [
 		'Wasp\DI\Pass\DatabaseMockeryPass'
@@ -33,6 +33,8 @@ class DatabaseMockeryTest extends TestCase
 	public function setUp()
 	{
 		parent::setUp();
+
+		$this->DI->get('database')->create(ENTITIES);
 	}
 
 	/**
@@ -54,8 +56,6 @@ class DatabaseMockeryTest extends TestCase
 	 */
 	public function test_connectionToMock()
 	{
-		$this->DI->get('database')->create(ENTITIES);
-
 		$test = new Test();
 		$test->name = 'bob';
 		$test->save();
@@ -65,7 +65,5 @@ class DatabaseMockeryTest extends TestCase
 
 		$this->assertEquals('bob', $results->name);
 	}
-
-
 	
 } // END class DatabaseMockeryTest extends TestCase
