@@ -73,4 +73,29 @@ class RouteTest extends TestCase
 		$this->assertEquals('/blog/new', $match->getPath());
 	}
 
+	/**
+	 * Test the route/router journey fully
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_runningRouteWithRealResponse()
+	{
+		// Add a route
+		$this->DI->get('route')->add('test.json', '/json', Array("GET"), Array('controller' => 'Wasp\Test\Controller\Controller::jsonResponse'));
+
+		// Create a request
+		$request = $this->DI->get('request');
+		$request->make('/json', 'GET');
+
+		// Response to this
+		$response = $this->DI->get('router')->resolve($request->getRequestUri());
+
+		// Check the response
+		$this->assertTrue($response->isOk());
+		$this->assertEquals('["1","2","3","4","5"]', $response->getContent());
+
+		$this->assertEquals('application/json', $response->headers->get('content_type'));
+	}
+
 } // END class RouteTest extends TestCase
