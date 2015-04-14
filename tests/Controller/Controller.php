@@ -33,6 +33,17 @@ class Controller extends BaseController
 	}
 
 	/**
+	 * Returning a json response
+	 *
+	 * @return Response
+	 * @author Dan Cox
+	 */
+	public function jsonResponse()
+	{
+		return $this->response->json(Array('1','2','3','4','5'), 200);
+	}
+
+	/**
 	 * Redirect
 	 *
 	 * @return Response

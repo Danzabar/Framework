@@ -30,6 +30,26 @@ class ControllerTest extends TestCase
 		parent::setUp();
 	}
 
+	/**
+	 * Test the json response
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_jsonResponse()
+	{
+		$action = 'Wasp\Test\Controller\Controller::jsonResponse';
+
+		$dispatch = $this->DI->get('dispatcher');
+		$response = $dispatch->dispatch($action);
+
+		$this->assertTrue($response->isOk());
+		$this->assertEquals('["1","2","3","4","5"]', $response->getContent());
+
+		$content_type = $response->headers->get('content_type');
+
+		$this->assertEquals('application/json', $content_type);
+	}
 
 	/**
 	 * Check dispatching a controller that returns a string
