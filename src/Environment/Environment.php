@@ -119,6 +119,25 @@ class Environment
 	}
 
 	/**
+	 * Creates connection to named database connection
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function connectTo($connection)
+	{
+		try {
+			
+			$this->DI->get('connection')->connect($connection);
+
+		} catch (\Exception $e) {
+
+			$response = $this->DI->get('response')->make('<p>The database connection details seem invalid, please check them.</p>', 200);
+			$response->send();		
+		}
+	}
+
+	/**
 	 * Loads the DI with a specific Service File
 	 * Important to note that this function does not use the CACHED DI Container.
 	 *

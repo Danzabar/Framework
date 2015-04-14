@@ -69,6 +69,85 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test connecting to a name connection
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_connection()
+	{
+		$env = new Environment;
+		$env->load($this->app);
+		$env->createDI('core');
+
+		$env->getDI()->get('connections')->add('test', [
+			'driver'			=> 'pdo_mysql',
+			'user'				=> 'user',
+			'dbname'			=> 'wasp',
+			'models'			=> ENTITIES	
+		]);
+
+		$env->connectTo('test');
+	}
+
+	/**
+	 * Test that the connection throws an exception which is caught 
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_connectionFailsWithBadDetails()
+	{
+		$rmock = new ServiceMockery('response');
+		$rmock->add();
+
+		$env = new Environment;
+		$env->load($this->app);
+		$env->getDI()->addCompilerPass( new \Wasp\DI\Pass\MockeryPass );
+
+		$env->createDI('core');
+
+		$env->getDI()->get('connections')->add('test', [
+			'driver'			=> 'baddriver',
+			'user'				=> '',
+			'dbname'			=> '',
+			'models'			=> ENTITIES	
+		]);
+
+		$resp = $env->getDI()->get('response');
+
+		$resp->shouldReceive('make')->once()->andReturn($resp);
+		$resp->shouldReceive('send')->once();
+
+		$env->connectTo('test');
+	}
+
+	/**
+	 * Test similar to above but with a missing connection
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_connectionWithUnknownConnection()
+	{
+		$rmock = new ServiceMockery('response');
+		$rmock->add();
+
+		$env = new Environment;
+		$env->load($this->app);
+		$env->getDI()->addCompilerPass( new \Wasp\DI\Pass\MockeryPass );
+
+		$env->createDI('core');
+
+		$resp = $env->getDI()->get('response');
+
+		$resp->shouldReceive('make')->once()->andReturn($resp);
+		$resp->shouldReceive('send')->once();
+
+		$env->connectTo('missing');
+	}
+
+	/**
 	 * Test starting the delegation engine
 	 *
 	 * @return void
