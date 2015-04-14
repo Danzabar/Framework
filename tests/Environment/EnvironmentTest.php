@@ -148,6 +148,35 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test that we can connect using profile settings
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_connectThroughProfileSettings()
+	{
+		$profile = new Profile(new FileSystem);
+		$profile->setSettings(['application' => Array('default_connection' => 'test')]);
+
+		$this->app->profile = $profile;
+
+		$env = new Environment;
+		$env->load($this->app);
+		$env->createDI('core');
+
+		$env->getDI()->get('connections')->add('test', [
+			'driver'			=> 'pdo_mysql',
+			'user'				=> 'user',
+			'dbname'			=> 'wasp',
+			'models'			=> ENTITIES
+		]);
+
+		$status = $env->connect();
+
+		$this->assertTrue($status);
+	}
+
+	/**
 	 * Test starting the delegation engine
 	 *
 	 * @return void

@@ -138,6 +138,24 @@ class Environment
 	}
 
 	/**
+	 * Uses profile settings to connect to the default database
+	 *
+	 * @return Boolean
+	 * @author Dan Cox
+	 */
+	public function connect()
+	{
+		if ($this->settings['application']['default_connection'] !== '')
+		{
+			$this->connectTo($this->settings['application']['default_connection']);
+
+			return true;
+		}		
+
+		return false;
+	}
+
+	/**
 	 * Loads the DI with a specific Service File
 	 * Important to note that this function does not use the CACHED DI Container.
 	 *
