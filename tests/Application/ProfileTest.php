@@ -50,6 +50,24 @@ class ProfileTest extends TestCase
 	}
 
 	/**
+	 * Test adding an array of profiles at once
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_addingAnArrayOfProfiles()
+	{
+		$profile = $this->DI->get('profile');
+		$profile->addProfiles([
+			'test1'		=> 'develop',
+			'test2'		=> 'production'
+		]);
+
+		$this->assertContains('develop', $profile->getProfiles());
+		$this->assertContains('production', $profile->getProfiles());
+	}
+
+	/**
 	 * Test that an empty array is returned if the file doesnt exist
 	 *
 	 * @return void

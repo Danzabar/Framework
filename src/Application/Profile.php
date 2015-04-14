@@ -163,6 +163,23 @@ class Profile
 	}
 
 	/**
+	 * Adds an array of profiles
+	 *
+	 * @param Array $profiles
+	 * @return Profile
+	 * @author Dan Cox
+	 */
+	public function addProfiles(Array $profiles)
+	{
+		foreach ($profiles as $hostname => $directory)
+		{
+			$this->addProfile($hostname, $directory);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Returns the settings
 	 *
 	 * @return Array
@@ -206,6 +223,17 @@ class Profile
 	public function getFiles()
 	{
 		return $this->files;
+	}
+
+	/**
+	 * Returns the current loaded profiles
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function getProfiles()
+	{
+		return $this->profiles;
 	}
 
 } // END class Profile

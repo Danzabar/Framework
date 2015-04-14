@@ -132,5 +132,16 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 		$app->respond();
 	}
 
+	/**
+	 * Test respond without mocks
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_respond()
+	{
+
+	}
+
 	
 } // END class ApplicationTest extends \PHPUnit_Framework_TestCase
