@@ -132,11 +132,17 @@ class Profile
 	 * Adds expected files to the array
 	 *
 	 * @param Array|String $files
+	 * @param String $directory
 	 * @return Profile
 	 * @author Dan Cox
 	 **/
-	public function addFiles($files)
+	public function addFiles($files, $directory = NULL)
 	{
+		if (!is_null($directory))
+		{
+			$this->setDirectory($directory);
+		}
+
 		if (is_array($files))
 		{
 			$this->files = array_merge($this->files, $files);

@@ -21,8 +21,7 @@ class ProfileTest extends TestCase
 	public function test_loadingBasicSettings()
 	{
 		$profile = $this->DI->get('profile');
-		$profile->setDirectory(__DIR__ . '/profiles/');
-		$profile->addFiles(['application']);
+		$profile->addFiles(['application'], __DIR__ . '/profiles/');
 		$profile->settings();
 
 		$profile->getSettings();

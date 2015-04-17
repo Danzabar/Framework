@@ -129,5 +129,15 @@ class EntityMockTest extends TestCase
 		$entity = new Test;
 		$entity->id;
 	}
+
+	/**
+	 * Test Converting a single entity into json
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_convertSingleEntityToJson()
+	{
+	}
 	
 } // END class EntityMockTest extends TestCase
