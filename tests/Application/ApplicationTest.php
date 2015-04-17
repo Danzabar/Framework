@@ -43,6 +43,21 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test registering an array of environments
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_registerEnvironments()
+	{
+		$envs = Array('TestEnv' => 'TestEnvClass');
+		$app = new Application;
+		$app->registerEnvironments($envs);
+
+		$this->assertEquals('TestEnvClass', $app->getEnvironment('TestEnv'));
+	}
+
+	/**
 	 * Test registering and deregistering environments
 	 *
 	 * @return void

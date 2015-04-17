@@ -47,8 +47,10 @@ class Application
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct()
+	public function __construct($profile = NULL)
 	{
+		$this->profile = $profile;
+
 		// Default Environments
 		$this->registerEnvironment('test', 'Wasp\Environment\Test');
 	}
@@ -103,6 +105,23 @@ class Application
 	public function registerEnvironment($name, $class)
 	{
 		$this->environments[$name] = $class;
+		return $this;
+	}
+
+	/**
+	 * Registers an array of environments
+	 *
+	 * @param Array $environments
+	 * @return Application
+	 * @author Dan Cox
+	 */
+	public function registerEnvironments(Array $environments)
+	{
+		foreach ($environments as $name => $class)
+		{
+			$this->registerEnvironment($name, $class);
+		}
+
 		return $this;
 	}
 
