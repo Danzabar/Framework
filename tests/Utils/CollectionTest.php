@@ -74,8 +74,12 @@ class CollectionTest extends TestCase
 		$collection = new Collection($this->collectable);
 		unset($collection['testObj']);
 
+		$collection['testing'] = 'var';
+		$collection[] = 'foobar';
+
 		$this->assertEquals('var', $collection['test']);
-		$this->assertEquals(2, count($collection));
+		$this->assertFalse(isset($collection['testObj']));
+		$this->assertEquals(4, count($collection));
 	}
 
 	/**
@@ -91,6 +95,7 @@ class CollectionTest extends TestCase
 
 		$this->assertEquals('var', $collection->get('test'));
 		$this->assertFalse(array_key_exists('testObj', $collection));
+		$this->assertEquals(NULL, $collection->get('fake'));
 	}
 
 	/**
