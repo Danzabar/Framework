@@ -65,5 +65,21 @@ class DatabaseMockeryTest extends TestCase
 
 		$this->assertEquals('bob', $results->name);
 	}
+
+	/**
+	 * Test clearing the database
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_clearingDatabase()
+	{
+		$test = new Test();
+		$test->name = 'dave';
+		$test->save();
+
+		// Clear the db
+		$this->DI->get('database')->clearMockedData();
+	}
 	
 } // END class DatabaseMockeryTest extends TestCase
