@@ -87,7 +87,7 @@ class CollectionTest extends TestCase
 	public function test_basicHelperTools()
 	{
 		$collection = new Collection($this->collectable);
-		$collection->delete('testObj');
+		$collection->remove('testObj');
 
 		$this->assertEquals('var', $collection->get('test'));
 		$this->assertFalse(array_key_exists('testObj', $collection));

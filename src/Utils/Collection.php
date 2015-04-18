@@ -62,7 +62,7 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 * @return Collection
 	 * @author Dan Cox
 	 */
-	public function delete($key)
+	public function remove($key)
 	{
 		unset($this->collectable[$key]);
 		return $this;
@@ -185,7 +185,7 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 */
 	public function offsetUnset($offset)
 	{
-		$this->delete($offset);
+		$this->remove($offset);
 	}
 
 	/**
