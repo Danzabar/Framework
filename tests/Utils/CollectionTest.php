@@ -102,10 +102,10 @@ class CollectionTest extends TestCase
 	public function test_json()
 	{
 		$collection = new Collection($this->collectable);
-		$collect = new Collection($this->collectable, $this->DI->get('serializer'));
 
-		$json1 = $collection->json();
-		$json2 = $collect->json();
+		$json = $collection->json();
+
+		$this->assertEquals(json_encode($this->collectable), $json);
 	}
 
 } // END class CollectionTest extends TestCase

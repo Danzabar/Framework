@@ -17,22 +17,14 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	private $collectable;
 
 	/**
-	 * serializer component
-	 *
-	 * @var JMS\Serializer\SerializerBuilder
-	 */
-	private $serializer;
-
-	/**
 	 * Load the collectable
 	 *
 	 * @param Array $collectable
 	 * @author Dan Cox
 	 */
-	public function __construct(Array $collectable = Array(), $serializer = NULL)
+	public function __construct(Array $collectable = Array())
 	{
 		$this->collectable = $collectable;
-		$this->serializer = $serializer;	
 	}
 
 	/**
@@ -60,12 +52,6 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 */
 	public function json()
 	{
-		if (!is_null($this->serializer))
-		{
-			return $this->serializer->serialize($this->collectable, 'json');
-		} 
-
-		// Fall back to regular json encode
 		return json_encode($this->collectable); 
 	}
 
