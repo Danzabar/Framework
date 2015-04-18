@@ -136,7 +136,7 @@ class DatabaseMockedTest extends TestCase
 							->setEntity('Test')
 							->get();
 
-		$this->assertTrue(is_array($results));
+		$this->assertInstanceOf('Wasp\Entity\EntityCollection', $results);
 		$this->assertEquals('bar', $results[0]->foo);
 	}
 

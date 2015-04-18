@@ -56,8 +56,7 @@ class Database
 	 */
 	public function find($identifier)
 	{
-		return $this->connection
-					->connection()
+		return $this->perform()
 					->find($this->entity, $identifier);
 	}
 
@@ -71,9 +70,7 @@ class Database
 	 */
 	public function findOneBy($params = Array(), $order = Array())
 	{
-		return $this->connection
-					->connection()
-					->getRepository($this->entity)
+		return $this->performOnRepository($this->entity)
 					->findOneBy($params, $order, NULL, NULL);
 	}
 
@@ -89,10 +86,9 @@ class Database
 	 */
 	public function get($params = Array(), $order = Array(), $limit = NULL, $offset = NULL)
 	{
-		return $this->connection
-					->connection()
-					->getRepository($this->entity)
-					->findBy($params, $order, $limit, $offset);
+		$data = $this->performOnRepository($this->entity)->findBy($params, $order, $limit, $offset);
+
+		return $this->data($data);
 	}
 
 	/**
@@ -104,8 +100,8 @@ class Database
 	 */
 	public function save($entity)
 	{
-		$this->connection->connection()->persist($entity);
-		$this->connection->connection()->flush();
+		$this->perform()->persist($entity);
+		$this->perform()->flush();
 	}
 
 	/**
@@ -117,8 +113,8 @@ class Database
 	 */
 	public function remove($entity)
 	{
-		$this->connection->connection()->remove($entity);
-		$this->connection->connection()->flush();
+		$this->perform()->remove($entity);
+		$this->perform()->flush();
 	}
 
 	/**
@@ -130,8 +126,7 @@ class Database
 	 */
 	public function raw($query, $execute = true)
 	{
-		$query = $this->connection
-					  ->connection()
+		$query = $this->perform()
 					  ->getConnection()
 					  ->prepare($query);
 		
@@ -151,14 +146,52 @@ class Database
 	 */
 	public function queryBuilder()
 	{
-		$builder = $this->connection
-					 	->connection()
+		$builder = $this->perform()
 					 	->createQueryBuilder();
 
 		// Set the entity
 		$builder->from($this->entity, 'u');
 
 		return $builder;
+	}
+
+	/**
+	 * Returns the entity manager on the current connection
+	 *
+	 * @return Object
+	 * @author Dan Cox
+	 */
+	public function perform()
+	{
+		return $this->connection->connection();
+	}
+
+	/**
+	 * Returns the Repository from the entity manager
+	 *
+	 * @return Object
+	 * @author Dan Cox
+	 */
+	public function performOnRepository($entity)
+	{
+		return $this->perform()->getRepository($entity); 
+	}
+
+	/**
+	 * Returns results as collection if result var is an array
+	 *
+	 * @param Array | Object $results
+	 * @return Wasp\Entity\Collection | Object
+	 * @author Dan Cox
+	 */
+	public function data($results)
+	{
+		if (is_array($results))
+		{
+			return new \Wasp\Entity\EntityCollection($results);
+		}
+
+		return $results;
 	}
 
 	/**
@@ -173,14 +206,14 @@ class Database
 	}
 
 	/**
-	 * Returns the entity Manager
+	 * Returns the entity Manager - Alias for Peform
 	 *
 	 * @return Object
 	 * @author Dan Cox
 	 */
 	public function entityManager()
 	{	
-		return $this->connection->connection();
+		return $this->perform();
 	}
 
 } // END class Database

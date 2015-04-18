@@ -14,7 +14,7 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 *
 	 * @var Array
 	 */
-	private $collectable;
+	protected $collectable;
 
 	/**
 	 * Load the collectable
