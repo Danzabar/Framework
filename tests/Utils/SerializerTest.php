@@ -54,5 +54,24 @@ class SerializerTest extends TestCase
 		$this->assertEquals('{"_id":1,"name":"foo"}', $json);
 	}
 
+	/**
+	 * Test the entities json method
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_serializeThroughEntity()
+	{
+		$test = new \Wasp\Test\Entity\Entities\Test();
+		$test->name = 'foo';
+		$test->save();
+
+		$result = \Wasp\Test\Entity\Entities\Test::db()->findOneBy(['name' => 'foo']);
+
+		$json = $result->json();
+
+		$this->assertEquals('{"_id":1,"name":"foo"}', $json);
+	}
+
 
 } // END class SerializerTest extends TestCase

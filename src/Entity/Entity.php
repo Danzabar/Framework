@@ -31,6 +31,19 @@ class Entity
 	}
 
 	/**
+	 * Returns JSON version of entity
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function json()
+	{
+		$serializer = self::get('serializer');
+
+		return $serializer->serialize($this, 'json');
+	}
+
+	/**
 	 * Saves the current state of the Entity
 	 *
 	 * @return void
