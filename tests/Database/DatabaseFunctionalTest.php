@@ -63,6 +63,7 @@ class DatabaseFunctionalTest extends TestCase
 		$result = Wasp\Test\Entity\Entities\Test::db()->findOneBy(['name' => 'foo']);
 
 		$this->assertEquals('foo', $result->name);
+		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $this->DI->get('database')->entityManager());
 	}
 
 	/**

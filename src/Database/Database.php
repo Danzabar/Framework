@@ -178,20 +178,15 @@ class Database
 	}
 
 	/**
-	 * Returns results as collection if result var is an array
+	 * Returns results as collection
 	 *
-	 * @param Array | Object $results
+	 * @param Array $results
 	 * @return Wasp\Entity\Collection | Object
 	 * @author Dan Cox
 	 */
 	public function data($results)
 	{
-		if (is_array($results))
-		{
-			return new \Wasp\Entity\EntityCollection($results);
-		}
-
-		return $results;
+		return new \Wasp\Entity\EntityCollection($results);
 	}
 
 	/**
