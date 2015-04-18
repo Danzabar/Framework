@@ -15,7 +15,7 @@ Trait StaticContainerAwareTrait
 	 * @return object
 	 * @author Dan Cox
 	 */
-	protected static function get($service)
+	public static function get($service)
 	{
 		$container = DI::getContainer();
 
@@ -32,7 +32,7 @@ Trait StaticContainerAwareTrait
 	{
 		$container = DI::getContainer();
 
-		return $container->param($key);
+		return $container->getParameter($key);
 	}
 
 }
