@@ -58,6 +58,8 @@ class DICompilerPassRegister
 		{	
 			unset(static::$passes[$key]);
 		}
+
+		static::$passes = array_values(static::$passes);
 	}
 
 	/**
