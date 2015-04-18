@@ -177,6 +177,28 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Test gracefull handling of lack of settings
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_connectWithoutSettingsSet()
+	{
+		$profile = new Profile(new FileSystem);
+		$profile->setSettings(['application' => Array('default_connection' => '')]);
+
+		$this->app->profile = $profile;
+
+		$env = new Environment;
+		$env->load($this->app);
+		$env->createDI('core');
+
+		$status = $env->connect();
+
+		$this->assertFalse($status);
+	}
+
+	/**
 	 * Test starting the delegation engine
 	 *
 	 * @return void
