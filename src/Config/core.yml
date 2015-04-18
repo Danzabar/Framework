@@ -94,6 +94,9 @@ services:
     session:
         class: Symfony\Component\HttpFoundation\Session\Session
         lazy: true
+    serializer:
+        class: Wasp\Utils\Serializer
+        lazy: true
     phpengine:
         class: Wasp\Templating\Engines\PHPEngine
         lazy: true

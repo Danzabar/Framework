@@ -1,11 +1,13 @@
 <?php namespace Wasp\Entity;
 
 use Wasp\DI\StaticContainerAwareTrait,
-	Wasp\Exceptions\Entity\AccessToInvalidKey;
+	Wasp\Exceptions\Entity\AccessToInvalidKey,
+	Doctrine\ORM\Mapping as ORM;
 
 /**
  * The Entity class is a base for entities(models)
  *
+ * @ORM\MappedSuperClass
  * @package Wasp
  * @subpackage Entity
  * @author Dan Cox

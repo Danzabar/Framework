@@ -4,6 +4,10 @@ use Wasp\Database\ConnectionCollection,
 	Wasp\Utils\TypeMapTrait,
 	Doctrine\ORM\EntityManager,
 	Doctrine\ORM\Tools\SchemaTool,
+	Doctrine\Common\Cache\ArrayCache,
+	Doctrine\Common\Annotations\CachedReader,
+	Doctrine\Common\Annotations\AnnotationReader,
+	Doctrine\ORM\Mapping\Driver\AnnotationDriver,
 	Doctrine\ORM\Tools\Setup;
 
 /**
@@ -104,6 +108,17 @@ class Connection
 	public function createMetaDataFromAnnotation()
 	{
 		$this->setup = Setup::createAnnotationMetadataConfiguration($this->connection->models, $this->connection->debug);
+
+		// More advanced annotation engine
+		$this->setup->setMetadataDriverImpl(
+			new AnnotationDriver(
+				new CachedReader(
+					new AnnotationReader(),
+					new ArrayCache()
+				),
+				$this->connection->models
+			)
+		);
 	}
 
 	/**

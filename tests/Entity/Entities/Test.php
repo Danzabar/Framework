@@ -1,11 +1,12 @@
 <?php namespace Wasp\Test\Entity\Entities;
 
-use Wasp\Entity\Entity;
+use Wasp\Entity\Entity,
+	Doctrine\ORM\Mapping as ORM;
 
 /**
  * The Test Entity
  *
- * @Entity
+ * @ORM\Entity
  * @package Wasp
  * @subpackage Entity\Test
  * @author Dan Cox
@@ -15,9 +16,9 @@ class Test extends Entity
 	/**
 	 * Identifier
 	 *
-	 * @Id
-	 * @Column(name="id", type="integer")
-	 * @GeneratedValue
+	 * @ORM\Id
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\GeneratedValue
 	 * @var int
 	 */
 	protected $Id;
@@ -25,7 +26,7 @@ class Test extends Entity
 	/**
 	 * A test field
 	 *
-	 * @Column(name="name", type="string")
+	 * @ORM\Column(name="name", type="string")
 	 * @var string
 	 */
 	protected $name;
