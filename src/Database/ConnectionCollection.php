@@ -46,6 +46,24 @@ class ConnectionCollection
 	}
 
 	/**
+	 * Adds an array of connections
+	 *
+	 * @param Array $connections
+	 * @param String $type
+	 * @return ConnectionCollection
+	 * @author Dan Cox
+	 */
+	public function addBulk(Array $connections, $type = 'Array')
+	{
+		foreach ($connections as $name => $configuration)
+		{
+			$this->add($name, $configuration, $type);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Find a connection by name
 	 *
 	 * @param String $name - The name of the desired connection

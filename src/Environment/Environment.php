@@ -156,6 +156,17 @@ class Environment
 	}
 
 	/**
+	 * Adds connection details
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function setupConnections()
+	{
+		$this->DI->get('connections')->addBulk($this->settings['database']);
+	}
+
+	/**
 	 * Loads the DI with a specific Service File
 	 * Important to note that this function does not use the CACHED DI Container.
 	 *
