@@ -80,12 +80,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "6c5c32eb6c596993d04e13b95d0c1e8153783d7a"
+                "reference": "c9eadeb743ac6199f7eec423cb9426bc518b7b03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/6c5c32eb6c596993d04e13b95d0c1e8153783d7a",
-                "reference": "6c5c32eb6c596993d04e13b95d0c1e8153783d7a",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/c9eadeb743ac6199f7eec423cb9426bc518b7b03",
+                "reference": "c9eadeb743ac6199f7eec423cb9426bc518b7b03",
                 "shasum": ""
             },
             "require": {
@@ -142,20 +142,20 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-02-16 12:24:01"
+            "time": "2015-04-15 00:11:59"
         },
         {
             "name": "doctrine/collections",
-            "version": "dev-master",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "856cb378598f57b3ab6499b1abeb05836feb5725"
+                "reference": "6c1e4eef75f310ea1b3e30945e9f06e652128b8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/856cb378598f57b3ab6499b1abeb05836feb5725",
-                "reference": "856cb378598f57b3ab6499b1abeb05836feb5725",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/6c1e4eef75f310ea1b3e30945e9f06e652128b8a",
+                "reference": "6c1e4eef75f310ea1b3e30945e9f06e652128b8a",
                 "shasum": ""
             },
             "require": {
@@ -208,7 +208,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2015-04-04 16:54:49"
+            "time": "2015-04-14 22:21:58"
         },
         {
             "name": "doctrine/common",
@@ -355,12 +355,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "7c467c3482bb2077126f1c2ce5d8b47cfbc5b00e"
+                "reference": "49dfdabe1f4e35932b948d070f41d1b3e2acd221"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/7c467c3482bb2077126f1c2ce5d8b47cfbc5b00e",
-                "reference": "7c467c3482bb2077126f1c2ce5d8b47cfbc5b00e",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/49dfdabe1f4e35932b948d070f41d1b3e2acd221",
+                "reference": "49dfdabe1f4e35932b948d070f41d1b3e2acd221",
                 "shasum": ""
             },
             "require": {
@@ -410,7 +410,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2015-04-08 09:26:43"
+            "time": "2015-04-15 23:56:54"
         },
         {
             "name": "doctrine/inflector",
@@ -478,6 +478,60 @@
                 "string"
             ],
             "time": "2015-01-01 18:34:57"
+        },
+        {
+            "name": "doctrine/instantiator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/instantiator.git",
+                "reference": "fc999e2f0508e434645ec2bfadeb89d39fa6453c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/fc999e2f0508e434645ec2bfadeb89d39fa6453c",
+                "reference": "fc999e2f0508e434645ec2bfadeb89d39fa6453c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3,<8.0-DEV"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1.8",
+                "ext-pdo": "*",
+                "ext-phar": "*",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.com/"
+                }
+            ],
+            "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
+            "homepage": "https://github.com/doctrine/instantiator",
+            "keywords": [
+                "constructor",
+                "instantiate"
+            ],
+            "time": "2015-04-12 20:59:10"
         },
         {
             "name": "doctrine/lexer",
@@ -742,16 +796,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "e619ca451a6644e3768a36d86de5df4afde938ac"
+                "reference": "8fc5eb9da5306966e748a166781e9294e369c7a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/e619ca451a6644e3768a36d86de5df4afde938ac",
-                "reference": "e619ca451a6644e3768a36d86de5df4afde938ac",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/8fc5eb9da5306966e748a166781e9294e369c7a5",
+                "reference": "8fc5eb9da5306966e748a166781e9294e369c7a5",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "1.*",
+                "doctrine/instantiator": "~1.0.3",
                 "jms/metadata": "~1.1",
                 "jms/parser-lib": "1.*",
                 "php": ">=5.3.2",
@@ -803,7 +858,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2015-01-06 11:33:26"
+            "time": "2015-04-17 09:43:25"
         },
         {
             "name": "mockery/mockery",
@@ -1882,12 +1937,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3"
+                "reference": "7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/67920147a81d5bd5bcd052b239ff85bae789f5a3",
-                "reference": "67920147a81d5bd5bcd052b239ff85bae789f5a3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5",
+                "reference": "7d5fe0fbd442f6bfc526260eb14ed99ea2a561f5",
                 "shasum": ""
             },
             "require": {
@@ -1931,7 +1986,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-03-26 12:33:23"
+            "time": "2015-04-19 08:35:47"
         },
         {
             "name": "zendframework/zend-code",
@@ -2247,68 +2302,6 @@
                 "test"
             ],
             "time": "2014-11-11 15:35:34"
-        },
-        {
-            "name": "symfony/serializer",
-            "version": "2.8.x-dev",
-            "target-dir": "Symfony/Component/Serializer",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Serializer.git",
-                "reference": "9ad470234276c549381b8af7d5efaa0038e6a239"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Serializer/zipball/9ad470234276c549381b8af7d5efaa0038e6a239",
-                "reference": "9ad470234276c549381b8af7d5efaa0038e6a239",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "doctrine/annotations": "~1.0",
-                "doctrine/cache": "~1.0",
-                "symfony/config": "~2.2|~3.0.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0.0",
-                "symfony/property-access": "~2.3|~3.0.0",
-                "symfony/yaml": "~2.0|~3.0.0"
-            },
-            "suggest": {
-                "doctrine/annotations": "For using the annotation mapping. You will also need doctrine/cache.",
-                "doctrine/cache": "For using the default cached annotation reader and metadata cache.",
-                "symfony/config": "For using the XML mapping loader.",
-                "symfony/property-access": "For using the ObjectNormalizer.",
-                "symfony/yaml": "For using the default YAML mapping loader."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Serializer\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "Symfony Serializer Component",
-            "homepage": "http://symfony.com",
-            "time": "2015-04-11 08:55:16"
         },
         {
             "name": "symfony/stopwatch",
