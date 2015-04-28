@@ -29,6 +29,13 @@ class Route
 	protected $activeGroup;
 
 	/**
+	 * Route prefix
+	 *
+	 * @var string
+	 */
+	protected $prefix;
+
+	/**
 	 * Load dependencies
 	 *
 	 * @param \Symfony\Component\Routing\RouteCollection $routeCollection
@@ -63,7 +70,7 @@ class Route
 	)
 	{
 		$route = new SymfonyRoute(
-			$uri, 
+			(is_null($this->prefix) ? $uri : $this->prefix . $uri), 
 			$defaults,
 			$requirements,
 			Array(),
@@ -259,6 +266,7 @@ class Route
 		call_user_func_array($callback, [$this]);
 
 		$this->addGroup();
+		$this->prefix = null;
 	}
 
 	/**
@@ -270,7 +278,7 @@ class Route
 	 **/
 	public function addPrefix($prefix)
 	{
-		$this->activeGroup->addPrefix($prefix);			
+		$this->prefix = $prefix;			
 		return $this;
 	}
 

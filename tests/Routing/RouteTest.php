@@ -47,12 +47,12 @@ class RouteTest extends TestCase
 		$collection = $this->DI->get('route_collection');
 
 		$route->group(Array(), function($route) {
-			$route->add('test.group', '/', Array('GET'), Array('controller' => 'test'));
-			$route->addPrefix('/group');	
+			$route->addPrefix('/group');
+			$route->add('test.group', '', Array('GET'), Array('controller' => 'test'));
 		});
 
 		$match = $collection->get('test.group');
-		$this->assertEquals('/group/', $match->getPath());
+		$this->assertEquals('/group', $match->getPath());
 	}
 
 	/**
