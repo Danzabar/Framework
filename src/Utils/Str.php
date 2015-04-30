@@ -7,7 +7,7 @@
  * @subpackage Utils
  * @author Dan Cox
  */
-class String
+class Str
 {
 	
 	/**

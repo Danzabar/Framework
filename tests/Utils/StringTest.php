@@ -1,6 +1,6 @@
 <?php
 
-use Wasp\Utils\String;
+use Wasp\Utils\Str;
 
 /**
  * Test case for the string helper
@@ -20,9 +20,9 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_slug()
 	{
-		$slug1 = String::slug('Foo bar');
-		$slug2 = String::slug('@&^!(@ Foo Bar');
-		$slug3 = String::slug('::":A:EOS Slugify Me');
+		$slug1 = Str::slug('Foo bar');
+		$slug2 = Str::slug('@&^!(@ Foo Bar');
+		$slug3 = Str::slug('::":A:EOS Slugify Me');
 
 		$this->assertEquals('foo-bar', $slug1);
 		$this->assertEquals('foo-bar', $slug2);
@@ -37,8 +37,8 @@ class StringTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test_id()
 	{
-		$id1 = String::id('Foo bar');
-		$id2 = String::id('(*&!^@(*@)(@ my id');
+		$id1 = Str::id('Foo bar');
+		$id2 = Str::id('(*&!^@(*@)(@ my id');
 
 		$this->assertEquals('foo_bar', $id1);
 		$this->assertEquals('my_id', $id2);
