@@ -28,6 +28,19 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	}
 
 	/**
+	 * Adds a value
+	 *
+	 * @param String $key
+	 * @param Mixed $value
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function add($key, $value)
+	{
+		$this->collectable[$key] = $value;
+	}
+
+	/**
 	 * Returns value associated with specified key
 	 *
 	 * @param String|Integer $key
