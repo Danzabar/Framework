@@ -44,5 +44,18 @@ class StringTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('my_id', $id2);
 	}
 
+	/**
+	 * Test converting an array to html properties
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_htmlProperties()
+	{
+		$arr = Array('class' => 'my-class', 'data-object' => '5');
+
+		$this->assertEquals('class="my-class" data-object="5"', Str::arrayToHtmlProperties($arr));
+	}
+
 
 } // END class StringTest extends \PHPUnit_Framework_TestCase

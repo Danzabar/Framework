@@ -15,7 +15,7 @@ Trait StaticContainerAwareTrait
 	 * @return object
 	 * @author Dan Cox
 	 */
-	public static function get($service)
+	public function get($service)
 	{
 		$container = DI::getContainer();
 
@@ -28,7 +28,7 @@ Trait StaticContainerAwareTrait
 	 * @return mixed
 	 * @author Dan Cox
 	 */
-	public static function param($key)
+	public function param($key)
 	{
 		$container = DI::getContainer();
 

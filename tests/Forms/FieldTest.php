@@ -13,20 +13,6 @@ use Wasp\Forms\Field,
 class FieldTest extends TestCase
 {
 	/**
-	 * Test the element properties functions
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_concateArrayToString()
-	{
-		$field = new Field('test', 'String');
-		$props = Array('class' => 'btn btn-primary', 'required' => 'true', 'data-test' => '6');
-
-		$this->assertEquals('class="btn btn-primary" required="true" data-test="6"', $field->extrasToString($props));
-	}
-
-	/**
 	 * Test building the field label
 	 *
 	 * @return void

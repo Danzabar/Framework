@@ -37,6 +37,13 @@ class Field
 	protected $value;
 
 	/**
+	 * Default field value
+	 *
+	 * @var String
+	 */
+	protected $default;
+
+	/**
 	 * A Collection of rules associated with this field
 	 *
 	 * @var Wasp\Utils\Collection
@@ -51,16 +58,71 @@ class Field
 	protected $errors;
 
 	/**
+	 * Set of usable values for Checkbox, Radio and Select boxes
+	 *
+	 * @var Array | String
+	 */
+	protected $values;
+
+	/**
+	 * Input array from the form class
+	 *
+	 * @var Array
+	 */
+	protected $input;
+
+	/**
 	 * Create the relevent fields
 	 *
+	 * @param String $label
+	 * @param String $type
+	 * @param Array $rules
+	 * @param String $default
+	 * @param Array|String $values
+	 * @param Array $input
 	 * @author Dan Cox
 	 */
-	public function __construct($label, $type = 'String', Array $rules = Array())
+	public function __construct(
+		$label, 
+		$type = 'String', 
+		Array $rules = Array(),
+		$default = '',
+		$values = Array(),
+		$input = Array()
+	)
 	{
 		$this->label = $label;
 		$this->id = Str::id($label);
 		$this->type = $type;
-		$this->rules = new Collection($rules);
+		$this->values = $values;
+		$this->default = $default;
+		$this->rules = new Collection($rules);	
+		$this->input = $input;
+
+		$this->extractValue();
+	}
+
+	/**
+	 * Checks for values using the Input Array and the Default settings
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function extractValue()
+	{
+		$this->value = '';
+		
+		// Check if there is a default value set
+		if (!is_null($this->default))
+		{
+			$this->value = $this->default;
+		}
+		
+		// Check the Input Array for a set value.
+		if (array_key_exists($this->id, $this->input)) 
+		{
+			$this->value = $this->input[$this->id];
+		}
 	}
 
 	/**
@@ -82,6 +144,17 @@ class Field
 	}
 
 	/**
+	 * Returns the current value of the input field
+	 *
+	 * @return Mixed
+	 * @author Dan Cox
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
+
+	/**
 	 * Creates a label element
 	 *
 	 * @param Array $elementExtras
@@ -92,25 +165,7 @@ class Field
 	{
 		$elementExtras = array_merge($elementExtras, ['for' => $this->id]);
 
-		return sprintf('<label %s>%s</label>', $this->extrasToString($elementExtras), $this->label);
-	}
-
-	/**
-	 * Converts an array to string for html elements
-	 *
-	 * @param Array $extras
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function extrasToString(Array $extras)
-	{
-		$properties = '';
-
-		foreach ($extras as $key => $value) {
-			$properties .= sprintf(' %s="%s"', $key, $value);
-		}
-
-		return ltrim($properties, ' ');
+		return sprintf('<label %s>%s</label>', Str::arrayToHtmlProperties($elementExtras), $this->label);
 	}
 
 	/**
@@ -132,12 +187,46 @@ class Field
 	/**
 	 * Creates a text field
 	 *
+	 * @param Array $extras
 	 * @return String
 	 * @author Dan Cox
 	 */
 	public function createStringField(Array $extras)
 	{
-		return sprintf('<input type="text" name="%1$s" id="%1$s" value="" %2$s/>', $this->id, $this->extrasToString($extras));
+		return sprintf('<input type="text" name="%1$s" id="%1$s" value="%3$s" %2$s/>', $this->id, Str::arrayToHtmlProperties($extras), $this->value);
+	}
+
+	/**
+	 * Creates a checkbox
+	 *
+	 * @param Array $extras
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function createCheckbox(Array $extras)
+	{
+		if ($this->value == $this->values)
+		{
+			$extras = array_merge($extras, Array('checked' => 'checked'));
+		}
+
+		return sprintf('<input type="checkbox" name="%1$s" id="%1$s" value="%3$s" %2$s/>', $this->id, Str::arrayToHtmlProperties($extras), $this->values);
+	}
+
+	/**
+	 * Creates a radio element
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function createRadio(Array $extras)
+	{
+		if ($this->value == $this->values)
+		{
+			$extras = array_merge($extras, Array('checked' => 'checked'));
+		}
+
+		return sprintf('<input type="radio" name="%1$s" id="%1$s" value="%3$s" %2$s/>', $this->id, Str::arrayToHtmlProperties($extras), $this->values);
 	}
 
 } // END class Field

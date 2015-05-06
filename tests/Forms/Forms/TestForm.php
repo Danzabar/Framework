@@ -19,8 +19,7 @@ class TestForm extends Form
 	public $username = Array(
 		'name'		 => 'Username',
 		'type'		 => 'String',
-		'rules'		 => Array()
-	);
+		'default'	 => 'Dan');
 
 	/**
 	 * Password field
@@ -29,8 +28,28 @@ class TestForm extends Form
 	 */
 	public $password = Array(
 		'name'		 => 'Password',
-		'type'		 => 'Password',
-		'rules'		 => Array()
-	);
+		'type'		 => 'Password');
+
+	/**
+	 * Remember me checkbox
+	 *
+	 * @var Array
+	 */
+	public $remember = Array(
+		'name' => 'Remember me', 
+		'type' => 'checkbox');
+	
+	/**
+	 * Setup form
+	 *
+	 * @author Dan Cox
+	 */
+	public function __construct()
+	{
+		$this->route = 'form.test';
+		$this->method = 'post';
+
+		parent::__construct();
+	}
 
 } // END class TestForm extends Form

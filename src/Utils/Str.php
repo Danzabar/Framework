@@ -40,4 +40,24 @@ class Str
 		return self::slug($str, '_');	
 	}
 
+	/**
+	 * Converts an array to a useful string that can be used
+	 * in html elements	
+	 *
+	 * @param Array $arr
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public static function arrayToHtmlProperties(Array $arr)
+	{
+		$str = '';
+
+		foreach ($arr as $key => $value)
+		{
+			$str .= sprintf(' %s="%s"', $key, $value);
+		}
+
+		return ltrim($str, ' ');
+	}
+
 } // END class String
