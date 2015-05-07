@@ -19,16 +19,6 @@ class Request
 	protected $request;
 
 	/**
-	 * undocumented function
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function __construct()
-	{
-	}
-
-	/**
 	 * Get the request object from the current global var
 	 *
 	 * @return SymRequest

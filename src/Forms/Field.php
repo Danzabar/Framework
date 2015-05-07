@@ -98,8 +98,32 @@ class Field
 		$this->default = $default;
 		$this->rules = new Collection($rules);	
 		$this->input = $input;
+		$this->errors = new Collection();
 
 		$this->extractValue();
+	}
+
+	/**
+	 * Validates fields through its rules collection
+	 *
+	 * @return Boolean
+	 * @author Dan Cox
+	 */
+	public function validate()
+	{
+		$passes = true;
+
+		foreach ($this->rules as $rule)
+		{
+			$rule->setValue($this->value);
+
+			if (!$rule->validate())
+			{
+				$this->errors[] = $rule->getMessage();
+			}			
+		}
+
+		return $passes;
 	}
 
 	/**
@@ -155,6 +179,17 @@ class Field
 	}
 
 	/**
+	 * Returns the collection of errors
+	 *
+	 * @return \Wasp\Utils\Collection
+	 * @author Dan Cox
+	 */
+	public function errors()
+	{
+		return $this->errors;
+	}
+
+	/**
 	 * Creates a label element
 	 *
 	 * @param Array $elementExtras
@@ -194,6 +229,18 @@ class Field
 	public function createStringField(Array $extras)
 	{
 		return sprintf('<input type="text" name="%1$s" id="%1$s" value="%3$s" %2$s/>', $this->id, Str::arrayToHtmlProperties($extras), $this->value);
+	}
+
+	/**
+	 * Creates a text area field
+	 *
+	 * @param Array $extras
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function createTextArea(Array $extras)
+	{
+		return sprintf('<textarea name="%1$s" id="%1$s" %2$s>%3$s</textarea>', $this->id, Str::arrayToHtmlProperties($extras), $this->value);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Forms\Field,
+	Wasp\Forms\Validation,
 	Wasp\Test\TestCase;
 
 /**
@@ -40,6 +41,27 @@ class FieldTest extends TestCase
 
 		$this->assertEquals('<input type="text" name="test1" id="test1" value="" />', $field->field());
 		$this->assertEquals('<input type="text" name="test2" id="test2" value="" class="form-control"/>', $field2->field(['class' => 'form-control']));
+	}
+
+	/**
+	 * Testing the requried validation rule
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_requiredFieldRule()
+	{
+		$field = new Field('rule', 'String', [new Validation\Required()], '', Array(), Array('rule' => ''));
+		$field->validate();	
+
+		$field2 = new Field('rule2', 'String', [new Validation\Required('The rule2 field is required')]);
+		$field2->validate();
+
+		$error = $field->errors()[0];
+		$error2 = $field2->errors()[0];
+
+		$this->assertEquals('This field is required', $error);
+		$this->assertEquals('The rule2 field is required', $error2);
 	}
 
 } // END class FieldTest extends TestCase

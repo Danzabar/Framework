@@ -197,6 +197,27 @@ class Form
 	}
 
 	/**
+	 * Calls the validation method for each fields rules
+	 *
+	 * @return Boolean
+	 * @author Dan Cox
+	 */
+	public function validate()
+	{
+		$passes = true;
+
+		foreach ($this->fields as $field)
+		{
+			if (!$field->validate())
+			{
+				$passes = false;
+			}
+		}
+
+		return $passes;
+	}
+
+	/**
 	 * Returns an opening form element
 	 *
 	 * @param Array $properties
