@@ -215,8 +215,28 @@ class Field
 			'String'		=> 'createStringField',
 			'Checkbox'		=> 'createCheckBox',
 			'Radio'			=> 'createRadio',
-			'TextArea'		=> 'createTextArea'
+			'TextArea'		=> 'createTextArea',
+			'Select'		=> 'createSelectBox'
 		);
+	}
+
+	/**
+	 * Creates a select box element
+	 *
+	 * @param Array $extras
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function createSelectBox(Array $extras)
+	{
+		$options = '';
+		
+		foreach ($this->values as $key => $value)
+		{
+			$options .= sprintf('<option value="%s"%s>%s</option>', $value, ($this->value == $value ? ' selected="selected"' : ''), $key);
+		}		
+
+		return sprintf('<select name="%1$s" id="%1$s" %2$s>%3$s</select>', $this->id, Str::arrayToHtmlProperties($extras), $options);
 	}
 
 	/**
