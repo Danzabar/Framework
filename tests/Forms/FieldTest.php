@@ -57,6 +57,45 @@ class FieldTest extends TestCase
 	}
 
 	/**
+	 * Test building a textarea element
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_buildTextArea()
+	{
+		$field = new Field('text', 'TextArea');
+
+		$this->assertEquals('<textarea name="text" id="text" ></textarea>', $field->field());
+	}
+
+	/**
+	 * Test building a radio
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_radio()
+	{
+		$field = new Field('rad', 'Radio', [], '', 'true', Array('rad' => 'true'));
+
+		$this->assertEquals('<input type="radio" name="rad" id="rad" value="true" checked="checked"/>', $field->field());
+	}
+
+	/**
+	 * Test building a checkbox
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_checkbox()
+	{
+		$field = new Field('check', 'Checkbox', [], '', 'Y', Array('check' => 'Y'));
+
+		$this->assertEquals('<input type="checkbox" name="check" id="check" value="Y" checked="checked"/>', $field->field());
+	}
+
+	/**
 	 * Testing the requried validation rule
 	 *
 	 * @return void
