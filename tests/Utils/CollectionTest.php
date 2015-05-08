@@ -113,4 +113,19 @@ class CollectionTest extends TestCase
 		$this->assertEquals(json_encode($this->collectable), $json);
 	}
 
+	/**
+	 * Test adding a new record through the "Add" method
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_add()
+	{
+		$collection = new Collection(Array('foo' => 'bar'));
+
+		$collection->add('key', 'value');
+
+		$this->assertTrue(isset($collection['key']));
+	}
+
 } // END class CollectionTest extends TestCase

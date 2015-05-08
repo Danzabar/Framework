@@ -55,6 +55,11 @@ class Request
 	 */
 	public function getRequest()
 	{
+		if (is_null($this->request))
+		{
+			return $this->fromGlobals();
+		}
+
 		return $this->request;
 	}
 	

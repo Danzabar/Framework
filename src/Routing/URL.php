@@ -75,7 +75,7 @@ class URL
 	 **/
 	public function generator()
 	{
-		$request = $this->request->fromGlobals();
+		$request = $this->request->getRequest();
 
 		return $this->generator = new UrlGenerator(
 			   $this->collection,
