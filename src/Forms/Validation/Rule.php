@@ -50,18 +50,6 @@ class Rule
 	}
 
 	/**
-	 * Sets the error message
-	 *
-	 * @return Rule
-	 * @author Dan Cox
-	 */
-	public function setMessage($message)
-	{	
-		$this->message = $message;
-		return $this;
-	}
-
-	/**
 	 * Returns the set message
 	 *
 	 * @return String
