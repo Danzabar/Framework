@@ -214,8 +214,8 @@ class Field
 	{
 		$this->typeMap = Array(
 			'String'		=> 'createStringField',
-			'Checkbox'		=> 'createCheckBox',
-			'Radio'			=> 'createRadio',
+			'Checkbox'		=> 'createBox',
+			'Radio'			=> 'createBox',
 			'TextArea'		=> 'createTextArea',
 			'Select'		=> 'createSelectBox'
 		);
@@ -279,36 +279,22 @@ class Field
 	}
 
 	/**
-	 * Creates a checkbox
+	 * Creates check boxes or Radio boxes
 	 *
 	 * @param Array $extras
 	 * @return String
 	 * @author Dan Cox
 	 */
-	public function createCheckbox(Array $extras)
+	public function createBox(Array $extras)
 	{
+		$type = ($this->type == 'Checkbox' ? 'checkbox' : 'radio');
+
 		if ($this->value == $this->values)
 		{
-			$extras = array_merge($extras, Array('checked' => 'checked'));
+			$extras = array_merge($extras, Array('checked' => 'checked'));	
 		}
-
-		return $this->inputString('checkbox', $extras, $this->values);
-	}
-
-	/**
-	 * Creates a radio element
-	 *
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function createRadio(Array $extras)
-	{
-		if ($this->value == $this->values)
-		{
-			$extras = array_merge($extras, Array('checked' => 'checked'));
-		}
-
-		return $this->inputString('radio', $extras, $this->values);
+		
+		return $this->inputString($type, $extras, $this->values);
 	}
 
 } // END class Field
