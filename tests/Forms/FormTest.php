@@ -76,5 +76,21 @@ class FormTest extends TestCase
 		$this->assertEquals('Bob', $username->getValue());
 	}
 
+	/**
+	 * Test validating a form
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_validation()
+	{
+		$this->DI->get('request')->make('/form', 'POST', Array());
+
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$result = $form->validate();
+
+		$this->assertFalse($result);
+	}
+
 
 } // END class FormTest extends TestCase

@@ -1,6 +1,7 @@
 <?php namespace Wasp\Test\Forms\Forms;
 
-use Wasp\Forms\Form;
+use Wasp\Forms\Form,
+	Wasp\Forms\Validation;
 
 /**
  * Form class
@@ -19,7 +20,8 @@ class TestForm extends Form
 	public $username = Array(
 		'name'		 => 'Username',
 		'type'		 => 'String',
-		'default'	 => 'Dan');
+		'default'	 => 'Dan'
+	);
 
 	/**
 	 * Password field
@@ -48,6 +50,9 @@ class TestForm extends Form
 	{
 		$this->route = 'form.test';
 		$this->method = 'post';
+
+		// Add the rules
+		$this->password['rules'] = Array(new Validation\Required());
 
 		parent::__construct();
 	}

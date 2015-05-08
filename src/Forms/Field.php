@@ -120,6 +120,7 @@ class Field
 			if (!$rule->validate())
 			{
 				$this->errors[] = $rule->getMessage();
+				$passes = false;
 			}			
 		}
 
