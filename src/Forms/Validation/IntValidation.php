@@ -3,21 +3,21 @@
 use Wasp\Forms\Validation\Rule;
 
 /**
- * Float type validation rule
+ * Validation rule for int's
  *
  * @package Wasp
  * @subpackage Forms
  * @author Dan Cox
  */
-class Float extends Rule
+class IntValidation extends Rule
 {
 	
 	/**
 	 * Message
 	 *
-	 * @var string
+	 * @var String
 	 */
-	protected $message = 'A float was expected';
+	protected $message = 'An integer was expected';
 
 	/**
 	 * Validate value
@@ -27,7 +27,7 @@ class Float extends Rule
 	 */
 	public function validate()
 	{
-		return filter_var($this->value, FILTER_VALIDATE_FLOAT);
+		return filter_var($this->value, FILTER_VALIDATE_INT);
 	}
 
-} // END class Float extends Rule
+} // END class IntValidation extends Rule

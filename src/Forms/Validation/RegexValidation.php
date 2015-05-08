@@ -9,7 +9,7 @@ use Wasp\Forms\Validation\Rule;
  * @subpackage Forms
  * @author Dan Cox
  */
-class Regex extends Rule
+class RegexValidation extends Rule
 {
 	/**
 	 * Message
@@ -58,4 +58,4 @@ class Regex extends Rule
 		return true;
 	}
 
-} // END class Regex extends Rule
+} // END class RegexValidation extends Rule

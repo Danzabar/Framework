@@ -240,6 +240,20 @@ class Field
 	}
 
 	/**
+	 * Returns an input field of various types
+	 *
+	 * @param String $type
+	 * @param Array $extras
+	 * @param Mixed $value
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function inputString($type, Array $extras, $value)
+	{
+		return sprintf('<input type="%1$s" name="%2$s" id="%2$s" value="%3$s" %4$s/>', $type, $this->id, $value, Str::arrayToHtmlProperties($extras));
+	}
+
+	/**
 	 * Creates a text field
 	 *
 	 * @param Array $extras
@@ -248,7 +262,7 @@ class Field
 	 */
 	public function createStringField(Array $extras)
 	{
-		return sprintf('<input type="text" name="%1$s" id="%1$s" value="%3$s" %2$s/>', $this->id, Str::arrayToHtmlProperties($extras), $this->value);
+		return $this->inputString('text', $extras, $this->value);
 	}
 
 	/**
@@ -277,7 +291,7 @@ class Field
 			$extras = array_merge($extras, Array('checked' => 'checked'));
 		}
 
-		return sprintf('<input type="checkbox" name="%1$s" id="%1$s" value="%3$s" %2$s/>', $this->id, Str::arrayToHtmlProperties($extras), $this->values);
+		return $this->inputString('checkbox', $extras, $this->values);
 	}
 
 	/**
@@ -293,7 +307,7 @@ class Field
 			$extras = array_merge($extras, Array('checked' => 'checked'));
 		}
 
-		return sprintf('<input type="radio" name="%1$s" id="%1$s" value="%3$s" %2$s/>', $this->id, Str::arrayToHtmlProperties($extras), $this->values);
+		return $this->inputString('radio', $extras, $this->values);
 	}
 
 } // END class Field

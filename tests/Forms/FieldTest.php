@@ -109,8 +109,8 @@ class FieldTest extends TestCase
 	 */
 	public function test_intValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\Integer()], '', Array(), Array('rule' => 'five'));
-		$field2 = new Field('rule2', 'String', [new Validation\Integer()], '', Array(), Array('rule2' => '5'));
+		$field = new Field('rule', 'String', [new Validation\IntValidation()], '', Array(), Array('rule' => 'five'));
+		$field2 = new Field('rule2', 'String', [new Validation\IntValidation()], '', Array(), Array('rule2' => '5'));
 
 		$field->validate();
 		$field2->validate();
@@ -149,8 +149,8 @@ class FieldTest extends TestCase
 	 */
 	public function test_floatValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\Float], '', Array(), Array('rule' => 'fivepointtwo'));
-		$field2 = new Field('rule2', 'String', [new Validation\Float], '', Array(), Array('rule2' => '5.2'));
+		$field = new Field('rule', 'String', [new Validation\FloatValidation], '', Array(), Array('rule' => 'fivepointtwo'));
+		$field2 = new Field('rule2', 'String', [new Validation\FloatValidation], '', Array(), Array('rule2' => '5.2'));
 
 		$field->validate();
 		$field2->validate();
@@ -169,9 +169,9 @@ class FieldTest extends TestCase
 	 */
 	public function test_regexpValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\Regex(null, '/[A-Za-z]{1,}/')], '', Array(), Array('rule' => ''));
-		$field2 = new Field('rule2', 'String', [new Validation\Regex(null, '/[A-Za-z]{1,}/')], '', Array(), Array('rule2' => 'abc'));
-		$field3 = new Field('rule3', 'String', [new Validation\Regex()]);
+		$field = new Field('rule', 'String', [new Validation\RegexValidation(null, '/[A-Za-z]{1,}/')], '', Array(), Array('rule' => ''));
+		$field2 = new Field('rule2', 'String', [new Validation\RegexValidation(null, '/[A-Za-z]{1,}/')], '', Array(), Array('rule2' => 'abc'));
+		$field3 = new Field('rule3', 'String', [new Validation\RegexValidation()]);
 
 		$field->validate();
 		$field2->validate();
