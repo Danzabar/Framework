@@ -98,11 +98,7 @@ class Form
 	 */
 	public function setup()
 	{
-		if (is_null($this->url) && !is_null($this->route))
-		{
-			$params = (!is_null($this->route_params) ? $this->route_params : Array());
-			$this->url = $this->container->get('url')->route($this->route, $params); 
-		}
+		$this->buildURL();
 
 		// Setup the param bag
 		$this->input = $this->container->get('request')->query->all();
@@ -110,6 +106,21 @@ class Form
 		if (strtoupper($this->method) == 'POST') 
 		{
 			$this->input = $this->container->get('request')->request->all();
+		}
+	}
+
+	/**
+	 * Builds the url from route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function buildURL()
+	{
+		if (is_null($this->url) && !is_null($this->route))
+		{
+			$params = (!is_null($this->route_params) ? $this->route_params : Array());
+			$this->url = $this->container->get('url')->route($this->route, $params); 
 		}
 	}
 
