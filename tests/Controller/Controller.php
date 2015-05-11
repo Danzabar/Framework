@@ -51,7 +51,7 @@ class Controller extends BaseController
 	 */
 	public function forwardResponse()
 	{
-		return $this->forward('Wasp\Test\Controller\ForwardedController::forward', Array('id' => 2));
+		return $this->forward('Wasp\Test\Controller\ForwardedController::forwardAction', Array('id' => 2));
 	}
 
 	/**

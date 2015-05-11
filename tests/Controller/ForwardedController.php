@@ -18,7 +18,7 @@ class ForwardedController extends BaseController
 	 * @return String
 	 * @author Dan Cox
 	 */
-	public function forward($id)
+	public function forwardAction($id)
 	{
 		return 'forward into the unknown '. $id;
 	}
