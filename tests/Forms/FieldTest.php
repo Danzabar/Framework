@@ -208,7 +208,7 @@ class FieldTest extends TestCase
 	 */
 	public function test_regexpValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\RegexValidation(null, '/[A-Za-z]{1,}/')], '', Array(), Array('rule' => ''));
+		$field = new Field('rule', 'String', [new Validation\RegexValidation('Custom regex message', '/[A-Za-z]{1,}/')], '', Array(), Array('rule' => ''));
 		$field2 = new Field('rule2', 'String', [new Validation\RegexValidation(null, '/[A-Za-z]{1,}/')], '', Array(), Array('rule2' => 'abc'));
 		$field3 = new Field('rule3', 'String', [new Validation\RegexValidation()]);
 
@@ -218,7 +218,7 @@ class FieldTest extends TestCase
 
 		$error = $field->errors()[0];
 
-		$this->assertEquals('This value fails filter criteria', $error);
+		$this->assertEquals('Custom regex message', $error);
 		$this->assertEquals(0, count($field2->errors()));
 		$this->assertEquals(0, count($field3->errors()));
 	}
