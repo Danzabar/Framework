@@ -44,6 +44,17 @@ class Controller extends BaseController
 	}
 
 	/**
+	 * Test controller method that forwards to a new controller
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function forwardResponse()
+	{
+		return $this->forward('Wasp\Test\Controller\ForwardedController::forwardAction', Array('id' => 2));
+	}
+
+	/**
 	 * Returns some html to work with the dom crawler
 	 *
 	 * @return String

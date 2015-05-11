@@ -88,4 +88,19 @@ class ResponseTest extends TestCase
 		$this->assertEquals(202, $jsonp->getStatusCode());
 	}
 
+	/**
+	 * Test controller forwarding
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_forwarding()
+	{
+		$dispatch = $this->DI->get('dispatcher');
+		
+		$response = $dispatch->dispatch('Wasp\Test\Controller\Controller::forwardResponse');
+
+		$this->assertEquals('forward into the unknown 2', $response->getContent());
+	}
+
 } // END class ResponseTest extends TestCase
