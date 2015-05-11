@@ -28,6 +28,19 @@ class BaseController
 	}
 
 	/**
+	 * Forwards the request to a different controller
+	 *
+	 * @param String $action
+	 * @param Array $params
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function forward($action, Array $params = Array())
+	{
+		return $this->get('dispatcher')->dispatch($action, $params);
+	}
+
+	/**
 	 * Magic getter for accessing services from the DI
 	 *
 	 * @param String $key
