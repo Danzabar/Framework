@@ -40,7 +40,13 @@ class DomTest extends TestCase
 		$this->respond();
 
 		// Make assertions
-		$node = $this->crawler->filter('p');
+		$node = $this->crawler
+					 ->filter('p')
+					 ->reduce(function($node, $i) {
+					 	return $node->text() == 'foo';
+					 });
+
+		$this->assertEquals(1, count($node));
 	}
 
 } // END class DomTests extends TestCase
