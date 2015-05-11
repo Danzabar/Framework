@@ -1,6 +1,7 @@
 <?php namespace Wasp\Test;
 
-use Wasp\DI\DICompilerPassRegister;
+use Wasp\DI\DICompilerPassRegister,
+	Symfony\Component\DomCrawler\Crawler;
 
 
 /**
@@ -42,6 +43,20 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	protected $env;	
 
 	/**
+	 * The response
+	 *
+	 * @var Symfony\Component\HttpFoundation\Response
+	 */
+	protected $response;
+
+	/**
+	 * Instance of the Dom Crawler
+	 *
+	 * @var Symfony\Component\DomCrawler\Crawler
+	 */
+	protected $crawler;
+
+	/**
 	 * Set up test class
 	 *
 	 * @return void
@@ -64,6 +79,20 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		{
 			$this->DI->get('commandloader')->fromArray($this->commands);	
 		}
+	}
+
+	/**
+	 * Uses the application to build a response object based on the current state of the request class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function respond()
+	{
+		$this->response = $this->application->react();
+
+		// Create the crawler for any html assertions
+		$this->crawler = new Crawler($this->response->getContent());
 	}
 
 	/**

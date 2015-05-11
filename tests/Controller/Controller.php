@@ -44,6 +44,17 @@ class Controller extends BaseController
 	}
 
 	/**
+	 * Returns some html to work with the dom crawler
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function returnHtml()
+	{
+		return '<html><head></head><body><div class="tester"><p>foo</p><p>bar</p></div></body></html>';
+	}
+
+	/**
 	 * Redirect
 	 *
 	 * @return Response
