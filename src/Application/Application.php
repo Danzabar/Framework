@@ -56,6 +56,26 @@ class Application
 	}
 
 	/**
+	 * Reacts to the current request
+	 *
+	 * @return Symfony\Component\HttpFoundation\Response
+	 * @author Dan Cox
+	 */
+	public function react()
+	{
+		$request = $this->DI->get('request');
+		
+		// If there is no fabricated request
+		if (is_null($request->getRequest()))
+		{
+			// Create it from globals
+			$request->fromGlobals();
+		}
+
+		return $this->DI->get('router')->resolve($request->getRequestUri());
+	}
+
+	/**
 	 * Responds to the current request
 	 *
 	 * @return void
@@ -63,13 +83,8 @@ class Application
 	 **/
 	public function respond()
 	{
-		$request = $this->DI->get('request')->fromGlobals();
+		$response = $this->react();
 
-		// Resolve the route to get a response
-		$response = $this->DI->get('router')
-							 ->resolve($request->getRequestUri());
-
-		// Send the response
 		$response->send();
 	}
 

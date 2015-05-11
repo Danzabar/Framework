@@ -139,6 +139,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 		$request = $app->getDI()->get('request');
 		$router = $app->getDI()->get('router');
 
+		$request->shouldReceive('getRequest')->once()->andReturn(NULL);
 		$request->shouldReceive('fromGlobals')->once()->andReturn($request);
 		$request->shouldReceive('getRequestUri')->once()->andReturn('/test');
 		$router->shouldReceive('resolve')->once()->with('/test')->andReturn($router);
@@ -146,17 +147,5 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
 		$app->respond();
 	}
-
-	/**
-	 * Test respond without mocks
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_respond()
-	{
-
-	}
-
 	
 } // END class ApplicationTest extends \PHPUnit_Framework_TestCase

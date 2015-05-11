@@ -35,6 +35,18 @@ class SerializerTest extends TestCase
 	}
 
 	/**
+	 * Test creating the serializer object
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_createSerializer()
+	{
+		$serializer = $this->DI->get('serializer');
+		$serializer->config(__DIR__ . '/SerializerCache', TRUE);		
+	}
+
+	/**
 	 * Test serializing an entity
 	 *
 	 * @return void
