@@ -99,7 +99,7 @@ class Extension implements ExtensionInterface
 	/**
 	 * returns the namespace for xml files (not used)
 	 *
-	 * @return void
+	 * @return string
 	 * @author Dan Cox
 	 */
 	public function getNamespace()
