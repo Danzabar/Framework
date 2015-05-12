@@ -213,11 +213,13 @@ class Field
 	public function fieldTypes()
 	{
 		$this->typeMap = Array(
-			'String'		=> 'createStringField',
-			'Checkbox'		=> 'createBox',
-			'Radio'			=> 'createBox',
-			'TextArea'		=> 'createTextArea',
-			'Select'		=> 'createSelectBox'
+			'String'			=> 'createStringField',
+			'Checkbox'			=> 'createBox',
+			'Radio'				=> 'createBox',
+			'TextArea'			=> 'createTextArea',
+			'Select'			=> 'createSelectBox',
+			'CheckboxGroup'		=> 'createBoxGroup',
+			'RadioGroup'		=> 'createBoxGroup'
 		);
 	}
 
@@ -276,6 +278,33 @@ class Field
 	public function createTextArea(Array $extras)
 	{
 		return sprintf('<textarea name="%1$s" id="%1$s" %2$s>%3$s</textarea>', $this->id, Str::arrayToHtmlProperties($extras), $this->value);
+	}
+
+	/**
+	 * Creates a group of checkboxes or radio buttons
+	 *
+	 * @param Array $extras
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function createBoxGroup(Array $extras)
+	{
+		$type = ($this->type == 'CheckboxGroup' ? 'checkbox' : 'radio');
+		$group = '';
+
+		foreach ($this->values as $label => $value)
+		{
+			if ($this->value == $value)
+			{
+				$extras = array_merge($extras, Array('checked' => 'checked'));
+			}
+
+			$group .= '<label>';
+			$group .= sprintf('<input type="%s" name="%s" value="%s" %s/>', $type, $this->id, $value, Str::arrayToHtmlProperties($extras));
+			$group .= sprintf('%s</label>', $label);
+		}
+
+		return $group;
 	}
 
 	/**

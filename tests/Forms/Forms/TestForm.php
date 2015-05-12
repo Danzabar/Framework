@@ -33,6 +33,17 @@ class TestForm extends Form
 		'type'		 => 'Password');
 
 	/**
+	 * undocumented class variable
+	 *
+	 * @var string
+	 */
+	public $checkgroup = Array(
+		'name'		 => 'checkgroup',
+		'type'		 => 'CheckboxGroup',
+		'values'	 => ['Yes' => 'Y', 'No' => 'N']
+	);
+
+	/**
 	 * Remember me checkbox
 	 *
 	 * @var Array

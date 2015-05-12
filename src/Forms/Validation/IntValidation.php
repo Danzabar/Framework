@@ -27,7 +27,10 @@ class IntValidation extends Rule
 	 */
 	public function validate()
 	{
-		return filter_var($this->value, FILTER_VALIDATE_INT);
+		if (!empty($this->value))
+		{
+			return filter_var($this->value, FILTER_VALIDATE_INT);
+		}
 	}
 
 } // END class IntValidation extends Rule

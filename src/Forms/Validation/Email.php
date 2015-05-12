@@ -26,8 +26,10 @@ class Email extends Rule
 	 */
 	public function validate()
 	{
-		// Just a filter var
-		return filter_var($this->value, FILTER_VALIDATE_EMAIL);
+		if (!empty($this->value))
+		{
+			return filter_var($this->value, FILTER_VALIDATE_EMAIL);
+		}
 	}
 
 } // END class Email extends Rule
