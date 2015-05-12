@@ -130,14 +130,17 @@ class FieldTest extends TestCase
 	{
 		$field = new Field('rule', 'String', [new Validation\Email()], '', Array(), Array('rule' => 'test'));
 		$field2 = new Field('rule2', 'String', [new Validation\Email()], '', Array(), Array('rule2' => 'test@test.com'));
+		$field3 = new Field('rule3', 'String', [new Validation\Email()], '', Array(), Array('rule3' => ''));
 
 		$field->validate();
 		$field2->validate();
+		$field3->validate();
 
 		$error = $field->errors()[0];
 
 		$this->assertEquals('A valid email was expected', $error);
 		$this->assertEquals(0, count($field2->errors()));
+		$this->assertEquals(0, count($field3->errors()));
 	}
 
 	/**
@@ -150,14 +153,17 @@ class FieldTest extends TestCase
 	{
 		$field = new Field('rule', 'String', [new Validation\IntValidation()], '', Array(), Array('rule' => 'five'));
 		$field2 = new Field('rule2', 'String', [new Validation\IntValidation()], '', Array(), Array('rule2' => '5'));
+		$field3 = new Field('rule3', 'String', [new Validation\IntValidation()], '', Array(), Array('rule3' => ''));
 
 		$field->validate();
 		$field2->validate();
+		$field3->validate();
 
 		$error = $field->errors()[0];
 
 		$this->assertEquals('An integer was expected', $error);
 		$this->assertEquals(0, count($field2->errors()));
+		$this->assertEquals(0, count($field3->errors()));
 	}
 
 	/**
@@ -168,16 +174,19 @@ class FieldTest extends TestCase
 	 */
 	public function test_urlValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\URL]);
+		$field = new Field('rule', 'String', [new Validation\URL], '', Array(), Array('rule' => 'foo'));
 		$field2 = new Field('rule2', 'String', [new Validation\URL], '', Array(), Array('rule2' => 'http://www.google.com'));
+		$field3 = new Field('rule3', 'String', [new Validation\URL], '', Array(), Array('rule3' => ''));
 
 		$field->validate();
 		$field2->validate();
+		$field3-> validate();
 
 		$error = $field->errors()[0];
 
 		$this->assertEquals('A valid URL was expected', $error);
 		$this->assertEquals(0, count($field2->errors()));
+		$this->assertEquals(0, count($field3->errors()));
 	}
 
 	/**
@@ -190,14 +199,17 @@ class FieldTest extends TestCase
 	{
 		$field = new Field('rule', 'String', [new Validation\FloatValidation], '', Array(), Array('rule' => 'fivepointtwo'));
 		$field2 = new Field('rule2', 'String', [new Validation\FloatValidation], '', Array(), Array('rule2' => '5.2'));
+		$field3 = new Field('rule3', 'String', [new Validation\FloatValidation], '', Array(), Array('rule3' => ''));
 
 		$field->validate();
 		$field2->validate();
+		$field3->validate();
 
 		$error = $field->errors()[0];
 
 		$this->assertEquals('A float was expected', $error);
 		$this->assertEquals(0, count($field2->errors()));
+		$this->assertEquals(0, count($field3->errors()));
 	}
 
 	/**

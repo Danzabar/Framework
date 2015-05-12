@@ -31,6 +31,8 @@ class FloatValidation extends Rule
 		{
 			return filter_var($this->value, FILTER_VALIDATE_FLOAT);
 		}
+
+		return true;
 	}
 
 } // END class FloatValidation extends Rule

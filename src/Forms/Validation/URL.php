@@ -31,6 +31,8 @@ class URL extends Rule
 		{
 			return filter_var($this->value, FILTER_VALIDATE_URL);
 		}
+
+		return true;
 	}
 
 
