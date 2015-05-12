@@ -36,7 +36,7 @@ class FormTest extends TestCase
 	{
 		$form = new Wasp\Test\Forms\Forms\TestForm();
 
-		$this->assertEquals(3, count($form->fields()));
+		$this->assertEquals(4, count($form->fields()));
 		$this->assertEquals('<form action="/form/test" method="POST" class="form">', $form->open(['class' => 'form']));
 		$this->assertEquals('</form>', $form->close());
 	}
@@ -90,6 +90,25 @@ class FormTest extends TestCase
 		$result = $form->validate();
 
 		$this->assertFalse($result);
+	}
+
+	/**
+	 * Check the checkbox group output from our test form
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_checkboxGroupOutput()
+	{
+		$request = $this->DI->get('request')->make('/form', 'POST', Array('checkgroup' => 'Y'));
+
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$fields = $form->fields();
+
+		$checkgroup = $fields[2];
+
+		$this->assertEquals('Y', $checkgroup->getValue());
+		$this->assertEquals('<label><input type="checkbox" name="checkgroup" value="Y" checked="checked"/>Yes</label><label><input type="checkbox" name="checkgroup" value="N" />No</label>', $checkgroup->field());
 	}
 
 
