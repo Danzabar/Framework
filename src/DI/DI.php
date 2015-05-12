@@ -155,7 +155,7 @@ class DI
 				->cache();
 		}
 
-		$container = new \ReflectionClass($this->cache_namespace . '\\' .$this->cache_class);
+		$container = new \ReflectionClass($this->cache_namespace . '\\' . $this->cache_class);
 
 		static::$container = $container->newInstance();
 	}

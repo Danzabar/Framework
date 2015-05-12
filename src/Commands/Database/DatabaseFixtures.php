@@ -49,14 +49,14 @@ class DatabaseFixtures extends BaseCommand
 	{
 		$FM = $this->DI->get('fixtures');
 
-		if(!is_null($this->input->getArgument('directory')))
+		if (!is_null($this->input->getArgument('directory')))
 		{
 			$FM->setDirectory($this->input->getArgument('directory'));
 		}
 		
 		$FM->load();
 
-		if($this->input->getOption('purge'))
+		if ($this->input->getOption('purge'))
 		{
 			$FM->purge();
 			$this->output->writeln("Successfully purged fixtures");

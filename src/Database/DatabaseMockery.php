@@ -22,7 +22,6 @@ class DatabaseMockery
 	/**
 	 * Set up class dependencies
 	 *
-	 * @param \Wasp\Database\Schema $schema
 	 * @author Dan Cox
 	 */
 	public function __construct($DI)
