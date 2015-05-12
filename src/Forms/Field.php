@@ -294,13 +294,15 @@ class Field
 
 		foreach ($this->values as $label => $value)
 		{
+			$fieldExtras = $extras;
+
 			if ($this->value == $value)
 			{
-				$extras = array_merge($extras, Array('checked' => 'checked'));
+				$fieldExtras = array_merge($fieldExtras, Array('checked' => 'checked'));
 			}
 
 			$group .= '<label>';
-			$group .= sprintf('<input type="%s" name="%s" value="%s" %s/>', $type, $this->id, $value, Str::arrayToHtmlProperties($extras));
+			$group .= sprintf('<input type="%s" name="%s" value="%s" %s/>', $type, $this->id, $value, Str::arrayToHtmlProperties($fieldExtras));
 			$group .= sprintf('%s</label>', $label);
 		}
 

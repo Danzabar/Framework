@@ -100,12 +100,15 @@ class FormTest extends TestCase
 	 */
 	public function test_checkboxGroupOutput()
 	{
+		$request = $this->DI->get('request')->make('/form', 'POST', Array('checkgroup' => 'Y'));
+
 		$form = new Wasp\Test\Forms\Forms\TestForm();
 		$fields = $form->fields();
 
 		$checkgroup = $fields[2];
 
-		$this->assertEquals('<label><input type="checkbox" name="checkgroup" value="Y" />Yes</label><label><input type="checkbox" name="checkgroup" value="N" />No</label>', $checkgroup->field());
+		$this->assertEquals('Y', $checkgroup->getValue());
+		$this->assertEquals('<label><input type="checkbox" name="checkgroup" value="Y" checked="checked"/>Yes</label><label><input type="checkbox" name="checkgroup" value="N" />No</label>', $checkgroup->field());
 	}
 
 
