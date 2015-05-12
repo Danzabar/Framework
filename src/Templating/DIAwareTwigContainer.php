@@ -28,14 +28,15 @@ class DIAwareTwigContainer
 	}
 
 	/**
-	 * Returns an Instanced service
+	 * Returns the relevent service from the container
 	 *
+	 * @param String $service
 	 * @return Object
 	 * @author Dan Cox
 	 */
-	public function __call($key, $params = Array())
-	{	
-		return $this->container->get($key);
+	public function get($service)
+	{
+		return $this->container->get($service);
 	}
 
 
