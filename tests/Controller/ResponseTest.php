@@ -103,4 +103,22 @@ class ResponseTest extends TestCase
 		$this->assertEquals('forward into the unknown 2', $response->getContent());
 	}
 
+	/**
+	 * Test persisting input using the session manager class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_persistingInput()
+	{
+		$this->DI->get('request')->make('/test', 'POST', Array('foo' => 'bar'));
+		$dispatch = $this->DI->get('dispatcher');
+
+		$response = $dispatch->dispatch('Wasp\Test\Controller\Controller::redirectWithInput');
+		$input = unserialize(base64_decode($this->DI->get('session')->get('input\old')));	
+
+		$this->assertTrue($this->DI->get('session')->has('input\old'));		
+		$this->assertEquals('bar', $input->get('foo'));
+	}
+
 } // END class ResponseTest extends TestCase

@@ -75,5 +75,16 @@ class Controller extends BaseController
 	{
 		return $this->response->redirect('/');
 	}
+
+	/**
+	 * Redirect with attached input
+	 *
+	 * @return Response
+	 * @author Dan Cox
+	 */
+	public function redirectWithInput()
+	{
+		return $this->response->persistInput()->redirect('/');
+	}
 	
 } // END class Controller extends BaseController
