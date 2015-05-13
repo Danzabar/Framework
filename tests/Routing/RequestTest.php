@@ -56,5 +56,46 @@ class RequestTest extends TestCase
 		$this->assertEquals('bob', $request->request->get('username'));
 	}
 
+	/**
+	 * Test getting the input from a request of different types
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_getInput()
+	{
+		$request = $this->DI->get('request');
+
+		// GET
+		$request->make('/test', 'GET', Array('test' => 'foo'));
+
+		$this->assertTrue($request->getInput()->has('test'));
+		$this->assertEquals('foo', $request->getInput()->get('test'));
+
+		// POST
+		$request->make('/test', 'POST', Array('foo' => 'bar'));
+
+		$this->assertTrue($request->getInput()->has('foo'));
+		$this->assertEquals('bar', $request->getInput()->get('foo'));
+
+		// PATCH
+		$request->make('/test', 'PATCH', Array('bar' => 'foo'));
+
+		$this->assertTrue($request->getInput()->has('bar'));
+		$this->assertEquals('foo', $request->getInput()->get('bar'));
+
+		// PUT
+		$request->make('/test', 'PUT', Array('zim' => 'zam'));
+
+		$this->assertTrue($request->getInput()->has('zim'));
+		$this->assertEquals('zam', $request->getInput()->get('zim'));
+
+		// DELETE
+		$request->make('/test', 'DELETE', Array('zam' => 'zim'));
+
+		$this->assertTrue($request->getInput()->has('zam'));
+		$this->assertEquals('zim', $request->getInput()->get('zam'));
+	}
+
 } // END class RequestTest extends TestCase
 

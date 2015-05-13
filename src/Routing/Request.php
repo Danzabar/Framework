@@ -62,6 +62,22 @@ class Request
 
 		return $this->request;
 	}
+
+	/**
+	 * Returns input from the current request
+	 *
+	 * @return Symfony\Component\HttpFoundation\ParamBag
+	 * @author Dan Cox
+	 */
+	public function getInput()
+	{
+		if ($this->request->isMethod('GET'))
+		{
+			return $this->request->query;
+		}
+
+		return $this->request->request;
+	}
 	
 	/**
 	 * Magic Getter for the request object
