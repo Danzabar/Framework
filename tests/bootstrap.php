@@ -21,7 +21,3 @@ define('SRC', dirname(__DIR__) . '/src/');
 define('APPLICATION', SRC . 'Application/');
 define('CONFIG', SRC.'Config/');
 define('ENTITIES', __DIR__ . '/Entity/Entities/');
-
-// Start session
-$session = new Symfony\Component\HttpFoundation\Session\Session();
-$session->start();

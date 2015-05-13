@@ -2,6 +2,7 @@
 
 use Wasp\Environment\Environment,
 	Wasp\Environment\EnvironmentInterface,
+	Wasp\DI\Pass\SessionArrayPass,
 	Wasp\DI\Pass\MockeryPass;
 
 /**
@@ -23,6 +24,7 @@ class Test extends Environment Implements EnvironmentInterface
 	public function setup()
 	{
 		$this->DI->addCompilerPass(new MockeryPass);
+		$this->DI->addCompilerPass(new SessionArrayPass);
 		
 		// No need to cache here. 
 		$this->createDI();

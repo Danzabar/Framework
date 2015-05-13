@@ -76,6 +76,8 @@ services:
     request:
         class: Wasp\Routing\Request
         lazy: true
+        arguments: 
+            - "@session"
     route_collection:
         class: Symfony\Component\Routing\RouteCollection
     route:
