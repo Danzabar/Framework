@@ -11,16 +11,6 @@ use Wasp\Test\TestCase;
  */
 class RequestTest extends TestCase
 {
-	
-	/**
-	 * An array of compiler passes used by this test
-	 *
-	 * @var Array
-	 */	
-	protected $passes = [
-		'Wasp\DI\Pass\SessionFilePass'
-	];
-
 	/**
 	 * Setup test env
 	 *

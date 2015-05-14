@@ -65,6 +65,9 @@ class Request
 			$type = $this->session->get('input\old.type');
 			$deobsfucated = unserialize(base64_decode($input));
 			$this->putInput($deobsfucated, $type);
+
+			$this->session->remove('input\old');
+			$this->session->remove('input\old.type');
 		}
 	}
 
