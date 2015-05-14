@@ -19,6 +19,25 @@ class Request
 	protected $request;
 
 	/**
+	 * Instance of the session management class
+	 *
+	 * @var \Symfony\Component\HttpFoundation\Session\Session
+	 */
+	protected $session;
+	
+
+	/**
+	 * Load dependencies
+	 *
+	 * @param \Symfony\Component\HttpFoundation\Session\Session $session
+	 * @author Dan Cox
+	 */
+	public function __construct(\Symfony\Component\HttpFoundation\Session\Session $session)
+	{
+		$this->session = $session;
+	}
+
+	/**
 	 * Get the request object from the current global var
 	 *
 	 * @return SymRequest
@@ -27,8 +46,29 @@ class Request
 	public function fromGlobals()
 	{
 		$this->request = SymRequest::createFromGlobals();
+		$this->oldInput();
 
 		return $this->request;
+	}
+
+	/**
+	 * Loads input from the session, which has been persisted through the response class
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function oldInput()
+	{
+		if ($this->session->has('input\old'))
+		{
+			$input = $this->session->get('input\old');
+			$type = $this->session->get('input\old.type');
+			$deobsfucated = unserialize(base64_decode($input));
+			$this->putInput($deobsfucated, $type);
+
+			$this->session->remove('input\old');
+			$this->session->remove('input\old.type');
+		}
 	}
 
 	/**
@@ -61,6 +101,43 @@ class Request
 		}
 
 		return $this->request;
+	}
+
+	/**
+	 * Returns input from the current request
+	 *
+	 * @return Symfony\Component\HttpFoundation\ParamBag
+	 * @author Dan Cox
+	 */
+	public function getInput()
+	{
+		if ($this->request->isMethod('GET'))
+		{
+			return $this->request->query;
+		}
+
+		return $this->request->request;
+	}
+
+	/**
+	 * Put input back into the correct Parambag
+	 *
+	 * @param \Symfony\Component\HttpFoundation\ParamBag $input
+	 * @param String $type
+	 * @return Request
+	 * @author Dan Cox
+	 */
+	public function putInput(\Symfony\Component\HttpFoundation\ParameterBag $input, $type)
+	{
+		if ($type == 'query')
+		{
+			$this->request->query->add($input->all());
+		} else
+		{
+			$this->request->request->add($input->all());
+		}
+
+		return $this;
 	}
 	
 	/**

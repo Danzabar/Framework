@@ -3,6 +3,7 @@
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
 	Symfony\Component\DependencyInjection\ContainerBuilder,
 	Symfony\Component\DependencyInjection\Reference,
+	Wasp\DI\Pass\CompilerHelper,
 	Wasp\Database\DatabaseMockery;
 
 /**
@@ -14,14 +15,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
  */
 class DatabaseMockeryPass implements CompilerPassInterface
 {
-	
-	/**
-	 * The container
-	 *
-	 * @var \Symfony\Component\DependencyInjection\ContainerBuilder
-	 */
-	protected $container;
-
 	/**
 	 * Process the container
 	 *
@@ -31,16 +24,9 @@ class DatabaseMockeryPass implements CompilerPassInterface
 	 */
 	public function process(ContainerBuilder $container)
 	{
-		$this->container = $container;
-
-		if ($this->container->hasDefinition('database'))
-		{
-			$definition = $this->container->getDefinition('database');  
-			
-			$definition->setClass('Wasp\Database\DatabaseMockery');
-			$definition->setArguments([new Reference('service_container')]);
-			$this->container->setDefinition('database', $definition);
-		}
+		$helper = new CompilerHelper($container);
+		$helper->updateDefinitionClass('database', 'Wasp\Database\DatabaseMockery');
+		$helper->updateDefinitionArguments('database', [new Reference('service_container')]);
 	}
 
 } // END class DatabaseMockeryPass implements CompilerPassInterface

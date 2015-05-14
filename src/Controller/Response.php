@@ -88,5 +88,24 @@ class Response
 	{
 		return new RedirectResponse($url);
 	}
+
+	/**
+	 * Stores the current input in the session for the next request
+	 *
+	 * @return Response
+	 * @author Dan Cox
+	 */
+	public function persistInput()
+	{
+		$input = $this->DI->get('request')->getInput();
+		$type = $this->DI->get('request')->isMethod('GET') ? 'query' : 'request';	
+		$session = $this->DI->get('session');
+
+		$obsfucated = base64_encode(serialize($input));
+		$session->set('input\old', $obsfucated);
+		$session->set('input\old.type', $type);
+
+		return $this;
+	}
 	
 } // END class Response
