@@ -3,6 +3,7 @@
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
 	Symfony\Component\DependencyInjection\ContainerBuilder,
 	Symfony\Component\DependencyInjection\Reference,
+	Wasp\DI\Pass\CompilerHelper,
 	Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 
 /**
@@ -14,14 +15,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
  */
 class SessionFilePass implements CompilerPassInterface
 {
-
-	/**
-	 * Instance of the container
-	 *
-	 * @var \Symfony\Component\DependencyInjection\ContainerBuilder
-	 */
-	protected $container;
-
 	/**
 	 * Process the compiler
 	 *
@@ -31,18 +24,9 @@ class SessionFilePass implements CompilerPassInterface
 	 */
 	public function process(ContainerBuilder $container)
 	{
-		$this->container = $container;
-
-		if ($this->container->hasDefinition('session'))
-		{
-			$this->container->register('session.file', new MockFileSessionStorage);
-
-			$def = $this->container
-						->getDefinition('session')
-						->setArguments([new Reference('session.file')]);
-
-			$this->container->setDefinition('session', $def);
-		}
+		$helper = new CompilerHelper($container);
+		$helper->createDefinition('session.storage', new MockFileSessionStorage);
+		$helper->updateDefinitionArguments('session', [new Reference('session.storage')]);
 	}
 
 } // END class SessionFilePass implements CompilerPassInterface

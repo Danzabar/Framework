@@ -124,5 +124,21 @@ class RequestTest extends TestCase
 		$this->assertEquals('bar', $request->request->get('foo'));	
 	}
 
+	/**
+	 * Test getting old input from a GET request
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_getOldInputPOST()
+	{
+		$request = $this->DI->get('request')->make('/test', 'GET', Array('bar' => 'foo'));
+		$this->DI->get('response')->persistInput();
+
+		$request = $this->DI->get('request')->fromGlobals();
+
+		$this->assertEquals('foo', $request->query->get('bar'));	
+	}
+
 } // END class RequestTest extends TestCase
 
