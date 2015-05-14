@@ -62,9 +62,9 @@ class Request
 		if ($this->session->has('input\old'))
 		{
 			$input = $this->session->get('input\old');
-			$this->session->
+			$type = $this->session->get('input\old.type');
 			$deobsfucated = unserialize(base64_decode($input));
-			$this->putInput($deobsfucated);
+			$this->putInput($deobsfucated, $type);
 		}
 	}
 
@@ -120,12 +120,13 @@ class Request
 	 * Put input back into the correct Parambag
 	 *
 	 * @param \Symfony\Component\HttpFoundation\ParamBag $input
+	 * @param String $type
 	 * @return Request
 	 * @author Dan Cox
 	 */
-	public function putInput(\Symfony\Component\HttpFoundation\ParameterBag $input)
+	public function putInput(\Symfony\Component\HttpFoundation\ParameterBag $input, $type)
 	{
-		if ($this->request->isMethod('GET'))
+		if ($type == 'query')
 		{
 			$this->request->query->add($input->all());
 		} else

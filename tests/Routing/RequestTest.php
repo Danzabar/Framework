@@ -11,6 +11,30 @@ use Wasp\Test\TestCase;
  */
 class RequestTest extends TestCase
 {
+	
+	/**
+	 * An array of compiler passes used by this test
+	 *
+	 * @var Array
+	 */	
+	protected $passes = [
+		'Wasp\DI\Pass\SessionFilePass'
+	];
+
+	/**
+	 * Setup test env
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function setUp()
+	{
+		parent::setUp();
+
+		$request = $this->DI->get('request')->make('/test', 'POST', Array('foo' => 'bar'));
+		$response = $this->DI->get('response')->persistInput();
+	}
+
 	/**
 	 * Test Creating a request from the globals
 	 *
@@ -95,6 +119,19 @@ class RequestTest extends TestCase
 
 		$this->assertTrue($request->getInput()->has('zam'));
 		$this->assertEquals('zim', $request->getInput()->get('zam'));
+	}
+
+	/**
+	 * Test getting back an old input
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_getOldInput()
+	{
+		$request = $this->DI->get('request')->fromGlobals();
+		
+		$this->assertEquals('bar', $request->request->get('foo'));	
 	}
 
 } // END class RequestTest extends TestCase

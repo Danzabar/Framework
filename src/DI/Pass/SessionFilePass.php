@@ -3,7 +3,7 @@
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
 	Symfony\Component\DependencyInjection\ContainerBuilder,
 	Symfony\Component\DependencyInjection\Reference,
-	Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+	Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 
 /**
  * Redifines the session reference in the DI to include the Mock File Session Storage
@@ -39,7 +39,7 @@ class SessionFilePass implements CompilerPassInterface
 
 			$def = $this->container
 						->getDefinition('session')
-						->setArguments('session.file', [new Reference('session.file')]);
+						->setArguments([new Reference('session.file')]);
 
 			$this->container->setDefinition('session', $def);
 		}
