@@ -15,6 +15,10 @@ services:
         lazy: true
         calls:
             - [setDI, ["@service_container"]]
+    config:
+        class: Danzabar\Config\Files\ConfigFile
+        lazy: true
+        scope: prototype
     commandloader:
         class: Wasp\Console\CommandLoader
         lazy: true
@@ -64,6 +68,20 @@ services:
         class: Symfony\Component\HttpFoundation\JsonResponse
         lazy: true
         scope: prototype
+    module.builder:
+        class: Wasp\Modules\ModuleBuilder
+        lazy: true
+        calls:
+            - [setDI, ["@service_container"]]
+    module.manager:
+        class: Wasp\Modules\ModuleManager
+        lazy: true
+        arguments: ["@module.cache", "@module.builder"]
+    module.cache:
+        class: Wasp\Modules\ModuleCache
+        lazy: true
+        calls:
+            - [setDI, ["@service_container"]]
     response_api:
         class: Symfony\Component\HttpFoundation\Response
         lazy: true
