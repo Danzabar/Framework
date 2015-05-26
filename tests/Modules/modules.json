@@ -1,5 +1,9 @@
 {
-	"modules": {
-		"test": "Wasp\\Test\\Modules\\Test\\Module"
-	}
+    "modules": {
+        "test": "Wasp\\Test\\Modules\\Test\\Module",
+        "newmodule": "Wasp\\Test\\Modules\\NewTest\\Module"
+    },
+    "module": {
+        "test": "Wasp\\Test\\Modules\\Test\\Module"
+    }
 }

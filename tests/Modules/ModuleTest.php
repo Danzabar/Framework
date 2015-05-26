@@ -78,6 +78,60 @@ class ModuleTest extends TestCase
 	}
 
 	/**
+	 * Deactivate a module
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_removeModule()
+	{
+		$manager = $this->DI->get('module.manager');
+		$manager->loadSettings($this->settings);
+		$manager->initFiles();
+		
+		$manager->deactivate('test');
+
+		$cache = $manager->getCache()->data();
+		$records = $cache->all();
+
+		$this->assertEquals(0, count($records));
+	}
+
+	/**
+	 * Test deactivating an unknown module
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_deactivateUnknownModule()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Modules\UnknownModule');
+
+		$manager = $this->DI->get('module.manager');
+		$manager->loadSettings($this->settings);
+		
+		$manager->initFiles();
+		$manager->deactivate('Fake');
+	}
+
+	/**
+	 * Test Deactivating a module that is not active
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_decactivateUnactiveModule()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Modules\ModuleNotActive');
+
+		$manager = $this->DI->get('module.manager');
+		$manager->loadSettings($this->settings);
+
+		$manager->initFiles();
+		$manager->deactivate('test');
+	}
+
+	/**
 	 * Test that exception is thrown when an unknown module is activated
 	 *
 	 * @return void

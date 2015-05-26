@@ -32,6 +32,7 @@ class ModuleCache
 	 * Attempts to grab the cache file
 	 *
 	 * @return \Danzabar\Config\Files\ConfigFile
+	 * @throws \Wasp\Exceptions\Modules\MissingCacheSettings
 	 * @author Dan Cox
 	 */
 	public function cache()
@@ -47,6 +48,18 @@ class ModuleCache
 	}
 
 	/**
+	 * Checks whether a module is active
+	 *
+	 * @param String $module
+	 * @return Boolean
+	 * @author Dan Cox
+	 */
+	public function has($module)
+	{
+		return isset($this->cache()->params()->$module);
+	}
+
+	/**
 	 * Writes cache data to the cache file
 	 *
 	 * @return \Danzabar\Config\Files\ConfigFile
@@ -57,6 +70,21 @@ class ModuleCache
 		$this->cache()
 			 ->params()
 			 ->merge(Array($module => $cacheData));
+
+		$this->cache->save();
+
+		return $this->cache;
+	}
+
+	/**
+	 * Removes module data from the cache file
+	 *
+	 * @return \Danzabar\Config\Files\ConfigFile
+	 * @author Dan Cox
+	 */
+	public function remove($module)
+	{
+		unset($this->cache->params()->$module);
 
 		$this->cache->save();
 

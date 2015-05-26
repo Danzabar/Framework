@@ -81,9 +81,52 @@ class ModuleManager
 	}
 
 	/**
-	 * Creates config files for the available and active records
+	 * Adds a new module to the available list
+	 *
+	 * @param String $module
+	 * @param String $namespace
+	 * @return ModuleManager
+	 * @author Dan Cox
+	 */
+	public function add($module, $namespace)
+	{
+		$this->available->add($module, $namespace);
+		$this->saveChanges();
+
+		return $this;
+	}
+
+	/**
+	 * Saves changes made to the available collection
 	 *
 	 * @return void
+	 * @author Dan Cox
+	 */
+	public function saveChanges()
+	{
+		$this->availableFile->params()->module = $this->available->all();
+		$this->availableFile->save();
+	}
+
+	/**
+	 * Removes the module from the list
+	 *
+	 * @param String $module
+	 * @return ModuleManager
+	 * @author Dan Cox
+	 */
+	public function remove($module)
+	{
+		$this->available->remove($module);
+		$this->saveChanges();
+
+		return $this;
+	}
+
+	/**
+	 * Creates config files for the available and active records
+	 *
+	 * @return ModuleManager
 	 * @author Dan Cox
 	 */
 	public function initFiles()
@@ -97,6 +140,8 @@ class ModuleManager
 
 			$this->available = new Collection($this->availableFile->params()->modules);
 		}	
+
+		return $this;
 	}
 
 	/**
@@ -128,6 +173,31 @@ class ModuleManager
 	}
 
 	/**
+	 * Deactivate a module by its name
+	 *
+	 * @param String $module
+	 * @return Boolean
+	 * @throws Wasp\Exceptions\Modules\UnknownModule
+	 * @author Dan Cox
+	 */
+	public function deactivate($module)
+	{
+		if ($this->available->has($module))
+		{
+			if ($this->cache->has($module))
+			{
+				$this->cache->remove($module);
+
+				return true;
+			}
+
+			throw new \Wasp\Exceptions\Modules\ModuleNotActive($module);
+		}
+
+		throw new \Wasp\Exceptions\Modules\UnknownModule($module);		
+	}
+
+	/**
 	 * Caches the results of building a module
 	 *
 	 * @param String $module
@@ -151,6 +221,8 @@ class ModuleManager
 	{
 		$this->settings = $this->sortSections($settings, $this->settingGroups);
 		$this->cache->load($this->settings->get('Cache'));
+
+		return $this;
 	}
 
 	/**

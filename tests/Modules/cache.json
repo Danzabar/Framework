@@ -1,11 +1,1 @@
-{
-    "test": {
-        "routes": [
-            "\/srv\/http\/waspframework\/tests\/Modules\/Test\/routes.php"
-        ],
-        "entities": [],
-        "extensions": [],
-        "commands": [],
-        "viewDirectory": ""
-    }
-}
+[]
