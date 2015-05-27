@@ -106,4 +106,77 @@ class ModuleCommandTest extends TestCase
 		$this->assertContains("Removed module", $CT->getDisplay());
 	}
 
+	/**
+	 * Test deactivating a module via CLI
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_deactivate()
+	{
+		$CT = new CommandTester($this->command);
+		$CT->execute([
+			'command'		=> $this->command->getName(),
+			'module'		=> 'test',
+			'--deactivate'	=> true
+		]);
+
+		$this->assertContains('Deactivated module', $CT->getDisplay());
+	}
+
+	/**
+	 * Test listing modules
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_list()
+	{
+		$CT = new CommandTester($this->command);
+		$CT->execute([
+			'command'		=> $this->command->getName(),
+			'--list'		=> true
+		]);
+
+		$this->assertContains('Wasp\Test\Modules\Test\Module', $CT->getDisplay());
+	}
+
+	/**
+	 * List only active modules
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_listOnlyActive()
+	{
+		$this->DI->get('module.manager')->activate('test');
+
+		$CT = new CommandTester($this->command);
+		$CT->execute([
+			'command'			=> $this->command->getName(),
+			'--list'			=> true,
+			'--only-active'		=> true
+		]);
+
+		$this->assertContains('Wasp\Test\Modules\Test\Module', $CT->getDisplay());
+	}
+
+	/**
+	 * List only modules that are not active
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_listOnlyNonActive()
+	{
+		$CT = new CommandTester($this->command);
+		$CT->execute([
+			'command'				=> $this->command->getName(),
+			'--list'				=> true,
+			'--only-inactive'		=> true	
+		]);
+
+		$this->assertContains('Wasp\Test\Modules\NewTest\Module', $CT->getDisplay());
+	}
+
 } // END class ModuleCommandTest extends TestCase

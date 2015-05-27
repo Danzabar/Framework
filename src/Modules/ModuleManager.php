@@ -81,6 +81,17 @@ class ModuleManager
 	}
 
 	/**
+	 * Returns the available collection as an array
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function asArray()
+	{
+		return $this->available->all();
+	}
+
+	/**
 	 * Adds a new module to the available list
 	 *
 	 * @param String $module

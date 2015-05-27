@@ -1,6 +1,7 @@
 <?php namespace Wasp\Commands\Modules;
 
-use Wasp\Commands\BaseCommand;
+use Wasp\Commands\BaseCommand,
+	Symfony\Component\Console\Helper\Table;
 
 /**
  * Command line class for Module interaction
@@ -42,7 +43,7 @@ class Module extends BaseCommand
 	public function setup()
 	{
 		$this
-			->argument('module', 'The module name', 'required')
+			->argument('module', 'The module name', 'optional')
 			->option('namespace', 'The namespace of the module class', 'optional', 'ns')
 			->option('add', 'Adds an available module and namespace to the list file', 'optional')
 			->option('remove', 'Removes the available module from the list', 'optional', 'r')
@@ -76,9 +77,13 @@ class Module extends BaseCommand
 				
 				break;
 			case ($this->input->getOption('list')):
+				
+				return $this->listModules();
 
 				break;
 			case ($this->input->getOption('deactivate')):
+					
+				return $this->deactivateModule($this->input->getArgument('module'));
 
 				break;
 			case ($this->input->getOption('remove')):
@@ -127,6 +132,75 @@ class Module extends BaseCommand
 	{
 		$this->manager->remove($module);
 		$this->output->writeln("Removed module: $module");
+	}
+
+	/**
+	 * Deactivates a module using the manage
+	 *
+	 * @param String $module
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function deactivateModule($module)
+	{
+		$this->manager->deactivate($module);
+		$this->output->writeln("Deactivated module: $module");
+	}
+
+	/**
+	 * Returns an array of modules
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function getModulesByOptions()
+	{
+		$modules = $this->manager->asArray();
+		$results = Array();
+		$cache = $this->manager->getCache();	
+		$value = null;
+
+		switch(true)
+		{
+			case ($this->input->getOption('only-active')):
+				
+				$value = true;
+				
+				break;
+			case ($this->input->getOption('only-inactive')):
+
+				$value = false;
+
+				break;
+		}
+
+		foreach ($modules as $module => $ns)
+		{
+			if (!is_null($value) && $cache->has($module) != $value)
+			{
+				unset($modules[$module]);
+			} else {
+				$results[] = [$module, $ns];		
+			}
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Lists modules
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function listModules()
+	{
+		$modules = $this->getModulesByOptions();
+
+		$table = new Table($this->output);
+		$table->setHeaders(['Module Name', 'Module Namespace']);
+		$table->setRows($modules);
+		$table->render();
 	}
 	
 } // END class Module extends BaseCommand
