@@ -1,6 +1,7 @@
 <?php namespace Wasp\Modules;
 
 use Wasp\Exceptions\Modules\MissingCacheSettings,
+	Wasp\Utils\SectionSorterTrait,
 	Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
@@ -12,7 +13,7 @@ use Wasp\Exceptions\Modules\MissingCacheSettings,
  */
 class ModuleCache
 {
-	use DependencyInjectionAwareTrait;
+	use DependencyInjectionAwareTrait, SectionSorterTrait;
 
 	/**
 	 * Instance of the Config Class containing the JSON cache file
@@ -27,6 +28,19 @@ class ModuleCache
 	 * @var Wasp\Utils\Collection
 	 */
 	protected $settings;
+
+	/**
+	 * undocumented class variable
+	 *
+	 * @var string
+	 */
+	protected $settingGroups = [
+		'routes'			=> 'Routes',
+		'entities'			=> 'Entities',
+		'extensions'		=> 'Extensions',
+		'commands'			=> 'Commands',
+		'viewsDirectory'	=> 'Views'
+	];
 
 	/**
 	 * Attempts to grab the cache file
@@ -102,6 +116,19 @@ class ModuleCache
 	{
 		$this->settings = $settings;
 		return $this;
+	}
+
+	/**
+	 * Processes the cache into sections to use in various parts of the framework
+	 *
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function process()
+	{
+		$cache = $this->orderSections($this->cache->params()->all(), $this->settingGroups);	
+		
+		return $cache;
 	}
 
 	/**

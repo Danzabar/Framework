@@ -40,4 +40,37 @@ Trait SectionSorterTrait
 
 		return $collection;
 	}
+
+	/**
+	 * Orders an array into sections
+	 *
+	 * @param Array $sortable
+	 * @param Array $sortKeys
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function orderSections(Array $sortable, Array $sortKeys)
+	{
+		$collection = new Collection;
+
+		foreach ($sortKeys as $map => $key)
+		{
+			$section = new Collection;
+			$collection->add($key, $section);
+		}
+
+		foreach ($sortable as $sub)
+		{
+			foreach ($sub as $key => $value)
+			{
+				if (array_key_exists($key, $sortKeys) && !empty($value))
+				{
+					$section = $collection->get($sortKeys[$key]);
+					$section[] = $value;
+				}					
+			}	
+		}
+		
+		return $collection;	
+	}
 }
