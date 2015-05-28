@@ -66,7 +66,13 @@ Trait SectionSorterTrait
 				if (array_key_exists($key, $sortKeys) && !empty($value))
 				{
 					$section = $collection->get($sortKeys[$key]);
-					$section[] = $value;
+
+					if (is_array($value))
+					{
+						$section->append($value);
+					} else {
+						$section[] = $value;
+					}
 				}					
 			}	
 		}

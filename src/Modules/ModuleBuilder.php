@@ -91,8 +91,8 @@ class ModuleBuilder
 	 */
 	public function registerEntityDirectories(Array $directories)
 	{
-		$this->mergeValues('entities', $directories);
-		return $this;	
+		$this->build->add('entities', $directories);
+		return $this;
 	}
 
 	/**

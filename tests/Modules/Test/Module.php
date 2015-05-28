@@ -25,6 +25,8 @@ class Module implements ModuleInterface
 		// Register the route file
 		$builder->addRoutesFromFile(__DIR__ . '/routes.php');	
 
+		$builder->registerEntityDirectories([__DIR__ . '/Entity/']);
+
 	}
 	
 } // END class Module implements ModuleInterface

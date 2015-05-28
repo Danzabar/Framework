@@ -30,6 +30,13 @@ class ModuleCache
 	protected $settings;
 
 	/**
+	 * A collection that contains process cache elements
+	 *
+	 * @var Wasp\Utils\Collection
+	 */
+	protected $processed;
+
+	/**
 	 * undocumented class variable
 	 *
 	 * @var string
@@ -126,10 +133,32 @@ class ModuleCache
 	 */
 	public function process()
 	{
-		$cache = $this->orderSections($this->cache->params()->all(), $this->settingGroups);	
-		
-		return $cache;
+		$this->processed = new \Wasp\Utils\Collection();
+
+		if (!is_null($this->cache) && !empty($this->cache->params()->all()))
+		{
+			$this->processed = $this->orderSections($this->cache->params()->all(), $this->settingGroups);	
+		} 
+
+		return $this->processed;
 	}
+
+	/**
+	 * Returns the processed cache collection
+	 *
+	 * @return Wasp\Utils\Collection
+	 * @author Dan Cox
+	 */
+	public function getProcessed()
+	{	
+		if (is_null($this->processed))
+		{
+			$this->process();
+		}
+
+		return $this->processed;
+	}
+
 
 	/**
 	 * Returns the parambag

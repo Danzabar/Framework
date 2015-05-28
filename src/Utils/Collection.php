@@ -70,6 +70,34 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	}
 
 	/**
+	 * Appends an array to the current collectable array
+	 *
+	 * @param Array $values
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function append(Array $values)
+	{	
+		$this->collectable = array_merge($this->collectable, $values);		
+
+		return $this;
+	}
+
+	/**
+	 * Prepends an array to the current collectable
+	 *
+	 * @param Array $values
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function prepend(Array $values)
+	{
+		$this->collectable = array_merge($values, $this->collectable);
+
+		return $this;
+	}
+
+	/**
 	 * Checks if the key exists in the collection
 	 * @alias
 	 * @return Boolean

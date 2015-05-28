@@ -35,6 +35,13 @@ class ConnectionValidator
 	protected $connection;
 
 	/**
+	 * An Array of directories where entity models reside
+	 *
+	 * @var Array
+	 */
+	protected $defaultModelDirectories;
+
+	/**
 	 * Set up class vars
 	 *
 	 * @author Dan Cox
@@ -77,10 +84,11 @@ class ConnectionValidator
 	 * @return Object
 	 * @author Dan Cox
 	 */
-	public function load($raw, $type = 'Array')
+	public function load($raw, $type = 'Array', $defaultModelDirectories = Array())
 	{
 		$this->raw = $raw;
 		$this->type = $type;
+		$this->defaultModelDirectories = $defaultModelDirectories;
 
 		$this->map($type, 'Wasp\Exceptions\Database\InvalidConnectionType');
 		return $this->connection;
@@ -103,8 +111,25 @@ class ConnectionValidator
 			$this->setModelsDirectory($this->raw['models']);
 		}
 
+		// Adding default model directories
+		$this->appendDefaultModelDirectories();
+
 		// Check if debug is set
 		$this->connection->debug = (isset($this->raw['debug']) ? $this->raw['debug'] : true);
+	}
+
+	/**
+	 * Appends the default model directories
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function appendDefaultModelDirectories()
+	{
+		foreach ($this->defaultModelDirectories as $md)
+		{
+			$this->connection->models[] = $md;
+		}
 	}
 
 	/**

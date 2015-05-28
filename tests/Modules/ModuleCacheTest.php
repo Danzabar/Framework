@@ -32,6 +32,7 @@ class ModuleCacheTest extends TestCase
 			->initFiles();
 
 		$this->DI->get('module.manager')->activate('test');
+		$this->DI->get('module.cache')->process();
 	}
 	
 	/**
@@ -42,11 +43,35 @@ class ModuleCacheTest extends TestCase
 	 */
 	public function test_processCache()
 	{
-		$cache = $this->DI->get('module.cache');
-		$collection = $cache->process();
+		$collection = $this->DI->get('module.cache')->getProcessed();
 
 		$this->assertEquals(1, count($collection->get('Routes')));
 		$this->assertEquals(0, count($collection->get('Extensions')));
+	}
+
+	/**
+	 * Test loading entity directories through the cache
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_entityDirectory()
+	{
+		/**
+		 *	When we create a connection, with the current
+		 *	Module active, we should have an extra Model 
+		 *	Directory in the array
+		 */	
+		$this->DI->get('connections')->add('wasp', [
+			'driver'			=> 'pdo_mysql',
+			'user'				=> 'user',
+			'models'			=> ENTITIES,
+			'debug'				=> true
+		]);	
+
+		$connection = $this->DI->get('connections')->find('wasp');
+
+		$this->assertEquals(2, count($connection->models));
 	}
 
 } // END class ModuleCacheTest extends TestCase
