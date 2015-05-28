@@ -21,11 +21,14 @@ class ConsoleApplication extends SymfonyApplication
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function run()
+	public function run(
+		Symfony\Component\Console\Input\InputInterface $input = NULL, 
+		Symfony\Component\Console\Output\OutputInterface $output = NULL
+	)
 	{
 		$this->loadCommandsFromModule();
 
-		parant::run();
+		parent::run($input, $output);
 	}
 
 	/**
