@@ -58,6 +58,18 @@ class ModuleBuilder
 	}
 
 	/**
+	 * Adds commands to the build
+	 *
+	 * @return ModuleBuilder
+	 * @author Dan Cox
+	 */
+	public function addCommands(Array $commands)
+	{
+		$this->mergeValues('commands', $commands);
+		return $this;
+	}
+
+	/**
 	 * Loads a route file
 	 *
 	 * @return ModuleBuilder

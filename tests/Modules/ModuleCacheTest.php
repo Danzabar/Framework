@@ -46,7 +46,6 @@ class ModuleCacheTest extends TestCase
 		$collection = $this->DI->get('module.cache')->getProcessed();
 
 		$this->assertEquals(1, count($collection->get('Routes')));
-		$this->assertEquals(0, count($collection->get('Extensions')));
 	}
 
 	/**
@@ -72,6 +71,22 @@ class ModuleCacheTest extends TestCase
 		$connection = $this->DI->get('connections')->find('wasp');
 
 		$this->assertEquals(2, count($connection->models));
+	}
+
+	/**
+	 * Test adding a command through a module
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_command()
+	{
+		$console = $this->DI->get('console');	
+		$console->loadCommandsFromModule();
+
+		$command = $console->find('test:test');
+		
+		$this->assertEquals('test:test', $command->getName());	
 	}
 
 } // END class ModuleCacheTest extends TestCase

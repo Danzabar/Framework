@@ -32,4 +32,20 @@ class ConsoleApplication extends SymfonyApplication
 		parent::add($command);
 	}
 
+	/**
+	 * Loads commands from the module cache file
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function loadCommandsFromModule()
+	{
+		$cache = $this->DI->get('module.cache')->getProcessed();
+
+		if ($cache->has('Commands'))
+		{
+			$this->DI->get('commandloader')->fromArray($cache->get('Commands'));
+		}
+	}
+
 } // END class ConsoleApplication extends SymfonyApplication
