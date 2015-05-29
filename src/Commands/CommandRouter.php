@@ -33,6 +33,7 @@ class CommandRouter
 	/**
 	 * Load the command object
 	 *
+	 * @param Object $object
 	 * @return CommandRouter
 	 * @author Dan Cox
 	 */
@@ -45,6 +46,7 @@ class CommandRouter
 	/**
 	 * Triggers the function related to input options
 	 *
+	 * @param \Symfony\Component\Console\Input\InputInterface
 	 * @return Mixed
 	 * @author Dan Cox
 	 */
@@ -62,6 +64,7 @@ class CommandRouter
 	/**
 	 * Adds an array of routes
 	 *
+	 * @param Array $routes
 	 * @return CommandRouter
 	 * @author Dan Cox
 	 */
@@ -75,6 +78,8 @@ class CommandRouter
 	/**
 	 * Adds a single route
 	 *
+	 * @param String $option
+	 * @param String $function
 	 * @return CommandRouter
 	 * @author Dan Cox
 	 */
@@ -83,6 +88,17 @@ class CommandRouter
 		$this->routes[$option] = $function;
 
 		return $this;	
+	}
+
+	/**
+	 * Returns the Routes array
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function getRoutes()
+	{
+		return $this->routes;
 	}
 
 } // END class CommandRouter

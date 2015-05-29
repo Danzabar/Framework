@@ -27,11 +27,28 @@ class Template
 	protected $directory;
 
 	/**
+	 * Instance of the Module Cache Class
+	 *
+	 * @var \Wasp\Modules\ModuleCache
+	 */
+	protected $cache;
+
+	/**
 	 * An Array of available template engines
 	 *
 	 * @var Array
 	 */
 	protected $engines = [];
+
+	/**
+	 * Load class dependencies
+	 *
+	 * @author Dan Cox
+	 */
+	public function __construct($cache)
+	{
+		$this->cache = $cache;
+	}
 
 	/**
 	 * Creates a delegating engine.
@@ -58,6 +75,24 @@ class Template
 	public function make($template, $params = Array())
 	{
 		return $this->delegator->render($template, $params);
+	}
+
+	/**
+	 * Loads template directories from the module cache
+	 *
+	 * @return Template
+	 * @author Dan Cox
+	 */
+	public function loadDirectoriesFromModules()
+	{
+		$processed = $this->cache->getProcessed();
+
+		if ($processed->has('Views'))
+		{
+			$this->directory = array_merge($this->directory, $processed->get('Views'));		
+		}
+
+		return $this;
 	}
 
 	/**

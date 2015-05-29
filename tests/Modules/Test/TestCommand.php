@@ -37,14 +37,4 @@ class TestCommand extends BaseCommand
 		
 	}
 
-	/**
-	 * Fire command
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function fire()
-	{
-	}
-	
 } // END class TestCommand extends BaseCommand

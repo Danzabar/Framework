@@ -179,4 +179,18 @@ class ModuleCommandTest extends TestCase
 		$this->assertContains('Wasp\Test\Modules\NewTest\Module', $CT->getDisplay());
 	}
 
+	/**
+	 * Test that it doesnt break when the router cannot find an action
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_itDoesntBreakWhenTheRouterHasNoMatches()
+	{	
+		$CT = new CommandTester($this->command);
+		$CT->execute([
+			'command'		=> $this->command->getName()
+		]);
+	}
+
 } // END class ModuleCommandTest extends TestCase

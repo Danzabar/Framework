@@ -127,6 +127,8 @@ services:
     template:
         class: Wasp\Templating\Template
         lazy: true
+        arguments:
+            - "@module.cache"
     twigengine:
         class: Wasp\Templating\Engines\TwigEngine
         lazy: true
