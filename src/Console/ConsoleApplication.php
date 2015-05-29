@@ -16,22 +16,6 @@ class ConsoleApplication extends SymfonyApplication
 	use DependencyInjectionAwareTrait;
 
 	/**
-	 * Run the application
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function run(
-		Symfony\Component\Console\Input\InputInterface $input = NULL, 
-		Symfony\Component\Console\Output\OutputInterface $output = NULL
-	)
-	{
-		$this->loadCommandsFromModule();
-
-		parent::run($input, $output);
-	}
-
-	/**
 	 * Adds a command into the application
 	 *
 	 * @param \Symfony\Component\Console\Command\Command $command

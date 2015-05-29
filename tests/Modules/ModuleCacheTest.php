@@ -89,5 +89,22 @@ class ModuleCacheTest extends TestCase
 		$this->assertEquals('test:test', $command->getName());	
 	}
 
+
+	/**
+	 * Test module routing
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_routing()
+	{
+		$this->application->loadRoutesFromModule();
+		$collection = $this->DI->get('route_collection');	
+
+		$route = $collection->get('mod.test');
+
+		$this->assertEquals('/mod/test', $route->getPath());
+	}
+
 } // END class ModuleCacheTest extends TestCase
 
