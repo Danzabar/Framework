@@ -64,87 +64,66 @@ class Module extends BaseCommand
 	{
 		$this->manager = $this->DI->get('module.manager');	
 
-		switch(true)
-		{
-			case ($this->input->getOption('activate')):
-				
-				return $this->activateModule($this->input->getArgument('module'));
-				
-				break;
-			case ($this->input->getOption('add')):
-				
-				return $this->addModule($this->input->getArgument('module'), $this->input->getOption('namespace'));
-				
-				break;
-			case ($this->input->getOption('list')):
-				
-				return $this->listModules();
+		$this->module = $this->input->getArgument('module');
+		$this->namespace = $this->input->getOption('namespace');
 
-				break;
-			case ($this->input->getOption('deactivate')):
-					
-				return $this->deactivateModule($this->input->getArgument('module'));
-
-				break;
-			case ($this->input->getOption('remove')):
-
-				return $this->removeModule($this->input->getArgument('module'));
-
-				break;
-		}
+		$router = $this->DI->get('command.router');
+		$router->loadObject($this);
+		$router->addRoutes([
+			'activate'		=> 'activateModule',
+			'add'			=> 'addModule',
+			'list'			=> 'listModules',
+			'deactivate'	=> 'deactivateModule',
+			'remove'		=> 'removeModule'
+		])->route($this->input);
 	}
 
 	/**
 	 * Activates a module using the manager
 	 *
-	 * @param String $module
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function activateModule($module)
+	public function activateModule()
 	{
-		$this->manager->activate($module);	
-		$this->output->writeln("Activated $module successfully");
+		$this->manager->activate($this->module);	
+		$this->output->writeln(sprintf("Activated %s successfully", $this->module));
 	}
 
 	/**
 	 * Adds a module to available file list
 	 *
-	 * @param String $module
-	 * @param String $namespace
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function addModule($module, $namespace)
+	public function addModule()
 	{
-		$this->manager->add($module, $namespace);
-		$this->output->writeln("Saved new module: $module");
+		$this->manager->add($this->module, $this->namespace);
+		$this->output->writeln("Saved new module: ". $this->module);
 	}
 
 	/**
 	 * Removes the module from the available list
 	 *
-	 * @param String $module
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function removeModule($module)
+	public function removeModule()
 	{
-		$this->manager->remove($module);
-		$this->output->writeln("Removed module: $module");
+		$this->manager->remove($this->module);
+		$this->output->writeln("Removed module: ". $this->module);
 	}
 
 	/**
 	 * Deactivates a module using the manage
 	 *
-	 * @param String $module
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function deactivateModule($module)
+	public function deactivateModule()
 	{
-		$this->manager->deactivate($module);
-		$this->output->writeln("Deactivated module: $module");
+		$this->manager->deactivate($this->module);
+		$this->output->writeln("Deactivated module: ". $this->module);
 	}
 
 	/**
