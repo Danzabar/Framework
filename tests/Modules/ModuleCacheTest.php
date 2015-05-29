@@ -106,5 +106,22 @@ class ModuleCacheTest extends TestCase
 		$this->assertEquals('/mod/test', $route->getPath());
 	}
 
+	/**
+	 * Test setting new template directories
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_templateDirectory()
+	{
+		$template = $this->DI->get('template');
+
+		$template->start();
+
+		$directories = $template->getDirectory();
+
+		$this->assertEquals(__DIR__ . '/Test', $directories[0]);
+	}
+
 } // END class ModuleCacheTest extends TestCase
 

@@ -46,7 +46,7 @@ class ModuleCache
 		'entities'			=> 'Entities',
 		'extensions'		=> 'Extensions',
 		'commands'			=> 'Commands',
-		'viewsDirectory'	=> 'Views'
+		'viewDirectory'		=> 'Views'
 	];
 
 	/**

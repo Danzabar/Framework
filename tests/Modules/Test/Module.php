@@ -26,6 +26,7 @@ class Module implements ModuleInterface
 		$builder->addRoutesFromFile(__DIR__ . '/routes.php');	
 
 		$builder->registerEntityDirectories([__DIR__ . '/Entity/']);
+		$builder->setTemplateDirectory(__DIR__);
 		$builder->addCommands([
 			'Wasp\Test\Modules\Test\TestCommand'
 		]);

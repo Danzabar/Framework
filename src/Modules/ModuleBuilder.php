@@ -45,6 +45,19 @@ class ModuleBuilder
 	}
 
 	/**
+	 * Sets template directory
+	 *
+	 * @return ModuleBuilder
+	 * @author Dan Cox
+	 */
+	public function setTemplateDirectory($directory)
+	{	
+		$this->build->add('viewDirectory', $directory);
+
+		return $this;
+	}
+
+	/**
 	 * Merges values into the correct collection slot
 	 *
 	 * @return void

@@ -24,7 +24,7 @@ class Template
 	 *
 	 * @var Array
 	 */
-	protected $directory;
+	protected $directory = [];
 
 	/**
 	 * Instance of the Module Cache Class
@@ -58,6 +58,10 @@ class Template
 	 */
 	public function start()
 	{
+		// Load directories from modules
+		$this->loadDirectoriesFromModules();
+	
+
 		if (empty($this->directory) || is_null($this->directory))
 		{
 			throw new DirectoryNotSet;
@@ -89,7 +93,7 @@ class Template
 
 		if ($processed->has('Views'))
 		{
-			$this->directory = array_merge($this->directory, $processed->get('Views'));		
+			$this->directory = array_merge($this->directory, $processed->get('Views')->all());		
 		}
 
 		return $this;
