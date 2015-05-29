@@ -20,9 +20,9 @@ class Template
 	protected $delegator;
 
 	/**
-	 * The directory that templates are kept in
+	 * The directories that templates are kept in
 	 *
-	 * @var String
+	 * @var Array
 	 */
 	protected $directory;
 
@@ -31,7 +31,7 @@ class Template
 	 *
 	 * @var Array
 	 */
-	protected $engines;
+	protected $engines = [];
 
 	/**
 	 * Creates a delegating engine.
@@ -41,7 +41,7 @@ class Template
 	 */
 	public function start()
 	{
-		if (is_null($this->directory))
+		if (empty($this->directory) || is_null($this->directory))
 		{
 			throw new DirectoryNotSet;
 		}
@@ -69,7 +69,19 @@ class Template
 	 */
 	public function setDirectory($directory)
 	{
-		$this->directory = $directory;
+		$this->directory[] = $directory;
+		return $this;
+	}
+
+	/**
+	 * Clears the current values for the directory array
+	 *
+	 * @return Template
+	 * @author Dan Cox
+	 */
+	public function clearDirectory()
+	{
+		$this->directory = Array();
 		return $this;
 	}
 
@@ -82,6 +94,17 @@ class Template
 	public function getDirectory()
 	{
 		return $this->directory;
+	}
+
+	/**
+	 * Returns the directory array as a string
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function getDirectoryString()
+	{
+		return join($this->directory, ',');
 	}
 	
 	/**

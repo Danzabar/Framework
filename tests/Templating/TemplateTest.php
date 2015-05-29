@@ -28,26 +28,6 @@ class TemplateTest extends TestCase
 	}
 
 	/**
-	 * Test the php engine
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_phpEngine()
-	{
-		$php = $this->DI->get('phpengine');
-		$php->create();
-		
-		$this->DI->get('template')
-				 ->addEngine($php->getEngine())
-				 ->start();
-
-		$output = $this->DI->get('template')->make('phptest.php', ['foo' => 'bar']);
-		$this->assertContains("PHP engine", $output);
-		$this->assertContains("bar", $output);
-	}
-
-	/**
 	 * Test the twig engine
 	 *
 	 * @return void
@@ -76,17 +56,13 @@ class TemplateTest extends TestCase
 	public function test_delegation()
 	{
 		$this->DI->get('twigengine')->create();
-		$this->DI->get('phpengine')->create();
 
 		$this->DI->get('template')
 				 ->addEngine($this->DI->get('twigengine'))
-				 ->addEngine($this->DI->get('phpengine')->getEngine())
 				 ->start();
 
-		$php = $this->DI->get('template')->make('phptest.php', ['foo' => 'bar']);
 		$twig = $this->DI->get('template')->make('twigtest.html.twig', ['foo' => 'bar']);
 
-		$this->assertContains('PHP engine', $php);
 		$this->assertContains('twig test', $twig);
 	}
 
@@ -101,7 +77,7 @@ class TemplateTest extends TestCase
 		$this->setExpectedException("Wasp\Exceptions\Templating\DirectoryNotSet");
 
 		$this->DI->get('template')
-				 ->setDirectory(null)
+				 ->clearDirectory()
 				 ->start();
 	}
 
@@ -121,7 +97,7 @@ class TemplateTest extends TestCase
 
 		$temp = $this->DI->get('template')->make('twigDITest.html.twig');
 	
-		$this->assertContains($this->DI->get('template')->getDirectory(), $temp);
+		$this->assertContains($this->DI->get('template')->getDirectoryString(), $temp);
 	}
 	
 

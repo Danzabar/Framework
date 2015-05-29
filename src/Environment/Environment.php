@@ -102,19 +102,15 @@ class Environment
 	public function startTemplating($directory)
 	{
 		$twig = $this->DI->get('twigengine');
-		$php = $this->DI->get('phpengine');
-
 		$twigConfig = (isset($this->settings['templates']['twig']) ? $this->settings['templates']['twig'] : Array());
 
 		$this->DI->get('template')
 				 ->setDirectory($directory);
 		
 		$twig->create($twigConfig);
-		$php->create();
 
 		$this->DI->get('template')
 				 ->addEngine($twig)
-				 ->addEngine($php->getEngine())
 				 ->start();
 	}
 
