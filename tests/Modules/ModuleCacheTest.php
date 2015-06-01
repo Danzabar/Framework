@@ -34,6 +34,24 @@ class ModuleCacheTest extends TestCase
 		$this->DI->get('module.manager')->activate('test');
 		$this->DI->get('module.cache')->process();
 	}
+
+	/**
+	 * Test that it throws an exception when settings are missed
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_exceptionWithNoSettings()
+	{
+		$this->setExpectedException('\Wasp\Exceptions\Modules\MissingCacheSettings');
+
+		$cache = new \Wasp\Modules\ModuleCache();
+		$settings = new \Wasp\Utils\Collection();
+
+		$cache->load($settings);
+
+		$cache->cache();
+	}
 	
 	/**
 	 * Test Processing the cache
