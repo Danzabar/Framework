@@ -142,11 +142,9 @@ class Module extends BaseCommand
 
 		foreach ($modules as $module => $ns)
 		{
-			if (!is_null($value) && $cache->has($module) != $value)
+			if ($cache->has($module) == $value)
 			{
-				unset($modules[$module]);
-			} else {
-				$results[] = [$module, $ns];		
+				$results[] = [$module, $ns];
 			}
 		}
 

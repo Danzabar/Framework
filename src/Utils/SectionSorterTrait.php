@@ -51,32 +51,37 @@ Trait SectionSorterTrait
 	 */
 	public function orderSections(Array $sortable, Array $sortKeys)
 	{
-		$collection = new Collection;
-
-		foreach ($sortKeys as $map => $key)
-		{
-			$section = new Collection;
-			$collection->add($key, $section);
-		}
+		$collection = $this->createCollectionSections($sortKeys);
 
 		foreach ($sortable as $sub)
 		{
 			foreach ($sub as $key => $value)
 			{
-				if (array_key_exists($key, $sortKeys) && !empty($value))
-				{
-					$section = $collection->get($sortKeys[$key]);
-
-					if (is_array($value))
-					{
-						$section->append($value);
-					} else {
-						$section[] = $value;
-					}
-				}					
+				$section = $collection->get($sortKeys[$key]);
+				$section->append( (is_array($value) ? $value : [$value]) );
 			}	
 		}
 		
 		return $collection;	
+	}
+
+	/**
+	 * creates collection elements for sections	
+	 *
+	 * @param Array $sections
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function createCollectionSections(Array $sections)
+	{
+		$collection = new Collection();
+
+		foreach ($sections as $map => $key)
+		{
+			$section = new Collection;
+			$collection->add($key, $section);
+		}
+
+		return $collection;
 	}
 }
