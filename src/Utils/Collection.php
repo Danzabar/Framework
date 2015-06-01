@@ -32,12 +32,24 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 *
 	 * @param String $key
 	 * @param Mixed $value
-	 * @return void
+	 * @return Collection
 	 * @author Dan Cox
 	 */
 	public function add($key, $value)
 	{
 		$this->collectable[$key] = $value;
+		return $this;
+	}
+
+	/**
+	 * Returns the whole collection
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function all()
+	{
+		return $this->collectable;
 	}
 
 	/**
@@ -55,6 +67,45 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 		}
 
 		return NULL;
+	}
+
+	/**
+	 * Appends an array to the current collectable array
+	 *
+	 * @param Array $values
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function append(Array $values)
+	{	
+		$this->collectable = array_merge($this->collectable, $values);		
+
+		return $this;
+	}
+
+	/**
+	 * Prepends an array to the current collectable
+	 *
+	 * @param Array $values
+	 * @return Collection
+	 * @author Dan Cox
+	 */
+	public function prepend(Array $values)
+	{
+		$this->collectable = array_merge($values, $this->collectable);
+
+		return $this;
+	}
+
+	/**
+	 * Checks if the key exists in the collection
+	 * @alias
+	 * @return Boolean
+	 * @author Dan Cox
+	 */
+	public function has($key)
+	{
+		return $this->exists($key);
 	}
 
 	/**

@@ -22,6 +22,13 @@ class ConnectionCollection
 	protected $connections;
 
 	/**
+	 * Model directories determined from modules
+	 *
+	 * @var Array
+	 */
+	protected $modelDirectories;
+
+	/**
 	 * Set up class defaults
 	 *
 	 * @author Dan Cox
@@ -41,8 +48,10 @@ class ConnectionCollection
 	 */
 	public function add($name, $configuration = Array(), $type = 'Array')
 	{
+		$this->getEntityFromModule();
+		
 		$this->connections[$name] = $this->DI->get('connection_validator')
-											 ->load($configuration, $type);
+											 ->load($configuration, $type, $this->modelDirectories);
 	}
 
 	/**
@@ -61,6 +70,23 @@ class ConnectionCollection
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Loads the array of entity directories from the module cache
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function getEntityFromModule()
+	{
+		$cache = $this->DI->get('module.cache')->getProcessed();
+		$this->modelDirectories = Array();
+		
+		if ($cache->has('Entities'))
+		{
+			$this->modelDirectories = $cache->get('Entities')->all();
+		}
 	}
 
 	/**

@@ -4,20 +4,63 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "21569c7fbdd72aad8822ad142b57b812",
+    "hash": "9815f4cfb2cd2746afd85dcff528a37a",
     "packages": [
+        {
+            "name": "danzabar/config",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Danzabar/config-builder.git",
+                "reference": "c7ac5ec162b2fac6156e87e27a41aae589868aab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Danzabar/config-builder/zipball/c7ac5ec162b2fac6156e87e27a41aae589868aab",
+                "reference": "c7ac5ec162b2fac6156e87e27a41aae589868aab",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/filesystem": ">=2.7, <3.0",
+                "symfony/finder": ">=2.7, <3.0",
+                "symfony/yaml": ">=2.7, <3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Danzabar\\Config\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Cox",
+                    "email": "danzabian@gmail.com",
+                    "homepage": "http://www.valeska.co.uk"
+                }
+            ],
+            "description": "Build Configuration Files, Search, Merge, Replace, Save, Convert Config files... Supports YML, JSON, but is also extendable.",
+            "time": "2015-04-21 19:39:09"
+        },
         {
             "name": "doctrine/annotations",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
+                "reference": "c8927ad70c6fce36b3af52c17ed996c9aa4de89b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b5202eb9e83f8db52e0e58867e0a46e63be8332e",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/c8927ad70c6fce36b3af52c17ed996c9aa4de89b",
+                "reference": "c8927ad70c6fce36b3af52c17ed996c9aa4de89b",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +115,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-23 22:40:37"
+            "time": "2015-05-13 13:47:35"
         },
         {
             "name": "doctrine/cache",
@@ -80,12 +123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "c2ab51e8f3c4a8170ca91b702e3789881dd2a6c2"
+                "reference": "9930e3367777a8727e229f5126c5299890d700bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/c2ab51e8f3c4a8170ca91b702e3789881dd2a6c2",
-                "reference": "c2ab51e8f3c4a8170ca91b702e3789881dd2a6c2",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/9930e3367777a8727e229f5126c5299890d700bb",
+                "reference": "9930e3367777a8727e229f5126c5299890d700bb",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +185,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-05-07 20:41:18"
+            "time": "2015-05-13 10:08:10"
         },
         {
             "name": "doctrine/collections",
@@ -216,12 +259,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "5add480dcb5da8cd8e4e9c4b5055a2c9bbd05af3"
+                "reference": "ff72726b0876638fa7db2f28b0f26e3f1f6656ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/5add480dcb5da8cd8e4e9c4b5055a2c9bbd05af3",
-                "reference": "5add480dcb5da8cd8e4e9c4b5055a2c9bbd05af3",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/ff72726b0876638fa7db2f28b0f26e3f1f6656ca",
+                "reference": "ff72726b0876638fa7db2f28b0f26e3f1f6656ca",
                 "shasum": ""
             },
             "require": {
@@ -281,7 +324,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-04-29 09:19:45"
+            "time": "2015-05-13 13:35:24"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -485,12 +528,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "cd3fe91baa28da6e119d619612439eb2db0d8d88"
+                "reference": "b70d22758c0813ea5fef9c22480caadd3a2b6a56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/cd3fe91baa28da6e119d619612439eb2db0d8d88",
-                "reference": "cd3fe91baa28da6e119d619612439eb2db0d8d88",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/b70d22758c0813ea5fef9c22480caadd3a2b6a56",
+                "reference": "b70d22758c0813ea5fef9c22480caadd3a2b6a56",
                 "shasum": ""
             },
             "require": {
@@ -531,7 +574,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-05-10 22:20:19"
+            "time": "2015-05-13 13:33:36"
         },
         {
             "name": "doctrine/lexer",
@@ -1673,12 +1716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "16b68b90186ee5bb3e235953fb5666b88a4d953b"
+                "reference": "c3796286477f7558e9b39dadcbcb3978d784e166"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/16b68b90186ee5bb3e235953fb5666b88a4d953b",
-                "reference": "16b68b90186ee5bb3e235953fb5666b88a4d953b",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/c3796286477f7558e9b39dadcbcb3978d784e166",
+                "reference": "c3796286477f7558e9b39dadcbcb3978d784e166",
                 "shasum": ""
             },
             "require": {
@@ -1745,7 +1788,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-12 15:48:43"
+            "time": "2015-05-13 11:38:41"
         },
         {
             "name": "symfony/proxy-manager-bridge",
@@ -1876,12 +1919,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Security.git",
-                "reference": "165c5e5d50896e657ff2b0d1663b4b224ef8294c"
+                "reference": "be8e01596f133c2c950b011fe8b0e261dc6c6f34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Security/zipball/165c5e5d50896e657ff2b0d1663b4b224ef8294c",
-                "reference": "165c5e5d50896e657ff2b0d1663b4b224ef8294c",
+                "url": "https://api.github.com/repos/symfony/Security/zipball/be8e01596f133c2c950b011fe8b0e261dc6c6f34",
+                "reference": "be8e01596f133c2c950b011fe8b0e261dc6c6f34",
                 "shasum": ""
             },
             "require": {
@@ -1944,7 +1987,7 @@
             ],
             "description": "Symfony Security Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-12 15:16:46"
+            "time": "2015-05-13 11:36:16"
         },
         {
             "name": "symfony/templating",

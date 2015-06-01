@@ -100,7 +100,15 @@ class TwigEngine implements EngineInterface
 	 */
 	public function exists($name)
 	{
-		return $this->fs->exists($this->template->getDirectory() . $name);
+		foreach ($this->template->getDirectory() as $temp)
+		{	
+			if ($this->fs->exists($temp . $name))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

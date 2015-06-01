@@ -128,4 +128,40 @@ class CollectionTest extends TestCase
 		$this->assertTrue(isset($collection['key']));
 	}
 
+	/**
+	 * Test appending data
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_append()
+	{
+		$collection = new Collection(['foo' => 'bar']);
+
+		$collection->append(['test' => 'test']);
+
+		$this->assertEquals(
+			['foo' => 'bar', 'test' => 'test'],
+			$collection->all()
+		);
+	}
+
+	/**
+	 * Test prepending dat
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_prepend()
+	{
+		$collection = new Collection(['foo' => 'bar']);
+
+		$collection->prepend(['test' => 'test']);
+
+		$this->assertEquals(
+			['test' => 'test', 'foo' => 'bar'],
+			$collection->all()
+		);
+	}
+
 } // END class CollectionTest extends TestCase
