@@ -57,12 +57,8 @@ Trait SectionSorterTrait
 		{
 			foreach ($sub as $key => $value)
 			{
-				if (array_key_exists($key, $sortKeys) && !empty($value))
-				{
-					$section = $collection->get($sortKeys[$key]);
-
-					$section->append( (is_array($value) ? $value : [$value]) );
-				}					
+				$section = $collection->get($sortKeys[$key]);
+				$section->append( (is_array($value) ? $value : [$value]) );
 			}	
 		}
 		
