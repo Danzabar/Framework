@@ -148,4 +148,19 @@ class ModuleTest extends TestCase
 		$manager->activate('Fake');
 	}
 
+	/**
+	 * Test the manager's build instance
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_buildInstance()
+	{
+		$manager = $this->DI->get('module.manager');
+
+		$manager->loadSettings($this->settings)->initFiles();
+
+		$this->assertInstanceOf('Wasp\Modules\ModuleBuilder', $manager->getBuilder());
+	}
+
 } // END class ModuleTest extends TestCase
