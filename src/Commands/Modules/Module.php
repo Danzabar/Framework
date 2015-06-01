@@ -137,21 +137,8 @@ class Module extends BaseCommand
 		$modules = $this->manager->asArray();
 		$results = Array();
 		$cache = $this->manager->getCache();	
-		$value = null;
 
-		switch(true)
-		{
-			case ($this->input->getOption('only-active')):
-				
-				$value = true;
-				
-				break;
-			case ($this->input->getOption('only-inactive')):
-
-				$value = false;
-
-				break;
-		}
+		$value = ($this->input->getOption('only-active') === true ? true : false);
 
 		foreach ($modules as $module => $ns)
 		{
