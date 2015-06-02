@@ -139,5 +139,23 @@ class FormTest extends TestCase
 		$this->assertEquals('Dan', $name->getValue());
 	}	
 
+	/**
+	 * Test that input from the request has higher priority than the model data
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_userInputShouldOverrideModelData()
+	{
+		$request = $this->DI->get('request')->make('/form', 'POST', Array('name' => 'Bob'));
+
+		$form = new Wasp\Test\Forms\Forms\TestModelForm();
+
+		$fields = $form->fields();
+		$name = $fields[0];
+
+		$this->assertEquals('Bob', $name->getValue());
+	}
+
 
 } // END class FormTest extends TestCase
