@@ -14,7 +14,6 @@ use Wasp\Utils\Collection,
  */
 class Form
 {
-
 	/**
 	 * A Collection fields
 	 *
@@ -111,7 +110,6 @@ class Form
 	
 		// Create the nessecary input param bag;
 		$this->determineInput();
-
 	}
 
 	/**
@@ -135,6 +133,7 @@ class Form
 		if (!is_null($this->model) && empty($this->input))
 		{
 			// Grab an array representation of the entity
+			$this->input = $this->model->toArray();
 		}	
 	}
 
@@ -191,6 +190,7 @@ class Form
 				$this->fields[] = new Field(
 									$props['name'], 
 									$props['type'], 
+									$props['id'],
 									$props['rules'],
 									$props['default'],
 									$props['values'],
@@ -208,7 +208,7 @@ class Form
 	 */
 	public function formatPropertyArgs(Array $field)
 	{
-		$expected = ['name' => '', 'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
+		$expected = ['name' => '', 'id' => '',  'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
 		$props = Array();
 		
 		foreach ($expected as $key => $default)

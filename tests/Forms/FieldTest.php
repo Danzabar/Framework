@@ -51,7 +51,7 @@ class FieldTest extends TestCase
 	 */
 	public function test_buildSelectBox()
 	{
-		$field = new Field('select', 'Select', [], '', Array('Foo' => 'foo', 'Bar' => 'bar'));
+		$field = new Field('select', 'Select', '', [], '', Array('Foo' => 'foo', 'Bar' => 'bar'));
 
 		$this->assertEquals('<select name="select" id="select" ><option value="foo">Foo</option><option value="bar">Bar</option></select>', $field->field());
 	}
@@ -77,7 +77,7 @@ class FieldTest extends TestCase
 	 */
 	public function test_radio()
 	{
-		$field = new Field('rad', 'Radio', [], '', 'true', Array('rad' => 'true'));
+		$field = new Field('rad', 'Radio', '', [], '', 'true', Array('rad' => 'true'));
 
 		$this->assertEquals('<input type="radio" name="rad" id="rad" value="true" checked="checked"/>', $field->field());
 	}
@@ -90,7 +90,7 @@ class FieldTest extends TestCase
 	 */
 	public function test_checkbox()
 	{
-		$field = new Field('check', 'Checkbox', [], '', 'Y', Array('check' => 'Y'));
+		$field = new Field('check', 'Checkbox', '', [], '', 'Y', Array('check' => 'Y'));
 
 		$this->assertEquals('<input type="checkbox" name="check" id="check" value="Y" checked="checked"/>', $field->field());
 	}
@@ -103,13 +103,13 @@ class FieldTest extends TestCase
 	 */
 	public function test_requiredFieldRule()
 	{
-		$field = new Field('rule', 'String', [new Validation\Required()], '', Array(), Array('rule' => ''));
+		$field = new Field('rule', 'String', '', [new Validation\Required()], '', Array(), Array('rule' => ''));
 		$field->validate();	
 
-		$field2 = new Field('rule2', 'String', [new Validation\Required('The rule2 field is required')]);
+		$field2 = new Field('rule2', 'String', '', [new Validation\Required('The rule2 field is required')]);
 		$field2->validate();
 
-		$field3 = new Field('rule3', 'String', [new Validation\Required()], '', Array(), Array('rule3' => 'foo'));
+		$field3 = new Field('rule3', 'String', '', [new Validation\Required()], '', Array(), Array('rule3' => 'foo'));
 		$field3->validate();
 
 		$error = $field->errors()[0];
@@ -128,9 +128,9 @@ class FieldTest extends TestCase
 	 */
 	public function test_emailValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\Email()], '', Array(), Array('rule' => 'test'));
-		$field2 = new Field('rule2', 'String', [new Validation\Email()], '', Array(), Array('rule2' => 'test@test.com'));
-		$field3 = new Field('rule3', 'String', [new Validation\Email()], '', Array(), Array('rule3' => ''));
+		$field = new Field('rule', 'String','', [new Validation\Email()], '', Array(), Array('rule' => 'test'));
+		$field2 = new Field('rule2', 'String', '', [new Validation\Email()], '', Array(), Array('rule2' => 'test@test.com'));
+		$field3 = new Field('rule3', 'String', '', [new Validation\Email()], '', Array(), Array('rule3' => ''));
 
 		$field->validate();
 		$field2->validate();
@@ -151,9 +151,9 @@ class FieldTest extends TestCase
 	 */
 	public function test_intValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\IntValidation()], '', Array(), Array('rule' => 'five'));
-		$field2 = new Field('rule2', 'String', [new Validation\IntValidation()], '', Array(), Array('rule2' => '5'));
-		$field3 = new Field('rule3', 'String', [new Validation\IntValidation()], '', Array(), Array('rule3' => ''));
+		$field = new Field('rule', 'String', '', [new Validation\IntValidation()], '', Array(), Array('rule' => 'five'));
+		$field2 = new Field('rule2', 'String', '', [new Validation\IntValidation()], '', Array(), Array('rule2' => '5'));
+		$field3 = new Field('rule3', 'String', '', [new Validation\IntValidation()], '', Array(), Array('rule3' => ''));
 
 		$field->validate();
 		$field2->validate();
@@ -174,9 +174,9 @@ class FieldTest extends TestCase
 	 */
 	public function test_urlValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\URL], '', Array(), Array('rule' => 'foo'));
-		$field2 = new Field('rule2', 'String', [new Validation\URL], '', Array(), Array('rule2' => 'http://www.google.com'));
-		$field3 = new Field('rule3', 'String', [new Validation\URL], '', Array(), Array('rule3' => ''));
+		$field = new Field('rule', 'String', '', [new Validation\URL], '', Array(), Array('rule' => 'foo'));
+		$field2 = new Field('rule2', 'String', '', [new Validation\URL], '', Array(), Array('rule2' => 'http://www.google.com'));
+		$field3 = new Field('rule3', 'String', '', [new Validation\URL], '', Array(), Array('rule3' => ''));
 
 		$field->validate();
 		$field2->validate();
@@ -197,9 +197,9 @@ class FieldTest extends TestCase
 	 */
 	public function test_floatValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\FloatValidation], '', Array(), Array('rule' => 'fivepointtwo'));
-		$field2 = new Field('rule2', 'String', [new Validation\FloatValidation], '', Array(), Array('rule2' => '5.2'));
-		$field3 = new Field('rule3', 'String', [new Validation\FloatValidation], '', Array(), Array('rule3' => ''));
+		$field = new Field('rule', 'String', '', [new Validation\FloatValidation], '', Array(), Array('rule' => 'fivepointtwo'));
+		$field2 = new Field('rule2', 'String', '', [new Validation\FloatValidation], '', Array(), Array('rule2' => '5.2'));
+		$field3 = new Field('rule3', 'String', '', [new Validation\FloatValidation], '', Array(), Array('rule3' => ''));
 
 		$field->validate();
 		$field2->validate();
@@ -220,9 +220,9 @@ class FieldTest extends TestCase
 	 */
 	public function test_regexpValidation()
 	{
-		$field = new Field('rule', 'String', [new Validation\RegexValidation('Custom regex message', '/[A-Za-z]{1,}/')], '', Array(), Array('rule' => ''));
-		$field2 = new Field('rule2', 'String', [new Validation\RegexValidation(null, '/[A-Za-z]{1,}/')], '', Array(), Array('rule2' => 'abc'));
-		$field3 = new Field('rule3', 'String', [new Validation\RegexValidation()]);
+		$field = new Field('rule', 'String', '', [new Validation\RegexValidation('Custom regex message', '/[A-Za-z]{1,}/')], '', Array(), Array('rule' => ''));
+		$field2 = new Field('rule2', 'String', '', [new Validation\RegexValidation(null, '/[A-Za-z]{1,}/')], '', Array(), Array('rule2' => 'abc'));
+		$field3 = new Field('rule3', 'String', '', [new Validation\RegexValidation()]);
 
 		$field->validate();
 		$field2->validate();
