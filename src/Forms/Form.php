@@ -14,6 +14,7 @@ use Wasp\Utils\Collection,
  */
 class Form
 {
+
 	/**
 	 * A Collection fields
 	 *
@@ -48,6 +49,13 @@ class Form
 	 * @var String
 	 */
 	protected $route;
+
+	/**
+	 * A model instance to bind to the form
+	 *
+	 * @var \Wasp\Entity\Entity
+	 */
+	protected $model;
 
 	/**
 	 * Http Method
@@ -98,15 +106,36 @@ class Form
 	 */
 	public function setup()
 	{
+		// Build the URL from the given route name
 		$this->buildURL();
+	
+		// Create the nessecary input param bag;
+		$this->determineInput();
 
-		// Setup the param bag
-		$this->input = $this->container->get('request')->query->all();
+	}
 
-		if (strtoupper($this->method) == 'POST') 
+	/**
+	 * Determines what input source to use
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function determineInput()
+	{
+		/**
+		 * The order of importance of input 
+		 *	- request data
+		 *	- model data
+		 *	- default values (these get added in the field class if no value is given)
+		 */
+		$request = $this->container->get('request');
+
+		$this->input = (strtoupper($this->method) == 'POST' ? $request->request->all() : $request->query->all());
+
+		if (!is_null($this->model) && empty($this->input))
 		{
-			$this->input = $this->container->get('request')->request->all();
-		}
+			// Grab an array representation of the entity
+		}	
 	}
 
 	/**
