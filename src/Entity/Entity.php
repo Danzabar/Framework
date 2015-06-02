@@ -44,6 +44,21 @@ class Entity
 	}
 
 	/**
+	 * Converts entity values to array using the serializer
+	 * We use the serializer because it allows users to hide/show values
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function toArray()
+	{
+		$serializer = self::get('serializer');
+		$json = $serializer->serialize($this, 'json');
+
+		return json_decode($json, true);
+	}
+
+	/**
 	 * Saves the current state of the Entity
 	 *
 	 * @return void
