@@ -53,8 +53,10 @@ class BaseCommand extends SymfonyCommand
 	 * @var Array
 	 */
 	protected $inputOptionRequirements = [
+		'array'			=> InputOption::VALUE_IS_ARRAY,
 		'required'		=> InputOption::VALUE_REQUIRED,
-		'optional'		=> InputOption::VALUE_OPTIONAL
+		'optional'		=> InputOption::VALUE_OPTIONAL,
+		'none'			=> InputOption::VALUE_NONE
 	];
 
 	/**
@@ -63,6 +65,7 @@ class BaseCommand extends SymfonyCommand
 	 * @var string
 	 */
 	protected $inputArgumentRequirements = [
+		'array'			=> InputArgument::IS_ARRAY,
 		'required'		=> InputArgument::REQUIRED,
 		'optional'		=> InputArgument::OPTIONAL
 	];
