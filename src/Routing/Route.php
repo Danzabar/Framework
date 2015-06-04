@@ -83,15 +83,38 @@ class Route
 	}	
 
 	/**
+	 * Uses the standard Rest controller to provide a rest 
+	 * structure for an entity
+	 *
+	 * @param String $name
+	 * @param String $uri
+	 * @param String $entity - The qualified entity class name
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function resource($name, $uri, $entity)
+	{
+		/**
+		 *	We can use the "rest" method to create the routes
+		 *	And provide a default variable for the entity
+		 */
+		$this->rest($name, $uri, 'Wasp\Controller\RestController', ['show', 'update', 'create', 'delete'], ['entity' => $entity]);
+	}
+
+	/**
 	 * Creates a set of RESTful routes
 	 *
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $action
+	 * @param Array $methods
+	 * @param Array $defaults
+	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function rest($name, $uri, $action, $methods = Array())
+	public function rest($name, $uri, $action, $methods = Array(), $defaults = Array())
 	{
 		$methods = (!empty($methods) ? $methods : Array('show', 'update', 'create', 'new', 'edit', 'delete'));
 		
@@ -106,7 +129,7 @@ class Route
 
 		foreach ($methods as $method)
 		{
-			$this->map($method, '\Wasp\Exceptions\Routing\InvalidRestOption', [$name, $uri, $action]);
+			$this->map($method, '\Wasp\Exceptions\Routing\InvalidRestOption', [$name, $uri, $action, $defaults]);
 		}
 	}
 
@@ -116,17 +139,18 @@ class Route
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $action
+	 * @param Array $defaults
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function deleteRest($name, $uri, $action)
+	public function deleteRest($name, $uri, $action, $defaults = Array())
 	{
 		$this->add(
 			$name . '.delete',
 			$uri . '/delete/{id}',
 			Array('DELETE'),
-			Array('controller' => $action .'::delete')	
+			array_merge( Array('controller' => $action .'::delete'), $defaults )	
 		);
 	}
 
@@ -136,17 +160,18 @@ class Route
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $action
+	 * @param Array $defaults
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function updateRest($name, $uri, $action)
+	public function updateRest($name, $uri, $action, $defaults = Array())
 	{
 		$this->add(
 			$name . '.update',
 			$uri . '/update/{id}',
 			Array('PATCH'),
-			Array('controller'  => $action .'::update')	
+			array_merge( Array('controller'  => $action .'::update'), $defaults )
 		);
 	}
 
@@ -156,17 +181,18 @@ class Route
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $action
+	 * @param Array $defaults
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function newRest($name, $uri, $action)
+	public function newRest($name, $uri, $action, $defaults = Array()) 
 	{
 		$this->add(
 			$name . '.new',
 			$uri . '/new',
 			Array('GET'),
-			Array('controller' => $action . '::new')
+			array_merge( Array('controller' => $action . '::new'), $defaults )
 		);
 	}
 
@@ -176,17 +202,18 @@ class Route
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $action
+	 * @param Array $defaults
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function createRest($name, $uri, $action)
+	public function createRest($name, $uri, $action, $defaults = Array())
 	{
 		$this->add(
 			$name . '.create',
 			$uri . '/new',
 			Array('POST'),
-			Array('controller' => $action . '::create')
+			array_merge( Array('controller' => $action . '::create'), $defaults )
 		);
 	}	
 
@@ -196,17 +223,18 @@ class Route
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $action
+	 * @param Array $defaults
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function editRest($name, $uri, $action)
+	public function editRest($name, $uri, $action, $defaults = Array())
 	{
 		$this->add(
 			$name .'.edit',
 			$uri . '/edit/{id}',
 			Array('GET'),
-			Array('controller' => $action . '::edit')
+			array_merge(Array('controller' => $action . '::edit'), $defaults)
 		);
 	}
 
@@ -216,17 +244,18 @@ class Route
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $action
+	 * @param Array $defaults
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function showRest($name, $uri, $action)
+	public function showRest($name, $uri, $action, $defaults = Array())
 	{
 		$this->add(
 			$name . '.show', 
 			$uri . '/{id}',
 			Array('GET'),
-			Array('controller' => $action .'::show')
+			array_merge( Array('controller' => $action .'::show'), $defaults )
 		);
 	}
 
