@@ -13,6 +13,15 @@ class FormTest extends TestCase
 {
 
 	/**
+	 * An Array of Compiler Passes used by this test
+	 *
+	 * @var Array
+	 */
+	protected $passes = [
+		'Wasp\DI\Pass\DatabaseMockeryPass'
+	];
+
+	/**
 	 * Set up test environment
 	 *
 	 * @return void
@@ -24,6 +33,9 @@ class FormTest extends TestCase
 		
 		// The route we use.
 		$this->DI->get('route')->add('form.test', '/form/test', Array('GET'));
+
+		// Setup the DB
+		$this->DI->get('database')->create(ENTITIES);
 	}
 
 	/**
@@ -109,6 +121,40 @@ class FormTest extends TestCase
 
 		$this->assertEquals('Y', $checkgroup->getValue());
 		$this->assertEquals('<label><input type="checkbox" name="checkgroup" value="Y" checked="checked"/>Yes</label><label><input type="checkbox" name="checkgroup" value="N" />No</label>', $checkgroup->field());
+	}
+
+	/**
+	 * Test binding model data to the form
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_modelBindingForm()
+	{
+		$form = new Wasp\Test\Forms\Forms\TestModelForm();
+
+		$fields = $form->fields();
+		$name = $fields[0];
+
+		$this->assertEquals('Dan', $name->getValue());
+	}	
+
+	/**
+	 * Test that input from the request has higher priority than the model data
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_userInputShouldOverrideModelData()
+	{
+		$request = $this->DI->get('request')->make('/form', 'POST', Array('name' => 'Bob'));
+
+		$form = new Wasp\Test\Forms\Forms\TestModelForm();
+
+		$fields = $form->fields();
+		$name = $fields[0];
+
+		$this->assertEquals('Bob', $name->getValue());
 	}
 
 

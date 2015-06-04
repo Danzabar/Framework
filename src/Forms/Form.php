@@ -50,6 +50,13 @@ class Form
 	protected $route;
 
 	/**
+	 * A model instance to bind to the form
+	 *
+	 * @var \Wasp\Entity\Entity
+	 */
+	protected $model;
+
+	/**
 	 * Http Method
 	 *
 	 * @var String
@@ -98,15 +105,36 @@ class Form
 	 */
 	public function setup()
 	{
+		// Build the URL from the given route name
 		$this->buildURL();
+	
+		// Create the nessecary input param bag;
+		$this->determineInput();
+	}
 
-		// Setup the param bag
-		$this->input = $this->container->get('request')->query->all();
+	/**
+	 * Determines what input source to use
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function determineInput()
+	{
+		/**
+		 * The order of importance of input 
+		 *	- request data
+		 *	- model data
+		 *	- default values (these get added in the field class if no value is given)
+		 */
+		$request = $this->container->get('request');
 
-		if (strtoupper($this->method) == 'POST') 
+		$this->input = (strtoupper($this->method) == 'POST' ? $request->request->all() : $request->query->all());
+
+		if (!is_null($this->model) && empty($this->input))
 		{
-			$this->input = $this->container->get('request')->request->all();
-		}
+			// Grab an array representation of the entity
+			$this->input = $this->model->toArray();
+		}	
 	}
 
 	/**
@@ -162,6 +190,7 @@ class Form
 				$this->fields[] = new Field(
 									$props['name'], 
 									$props['type'], 
+									$props['id'],
 									$props['rules'],
 									$props['default'],
 									$props['values'],
@@ -179,7 +208,7 @@ class Form
 	 */
 	public function formatPropertyArgs(Array $field)
 	{
-		$expected = ['name' => '', 'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
+		$expected = ['name' => '', 'id' => '',  'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
 		$props = Array();
 		
 		foreach ($expected as $key => $default)

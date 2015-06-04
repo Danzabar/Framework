@@ -85,6 +85,7 @@ class Field
 	public function __construct(
 		$label, 
 		$type = 'String', 
+		$id = '',
 		Array $rules = Array(),
 		$default = '',
 		$values = Array(),
@@ -92,7 +93,7 @@ class Field
 	)
 	{
 		$this->label = $label;
-		$this->id = Str::id($label);
+		$this->id = ($id !== '' ? $id : Str::id($label));
 		$this->type = $type;
 		$this->values = $values;
 		$this->default = $default;
@@ -142,7 +143,7 @@ class Field
 		{
 			$this->value = $this->default;
 		}
-		
+
 		// Check the Input Array for a set value.
 		if (array_key_exists($this->id, $this->input)) 
 		{
