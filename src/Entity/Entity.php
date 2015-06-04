@@ -59,6 +59,33 @@ class Entity
 	}
 
 	/**
+	 * Update an entity from an array of values
+	 *
+	 * @param Array $data
+	 * @return Entity
+	 * @author Dan Cox
+	 */
+	public function updateFromArray(Array $data)
+	{
+		// Get fields from the entity
+		$reflection = new \ReflectionClass($this);
+		$properties = $reflection->getProperties();
+		
+		// Assign values
+		foreach ($properties as $prop)
+		{
+			if (array_key_exists($prop->getName(), $data))
+			{
+				$this->{$prop->getName()} = $data[$prop->getName()];		
+			}
+		}
+
+		$this->save();
+		
+		return $this;	
+	}
+
+	/**
 	 * Saves the current state of the Entity
 	 *
 	 * @return void
