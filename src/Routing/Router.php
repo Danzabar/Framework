@@ -88,7 +88,9 @@ class Router
 		$this->extractFilters();
 
 		$dispatcher = $this->DI->get('dispatcher');
-		return $dispatcher->dispatch($this->match['controller'], $this->params, $this->filters);
+		$entity = (array_key_exists('entity', $this->match) ? $this->match['entity'] : NULL);
+
+		return $dispatcher->dispatch($this->match['controller'], $this->params, $this->filters, $entity);
 	}
 
 	/**
@@ -99,7 +101,7 @@ class Router
 	 */
 	public function extractParams()
 	{
-		$standardKeys = ['controller', 'before', 'after', 'subdomain', '_route'];
+		$standardKeys = ['controller', 'entity', 'before', 'after', 'subdomain', '_route'];
 
 		foreach ($this->match as $key => $potential)
 		{

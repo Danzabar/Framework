@@ -54,10 +54,12 @@ class Dispatcher
 	 * @param String $action
 	 * @param Array $params
 	 * @param Array $filters
+	 * @param String $entity
+	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @author Dan Cox
 	 */
-	public function dispatch($action, Array $params = Array(), Array $filters = Array())
+	public function dispatch($action, Array $params = Array(), Array $filters = Array(), $entity = NULL)
 	{
 		$this->extract($action);
 		
@@ -68,7 +70,7 @@ class Dispatcher
 		$this->before($filters);
 
 		// Fire the method
-		$this->response = $this->fire($params);
+		$this->response = $this->fire($params, $entity);
 
 		// Analyse the response
 		return $this->formatResponse();
@@ -121,12 +123,14 @@ class Dispatcher
 	 * Fires method using the reflection instance
 	 *
 	 * @param Array $params
+	 * @param String $entity
+	 *
 	 * @return Mixed
 	 * @author Dan Cox
 	 */
-	public function fire(Array $params)
+	public function fire(Array $params, $entity = NULL)
 	{
-		$instance = $this->reflection->newInstanceArgs(['DI' => $this->DI]);
+		$instance = $this->reflection->newInstanceArgs(['DI' => $this->DI, 'entity' => $entity]);
 		$method = $this->reflection->getMethod($this->method);
 
 		return $method->invokeArgs($instance, $params);

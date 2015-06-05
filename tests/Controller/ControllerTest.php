@@ -127,4 +127,15 @@ class ControllerTest extends TestCase
 		$dispatch->dispatch('Wasp\Test\Controller\Controller::returnObject', Array(), Array('before' => ['filter' => 'test', 'method' => 'method']));	
 	}
 
+	/**
+	 * Test dispatching from a resource route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_dispatchResourceRoute()
+	{
+		
+	}
+
 } // END class ControllerTest extends TestCase

@@ -18,13 +18,24 @@ class BaseController
 	protected $DI;
 
 	/**
+	 * Entiyu
+	 *
+	 * @var String
+	 */
+	protected $entity;
+
+	/**
 	 * Load the DI
+	 * 
+	 * @param Wasp\DI\DI $DI
+	 * @param String $entity
 	 *
 	 * @author Dan Cox
 	 */
-	public function __construct($DI)
+	public function __construct($DI, $entity = NULL)
 	{
 		$this->DI = $DI;
+		$this->entity = $entity;
 	}
 
 	/**
