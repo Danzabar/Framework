@@ -62,7 +62,7 @@ class Entity
 	 * Update an entity from an array of values
 	 *
 	 * @param Array $data
-	 * @return Entity
+	 * @return 
 	 * @author Dan Cox
 	 */
 	public function updateFromArray(Array $data)
@@ -79,8 +79,6 @@ class Entity
 				$this->{$prop->getName()} = $data[$prop->getName()];		
 			}
 		}
-
-		$this->save();
 		
 		return $this;	
 	}

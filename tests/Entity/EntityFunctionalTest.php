@@ -45,6 +45,7 @@ class EntityFunctionalTest extends TestCase
 	{
 		$entity = new Test;
 		$entity->updateFromArray(['name' => 'bob']);
+		$entity->save();
 
 		$res = Test::db()->findOneBy(['name' => 'bob']);
 		

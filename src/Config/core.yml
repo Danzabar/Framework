@@ -3,6 +3,7 @@ services:
         class: Wasp\Database\Connection
         arguments: 
             - "@connections"
+            - "@validator"
     connections:
         class: Wasp\Database\ConnectionCollection
         calls:
@@ -142,3 +143,6 @@ services:
         arguments:
             - "@request"
             - "@route_collection"
+    validator:
+        class: Wasp\Entity\Validator
+        lazy: true

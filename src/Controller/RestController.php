@@ -32,6 +32,57 @@ class RestController extends BaseController
 	}
 
 	/**
+	 * Finds an entity by its id
+	 *
+	 * @param String|Integer $id
+	 * @return \Wasp\Entity\Entity|NULL
+	 * @author Dan Cox
+	 */
+	public function findEntity($id)
+	{
+		try {
+			
+			$record = $this->database->setEntity($this->entity)->find($id);
+
+			return $record;
+
+		} catch (\Exception $e) {
+
+			return null;
+		}
+	}
+
+	/**
+	 * Updates and validates the entity from request data
+	 *
+	 * @return Response
+	 * @author Dan Cox
+	 */
+	public function updateAndValidate($record = NULL)
+	{
+		$data = $this->request->getInput();
+
+		// Create the entity if it doesn't exist
+		if (!is_null($record))
+		{
+			$record = $this->entityInstance();
+		}
+		
+		$record->updateFromArray($data);
+
+		$errors = $this->validator->validate($record);
+
+		if ($errors->count() > 0)
+		{
+			return $this->response->json(['status' => 'validation errors', 'errors' => $errors], 400);
+		}
+
+		$record->save();
+
+		return $this->response->json(['status' => 'success', 'data' => $record->toArray()], 200);
+	}
+
+	/**
 	 * Show a single record of the entity
 	 *
 	 * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -40,18 +91,14 @@ class RestController extends BaseController
 	 */
 	public function show($id)
 	{
-		try {
+		$record = $this->findEntity($id);
 			
-			$record = $this->database
-						   ->setEntity($this->entity)
-						   ->find($id);
-
-			return $this->response->json($record->json(), 200);
-
-		} catch (\Exception $e) {
-			
-			return $this->response->json(['status' => 'Invalid Identifier'], 404);
+		if (is_null($record))
+		{
+			return $this->json(['status' => 'Invalid identifier'], 404);
 		}
+
+		return $this->response->json($record->toArray(), 200);
 	}
 
 	/**
@@ -63,20 +110,7 @@ class RestController extends BaseController
 	 */
 	public function create()
 	{
-		$data = $this->request->getInput();
-
-		$entity = $this->entityInstance();
-
-		try {
-			
-			$entity->updateFromArray($data);
-
-			return $this->response->json($entity->json(), 200);
-				
-		} catch (\Exception $e) {
-
-			return $this->response->json(['status' => 'fail', 'error' => $e->getMessage()], 400);
-		}
+		return $this->updateAndValidate();	
 	}
 
 	/**
@@ -88,7 +122,15 @@ class RestController extends BaseController
 	 */
 	public function update($id)
 	{
+		$data = $this->request->getInput();
+		$record = $this->getEntity($id);
 
+		if (!is_null($record))
+		{
+			return $this->response->json(['status' => 'Invalid Identifier'], 404);
+		}
+
+		return $this->updateAndValidate();	
 	}
 
 	/**
@@ -100,18 +142,22 @@ class RestController extends BaseController
 	 */
 	public function delete($id)
 	{
-		try {
-
-			$record = $this->database
-						   ->setEntity($this->entity)
-						   ->find($id)
-						   ->delete();
-
-			return $this->response->json(['status' => 'success'], 200);
-
-		} catch (\Exception $e) {
-
+		$record = $this->findEntity($id);
+		
+		if (is_null($record))
+		{
 			return $this->response->json(['status' => 'Invalid Identifier'], 404);
+		}
+
+		try {
+			
+			$record->delete();
+
+			return $this->response->json(['status' => 'success'], 200);		
+	
+		} catch (\Exception $e) {
+			
+			return $this->response->json(['status' => 'failed', 'error' => $e->getMessage()], 400);
 		}
 	}
 

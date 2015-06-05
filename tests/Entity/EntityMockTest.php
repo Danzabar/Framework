@@ -143,6 +143,7 @@ class EntityMockTest extends TestCase
 		
 		$entity = new Test;
 		$entity->updateFromArray(['name' => 'bob']);
+		$entity->save();
 	}
 	
 } // END class EntityMockTest extends TestCase

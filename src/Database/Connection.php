@@ -43,6 +43,13 @@ class Connection
 	protected $entityManager;
 
 	/**
+	 * Instance of the validator
+	 *
+	 * @var Wasp\Entity\Validation
+	 */
+	protected $validator;
+
+	/**
 	 * metadata setup derived from the Setup class
 	 *
 	 * @var Object
@@ -54,9 +61,10 @@ class Connection
 	 *
 	 * @author Dan Cox
 	 */
-	public function __construct(ConnectionCollection $collection)
+	public function __construct(ConnectionCollection $collection, $validator)
 	{
 		$this->collection = $collection;
+		$this->validator = $validator;
 
 		$this->typeMap = Array(
 			'Annotation'		=> 'createMetaDataFromAnnotation',

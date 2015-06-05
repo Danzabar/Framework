@@ -1,6 +1,7 @@
 <?php	namespace Wasp\Test\Entity\Entities;
 
 use Wasp\Entity\Entity,
+	Symfony\Component\Validator\Constraints as Assert,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +29,7 @@ class Contact extends Entity
 	 * Name
 	 *
 	 * @ORM\Column(name="name", type="string")
+	 * @Assert\NotBlank
 	 * @var String
 	 */
 	protected $name;
@@ -36,6 +38,7 @@ class Contact extends Entity
 	 * Message
 	 *
 	 * @ORM\Column(name="message", type="string")
+	 * @Assert\NotBlank
 	 * @var String
 	 */
 	protected $message;
