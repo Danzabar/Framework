@@ -60,4 +60,91 @@ class RestControllerTest extends TestCase
 		$this->assertEquals('Test', $obj->name);
 	}
 
+	/**
+	 * Test the show route with an invalid identifier
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_showRouteInvalidIdentifier()
+	{
+		$response = $this->DI->get('router')->resolve('/test/1');
+
+		$obj = json_decode($response->getContent());
+		$this->assertEquals('Invalid identifier', $obj->status);
+		$this->assertEquals(404, $response->getStatusCode());
+	}
+
+	/**
+	 * Test a successful create route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_createRoute()
+	{
+		$data = ['name' => 'CreateTest1', 'message' => 'This was created in test_createRoute'];
+
+		$this->DI->get('request')->make('/test/new', 'POST', $data);
+		$response = $this->DI->get('router')->resolve('/test/new');
+
+		// Check the response
+		$obj = json_decode($response->getContent());
+
+		$ent = Contact::db()->find($obj->data->id);
+
+		$this->assertEquals('success', $obj->status);
+		$this->assertEquals('CreateTest1', $obj->data->name);
+
+		$this->assertEquals($ent->name, $obj->data->name);
+	}
+
+	/**
+	 * Test create route returning a validation error
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_createRouteValidationError()
+	{
+		$data = ['name' => 'CreateTest2', 'message' => ''];
+
+		$this->DI->get('request')->make('/test/new', 'POST', $data);
+		
+		$response = $this->DI->get('router')->resolve('/test/new');
+		
+		$obj = json_decode($response->getContent());
+
+		$this->assertEquals('message', $obj->errors[0]->property);
+		$this->assertEquals('', $obj->errors[0]->value);
+	}
+
+	/**
+	 * Test a successful update route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_updateRoute()
+	{
+		$ent = new Contact();
+		$ent->name = 'UpdateTest1';
+		$ent->message = 'MyMessage';
+		$ent->save();
+
+		$data = ['message' => 'The New message'];
+
+		$this->DI->get('request')->make('/test/update/1', 'PATCH', $data);
+
+		$response = $this->DI->get('router')->resolve('/test/update/1');
+		$obj = json_decode($response->getContent());
+
+		$record = Contact::db()->find($obj->data->id);
+
+		$this->assertEquals('success', $obj->status);
+		$this->assertEquals('UpdateTest1', $obj->data->name);
+		$this->assertEquals('The New message', $obj->data->message);
+		$this->assertEquals($record->message, $obj->data->message);
+	}
+
 } // END class RestControllerTest extends TestCase

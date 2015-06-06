@@ -53,6 +53,30 @@ class RestController extends BaseController
 	}
 
 	/**
+	 * Formats errors into a nicely structured array
+	 *
+	 * @param \Symfony\Component\Validator\ConstraintViolationList $errors
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function formatErrors($errors)
+	{
+		$formatted = Array();
+
+		foreach ($errors as $error)
+		{
+			$formatted[] = Array(
+				'property' => $error->getPropertyPath(), 
+				'message' => $error->getMessage(), 
+				'code' => $error->getCode(), 
+				'value' => $error->getInvalidValue()
+			); 
+		}
+
+		return $formatted;
+	}
+
+	/**
 	 * Updates and validates the entity from request data
 	 *
 	 * @return Response
@@ -63,18 +87,18 @@ class RestController extends BaseController
 		$data = $this->request->getInput();
 
 		// Create the entity if it doesn't exist
-		if (!is_null($record))
+		if (is_null($record))
 		{
 			$record = $this->entityInstance();
 		}
-		
-		$record->updateFromArray($data);
+
+		$record->updateFromArray($data->all());
 
 		$errors = $this->validator->validate($record);
 
 		if ($errors->count() > 0)
 		{
-			return $this->response->json(['status' => 'validation errors', 'errors' => $errors], 400);
+			return $this->response->json(['status' => 'validation errors', 'errors' => $this->formatErrors($errors)], 400);
 		}
 
 		$record->save();
@@ -95,7 +119,7 @@ class RestController extends BaseController
 			
 		if (is_null($record))
 		{
-			return $this->json(['status' => 'Invalid identifier'], 404);
+			return $this->response->json(['status' => 'Invalid identifier'], 404);
 		}
 
 		return $this->response->json($record->toArray(), 200);
@@ -123,14 +147,14 @@ class RestController extends BaseController
 	public function update($id)
 	{
 		$data = $this->request->getInput();
-		$record = $this->getEntity($id);
+		$record = $this->findEntity($id);
 
-		if (!is_null($record))
+		if (is_null($record))
 		{
 			return $this->response->json(['status' => 'Invalid Identifier'], 404);
 		}
 
-		return $this->updateAndValidate();	
+		return $this->updateAndValidate($record);	
 	}
 
 	/**
