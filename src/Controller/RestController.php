@@ -173,9 +173,16 @@ class RestController extends BaseController
 			return $this->response->json(['status' => 'Invalid identifier'], 404);
 		}
 
-		$record->delete();
+		try {
+			
+			$record->delete();
+		
+			return $this->response->json(['status' => 'success'], 200);		
 
-		return $this->response->json(['status' => 'success'], 200);		
+		} catch(\Exception $e) {
+			
+			return $this->response->json(['status' => 'error', 'error' => $e->getMessage()], 400);
+		}
 	}
 
 } // END class RestController extends BaseController
