@@ -1,7 +1,6 @@
 <?php namespace Wasp\Routing;
 
-use Symfony\Component\Routing\Route as SymfonyRoute,
-	Wasp\Utils\TypeMapTrait;
+use Symfony\Component\Routing\Route as SymfonyRoute;
 
 /**
  * Adds routes and route groups to the collection
@@ -12,8 +11,6 @@ use Symfony\Component\Routing\Route as SymfonyRoute,
  **/
 class Route
 {
-	use TypeMapTrait;
-
 	/**
 	 * Route collection instance
 	 *
@@ -34,6 +31,21 @@ class Route
 	 * @var string
 	 */
 	protected $prefix;
+
+	/**
+	 * An array of rest methods and values
+	 *
+	 * @var Array
+	 */
+	private $typeMap = [
+		'get'			=> ['uri' => '', 'method' => ['GET']],
+		'show'			=> ['uri' => '/{id}', 'method' => ['GET']],
+		'edit'			=> ['uri' => '/edit/{id}', 'method' => ['GET']],
+		'create'		=> ['uri' => '/new', 'method' => ['POST']],
+		'new'			=> ['uri' => '/new', 'method' => ['GET']],
+		'update'		=> ['uri' => '/update/{id}', 'method' => ['PATCH']],
+		'delete'		=> ['uri' => '/delete/{id}', 'method' => ['DELETE']]
+	];
 
 	/**
 	 * Load dependencies
@@ -118,16 +130,6 @@ class Route
 	{
 		$methods = (!empty($methods) ? $methods : Array('get', 'show', 'update', 'create', 'new', 'edit', 'delete'));
 		
-		$this->typeMap = [
-			'get'			=> ['uri' => '', 'method' => ['GET']],
-			'show'			=> ['uri' => '/{id}', 'method' => ['GET']],
-			'edit'			=> ['uri' => '/edit/{id}', 'method' => ['GET']],
-			'create'		=> ['uri' => '/new', 'method' => ['POST']],
-			'new'			=> ['uri' => '/new', 'method' => ['GET']],
-			'update'		=> ['uri' => '/update/{id}', 'method' => ['PATCH']],
-			'delete'		=> ['uri' => '/delete/{id}', 'method' => ['DELETE']]
-		];
-
 		foreach ($methods as $method)
 		{
 			$m = $this->typeMap[$method];
