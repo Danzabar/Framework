@@ -116,147 +116,47 @@ class Route
 	 */
 	public function rest($name, $uri, $action, $methods = Array(), $defaults = Array())
 	{
-		$methods = (!empty($methods) ? $methods : Array('show', 'update', 'create', 'new', 'edit', 'delete'));
+		$methods = (!empty($methods) ? $methods : Array('get', 'show', 'update', 'create', 'new', 'edit', 'delete'));
 		
 		$this->typeMap = [
-			'show'			=> 'showRest',
-			'edit'			=> 'editRest',
-			'create'		=> 'createRest',
-			'new'			=> 'newRest',
-			'update'		=> 'updateRest',
-			'delete'		=> 'deleteRest'
+			'get'			=> ['uri' => '', 'method' => ['GET']],
+			'show'			=> ['uri' => '/{id}', 'method' => ['GET']],
+			'edit'			=> ['uri' => '/edit/{id}', 'method' => ['GET']],
+			'create'		=> ['uri' => '/new', 'method' => ['POST']],
+			'new'			=> ['uri' => '/new', 'method' => ['GET']],
+			'update'		=> ['uri' => '/update/{id}', 'method' => ['PATCH']],
+			'delete'		=> ['uri' => '/delete/{id}', 'method' => ['DELETE']]
 		];
 
 		foreach ($methods as $method)
 		{
-			$this->map($method, '\Wasp\Exceptions\Routing\InvalidRestOption', [$name, $uri, $action, $defaults]);
+			$m = $this->typeMap[$method];
+
+			$this->addRestRoute(
+				$name .'.'. $method,
+				$uri . $m['uri'],
+				$action .'::'. $method,
+				$m['method'],
+				$defaults
+			);
 		}
 	}
 
 	/**
-	 * Creates a "delete" rest route
-	 * 
+	 * Adds a rest route to the collection
+	 *
 	 * @param String $name
 	 * @param String $uri
+	 * @param String $method
 	 * @param String $action
 	 * @param Array $defaults
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function deleteRest($name, $uri, $action, $defaults = Array())
+	public function addRestRoute($name, $uri, $action, $method,  $defaults = Array())
 	{
-		$this->add(
-			$name . '.delete',
-			$uri . '/delete/{id}',
-			Array('DELETE'),
-			array_merge( Array('controller' => $action .'::delete'), $defaults )	
-		);
-	}
-
-	/**
-	 * Creates an "update" rest route
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 * @param Array $defaults
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function updateRest($name, $uri, $action, $defaults = Array())
-	{
-		$this->add(
-			$name . '.update',
-			$uri . '/update/{id}',
-			Array('PATCH'),
-			array_merge( Array('controller'  => $action .'::update'), $defaults )
-		);
-	}
-
-	/**
-	 * Creates a "new" rest route
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 * @param Array $defaults
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function newRest($name, $uri, $action, $defaults = Array()) 
-	{
-		$this->add(
-			$name . '.new',
-			$uri . '/new',
-			Array('GET'),
-			array_merge( Array('controller' => $action . '::new'), $defaults )
-		);
-	}
-
-	/**
-	 * Creates a "create" rest option
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 * @param Array $defaults
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function createRest($name, $uri, $action, $defaults = Array())
-	{
-		$this->add(
-			$name . '.create',
-			$uri . '/new',
-			Array('POST'),
-			array_merge( Array('controller' => $action . '::create'), $defaults )
-		);
-	}	
-
-	/**
-	 * Adds an "edit" rest route
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 * @param Array $defaults
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function editRest($name, $uri, $action, $defaults = Array())
-	{
-		$this->add(
-			$name .'.edit',
-			$uri . '/edit/{id}',
-			Array('GET'),
-			array_merge(Array('controller' => $action . '::edit'), $defaults)
-		);
-	}
-
-	/**
-	 * creates a "show" rest route
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 * @param Array $defaults
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function showRest($name, $uri, $action, $defaults = Array())
-	{
-		$this->add(
-			$name . '.show', 
-			$uri . '/{id}',
-			Array('GET'),
-			array_merge( Array('controller' => $action .'::show'), $defaults )
-		);
+		$this->add($name, $uri, $method, array_merge(['controller' => $action], $defaults));
 	}
 
 	/**
