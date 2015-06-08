@@ -147,4 +147,85 @@ class RestControllerTest extends TestCase
 		$this->assertEquals($record->message, $obj->data->message);
 	}
 
+	/**
+	 * Test update route with an invalid identifier
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_updateRouteInvalid()
+	{
+		$this->DI->get('request')->make('/test/update/1', 'PATCH', []);
+		$response = $this->DI->get('router')->resolve('/test/update/1');
+
+		$obj = json_decode($response->getContent());
+
+		$this->assertEquals(404, $response->getStatusCode());
+		$this->assertEquals('Invalid identifier', $obj->status);
+	}
+
+	/**
+	 * Test validation error on update route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_updateRouteValidation()
+	{
+		$ent = new Contact();
+		$ent->name = 'UpdateTest2';
+		$ent->message = 'Validation error';
+		$ent->save();
+
+		$this->DI->get('request')->make('/test/update/1', 'PATCH', ['message' => '']);
+		$response = $this->DI->get('router')->resolve('/test/update/1');
+		
+		$obj = json_decode($response->getContent());
+
+		$this->assertEquals('message', $obj->errors[0]->property);	
+	}
+
+	/**
+	 * Test a successful delete route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_deleteRoute()
+	{
+		$ent = new Contact();
+		$ent->name = 'Delete1Test';
+		$ent->message = 'Test';
+		$ent->save();
+
+		$this->DI->get('request')->make('/test/delete/1', 'DELETE', []);
+		$response = $this->DI->get('router')->resolve('/test/delete/1');
+
+		$obj = json_decode($response->getContent());
+
+		$records = Contact::db()->get();
+
+		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertEquals('success', $obj->status);
+		$this->assertEquals(0, count($records));
+	}
+
+	/**
+	 * Test a delete route where the identifier is invalid
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_deleteRouteInvalid()
+	{
+		$this->DI->get('request')->make('/test/delete/1', 'DELETE', []);
+		$response = $this->DI->get('router')->resolve('/test/delete/1');
+
+		$obj = json_decode($response->getContent());
+
+		$this->assertEquals(404, $response->getStatusCode());
+		$this->assertEquals('Invalid identifier', $obj->status);
+	}
+
+
 } // END class RestControllerTest extends TestCase

@@ -151,7 +151,7 @@ class RestController extends BaseController
 
 		if (is_null($record))
 		{
-			return $this->response->json(['status' => 'Invalid Identifier'], 404);
+			return $this->response->json(['status' => 'Invalid identifier'], 404);
 		}
 
 		return $this->updateAndValidate($record);	
@@ -161,7 +161,7 @@ class RestController extends BaseController
 	 * Delete the entity record
 	 *
 	 * @return \Symfony\Component\HttpFoundation\JsonResponse
-	 * @method GET
+	 * @method DELETE
 	 * @author Dan Cox
 	 */
 	public function delete($id)
@@ -170,19 +170,12 @@ class RestController extends BaseController
 		
 		if (is_null($record))
 		{
-			return $this->response->json(['status' => 'Invalid Identifier'], 404);
+			return $this->response->json(['status' => 'Invalid identifier'], 404);
 		}
 
-		try {
-			
-			$record->delete();
+		$record->delete();
 
-			return $this->response->json(['status' => 'success'], 200);		
-	
-		} catch (\Exception $e) {
-			
-			return $this->response->json(['status' => 'failed', 'error' => $e->getMessage()], 400);
-		}
+		return $this->response->json(['status' => 'success'], 200);		
 	}
 
 } // END class RestController extends BaseController
