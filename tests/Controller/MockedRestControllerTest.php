@@ -35,6 +35,28 @@ class MockedRestControllerTest extends TestCase
 	}
 
 	/**
+	 * Test that failure to find an entity is a graceful error
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_failToFindEntity()
+	{
+		$db = $this->DI->get('database');
+
+		$db->shouldReceive('setEntity')->once()->andReturn($db);
+		$db->shouldReceive('find')->andThrow(new Exception('Test'));
+		
+		// Fabricate the request
+		$this->DI->get('request')->make('/test/delete/1', 'DELETE', []);
+		$response = $this->DI->get('router')->resolve('/test/delete/1');
+
+		$obj = json_decode($response->getContent());
+
+		$this->assertEquals(404, $response->getStatusCode());
+	}
+
+	/**
 	 * Test that the delete route fails gracefully
 	 *
 	 * @return void
