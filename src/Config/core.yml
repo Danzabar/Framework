@@ -20,7 +20,7 @@ services:
         class: Danzabar\Config\Files\ConfigFile
         lazy: true
         scope: prototype
-    commandloader:
+    command.loader:
         class: Wasp\Console\CommandLoader
         lazy: true
         arguments:

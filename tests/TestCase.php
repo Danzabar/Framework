@@ -77,7 +77,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
 		if(property_exists($this, 'commands') && is_array($this->commands))
 		{
-			$this->DI->get('commandloader')->fromArray($this->commands);	
+			$this->DI->get('command.loader')->fromArray($this->commands);	
 		}
 	}
 

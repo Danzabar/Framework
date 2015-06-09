@@ -36,7 +36,7 @@ class CommandTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->DI->get('commandloader')->fromArray($this->loadCommands());
+		$this->DI->get('command.loader')->fromArray($this->loadCommands());
 	}
 
 	/**

@@ -20,7 +20,7 @@ class CommandLoaderTest extends TestCase
 	 */
 	public function test_loadByArray()
 	{
-		$loader = $this->DI->get('commandloader');
+		$loader = $this->DI->get('command.loader');
 		$loader->fromArray([
 			'Wasp\Test\Commands\Commands\TestCommand'
 		]);
@@ -40,7 +40,7 @@ class CommandLoaderTest extends TestCase
 	 */
 	public function test_loadFromFile()
 	{
-		$loader = $this->DI->get('commandloader');
+		$loader = $this->DI->get('command.loader');
 		$loader->fromFile(__DIR__ . '/CommandLoad.php');
 
 		$command = $this->DI->get('console')->find('database:schema');
