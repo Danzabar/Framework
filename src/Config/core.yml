@@ -86,6 +86,16 @@ services:
         lazy: true
         calls:
             - [setDI, ["@service_container"]]
+    paginator:
+        class: Wasp\Database\Paginator
+        lazy: true
+        arguments:
+            - "@database"
+            - "@request"
+    profile:
+        class: Wasp\Application\Profile
+        arguments:
+            - "@fs"
     response_api:
         class: Symfony\Component\HttpFoundation\Response
         lazy: true

@@ -38,7 +38,7 @@ class Route
 	 * @var Array
 	 */
 	private $typeMap = [
-		'get'			=> ['uri' => '', 'method' => ['GET']],
+		'all'			=> ['uri' => '', 'method' => ['GET']],
 		'show'			=> ['uri' => '/{id}', 'method' => ['GET']],
 		'edit'			=> ['uri' => '/edit/{id}', 'method' => ['GET']],
 		'create'		=> ['uri' => '/new', 'method' => ['POST']],
@@ -111,7 +111,7 @@ class Route
 		 *	We can use the "rest" method to create the routes
 		 *	And provide a default variable for the entity
 		 */
-		$this->rest($name, $uri, 'Wasp\Controller\RestController', ['show', 'update', 'create', 'delete'], ['entity' => $entity]);
+		$this->rest($name, $uri, 'Wasp\Controller\RestController', ['all', 'show', 'update', 'create', 'delete'], ['entity' => $entity]);
 	}
 
 	/**
@@ -128,7 +128,7 @@ class Route
 	 */
 	public function rest($name, $uri, $action, $methods = Array(), $defaults = Array())
 	{
-		$methods = (!empty($methods) ? $methods : Array('get', 'show', 'update', 'create', 'new', 'edit', 'delete'));
+		$methods = (!empty($methods) ? $methods : Array('all', 'show', 'update', 'create', 'new', 'edit', 'delete'));
 		
 		foreach ($methods as $method)
 		{

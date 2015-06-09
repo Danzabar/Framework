@@ -31,6 +31,24 @@ class Entity
 	}
 
 	/**
+	 * Uses the paginator to perform a paginated query on the entity
+	 *
+	 * @param Integer $limit
+	 * @param Array $params
+	 * @param Array $order
+	 *
+	 * @return EntityCollection
+	 * @author Dan Cox
+	 */
+	public static function paginate($limit, $params = Array(), $order = Array())
+	{
+		$paginator = self::get('paginator');
+		$paginator->setEntity(get_called_class());
+		
+		return $paginator->query($limit, $params, $order);
+	}
+
+	/**
 	 * Returns JSON version of entity
 	 *
 	 * @return String
