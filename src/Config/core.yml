@@ -28,16 +28,16 @@ services:
     command.router:
         class: Wasp\Commands\CommandRouter
         lazy: true
-    event_dispatch:
+    event.dispatch:
         class: Symfony\Component\EventDispatcher\EventDispatcher
         lazy: true
         arguments:
             - "@service_container"
-    event_register:
+    event.register:
         class: Wasp\Events\EventRegister
         lazy: true
         arguments:
-            - "@event_dispatch"
+            - "@event.dispatch"
     database:
         class: Wasp\Database\Database
         arguments:
