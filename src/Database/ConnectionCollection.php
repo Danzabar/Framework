@@ -50,7 +50,7 @@ class ConnectionCollection
 	{
 		$this->getEntityFromModule();
 		
-		$this->connections[$name] = $this->DI->get('connection_validator')
+		$this->connections[$name] = $this->DI->get('connection.validator')
 											 ->load($configuration, $type, $this->modelDirectories);
 	}
 
