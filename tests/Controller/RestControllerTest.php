@@ -227,5 +227,54 @@ class RestControllerTest extends TestCase
 		$this->assertEquals('Invalid identifier', $obj->status);
 	}
 
+	/**
+	 * Test the All route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_allRoute()
+	{
+		for ($i = 0; $i < 10; $i++)
+		{
+			$c = new Contact;
+			$c->name = $i;
+			$c->message = $i;
+			$c->save();
+		}
+
+		$this->DI->get('request')->make('/test', 'GET', ['pageSize' => 5]);
+
+		$response = $this->DI->get('router')->resolve('/test');
+		$obj = json_decode($response->getContent());
+
+		$this->assertEquals(5, count($obj));
+	}
+
+	/**
+	 * Test adding where clauses to the request
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_allWithFilter()
+	{
+		for ($i = 0; $i < 3; $i++)
+		{
+			$c = new Contact();
+			$c->name = $i;
+			$c->message = $i;
+			$c->save();
+		}
+
+		$this->DI->get('request')->make('/test', 'GET', ['pageSize' => 5, 'name' => 2]);
+
+		$response = $this->DI->get('router')->resolve('/test');
+		$obj = json_decode($response->getContent());
+
+		$this->assertEquals(1, count($obj));
+		$this->assertEquals(2, $obj[0]->name);
+	}
+
 
 } // END class RestControllerTest extends TestCase

@@ -26,6 +26,9 @@ class MockedRestControllerTest extends TestCase
 		$m = new ServiceMockery('database');
 		$m->add();
 
+		$mPaginator = new ServiceMockery('paginator');
+		$mPaginator->add();
+
 		parent::setUp();
 
 		$this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Contact');
@@ -54,6 +57,28 @@ class MockedRestControllerTest extends TestCase
 		$this->assertEquals(400, $response->getStatusCode());
 		$this->assertEquals('Test', $obj->error);
 		$this->assertEquals('error', $obj->status);
+	}
+
+	/**
+	 * Test the ALL route with a database exception
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_allFailingRoute()
+	{
+		$paginator = $this->DI->get('paginator');
+
+		$paginator->shouldReceive('setEntity')->andReturn($paginator);
+		$paginator->shouldReceive('query')->andThrow(new Exception('Test'));
+
+		$this->DI->get('request')->make('/test', 'GET', ['pageSize' => 15]);
+		$response = $this->DI->get('router')->resolve('/test');
+
+		$obj = json_decode($response->getContent());
+
+		$this->assertEquals(400, $response->getStatusCode());
+		$this->assertEquals('Test', $obj->error);
 	}
 
 

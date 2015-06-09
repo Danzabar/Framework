@@ -26,6 +26,19 @@ class EntityCollection extends Collection
 	}
 
 	/**
+	 * Converts entities to array using the serializer
+	 *
+	 * @return Array
+	 * @author Dan Cox
+	 */
+	public function toArray()
+	{
+		$json = $this->json();
+
+		return json_decode($json, true);
+	}
+
+	/**
 	 * Performs the Delete function on the whole collection of entities.
 	 *
 	 * @return void
