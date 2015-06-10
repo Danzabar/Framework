@@ -98,17 +98,6 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	}
 
 	/**
-	 * Checks if the key exists in the collection
-	 * @alias
-	 * @return Boolean
-	 * @author Dan Cox
-	 */
-	public function has($key)
-	{
-		return $this->exists($key);
-	}
-
-	/**
 	 * Returns json version of collectable array
 	 *
 	 * @return String

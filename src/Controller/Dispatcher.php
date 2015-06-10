@@ -74,18 +74,6 @@ class Dispatcher
 	}
 
 	/**
-	 * Triggers a single filter
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function triggerFilter($filter, $method)
-	{
-		$filters = $this->DI->get('filter')->prepare();
-		$filters->fire($filter, $method);
-	}
-
-	/**
 	 * Formats the response
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response

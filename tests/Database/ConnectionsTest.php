@@ -175,5 +175,25 @@ class ConnectionsTest extends TestCase
 		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
 	}
 
+	/**
+	 * Test that the connection validator handles default model directories
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_connectionValidatorHandlesDefaultDirectories()
+	{
+		$validator = $this->DI->get('connection.validator');
+
+		$conn = $validator->load([
+				'driver'	=> 'pdo_mysql',
+				'user'		=> 'user',
+				'models'	=> '',
+				'database'	=> 'wasp'
+			], 'Array', ['test/directory']);
+
+		$this->assertContains('test/directory', $conn->models);
+	}
+
 } // END class ConnectionsTest extends TestCase
 
