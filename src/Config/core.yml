@@ -25,9 +25,6 @@ services:
         lazy: true
         arguments:
             - "@console"
-    command.router:
-        class: Wasp\Commands\CommandRouter
-        lazy: true
     event.dispatch:
         class: Symfony\Component\EventDispatcher\EventDispatcher
         lazy: true
@@ -63,20 +60,6 @@ services:
     fs:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
-    module.builder:
-        class: Wasp\Modules\ModuleBuilder
-        lazy: true
-        calls:
-            - [setDI, ["@service_container"]]
-    module.manager:
-        class: Wasp\Modules\ModuleManager
-        lazy: true
-        arguments: ["@module.cache", "@module.builder"]
-    module.cache:
-        class: Wasp\Modules\ModuleCache
-        lazy: true
-        calls:
-            - [setDI, ["@service_container"]]
     paginator:
         class: Wasp\Database\Paginator
         lazy: true
@@ -133,8 +116,6 @@ services:
     template:
         class: Wasp\Templating\Template
         lazy: true
-        arguments:
-            - "@module.cache"
     twigengine:
         class: Wasp\Templating\Engines\TwigEngine
         lazy: true
