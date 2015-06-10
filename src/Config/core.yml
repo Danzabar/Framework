@@ -68,10 +68,6 @@ services:
     fs:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
-    jsonresponse_api:
-        class: Symfony\Component\HttpFoundation\JsonResponse
-        lazy: true
-        scope: prototype
     module.builder:
         class: Wasp\Modules\ModuleBuilder
         lazy: true
@@ -96,7 +92,7 @@ services:
         class: Wasp\Application\Profile
         arguments:
             - "@fs"
-    response_api:
+    response.api:
         class: Symfony\Component\HttpFoundation\Response
         lazy: true
         scope: prototype
@@ -105,17 +101,21 @@ services:
         lazy: true
         calls:
            - [setDI, ["@service_container"]]
+    response.json:
+        class: Symfony\Component\HttpFoundation\JsonResponse
+        lazy: true
+        scope: prototype
     request:
         class: Wasp\Routing\Request
         lazy: true
         arguments: 
             - "@session"
-    route_collection:
+    route.collection:
         class: Symfony\Component\Routing\RouteCollection
     route:
         class: Wasp\Routing\Route
         arguments:
-            - "@route_collection"
+            - "@route.collection"
     router:
         class: Wasp\Routing\Router
         calls:
@@ -152,7 +152,7 @@ services:
         lazy: true
         arguments:
             - "@request"
-            - "@route_collection"
+            - "@route.collection"
     validator:
         class: Wasp\Entity\Validator
         lazy: true

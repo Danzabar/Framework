@@ -142,7 +142,7 @@ class Router
 		$request = $this->DI->get('request')->getRequest();
 
 		$match = new UrlMatcher(
-			$this->DI->get('route_collection'),
+			$this->DI->get('route.collection'),
 			$this->context()->fromRequest($request)
 		);		
 

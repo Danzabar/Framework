@@ -23,7 +23,7 @@ class Response
 	 */
 	public function createResponse()
 	{
-		return $this->DI->get('response_api');
+		return $this->DI->get('response.api');
 	}
 
 	/**
@@ -36,7 +36,7 @@ class Response
 	 */
 	public function json($content = Array(), $code = 200)
 	{
-		$response = $this->DI->get('jsonresponse_api');
+		$response = $this->DI->get('response.json');
 		$response->setData($content);
 		$response->setStatusCode($code);
 

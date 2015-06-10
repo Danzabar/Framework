@@ -117,7 +117,7 @@ class ModuleCacheTest extends TestCase
 	public function test_routing()
 	{
 		$this->application->loadRoutesFromModule();
-		$collection = $this->DI->get('route_collection');	
+		$collection = $this->DI->get('route.collection');	
 
 		$route = $collection->get('mod.test');
 
