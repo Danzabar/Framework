@@ -4,7 +4,9 @@
  * The Test bootstrap file
  *
  */
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+$loader = require dirname(__DIR__) . '/vendor/autoload.php';
+
+Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
 /**
  * For the Dependency Injection Tests, We need the two test classes

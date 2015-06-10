@@ -11,7 +11,6 @@ use Wasp\Test\TestCase;
  **/
 class RouteTest extends TestCase
 {
-
 	/**
 	 * Test Adding a route that can be found in the Collection
 	 *
@@ -21,7 +20,7 @@ class RouteTest extends TestCase
 	public function test_addRoute()
 	{
 		$route = $this->DI->get('route');
-		$collection = $this->DI->get('route_collection');
+		$collection = $this->DI->get('route.collection');
 
 		$route->add(
 			'test.route', 
@@ -44,7 +43,7 @@ class RouteTest extends TestCase
 	public function test_addGroup()
 	{
 		$route = $this->DI->get('route');
-		$collection = $this->DI->get('route_collection');
+		$collection = $this->DI->get('route.collection');
 
 		$route->group(Array(), function($route) {
 			$route->addPrefix('/group');
@@ -64,7 +63,7 @@ class RouteTest extends TestCase
 	public function test_restRoutes()
 	{
 		$route = $this->DI->get('route');
-		$collection = $this->DI->get('route_collection');
+		$collection = $this->DI->get('route.collection');
 
 		$route->rest('blogs', '/blog', 'BlogController');
 
@@ -96,6 +95,22 @@ class RouteTest extends TestCase
 		$this->assertEquals('["1","2","3","4","5"]', $response->getContent());
 
 		$this->assertEquals('application/json', $response->headers->get('content_type'));
+	}
+
+	/**
+	 * Test creating a resource route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_ResourcingRoutes()
+	{
+		$this->DI->get('route')->resource('test', 'test', 'Wasp\Test\Entity\Entities\Test');
+
+		$route = $this->DI->get('route.collection')->get('test.show');
+		$defaults = $route->getDefaults();
+
+		$this->assertEquals('Wasp\Test\Entity\Entities\Test', $defaults['entity']);
 	}
 
 } // END class RouteTest extends TestCase

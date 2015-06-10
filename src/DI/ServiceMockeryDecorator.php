@@ -24,6 +24,8 @@ class ServiceMockeryDecorator
 	 */
 	public function __construct($service)
 	{
+		$service = str_replace('.', '_', $service);
+
 		$this->mockery = \Mockery::mock($service);
 
 		// Add a call for the DI

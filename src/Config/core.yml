@@ -3,11 +3,12 @@ services:
         class: Wasp\Database\Connection
         arguments: 
             - "@connections"
+            - "@validator"
     connections:
         class: Wasp\Database\ConnectionCollection
         calls:
             - [setDI, ["@service_container"]]
-    connection_validator:
+    connection.validator:
         class: Wasp\Database\ConnectionValidator
         scope: prototype
     console:
@@ -19,7 +20,7 @@ services:
         class: Danzabar\Config\Files\ConfigFile
         lazy: true
         scope: prototype
-    commandloader:
+    command.loader:
         class: Wasp\Console\CommandLoader
         lazy: true
         arguments:
@@ -27,16 +28,16 @@ services:
     command.router:
         class: Wasp\Commands\CommandRouter
         lazy: true
-    event_dispatch:
+    event.dispatch:
         class: Symfony\Component\EventDispatcher\EventDispatcher
         lazy: true
         arguments:
             - "@service_container"
-    event_register:
+    event.register:
         class: Wasp\Events\EventRegister
         lazy: true
         arguments:
-            - "@event_dispatch"
+            - "@event.dispatch"
     database:
         class: Wasp\Database\Database
         arguments:
@@ -67,10 +68,6 @@ services:
     fs:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
-    jsonresponse_api:
-        class: Symfony\Component\HttpFoundation\JsonResponse
-        lazy: true
-        scope: prototype
     module.builder:
         class: Wasp\Modules\ModuleBuilder
         lazy: true
@@ -85,7 +82,17 @@ services:
         lazy: true
         calls:
             - [setDI, ["@service_container"]]
-    response_api:
+    paginator:
+        class: Wasp\Database\Paginator
+        lazy: true
+        arguments:
+            - "@database"
+            - "@request"
+    profile:
+        class: Wasp\Application\Profile
+        arguments:
+            - "@fs"
+    response.api:
         class: Symfony\Component\HttpFoundation\Response
         lazy: true
         scope: prototype
@@ -94,17 +101,21 @@ services:
         lazy: true
         calls:
            - [setDI, ["@service_container"]]
+    response.json:
+        class: Symfony\Component\HttpFoundation\JsonResponse
+        lazy: true
+        scope: prototype
     request:
         class: Wasp\Routing\Request
         lazy: true
         arguments: 
             - "@session"
-    route_collection:
+    route.collection:
         class: Symfony\Component\Routing\RouteCollection
     route:
         class: Wasp\Routing\Route
         arguments:
-            - "@route_collection"
+            - "@route.collection"
     router:
         class: Wasp\Routing\Router
         calls:
@@ -141,4 +152,7 @@ services:
         lazy: true
         arguments:
             - "@request"
-            - "@route_collection"
+            - "@route.collection"
+    validator:
+        class: Wasp\Entity\Validator
+        lazy: true

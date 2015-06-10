@@ -44,7 +44,7 @@ class ConsoleApplication extends SymfonyApplication
 
 		if ($cache->has('Commands'))
 		{
-			$this->DI->get('commandloader')->fromArray($cache->get('Commands'));
+			$this->DI->get('command.loader')->fromArray($cache->get('Commands'));
 		}
 	}
 

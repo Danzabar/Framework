@@ -1,7 +1,6 @@
 <?php namespace Wasp\Routing;
 
-use Symfony\Component\Routing\Route as SymfonyRoute,
-	Wasp\Utils\TypeMapTrait;
+use Symfony\Component\Routing\Route as SymfonyRoute;
 
 /**
  * Adds routes and route groups to the collection
@@ -12,8 +11,6 @@ use Symfony\Component\Routing\Route as SymfonyRoute,
  **/
 class Route
 {
-	use TypeMapTrait;
-
 	/**
 	 * Route collection instance
 	 *
@@ -34,6 +31,21 @@ class Route
 	 * @var string
 	 */
 	protected $prefix;
+
+	/**
+	 * An array of rest methods and values
+	 *
+	 * @var Array
+	 */
+	private $typeMap = [
+		'all'			=> ['uri' => '', 'method' => ['GET']],
+		'show'			=> ['uri' => '/{id}', 'method' => ['GET']],
+		'edit'			=> ['uri' => '/edit/{id}', 'method' => ['GET']],
+		'create'		=> ['uri' => '/new', 'method' => ['POST']],
+		'new'			=> ['uri' => '/new', 'method' => ['GET']],
+		'update'		=> ['uri' => '/update/{id}', 'method' => ['PATCH']],
+		'delete'		=> ['uri' => '/delete/{id}', 'method' => ['DELETE']]
+	];
 
 	/**
 	 * Load dependencies
@@ -83,151 +95,70 @@ class Route
 	}	
 
 	/**
+	 * Uses the standard Rest controller to provide a rest 
+	 * structure for an entity
+	 *
+	 * @param String $name
+	 * @param String $uri
+	 * @param String $entity - The qualified entity class name
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function resource($name, $uri, $entity)
+	{
+		/**
+		 *	We can use the "rest" method to create the routes
+		 *	And provide a default variable for the entity
+		 */
+		$this->rest($name, $uri, 'Wasp\Controller\RestController', ['all', 'show', 'update', 'create', 'delete'], ['entity' => $entity]);
+	}
+
+	/**
 	 * Creates a set of RESTful routes
 	 *
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $action
+	 * @param Array $methods
+	 * @param Array $defaults
+	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function rest($name, $uri, $action, $methods = Array())
+	public function rest($name, $uri, $action, $methods = Array(), $defaults = Array())
 	{
-		$methods = (!empty($methods) ? $methods : Array('show', 'update', 'create', 'new', 'edit', 'delete'));
+		$methods = (!empty($methods) ? $methods : Array('all', 'show', 'update', 'create', 'new', 'edit', 'delete'));
 		
-		$this->typeMap = [
-			'show'			=> 'showRest',
-			'edit'			=> 'editRest',
-			'create'		=> 'createRest',
-			'new'			=> 'newRest',
-			'update'		=> 'updateRest',
-			'delete'		=> 'deleteRest'
-		];
-
 		foreach ($methods as $method)
 		{
-			$this->map($method, '\Wasp\Exceptions\Routing\InvalidRestOption', [$name, $uri, $action]);
+			$m = $this->typeMap[$method];
+
+			$this->addRestRoute(
+				$name .'.'. $method,
+				$uri . $m['uri'],
+				$action .'::'. $method,
+				$m['method'],
+				$defaults
+			);
 		}
 	}
 
 	/**
-	 * Creates a "delete" rest route
-	 * 
+	 * Adds a rest route to the collection
+	 *
 	 * @param String $name
 	 * @param String $uri
+	 * @param String $method
 	 * @param String $action
+	 * @param Array $defaults
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function deleteRest($name, $uri, $action)
+	public function addRestRoute($name, $uri, $action, $method,  $defaults = Array())
 	{
-		$this->add(
-			$name . '.delete',
-			$uri . '/delete/{id}',
-			Array('DELETE'),
-			Array('controller' => $action .'::delete')	
-		);
-	}
-
-	/**
-	 * Creates an "update" rest route
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function updateRest($name, $uri, $action)
-	{
-		$this->add(
-			$name . '.update',
-			$uri . '/update/{id}',
-			Array('PATCH'),
-			Array('controller'  => $action .'::update')	
-		);
-	}
-
-	/**
-	 * Creates a "new" rest route
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function newRest($name, $uri, $action)
-	{
-		$this->add(
-			$name . '.new',
-			$uri . '/new',
-			Array('GET'),
-			Array('controller' => $action . '::new')
-		);
-	}
-
-	/**
-	 * Creates a "create" rest option
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function createRest($name, $uri, $action)
-	{
-		$this->add(
-			$name . '.create',
-			$uri . '/new',
-			Array('POST'),
-			Array('controller' => $action . '::create')
-		);
-	}	
-
-	/**
-	 * Adds an "edit" rest route
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function editRest($name, $uri, $action)
-	{
-		$this->add(
-			$name .'.edit',
-			$uri . '/edit/{id}',
-			Array('GET'),
-			Array('controller' => $action . '::edit')
-		);
-	}
-
-	/**
-	 * creates a "show" rest route
-	 *
-	 * @param String $name
-	 * @param String $uri
-	 * @param String $action
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function showRest($name, $uri, $action)
-	{
-		$this->add(
-			$name . '.show', 
-			$uri . '/{id}',
-			Array('GET'),
-			Array('controller' => $action .'::show')
-		);
+		$this->add($name, $uri, $method, array_merge(['controller' => $action], $defaults));
 	}
 
 	/**

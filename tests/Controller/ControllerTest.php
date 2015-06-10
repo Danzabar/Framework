@@ -21,7 +21,7 @@ class ControllerTest extends TestCase
 	 */
 	public function setUp()
 	{
-		$apiMock = new ServiceMockery('response_api');
+		$apiMock = new ServiceMockery('response.api');
 		$apiMock->add();
 
 		$filterMock = new ServiceMockery('filter');
@@ -60,7 +60,7 @@ class ControllerTest extends TestCase
 	public function test_dispatchStringResponse()
 	{
 		$action = 'Wasp\Test\Controller\Controller::returnString';
-		$api = $this->DI->get('response_api');
+		$api = $this->DI->get('response.api');
 
 		$api->shouldReceive('setContent')->with("Test");
 		$api->shouldReceive('setStatusCode')->with(200);
@@ -79,7 +79,7 @@ class ControllerTest extends TestCase
 	public function test_dispatchResponse()
 	{
 		$action = 'Wasp\Test\Controller\Controller::returnObject';
-		$api = $this->DI->get('response_api');
+		$api = $this->DI->get('response.api');
 		
 		$api->shouldReceive('setContent')->with("Foo");
 		$api->shouldReceive('setStatusCode')->with(200);
@@ -118,7 +118,7 @@ class ControllerTest extends TestCase
 		$filter->shouldReceive('prepare')->once()->andReturn($filter);
 		$filter->shouldReceive('fire')->with('test', 'method')->once();
 
-		$api = $this->DI->get('response_api');
+		$api = $this->DI->get('response.api');
 		$api->shouldReceive('setContent')->once();
 		$api->shouldReceive('setStatusCode')->once();
 

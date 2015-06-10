@@ -31,6 +31,24 @@ class Entity
 	}
 
 	/**
+	 * Uses the paginator to perform a paginated query on the entity
+	 *
+	 * @param Integer $limit
+	 * @param Array $params
+	 * @param Array $order
+	 *
+	 * @return EntityCollection
+	 * @author Dan Cox
+	 */
+	public static function paginate($limit, $params = Array(), $order = Array())
+	{
+		$paginator = self::get('paginator');
+		$paginator->setEntity(get_called_class());
+		
+		return $paginator->query($limit, $params, $order);
+	}
+
+	/**
 	 * Returns JSON version of entity
 	 *
 	 * @return String
@@ -56,6 +74,31 @@ class Entity
 		$json = $serializer->serialize($this, 'json');
 
 		return json_decode($json, true);
+	}
+
+	/**
+	 * Update an entity from an array of values
+	 *
+	 * @param Array $data
+	 * @return 
+	 * @author Dan Cox
+	 */
+	public function updateFromArray(Array $data)
+	{
+		// Get fields from the entity
+		$reflection = new \ReflectionClass($this);
+		$properties = $reflection->getProperties();
+		
+		// Assign values
+		foreach ($properties as $prop)
+		{
+			if (array_key_exists($prop->getName(), $data))
+			{
+				$this->{$prop->getName()} = $data[$prop->getName()];		
+			}
+		}
+		
+		return $this;	
 	}
 
 	/**

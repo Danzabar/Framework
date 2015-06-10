@@ -22,7 +22,7 @@ class EventRegisterTest extends TestCase
 	 */
 	public function setUp()
 	{
-		$dispatch = new ServiceMockery('event_dispatch');
+		$dispatch = new ServiceMockery('event.dispatch');
 		$dispatch->add();
 
 		parent::setUp();
@@ -36,7 +36,7 @@ class EventRegisterTest extends TestCase
 	 */
 	public function test_AddingRegisteredEventTypes()
 	{
-		$register = $this->DI->get('event_register');
+		$register = $this->DI->get('event.register');
 
 		// Register some event types
 		$register->registerTypes(['event.name' => 'TestEventRegistrationClass']);
@@ -56,10 +56,10 @@ class EventRegisterTest extends TestCase
 	 */
 	public function test_AddingAWorkingEventType()
 	{
-		$dispatch = $this->DI->get('event_dispatch');
+		$dispatch = $this->DI->get('event.dispatch');
 		$dispatch->shouldReceive('dispatch')->once();
 
-		$register = $this->DI->get('event_register');
+		$register = $this->DI->get('event.register');
 		$register->registerType('event.test', 'Wasp\Test\Events\EventTypes\TestEventRegisterType');
 
 		$event = $register->initEvent('event.test', Array('foo' => 'test', 'bar' => 'test2'));
@@ -78,7 +78,7 @@ class EventRegisterTest extends TestCase
 	 */
 	public function test_firingEventWithNoType()
 	{
-		$register = $this->DI->get('event_register');
+		$register = $this->DI->get('event.register');
 		$event = $register->initEvent('event.notype', Array());
 
 		$this->assertInstanceOf('Symfony\Component\EventDispatcher\Event', $event);

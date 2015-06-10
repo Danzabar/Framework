@@ -131,13 +131,19 @@ class EntityMockTest extends TestCase
 	}
 
 	/**
-	 * Test Converting a single entity into json
+	 * Test setting entity values from an array
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function test_convertSingleEntityToJson()
+	public function test_settingValuesFromArray()
 	{
+		$db = $this->DI->get('database');
+		$db->shouldReceive('save')->once();
+		
+		$entity = new Test;
+		$entity->updateFromArray(['name' => 'bob']);
+		$entity->save();
 	}
 	
 } // END class EntityMockTest extends TestCase

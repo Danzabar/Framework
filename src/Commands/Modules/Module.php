@@ -45,13 +45,13 @@ class Module extends BaseCommand
 		$this
 			->argument('module', 'The module name', 'optional')
 			->option('namespace', 'The namespace of the module class', 'optional', 'ns')
-			->option('add', 'Adds an available module and namespace to the list file', 'optional')
-			->option('remove', 'Removes the available module from the list', 'optional', 'r')
-			->option('activate', 'A flag that specifies whether we should activate this module', 'optional', 'a')
-			->option('deactivate', 'A flag that specifies whether we should deactivate this module', 'optional', 'd')
-			->option('list', 'Lists out modules, works with --only-active and --only-inactive flags', 'optional', 'l')
-			->option('only-active', 'When listing modules this flag only shows active modules', 'optional')
-			->option('only-inactive', 'When lisitng modules this flag only shows inactive modules', 'optional');
+			->option('add', 'Adds an available module and namespace to the list file', 'none')
+			->option('remove', 'Removes the available module from the list', 'none', 'r')
+			->option('activate', 'A flag that specifies whether we should activate this module', 'none', 'a')
+			->option('deactivate', 'A flag that specifies whether we should deactivate this module', 'none', 'd')
+			->option('list', 'Lists out modules, works with --only-active and --only-inactive flags', 'none', 'l')
+			->option('only-active', 'When listing modules this flag only shows active modules', 'none')
+			->option('only-inactive', 'When lisitng modules this flag only shows inactive modules', 'none');
 	}
 
 	/**
