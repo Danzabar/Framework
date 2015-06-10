@@ -45,6 +45,9 @@ class RouterTest extends TestCase
 				 ->add('test.router', '/test', ['GET'], ['controller' => 'TestController::Action']);
 
 		$this->DI->get('router')->resolve('/test');
+
+		$route = $this->DI->get('router')->currentRoute();
+		$this->assertEquals('test.router', $route['_route']);
 	}
 
 	/**
