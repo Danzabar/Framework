@@ -16,10 +16,6 @@ services:
         lazy: true
         calls:
             - [setDI, ["@service_container"]]
-    config:
-        class: Danzabar\Config\Files\ConfigFile
-        lazy: true
-        scope: prototype
     command.loader:
         class: Wasp\Console\CommandLoader
         lazy: true
