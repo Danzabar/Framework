@@ -30,7 +30,6 @@
 		"mockery/mockery": "dev-master",
 		"symfony/templating": ">=2.7, <3.0",
 		"symfony/validator": ">=2.7, <3.0",
-		"danzabar/config": "2.2.x",
 		"jms/serializer": "0.17.*@dev"
 	},
 	"require-dev": {

@@ -107,9 +107,6 @@ class Application
 		// Call the Load method;
 		$this->env = $instance->load($this);
 		$this->DI = $this->env->getDI();
-
-		// After the environment is loaded
-		$this->loadRoutesFromModule();
 	}
 
 	/**
@@ -178,27 +175,6 @@ class Application
 
 		// Throw exception
 		throw new UnknownEnvironment($name);
-	}
-
-	/**
-	 * Loads isolated route files through the module cache
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function loadRoutesFromModule()
-	{
-		$cache = $this->DI->get('module.cache')->getProcessed();
-
-		if ($cache->has('Routes'))
-		{
-			$route = $this->DI->get('route');
-
-			foreach ($cache->get('Routes') as $r)
-			{
-				require_once $r;	
-			}
-		}
 	}
 
 	/**

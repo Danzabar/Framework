@@ -79,4 +79,21 @@ class PaginatorTest extends TestCase
 		$this->assertEquals('Test 20', $record->name);
 	}
 
+	/**
+	 * Test pagination with an entity
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_paginationWithoutEntity()
+	{
+		$this->DI->get('request')->make('/test', 'GET', ['page' => 1]);
+		
+		$paginator = $this->DI->get('paginator');
+		$records = $paginator->setEntity('Wasp\Test\Entity\Entities\Contact')
+					  		 ->query(10);
+
+		$this->assertEquals(10, count($records));
+	}
+
 } // END class PaginatorTest extends TestCase
