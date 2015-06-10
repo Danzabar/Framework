@@ -37,13 +37,6 @@ class Router
 	protected $params;
 
 	/**
-	 * An Array of active filters for this route
-	 *
-	 * @var Array
-	 */
-	protected $filters;
-
-	/**
 	 * Request Context instance
 	 *
 	 * @var \Symfony\Component\Routing\RequestContext
@@ -85,12 +78,11 @@ class Router
 		$this->match = $this->match();
 
 		$this->extractParams();
-		$this->extractFilters();
 
 		$dispatcher = $this->DI->get('dispatcher');
 		$entity = (array_key_exists('entity', $this->match) ? $this->match['entity'] : NULL);
 
-		return $dispatcher->dispatch($this->match['controller'], $this->params, $this->filters, $entity);
+		return $dispatcher->dispatch($this->match['controller'], $this->params, $entity);
 	}
 
 	/**
@@ -101,32 +93,13 @@ class Router
 	 */
 	public function extractParams()
 	{
-		$standardKeys = ['controller', 'entity', 'before', 'after', 'subdomain', '_route'];
+		$standardKeys = ['controller', 'entity', 'subdomain', '_route'];
 
 		foreach ($this->match as $key => $potential)
 		{
 			if (!in_array($key, $standardKeys))
 			{
 				$this->params[$key] = $potential;
-			}
-		}
-	}
-
-	/**
-	 * Extracts filter details from the matched route
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function extractFilters()
-	{	
-		$this->filters = [];
-		$filterKeys = ['before', 'after'];
-
-		foreach ($filterKeys as $fk)
-		{
-			if (array_key_exists($fk, $this->match)) {
-				$this->filters[$fk] = Array('filter' => $this->match[$fk][0], 'method' => $this->match[$fk][1]);
 			}
 		}
 	}

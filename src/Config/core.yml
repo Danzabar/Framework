@@ -55,11 +55,6 @@ services:
         class: Symfony\Component\Finder\Finder
         lazy: true
         scope: prototype
-    filter:
-        class: Wasp\Filters\Filter
-        lazy: true
-        calls:
-            - [setDI, ["@service_container"]]
     fixtures:
         class: Wasp\Database\FixtureManager
         lazy: true
