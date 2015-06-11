@@ -64,14 +64,7 @@ class Application
 	 */
 	public function react()
 	{
-		$request = $this->DI->get('request')->getRequest();
-
-		if (is_null($request))
-		{
-			$request = $this->DI->get('request')->fromGlobals();
-		}
-
-		return $this->DI->get('kernel')->handle($request);
+		return $this->DI->get('kernel')->handle($this->DI->get('request')->getRequest());
 	}
 
 	/**
