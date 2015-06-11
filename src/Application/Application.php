@@ -78,6 +78,8 @@ class Application
 		$response = $this->react();
 
 		$response->send();
+
+		$this->DI->get('kernel')->terminate($this->DI->get('request')->getRequest(), $response);
 	}
 
 	/**
