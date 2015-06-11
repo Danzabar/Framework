@@ -1,7 +1,8 @@
 <?php namespace Wasp\Application;
 
 use Wasp\Environment\Environment,
-	Wasp\Exceptions\Application\UnknownEnvironment;
+	Wasp\Exceptions\Application\UnknownEnvironment,
+	Symfony\Component\HttpKernel\HttpKernel;
 
 /**
  * Application class
@@ -56,23 +57,21 @@ class Application
 	}
 
 	/**
-	 * Reacts to the current request
+	 * Start the http kernel events
 	 *
-	 * @return Symfony\Component\HttpFoundation\Response
+	 * @return void
 	 * @author Dan Cox
 	 */
 	public function react()
 	{
-		$request = $this->DI->get('request');
-		
-		// If there is no fabricated request
-		if (is_null($request->getRequest()))
+		$request = $this->DI->get('request')->getRequest();
+
+		if (is_null($request))
 		{
-			// Create it from globals
-			$request->fromGlobals();
+			$request = $this->DI->get('request')->fromGlobals();
 		}
 
-		return $this->DI->get('router')->resolve($request->getRequestUri());
+		return $this->DI->get('kernel')->handle($request);
 	}
 
 	/**

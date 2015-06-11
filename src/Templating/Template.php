@@ -1,6 +1,7 @@
 <?php namespace Wasp\Templating;
 
 use Symfony\Component\Templating\DelegatingEngine,
+	Wasp\DI\DependencyInjectionAwareTrait,
 	Wasp\Exceptions\Templating\DirectoryNotSet;
 
 /**
@@ -12,6 +13,8 @@ use Symfony\Component\Templating\DelegatingEngine,
  */
 class Template
 {
+	use DependencyInjectionAwareTrait;
+
 	/**
 	 * Instance of the Delegation Engine
 	 *
@@ -57,7 +60,7 @@ class Template
 	 */
 	public function make($template, $params = Array())
 	{
-		return $this->delegator->render($template, $params);
+		return $this->DI->get('response')->make($this->delegator->render($template, $params));
 	}
 
 	/**

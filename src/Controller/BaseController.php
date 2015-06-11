@@ -1,5 +1,7 @@
 <?php namespace Wasp\Controller;
 
+use Wasp\DI\DependencyInjectionAwareTrait;
+
 /**
  * The Base Controller
  *
@@ -9,34 +11,14 @@
  */
 class BaseController
 {
+	use DependencyInjectionAwareTrait;
 
 	/**
-	 * Instance of the DI class
-	 *
-	 * @var Object
-	 */
-	protected $DI;
-
-	/**
-	 * Entiyu
+	 * Entity
 	 *
 	 * @var String
 	 */
 	protected $entity;
-
-	/**
-	 * Load the DI
-	 * 
-	 * @param Wasp\DI\DI $DI
-	 * @param String $entity
-	 *
-	 * @author Dan Cox
-	 */
-	public function __construct($DI, $entity = NULL)
-	{
-		$this->DI = $DI;
-		$this->entity = $entity;
-	}
 
 	/**
 	 * Forwards the request to a different controller

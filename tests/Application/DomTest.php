@@ -22,7 +22,7 @@ class DomTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->DI->get('route')->add('dom.test', '/dom/test', Array('GET'), Array('controller' => 'Wasp\Test\Controller\Controller::returnHtml'));	
+		$this->DI->get('route')->add('dom.test', '/dom/test', Array('GET'), Array('_controller' => 'Wasp\Test\Controller\Controller::returnHtml'));	
 	}
 
 	/**

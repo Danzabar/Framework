@@ -158,7 +158,7 @@ class Route
 	 */
 	public function addRestRoute($name, $uri, $action, $method,  $defaults = Array())
 	{
-		$this->add($name, $uri, $method, array_merge(['controller' => $action], $defaults));
+		$this->add($name, $uri, $method, array_merge(['_controller' => $action], $defaults));
 	}
 
 	/**

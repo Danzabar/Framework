@@ -62,7 +62,7 @@ class Controller extends BaseController
 	 */
 	public function returnHtml()
 	{
-		return '<html><head></head><body><div class="tester"><p>foo</p><p>bar</p></div></body></html>';
+		return $this->response->make('<html><head></head><body><div class="tester"><p>foo</p><p>bar</p></div></body></html>');
 	}
 
 	/**

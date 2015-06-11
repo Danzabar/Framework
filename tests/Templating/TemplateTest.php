@@ -42,9 +42,9 @@ class TemplateTest extends TestCase
 				 ->addEngine($twig)
 				 ->start();
 
-		$output = $this->DI->get('template')->make('twigtest.html.twig', ['foo' => 'bar']);
-		$this->assertContains("twig test", $output);
-		$this->assertContains("bar", $output);
+		$response = $this->DI->get('template')->make('twigtest.html.twig', ['foo' => 'bar']);
+		$this->assertContains("twig test", $response->getContent());
+		$this->assertContains("bar", $response->getContent());
 	}
 
 	/**
@@ -61,9 +61,9 @@ class TemplateTest extends TestCase
 				 ->addEngine($this->DI->get('twigengine'))
 				 ->start();
 
-		$twig = $this->DI->get('template')->make('twigtest.html.twig', ['foo' => 'bar']);
+		$response = $this->DI->get('template')->make('twigtest.html.twig', ['foo' => 'bar']);
 
-		$this->assertContains('twig test', $twig);
+		$this->assertContains('twig test', $response->getContent());
 	}
 
 	/**
@@ -95,9 +95,9 @@ class TemplateTest extends TestCase
 				 ->addEngine($this->DI->get('twigengine'))
 				 ->start();
 
-		$temp = $this->DI->get('template')->make('twigDITest.html.twig');
+		$response = $this->DI->get('template')->make('twigDITest.html.twig');
 	
-		$this->assertContains($this->DI->get('template')->getDirectoryString(), $temp);
+		$this->assertContains($this->DI->get('template')->getDirectoryString(), $response->getContent());
 	}
 	
 

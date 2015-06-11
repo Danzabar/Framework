@@ -12,22 +12,6 @@ use Wasp\Application\Application,
  */
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
-
-	/**
-	 * Tear down test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function tearDown()
-	{
-		\Mockery::close();
-
-		// Clear the mocks
-		$library = new \Wasp\DI\ServiceMockeryLibrary;
-		$library->clear();
-	}
-
 	/**
 	 * Test registering a test environment
 	 *
@@ -126,26 +110,26 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function test_mockRespond()
+	public function test_respond()
 	{
-		$requestMock = new ServiceMockery('request');
-		$requestMock->add();
-		$routerMock = new ServiceMockery('router');
-		$routerMock->add();
-
 		$app = new Application;
 		$app->loadEnv('test');
 
-		$request = $app->getDI()->get('request');
-		$router = $app->getDI()->get('router');
+		// Add a route
+		$DI = $app->getDI();
 
-		$request->shouldReceive('getRequest')->once()->andReturn(NULL);
-		$request->shouldReceive('fromGlobals')->once()->andReturn($request);
-		$request->shouldReceive('getRequestUri')->once()->andReturn('/test');
-		$router->shouldReceive('resolve')->once()->with('/test')->andReturn($router);
-		$router->shouldReceive('send')->once();
+		$DI->get('route')->add('test.route', '/', Array('GET'), Array('_controller' => 'Wasp\Test\Controller\Controller::returnObject'));
+		$DI->get('request')->make('/', 'GET', []);
 
+		ob_start();
+		
 		$app->respond();
+
+		$response = ob_get_contents();
+
+		ob_end_clean();
+
+		$this->assertEquals('Foo', $response);
 	}
 	
 } // END class ApplicationTest extends \PHPUnit_Framework_TestCase
