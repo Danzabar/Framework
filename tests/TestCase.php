@@ -96,6 +96,23 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Sets up the template classes
+	 *
+	 * @param String $directory
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function setupTemplates($directory)
+	{
+		$this->DI->get('template')->setDirectory($directory);
+
+		$this->DI->get('twigengine')->create();
+		$this->DI->get('template')
+				 ->addEngine($this->DI->get('twigengine'))
+			 	 ->start();	 
+	}
+
+	/**
 	 * Fakes a request and returns the response
 	 *
 	 * @param String $uri

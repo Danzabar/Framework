@@ -23,8 +23,7 @@ class TemplateTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->DI->get('template')
-				 ->setDirectory(__DIR__ . '/Templates/');
+		$this->setupTemplates(__DIR__ . '/Templates/');
 	}
 
 	/**
@@ -35,13 +34,6 @@ class TemplateTest extends TestCase
 	 */
 	public function test_twigEngine()
 	{
-		$twig = $this->DI->get('twigengine');
-		$twig->create();
-
-		$this->DI->get('template')
-				 ->addEngine($twig)
-				 ->start();
-
 		$response = $this->DI->get('template')->make('twigtest.html.twig', ['foo' => 'bar']);
 		$this->assertContains("twig test", $response->getContent());
 		$this->assertContains("bar", $response->getContent());
@@ -55,12 +47,6 @@ class TemplateTest extends TestCase
 	 */
 	public function test_delegation()
 	{
-		$this->DI->get('twigengine')->create();
-
-		$this->DI->get('template')
-				 ->addEngine($this->DI->get('twigengine'))
-				 ->start();
-
 		$response = $this->DI->get('template')->make('twigtest.html.twig', ['foo' => 'bar']);
 
 		$this->assertContains('twig test', $response->getContent());
