@@ -96,6 +96,24 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Fakes a request and returns the response
+	 *
+	 * @param String $uri
+	 * @param String $method
+	 * @param Array $params
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @author Dan Cox
+	 */
+	public function fakeRequest($uri, $method, Array $params = Array())
+	{
+		$this->DI->get('request')->make($uri, $method, $params);
+
+		$this->respond();
+
+		return $this->response;
+	}
+
+	/**
 	 * Registers passes specified in the test
 	 *
 	 * @return void

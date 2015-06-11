@@ -11,6 +11,10 @@ services:
     connection.validator:
         class: Wasp\Database\ConnectionValidator
         scope: prototype
+    controller.resolver:
+        class: Wasp\Controller\ControllerResolver
+        calls:
+            - [setDI, ["@service_container"]]
     console:
         class: Wasp\Console\ConsoleApplication
         lazy: true
@@ -35,10 +39,6 @@ services:
         class: Wasp\Database\Database
         arguments:
             - "@connection"
-    dispatcher:
-        class: Wasp\Controller\Dispatcher
-        calls:
-            - [setDI, ["@service_container"]]
     diawaretwig:
         class: Wasp\Templating\DIAwareTwigContainer
         lazy: true
@@ -56,6 +56,15 @@ services:
     fs:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
+    kernel:
+        class: Symfony\Component\HttpKernel\HttpKernel
+        arguments:
+            - "@kernel.dispatcher"
+            - "@controller.resolver"
+    kernel.dispatcher:
+        class: Symfony\Component\EventDispatcher\EventDispatcher
+        calls:
+            - [addSubscriber, ["@router.listener"]]
     paginator:
         class: Wasp\Database\Paginator
         lazy: true
@@ -84,16 +93,23 @@ services:
         lazy: true
         arguments: 
             - "@session"
+    request.context:
+        class: Symfony\Component\Routing\RequestContext
+    request.stack:
+        class: Symfony\Component\HttpFoundation\RequestStack
     route.collection:
         class: Symfony\Component\Routing\RouteCollection
     route:
         class: Wasp\Routing\Route
         arguments:
             - "@route.collection"
-    router:
-        class: Wasp\Routing\Router
-        calls:
-            - [setDI, ["@service_container"]]
+    router.listener:
+        class: Symfony\Component\HttpKernel\EventListener\RouterListener
+        arguments:
+            - "@url.matcher"
+            - "@request.context"
+            - NULL
+            - "@request.stack"
     schema:
         class: Wasp\Database\Schema
         lazy: true
@@ -112,6 +128,8 @@ services:
     template:
         class: Wasp\Templating\Template
         lazy: true
+        calls:
+            - [setDI, ["@service_container"]]
     twigengine:
         class: Wasp\Templating\Engines\TwigEngine
         lazy: true
@@ -125,6 +143,11 @@ services:
         arguments:
             - "@request"
             - "@route.collection"
+    url.matcher:
+        class: Symfony\Component\Routing\Matcher\UrlMatcher
+        arguments:
+            - "@route.collection"
+            - "@request.context"
     validator:
         class: Wasp\Entity\Validator
         lazy: true

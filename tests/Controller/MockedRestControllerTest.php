@@ -48,8 +48,7 @@ class MockedRestControllerTest extends TestCase
 		$db->shouldReceive('find')->andThrow(new Exception('Test'));
 		
 		// Fabricate the request
-		$this->DI->get('request')->make('/test/delete/1', 'DELETE', []);
-		$response = $this->DI->get('router')->resolve('/test/delete/1');
+		$response = $this->fakeRequest('/test/delete/1', 'DELETE');
 
 		$obj = json_decode($response->getContent());
 
@@ -71,8 +70,7 @@ class MockedRestControllerTest extends TestCase
 		$db->shouldReceive('delete')->andThrow(new Exception('Test'));
 		
 		// Fabricate the request
-		$this->DI->get('request')->make('/test/delete/1', 'DELETE', []);
-		$response = $this->DI->get('router')->resolve('/test/delete/1');
+		$response =	$this->fakeRequest('/test/delete/1', 'DELETE');
 
 		$obj = json_decode($response->getContent());
 
@@ -94,8 +92,7 @@ class MockedRestControllerTest extends TestCase
 		$paginator->shouldReceive('setEntity')->andReturn($paginator);
 		$paginator->shouldReceive('query')->andThrow(new Exception('Test'));
 
-		$this->DI->get('request')->make('/test', 'GET', ['pageSize' => 15]);
-		$response = $this->DI->get('router')->resolve('/test');
+		$response = $this->fakeRequest('/test', 'GET');
 
 		$obj = json_decode($response->getContent());
 

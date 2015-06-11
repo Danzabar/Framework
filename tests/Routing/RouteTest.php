@@ -81,14 +81,10 @@ class RouteTest extends TestCase
 	public function test_runningRouteWithRealResponse()
 	{
 		// Add a route
-		$this->DI->get('route')->add('test.json', '/json', Array("GET"), Array('controller' => 'Wasp\Test\Controller\Controller::jsonResponse'));
-
-		// Create a request
-		$request = $this->DI->get('request');
-		$request->make('/json', 'GET');
+		$this->DI->get('route')->add('test.json', '/json', Array("GET"), Array('_controller' => 'Wasp\Test\Controller\Controller::jsonResponse'));
 
 		// Response to this
-		$response = $this->DI->get('router')->resolve($request->getRequestUri());
+		$response = $this->fakeRequest('/json', 'GET');
 
 		// Check the response
 		$this->assertTrue($response->isOk());

@@ -33,6 +33,20 @@ class RestController extends BaseController
 	protected $filter = Array();
 
 	/**
+	 * Sets the entity
+	 *
+	 * @param String $entity
+	 * @return RestController
+	 * @author Dan Cox
+	 */
+	public function setEntity($entity)
+	{
+		$this->entity = $entity;
+
+		return $this;
+	}
+
+	/**
 	 * Create an instance of the entity
 	 *
 	 * @return \Wasp\Entity\Entity
