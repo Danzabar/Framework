@@ -9,18 +9,6 @@ use Wasp\Controller\BaseController;
  */
 class Controller extends BaseController
 {
-
-	/**
-	 * Return a string response
-	 *
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function returnString()
-	{
-		return 'Test';
-	}
-
 	/**
 	 * Return a response object
 	 *
@@ -63,17 +51,6 @@ class Controller extends BaseController
 	public function returnHtml()
 	{
 		return $this->response->make('<html><head></head><body><div class="tester"><p>foo</p><p>bar</p></div></body></html>');
-	}
-
-	/**
-	 * Redirect
-	 *
-	 * @return Response
-	 * @author Dan Cox
-	 */
-	public function redirect()
-	{
-		return $this->response->redirect('/');
 	}
 
 	/**
