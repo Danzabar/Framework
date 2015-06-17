@@ -42,9 +42,9 @@ class TwigEngine implements EngineInterface
 	protected $template;
 
 	/**
-	 * An instance of the twig specific container
+	 * An instance of the container
 	 *
-	 * @var \Wasp\Templating\DIAwareTwigContainer
+	 * @var \Symfony\Component\DependencyInjection\ContainerBuilder
 	 */
 	protected $container;
 
@@ -53,14 +53,14 @@ class TwigEngine implements EngineInterface
 	 *
 	 * @param \Wasp\Templating\Template $template $template
 	 * @param \Symfony\Component\Filesystem\Filesystem $fs
-	 * @param \Wasp\Templating\DIAwareTwigContainer $twigContainer
+	 * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
 	 * @author Dan Cox
 	 **/
-	public function __construct($template, $fs, $twigContainer)
+	public function __construct($template, $fs, $container)
 	{
 		$this->template = $template;
 		$this->fs = $fs;
-		$this->container = $twigContainer;
+		$this->container = $container;
 	}
 
 	/**
