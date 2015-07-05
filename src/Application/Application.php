@@ -64,7 +64,7 @@ class Application
 	 */
 	public function react()
 	{
-		return $this->DI->get('kernel.http')->handle($this->DI->get('request')->getRequest());
+		return $this->DI->get('kernel')->handle($this->DI->get('request')->getRequest());
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Application
 
 		$response->send();
 
-		$this->DI->get('kernel.http')->terminate($this->DI->get('request')->getRequest(), $response);
+		$this->DI->get('kernel')->terminate($this->DI->get('request')->getRequest(), $response);
 	}
 
 	/**

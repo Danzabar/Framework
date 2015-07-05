@@ -39,6 +39,13 @@ services:
         class: Wasp\Database\Database
         arguments:
             - "@connection"
+    firewall:
+        class: Wasp\Security\Firewall
+        arguments:
+            - "@firewall.map"
+            - "@kernel.dispatcher"
+    firewall.map:
+        class: Symfony\Component\Security\Http\FirewallMap
     finder:
         class: Symfony\Component\Finder\Finder
         lazy: true
@@ -52,11 +59,6 @@ services:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
     kernel:
-        class: Wasp\Application\AppKernel
-        arguments:
-            - "dev"
-            - true
-    kernel.http:
         class: Symfony\Component\HttpKernel\HttpKernel
         arguments:
             - "@kernel.dispatcher"
