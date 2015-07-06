@@ -49,6 +49,20 @@ class Paginator
 	protected $pageNo;
 
 	/**
+	 * The page size
+	 *
+	 * @var Integer
+	 */
+	protected $pageSize;
+
+	/**
+	 * The total number of pages
+	 *
+	 * @var Integer
+	 */
+	protected $totalPages;
+
+	/**
 	 * Total count of records
 	 *
 	 * @var Integer
@@ -88,7 +102,25 @@ class Paginator
 			return;
 		}
 
-		$this->pageNo = 0;
+		$this->pageNo = 1;
+	}
+
+	/**
+	 * Runs all the calculation functions
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function calculations()
+	{	
+		// Count of the total rows
+		$this->countRows();
+
+		// What page are we on?
+		$this->extractPageDetails();
+
+		// How many pages do we have?
+		$this->calculateTotalPages();
 	}
 
 	/**
@@ -103,10 +135,14 @@ class Paginator
 	 */
 	public function query($pageSize = 100, $clauses = Array(), $order = Array())
 	{
-		$this->countRows();
-		$this->extractPageDetails();
-
-		$offset = ($pageSize * $this->pageNo);
+		$this->pageSize = $pageSize;
+		$this->calculations();
+		$offset = 0;
+		
+		if ($this->pageNo > 1)
+		{
+			$offset = ($pageSize * $this->pageNo);
+		}
 	
 		$records = $this->database->setEntity($this->entity)
 								  ->get($clauses, $order, $pageSize, $offset);
@@ -140,11 +176,28 @@ class Paginator
 	 */
 	public function makeCollection($results)
 	{
-		$collection = new PaginatedEntityCollection ($results->all());
-		$collection->total = $this->total;
-		$collection->setDI = $this->container;
+		$collection = new PaginatedEntityCollection (
+			$results->all(), 
+			$this->total, 
+			$this->totalPages, 
+			$this->pageNo, 
+			$this->pageSize
+		);
+
+		$collection->setDI($this->container);
 
 		return $collection;
+	}
+
+	/**
+	 * Calculates how many pages we should have
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function calculateTotalPages()
+	{
+		$this->totalPages = ceil($this->total / $this->pageSize);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase,
+	Symfony\Component\DomCrawler\Crawler,
 	Wasp\Test\Entity\Entities\Contact;
 
 /**
@@ -45,6 +46,45 @@ class PaginatorTest extends TestCase
 	}
 
 	/**
+	 * Test that the template for pagination renders correctly where it is set
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_templateRendering()
+	{
+		$this->setupTemplates(TEMPLATES);
+		$this->DI->get('profile')->setSettings(['database' => ['pagination_template' => 'pagination.html.twig']]);
+
+		$this->DI->get('request')->make('/test', 'GET', []);
+
+		$collection = Contact::paginate(10);
+
+		$crawler = new Crawler ($collection->pagination());
+		$next = $crawler->filterXPath('//a')->attr('href');
+		
+		$this->assertEquals('/?page=2', $next);
+	}
+
+	/**
+	 * Test with no profile settings
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_noTemplateSettings()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Entity\PaginationTemplateNotSet');
+
+		$this->DI->get('profile')->setSettings(['database' => []]);
+		$this->DI->get('request')->make('/test', 'GET', []);
+
+		$collection = Contact::paginate(10);
+
+		$pagination = $collection->pagination();
+	}
+
+	/**
 	 * Test basic pagination usage
 	 *
 	 * @return void
@@ -61,7 +101,11 @@ class PaginatorTest extends TestCase
 		$this->assertEquals(10, count($records));
 		$this->assertEquals('Test 0', $record->name);
 		$this->assertInstanceOf('Wasp\Entity\PaginatedEntityCollection', $records);
-		$this->assertEquals(51, $records->total);
+
+		$this->assertEquals(51, $records->getTotal());
+		$this->assertEquals(10, $records->getPageSize());
+		$this->assertEquals(1, $records->getPageNo());
+		$this->assertEquals(6, $records->getTotalPages());
 	}
 
 	/**
