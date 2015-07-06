@@ -55,12 +55,27 @@ class Template
 	/**
 	 * Renders the template from its name with the appropriate engine
 	 *
-	 * @return void
+	 * @param String $template
+	 * @param Array $params
+	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @author Dan Cox
 	 */
 	public function make($template, $params = Array())
 	{
 		return $this->DI->get('response')->make($this->delegator->render($template, $params));
+	}
+
+	/**
+	 * Returns a rendered template as a string
+	 *
+	 * @param String $template
+	 * @param Array $params
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function render($template, $params = Array())
+	{
+		return $this->delegator->render($template, $params);
 	}
 
 	/**
