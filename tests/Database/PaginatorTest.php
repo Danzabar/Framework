@@ -67,6 +67,24 @@ class PaginatorTest extends TestCase
 	}
 
 	/**
+	 * Test with no profile settings
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_noTemplateSettings()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Entity\PaginationTemplateNotSet');
+
+		$this->DI->get('profile')->setSettings(['database' => []]);
+		$this->DI->get('request')->make('/test', 'GET', []);
+
+		$collection = Contact::paginate(10);
+
+		$pagination = $collection->pagination();
+	}
+
+	/**
 	 * Test basic pagination usage
 	 *
 	 * @return void

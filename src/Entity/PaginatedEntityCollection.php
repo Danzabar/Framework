@@ -1,6 +1,7 @@
 <?php namespace Wasp\Entity;
 
 use Wasp\Entity\EntityCollection,
+	Wasp\Exceptions\Entity\PaginationTemplateNotSet,
 	Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
@@ -66,6 +67,7 @@ class PaginatedEntityCollection extends EntityCollection
 	 * Renders the pagination template with variables available
 	 *
 	 * @return String
+	 * @throws PaginationTemplateNotSet
 	 * @author Dan Cox
 	 */
 	public function pagination()
@@ -84,8 +86,8 @@ class PaginatedEntityCollection extends EntityCollection
 				]
 			);	
 		}
-		
-		return '';	
+
+		throw new PaginationTemplateNotSet();
 	}
 
 	/**
