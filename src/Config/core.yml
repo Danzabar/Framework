@@ -39,11 +39,13 @@ services:
         class: Wasp\Database\Database
         arguments:
             - "@connection"
-    diawaretwig:
-        class: Wasp\Templating\DIAwareTwigContainer
-        lazy: true
+    firewall:
+        class: Wasp\Security\Firewall
         arguments:
-            - "@service_container"
+            - "@firewall.map"
+            - "@kernel.dispatcher"
+    firewall.map:
+        class: Symfony\Component\Security\Http\FirewallMap
     finder:
         class: Symfony\Component\Finder\Finder
         lazy: true
@@ -71,6 +73,7 @@ services:
         arguments:
             - "@database"
             - "@request"
+            - "@service_container"
     profile:
         class: Wasp\Application\Profile
         arguments:
@@ -136,7 +139,7 @@ services:
         arguments:
             - "@template"
             - "@fs"
-            - "@diawaretwig"
+            - "@service_container"
     url:
         class: Wasp\Routing\URL
         lazy: true

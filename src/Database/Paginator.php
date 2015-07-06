@@ -1,5 +1,8 @@
 <?php namespace Wasp\Database;
 
+use Wasp\Entity\PaginatedEntityCollection;
+
+
 /**
  * Creates paginated result set
  *
@@ -25,6 +28,13 @@ class Paginator
 	protected $request;
 
 	/**
+	 * Instance of the service container
+	 *
+	 * @var \Symfony\Component\DependencyInjection\ContainerBuilder
+	 */
+	protected $container;
+
+	/**
 	 * The entity being uses
 	 *
 	 * @var \Wasp\Entity\Entity
@@ -38,20 +48,28 @@ class Paginator
 	 */
 	protected $pageNo;
 
+	/**
+	 * Total count of records
+	 *
+	 * @var Integer
+	 */
+	protected $total;
+
 
 	/**
 	 * Set up class dependencies
 	 *
 	 * @param \Wasp\Database\Database $database
 	 * @param \Symfony\Component\HttpFoundation\Request $request
+	 * @param \Symfony\Component\DependencyInjection\ContainerBuilder $service_container
 	 * @author Dan Cox
 	 */
-	public function __construct($database, $request)
+	public function __construct($database, $request, $service_container)
 	{
 		$this->database = $database;
 		$this->request = $request;
-
-	}
+		$this->container = $service_container;
+	}	
 
 	/**
 	 * Uses the request class to extract page number
@@ -85,6 +103,7 @@ class Paginator
 	 */
 	public function query($pageSize = 100, $clauses = Array(), $order = Array())
 	{
+		$this->countRows();
 		$this->extractPageDetails();
 
 		$offset = ($pageSize * $this->pageNo);
@@ -92,7 +111,40 @@ class Paginator
 		$records = $this->database->setEntity($this->entity)
 								  ->get($clauses, $order, $pageSize, $offset);
 
-		return $records;		
+		return $this->makeCollection($records);
+	}
+
+	/**
+	 * Counts rows on the table with the given clauses.
+	 *
+	 * @param Array $clauses
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function countRows(Array $clauses = Array())
+	{
+		$qb = $this->database->setEntity($this->entity)
+							 ->queryBuilder();
+
+		$qb->select('count(u)');
+
+		$this->total = $qb->getQuery()->getSingleScalarResult();
+	}
+
+	/**
+	 * Transfers records to a paginated entity collection
+	 *
+	 * @param \Wasp\Entity\EntityCollection $results
+	 * @return PaginatedEntityCollection
+	 * @author Dan Cox
+	 */
+	public function makeCollection($results)
+	{
+		$collection = new PaginatedEntityCollection ($results->all());
+		$collection->total = $this->total;
+		$collection->setDI = $this->container;
+
+		return $collection;
 	}
 
 	/**

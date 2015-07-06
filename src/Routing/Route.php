@@ -101,17 +101,18 @@ class Route
 	 * @param String $name
 	 * @param String $uri
 	 * @param String $entity - The qualified entity class name
+	 * @param String $controller
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function resource($name, $uri, $entity)
+	public function resource($name, $uri, $entity, $controller = 'Wasp\Controller\RestController')
 	{
 		/**
 		 *	We can use the "rest" method to create the routes
 		 *	And provide a default variable for the entity
 		 */
-		$this->rest($name, $uri, 'Wasp\Controller\RestController', ['all', 'show', 'update', 'create', 'delete'], ['entity' => $entity]);
+		$this->rest($name, $uri, $controller, ['all', 'show', 'update', 'create', 'delete'], ['entity' => $entity]);
 	}
 
 	/**

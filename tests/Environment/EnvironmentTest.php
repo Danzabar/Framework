@@ -5,7 +5,8 @@ use Wasp\Environment\Environment,
 	Wasp\DI\ServiceMockeryLibrary,
 	Wasp\Application\Profile,
 	Symfony\Component\Filesystem\Filesystem,
-	Wasp\Application\Application;
+	Wasp\Application\Application,
+	\Mockery as m;
 
 /**
  * Environment class test
@@ -32,7 +33,10 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{	
+		$profile = new Profile(m::mock('filesystem'));
+
 		$this->app = new Application;
+		$this->app->profile = $profile;
 	}
 
 	/**
@@ -50,6 +54,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertInstanceOf('Wasp\DI\DI', $env->getDI());
 		$this->assertInstanceOf('Symfony\Component\DependencyInjection\ContainerBuilder', $env->getDI()->getContainer());
+		$this->assertInstanceOf('Wasp\Application\Application', $env->getDI()->get('application'));
+		$this->assertInstanceOf('Wasp\Application\Profile', $env->getDI()->get('profile'));
 	}
 
 	/**

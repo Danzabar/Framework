@@ -49,6 +49,8 @@ class Environment
 
 		$this->DIInstance();
 
+		$this->injectDependencies();
+
 		// If the Child Environment Class has a Setup function, call it.
 		if (method_exists($this, 'setup'))
 		{
@@ -72,6 +74,18 @@ class Environment
 		$this->DI = new DI(dirname(__DIR__) . '/Config/', $di_cache_dir, $di_cache_ns);
 
 		$this->loadRegisterCompilerPasses();
+	}
+
+	/**
+	 * inject the missing Application and Profile class definitions
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function injectDependencies()
+	{
+		$this->DI->set('application', $this->App);
+		$this->DI->set('profile', $this->App->profile);
 	}
 
 	/**

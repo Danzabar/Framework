@@ -218,6 +218,20 @@ class DI
 	}
 
 	/**
+	 * Sets a definition on the un-compiled container
+	 *
+	 * @param String $id
+	 * @param Object $service
+	 * @param String $scope
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function set($id, $service, $scope = ContainerBuilder::SCOPE_CONTAINER)
+	{
+		static::$container->set($id, $service, $scope);
+	}
+
+	/**
 	 * Get param by name
 	 *
 	 * @param String $key
