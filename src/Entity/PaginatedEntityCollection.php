@@ -70,7 +70,22 @@ class PaginatedEntityCollection extends EntityCollection
 	 */
 	public function pagination()
 	{
+		$settings = $this->DI->get('profile')->getSettings();
+
+		if (isset($settings['database']['pagination_template']))
+		{
+			return $this->DI->get('template')->render(
+				$settings['database']['pagination_template'], 
+				[
+					'total' 		=> $this->total,
+					'totalPages' 	=> $this->totalPages,
+					'pageNo'		=> $this->pageNo,
+					'pageSize'		=> $this->pageSize
+				]
+			);	
+		}
 		
+		return '';	
 	}
 
 	/**

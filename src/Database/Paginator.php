@@ -102,7 +102,7 @@ class Paginator
 			return;
 		}
 
-		$this->pageNo = 0;
+		$this->pageNo = 1;
 	}
 
 	/**
@@ -137,8 +137,12 @@ class Paginator
 	{
 		$this->pageSize = $pageSize;
 		$this->calculations();
-
-		$offset = ($pageSize * $this->pageNo);
+		$offset = 0;
+		
+		if ($this->pageNo > 1)
+		{
+			$offset = ($pageSize * $this->pageNo);
+		}
 	
 		$records = $this->database->setEntity($this->entity)
 								  ->get($clauses, $order, $pageSize, $offset);
@@ -180,7 +184,7 @@ class Paginator
 			$this->pageSize
 		);
 
-		$collection->setDI = $this->container;
+		$collection->setDI($this->container);
 
 		return $collection;
 	}

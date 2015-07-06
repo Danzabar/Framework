@@ -1,0 +1,10 @@
+{% set next = pageNo + 1 %}
+{% set previous = pageNo - 1 %}
+
+{% if pageNo > 1 %}
+<a href="/?page={{ previous }}">Previous</a>
+{% endif %}
+
+{% if pageNo < totalPages %}
+<a href="/?page={{ next }}">Next</a>
+{% endif %}
