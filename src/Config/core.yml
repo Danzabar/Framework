@@ -73,6 +73,7 @@ services:
         arguments:
             - "@database"
             - "@request"
+            - "@service_container"
     profile:
         class: Wasp\Application\Profile
         arguments:

@@ -28,6 +28,13 @@ class Paginator
 	protected $request;
 
 	/**
+	 * Instance of the service container
+	 *
+	 * @var \Symfony\Component\DependencyInjection\ContainerBuilder
+	 */
+	protected $container;
+
+	/**
 	 * The entity being uses
 	 *
 	 * @var \Wasp\Entity\Entity
@@ -54,14 +61,15 @@ class Paginator
 	 *
 	 * @param \Wasp\Database\Database $database
 	 * @param \Symfony\Component\HttpFoundation\Request $request
+	 * @param \Symfony\Component\DependencyInjection\ContainerBuilder $service_container
 	 * @author Dan Cox
 	 */
-	public function __construct($database, $request)
+	public function __construct($database, $request, $service_container)
 	{
 		$this->database = $database;
 		$this->request = $request;
-
-	}
+		$this->container = $service_container;
+	}	
 
 	/**
 	 * Uses the request class to extract page number
@@ -134,6 +142,7 @@ class Paginator
 	{
 		$collection = new PaginatedEntityCollection ($results->all());
 		$collection->total = $this->total;
+		$collection->setDI = $this->container;
 
 		return $collection;
 	}
