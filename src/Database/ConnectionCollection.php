@@ -1,7 +1,8 @@
 <?php namespace Wasp\Database;
 
 use Wasp\Exceptions\Database\InvalidConnection,
-	Wasp\DI\DependencyInjectionAwareTrait;
+	Wasp\DI\DependencyInjectionAwareTrait,
+	Wasp\Utils\Collection;
 
 /**
  * The Collection class for Database Connections
@@ -10,16 +11,9 @@ use Wasp\Exceptions\Database\InvalidConnection,
  * @subpackage Database
  * @author Dan Cox
  */
-class ConnectionCollection
+class ConnectionCollection extends Collection
 {
 	use DependencyInjectionAwareTrait;
-
-	/**
-	 * An Array of Connection Configurations
-	 *
-	 * @var Array
-	 */
-	protected $connections;
 
 	/**
 	 * Model directories determined from modules
@@ -35,7 +29,7 @@ class ConnectionCollection
 	 */
 	public function __construct()
 	{
-		$this->connections = Array();
+		$this->collectable = Array();
 	}
 
 	/**
@@ -48,8 +42,7 @@ class ConnectionCollection
 	 */
 	public function add($name, $configuration = Array(), $type = 'Array')
 	{
-		$this->connections[$name] = $this->DI->get('connection.validator')
-											 ->load($configuration, $type, $this->modelDirectories);
+		parent::add($name, $this->DI->get('connection.validator')->load($configuration, $type, $this->modelDirectories));
 	}
 
 	/**
@@ -79,9 +72,9 @@ class ConnectionCollection
 	 */
 	public function find($name)
 	{
-		if (array_key_exists($name, $this->connections))
+		if ($this->exists($name))
 		{
-			return $this->connections[$name];
+			return $this->get($name);
 		}
 		
 		throw new InvalidConnection($name);
