@@ -60,6 +60,8 @@ class PaginatorTest extends TestCase
 
 		$this->assertEquals(10, count($records));
 		$this->assertEquals('Test 0', $record->name);
+		$this->assertInstanceOf('Wasp\Entity\PaginatedEntityCollection', $records);
+		$this->assertEquals(51, $records->total);
 	}
 
 	/**
