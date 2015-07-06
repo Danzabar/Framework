@@ -1,6 +1,8 @@
 <?php namespace Wasp\Test;
 
 use Wasp\DI\DICompilerPassRegister,
+	Wasp\Application\Profile,
+	Symfony\Component\FileSystem\FileSystem,
 	Symfony\Component\DomCrawler\Crawler;
 
 
@@ -72,6 +74,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		$this->registerPasses();
 
 		$this->application = new \Wasp\Application\Application;
+		$this->application->profile = new Profile(new FileSystem);
 		$this->application->loadEnv($this->env);
 		$this->DI = $this->application->env->getDI();
 
