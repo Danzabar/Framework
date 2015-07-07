@@ -130,7 +130,7 @@ class Paginator
 	 * @param Array $clauses
 	 * @param Array $order
 	 *
-	 * @return EntityCollection
+	 * @return PaginatedEntityCollection
 	 * @author Dan Cox
 	 */
 	public function query($pageSize = 100, $clauses = Array(), $order = Array())
@@ -176,7 +176,7 @@ class Paginator
 	 */
 	public function makeCollection($results)
 	{
-		$collection = new PaginatedEntityCollection (
+		$collection = new PaginatedEntityCollection(
 			$results->all(), 
 			$this->total, 
 			$this->totalPages, 
