@@ -3,6 +3,7 @@
 use Wasp\Utils\Collection,
 	Wasp\DI\DI,
 	Wasp\Utils\Str,
+	Wasp\Exceptions\Forms\InvalidCSRFToken,
 	Wasp\Forms\Field;
 
 /**
@@ -41,6 +42,13 @@ class Form
 	 * @var String
 	 */
 	protected $url;
+
+	/**
+	 * The CSRF token
+	 *
+	 * @var String
+	 */
+	protected $token;
 
 	/**
 	 * Route to generate url from
@@ -128,7 +136,7 @@ class Form
 		 */
 		$request = $this->container->get('request');
 
-		$this->input = (strtoupper($this->method) == 'POST' ? $request->request->all() : $request->query->all());
+		$this->input = (strtoupper($this->method) == 'GET' ? $request->query->all() : $request->request->all());
 
 		if (!is_null($this->model) && empty($this->input))
 		{
@@ -246,6 +254,8 @@ class Form
 	{
 		$passes = true;
 
+		$this->checkCSRFToken ();
+
 		foreach ($this->fields as $field)
 		{
 			if (!$field->validate())
@@ -258,6 +268,45 @@ class Form
 	}
 
 	/**
+	 * Checks that the CSRF token set is correct
+	 *
+	 * @return Boolean
+	 * @throws InvalidCSRFToken
+	 * @author Dan Cox
+	 */
+	public function checkCSRFToken()
+	{
+		$session = $this->container->get('session');
+
+		if ($session->has('form_token'))
+		{
+			if (isset($this->input['form_token']) && $this->input['form_token'] == $session->get('form_token'))
+			{
+				// Passed
+				return true;
+			}
+
+			throw new InvalidCSRFToken;
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Generates the csrf token and a field to output it
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function generateCSRF()
+	{
+		$this->token = md5(uniqid(rand(), TRUE));
+		
+		// Add to the session
+		$this->container->get('session')->set('form_token', $this->token);	
+	}
+
+	/**
 	 * Returns an opening form element
 	 *
 	 * @param Array $properties
@@ -266,7 +315,24 @@ class Form
 	 */
 	public function open(Array $properties = Array())
 	{
-		return sprintf('<form action="%s" method="%s" %s>', $this->url, strtoupper($this->method), Str::arrayToHtmlProperties($properties));
+		$this->generateCSRF();
+
+		$html = '';
+		$html .= sprintf('<form action="%s" method="%s" %s>', $this->url, strtoupper($this->method), Str::arrayToHtmlProperties($properties));
+		$html .= sprintf('<input type="hidden" name="token" value="%s" />', $this->token);
+
+		return $html;
+	}
+
+	/**
+	 * Returns the CSRF Token
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function getToken()
+	{
+		return $this->token;
 	}
 
 	/**

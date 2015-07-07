@@ -49,7 +49,7 @@ class FormTest extends TestCase
 		$form = new Wasp\Test\Forms\Forms\TestForm();
 
 		$this->assertEquals(4, count($form->fields()));
-		$this->assertEquals('<form action="/form/test" method="POST" class="form">', $form->open(['class' => 'form']));
+		$this->assertContains('<form action="/form/test" method="POST" class="form">', $form->open(['class' => 'form']));
 		$this->assertEquals('</form>', $form->close());
 	}
 
@@ -68,6 +68,23 @@ class FormTest extends TestCase
 
 		$this->assertEquals('Dan', $username->getValue());
 		$this->assertEquals('<input type="text" name="username" id="username" value="Dan" />', $username->field());
+	}
+
+	/**
+	 * Test failure due to csrf token
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_csrfFail()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Forms\InvalidCSRFToken');
+
+		$this->DI->get('request')->make('/form', 'POST', []);
+
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$form->open();
+		$form->validate();
 	}
 
 	/**
