@@ -191,7 +191,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 	public function test_addingConnections()
 	{
 		$profile = new Profile(new FileSystem);
-		$profile->setSettings(['database' => Array('default' => Array('driver' => 'pdo_mysql', 'user' => 'user'))]);
+		$profile->setSettings(['database' => ['connections' => ['default' => ['driver' => 'pdo_mysql', 'user' => 'user']]]]);
 		
 		$this->app->profile = $profile;
 
