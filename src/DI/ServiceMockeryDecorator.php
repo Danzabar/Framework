@@ -19,6 +19,7 @@ class ServiceMockeryDecorator
 	/**
 	 * Creates the Mockery based on the service name
 	 *
+	 * @param string $service
 	 * @return void
 	 * @author Dan Cox
 	 */

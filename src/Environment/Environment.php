@@ -47,8 +47,6 @@ class Environment
 
 		$this->settings = (!is_null($this->App->profile) ? $this->App->profile->getSettings() : Array());
 
-		$this->DIInstance();
-
 		$this->injectDependencies();
 
 		// If the Child Environment Class has a Setup function, call it.
@@ -84,6 +82,8 @@ class Environment
 	 */
 	public function injectDependencies()
 	{
+		$this->DIInstance();
+
 		$this->DI->set('application', $this->App);
 		$this->DI->set('profile', $this->App->profile);
 	}
@@ -173,7 +173,7 @@ class Environment
 	 */
 	public function setupConnections()
 	{
-		$this->DI->get('connections')->addBulk($this->settings['database']);
+		$this->DI->get('connections')->addBulk($this->settings['database']['connections']);
 	}
 
 	/**

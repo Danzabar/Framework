@@ -329,4 +329,15 @@ class Field
 		return $this->inputString($type, $extras, $this->values);
 	}
 
+	/**
+	 * Returns the ID of the field
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function getID()
+	{
+		return $this->id;
+	}
+
 } // END class Field

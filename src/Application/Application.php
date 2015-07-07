@@ -1,6 +1,7 @@
 <?php namespace Wasp\Application;
 
 use Wasp\Environment\Environment,
+	Wasp\Utils\Collection,
 	Wasp\Exceptions\Application\UnknownEnvironment,
 	Symfony\Component\HttpKernel\HttpKernel;
 
@@ -13,13 +14,6 @@ use Wasp\Environment\Environment,
  */
 class Application
 {
-	/**
-	 * Registered environments
-	 *
-	 * @var Array
-	 */
-	protected $environments = [];
-
 	/**
 	 * DI instance from the environment
 	 *
@@ -41,6 +35,12 @@ class Application
 	 **/
 	public $profile;	
 
+	/**
+	 * Collection instance containing environments
+	 *
+	 * @var Wasp\Utils\Collection
+	 */
+	protected $envCollection;
 	
 	/**
 	 * Set up Application Defaults
@@ -51,6 +51,8 @@ class Application
 	public function __construct($profile = NULL)
 	{
 		$this->profile = $profile;
+
+		$this->envCollection = new Collection;
 
 		// Default Environments
 		$this->registerEnvironment('test', 'Wasp\Environment\Test');
@@ -113,7 +115,7 @@ class Application
 	 */
 	public function registerEnvironment($name, $class)
 	{
-		$this->environments[$name] = $class;
+		$this->envCollection->add($name, $class);
 		return $this;
 	}
 
@@ -126,10 +128,7 @@ class Application
 	 */
 	public function registerEnvironments(Array $environments)
 	{
-		foreach ($environments as $name => $class)
-		{
-			$this->registerEnvironment($name, $class);
-		}
+		$this->envCollection->append($environments);
 
 		return $this;
 	}
@@ -143,12 +142,11 @@ class Application
 	 */
 	public function getEnvironment($name)
 	{
-		if (array_key_exists($name, $this->environments))
+		if ($this->envCollection->exists($name))
 		{
-			return $this->environments[$name];
+			return $this->envCollection->get($name);
 		}
 
-		// Not found
 		throw new UnknownEnvironment($name);
 	}
 
@@ -161,9 +159,9 @@ class Application
 	 */
 	public function deregisterEnvironment($name)
 	{
-		if (array_key_exists($name, $this->environments))
+		if ($this->envCollection->exists($name))
 		{
-			unset($this->environments[$name]);
+			$this->envCollection->remove($name);
 			return $this;
 		}
 

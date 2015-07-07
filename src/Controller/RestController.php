@@ -107,6 +107,7 @@ class RestController extends BaseController
 	/**
 	 * Updates and validates the entity from request data
 	 *
+	 * @param \Wasp\Entity\Entity $record
 	 * @return Response
 	 * @author Dan Cox
 	 */
@@ -148,7 +149,7 @@ class RestController extends BaseController
 
 		foreach ($input as $key => $value)
 		{
-			if (array_key_exists ($key, $this->paginationOptions))
+			if (array_key_exists($key, $this->paginationOptions))
 			{
 				$this->paginationOptions[$key] = $value;
 			} else {
@@ -204,7 +205,7 @@ class RestController extends BaseController
 	/**
 	 * Create a new instance of the entity
 	 *
-	 * @return \Symfony\Component\HttpFoundation\JsonResponse
+	 * @return Response
 	 * @method POST
 	 * @author Dan Cox
 	 */
@@ -255,7 +256,7 @@ class RestController extends BaseController
 		
 			return $this->response->json(['status' => 'success'], 200);		
 
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 			
 			return $this->response->json(['status' => 'error', 'error' => $e->getMessage()], 400);
 		}

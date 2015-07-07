@@ -3,6 +3,7 @@
 use Wasp\Utils\Collection,
 	Wasp\DI\DI,
 	Wasp\Utils\Str,
+	Wasp\Exceptions\Forms\InvalidCSRFToken,
 	Wasp\Forms\Field;
 
 /**
@@ -20,6 +21,13 @@ class Form
 	 * @var Wasp\Utils\Collection
 	 */
 	private $fields;
+
+	/**
+	 * Unique name given to form
+	 *
+	 * @var String
+	 */
+	private $name;
 
 	/**
 	 * Reflection instance of the called form class
@@ -41,6 +49,20 @@ class Form
 	 * @var String
 	 */
 	protected $url;
+
+	/**
+	 * A collection of validation errors assigned to fields
+	 *
+	 * @var Wasp\Utils\Collection
+	 */
+	protected $errors;
+
+	/**
+	 * The CSRF token
+	 *
+	 * @var String
+	 */
+	protected $token;
 
 	/**
 	 * Route to generate url from
@@ -92,6 +114,8 @@ class Form
 	public function __construct()
 	{
 		$this->container = DI::getContainer();
+		$this->name = base64_encode(get_called_class());
+		$this->errors = new Collection;
 
 		$this->setup();
 		$this->configure();
@@ -128,7 +152,7 @@ class Form
 		 */
 		$request = $this->container->get('request');
 
-		$this->input = (strtoupper($this->method) == 'POST' ? $request->request->all() : $request->query->all());
+		$this->input = (strtoupper($this->method) == 'GET' ? $request->query->all() : $request->request->all());
 
 		if (!is_null($this->model) && empty($this->input))
 		{
@@ -246,15 +270,68 @@ class Form
 	{
 		$passes = true;
 
+		$this->checkCSRFToken ();
+
 		foreach ($this->fields as $field)
 		{
 			if (!$field->validate())
 			{
+				$this->errors->add($field->getID(), $field->errors());
 				$passes = false;
 			}
 		}
 
 		return $passes;
+	}
+
+	/**
+	 * Returns the form name
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Checks that the CSRF token set is correct
+	 *
+	 * @return Boolean
+	 * @throws InvalidCSRFToken
+	 * @author Dan Cox
+	 */
+	public function checkCSRFToken()
+	{
+		$session = $this->container->get('session');
+
+		if ($session->has('token_' . $this->name))
+		{
+			if (isset($this->input['token']) && $this->input['token'] == $session->get('token_'. $this->name))
+			{
+				// Passed
+				return true;
+			}
+
+			throw new InvalidCSRFToken;
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Generates the csrf token and a field to output it
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function generateCSRF()
+	{
+		$this->token = md5(uniqid(rand(), TRUE));
+		
+		// Add to the session
+		$this->container->get('session')->set('token_' . $this->name, $this->token);	
 	}
 
 	/**
@@ -266,7 +343,24 @@ class Form
 	 */
 	public function open(Array $properties = Array())
 	{
-		return sprintf('<form action="%s" method="%s" %s>', $this->url, strtoupper($this->method), Str::arrayToHtmlProperties($properties));
+		$this->generateCSRF();
+
+		$html = '';
+		$html .= sprintf('<form action="%s" method="%s" %s>', $this->url, strtoupper($this->method), Str::arrayToHtmlProperties($properties));
+		$html .= sprintf('<input type="hidden" name="token" value="%s" />', $this->token);
+
+		return $html;
+	}
+
+	/**
+	 * Returns a collection of all errors from all fields
+	 *
+	 * @return Wasp\Utils\Collection
+	 * @author Dan Cox
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
 	}
 
 	/**

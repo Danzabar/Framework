@@ -49,7 +49,7 @@ class FormTest extends TestCase
 		$form = new Wasp\Test\Forms\Forms\TestForm();
 
 		$this->assertEquals(4, count($form->fields()));
-		$this->assertEquals('<form action="/form/test" method="POST" class="form">', $form->open(['class' => 'form']));
+		$this->assertContains('<form action="/form/test" method="POST" class="form">', $form->open(['class' => 'form']));
 		$this->assertEquals('</form>', $form->close());
 	}
 
@@ -68,6 +68,23 @@ class FormTest extends TestCase
 
 		$this->assertEquals('Dan', $username->getValue());
 		$this->assertEquals('<input type="text" name="username" id="username" value="Dan" />', $username->field());
+	}
+
+	/**
+	 * Test failure due to csrf token
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_csrfFail()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Forms\InvalidCSRFToken');
+
+		$this->DI->get('request')->make('/form', 'POST', []);
+
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$form->open();
+		$form->validate();
 	}
 
 	/**
@@ -155,6 +172,67 @@ class FormTest extends TestCase
 		$name = $fields[0];
 
 		$this->assertEquals('Bob', $name->getValue());
+	}
+	
+	/**
+	 * Check the CSRF stuff works properly
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_csrfProtection()
+	{
+		$data = [
+			'token'	=> 'testcsrfstring',
+			'password'		=> 'test'
+		];
+
+		$this->DI->get('request')->make('/form', 'POST', $data);	
+
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$this->DI->get('session')->set('token_' . $form->getName(), 'testcsrfstring');
+
+		$success = $form->validate();
+
+		$this->assertTrue($success);
+	}
+
+	/**
+	 * Fail test with invalid csrf set
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_csrfFailWithTokenSet()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Forms\InvalidCSRFToken');
+
+		$this->DI->get('request')->make('/form', 'POST', ['token' => 'wrong']);
+
+		$form = new Wasp\Test\Forms\Forms\TestForm ();
+		$this->DI->get('session')->set('token_' . $form->getName(), 'test');
+
+		$form->validate();
+	}
+
+	/**
+	 * Test getting errors from form level rather than individual fields
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_returnAllErrors()
+	{
+		$this->DI->get('request')->make('/form', 'POST', []);
+
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$form->validate();
+
+		$errors = $form->getErrors();
+		$error = $errors->get('password');
+
+		$this->assertEquals(1, count($errors));
+		$this->assertContains('required', $error->get(0));
 	}
 
 
