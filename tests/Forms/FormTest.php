@@ -213,5 +213,25 @@ class FormTest extends TestCase
 		$form->validate();
 	}
 
+	/**
+	 * Test getting errors from form level rather than individual fields
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_returnAllErrors()
+	{
+		$this->DI->get('request')->make('/form', 'POST', []);
+
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$form->validate();
+
+		$errors = $form->getErrors();
+		$error = $errors->get('password');
+
+		$this->assertEquals(1, count($errors));
+		$this->assertContains('required', $error->get(0));
+	}
+
 
 } // END class FormTest extends TestCase

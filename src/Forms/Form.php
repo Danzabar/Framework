@@ -44,6 +44,13 @@ class Form
 	protected $url;
 
 	/**
+	 * A collection of validation errors assigned to fields
+	 *
+	 * @var Wasp\Utils\Collection
+	 */
+	protected $errors;
+
+	/**
 	 * The CSRF token
 	 *
 	 * @var String
@@ -100,6 +107,7 @@ class Form
 	public function __construct()
 	{
 		$this->container = DI::getContainer();
+		$this->errors = new Collection;
 
 		$this->setup();
 		$this->configure();
@@ -260,6 +268,7 @@ class Form
 		{
 			if (!$field->validate())
 			{
+				$this->errors->add($field->getID(), $field->errors());
 				$passes = false;
 			}
 		}
@@ -333,6 +342,17 @@ class Form
 	public function getToken()
 	{
 		return $this->token;
+	}
+
+	/**
+	 * Returns a collection of all errors from all fields
+	 *
+	 * @return Wasp\Utils\Collection
+	 * @author Dan Cox
+	 */
+	public function getErrors()
+	{
+		return $this->errors;
 	}
 
 	/**
