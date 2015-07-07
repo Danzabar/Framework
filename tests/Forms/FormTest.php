@@ -173,6 +173,45 @@ class FormTest extends TestCase
 
 		$this->assertEquals('Bob', $name->getValue());
 	}
+	
+	/**
+	 * Check the CSRF stuff works properly
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_csrfProtection()
+	{
+		$data = [
+			'form_token'	=> 'testcsrfstring',
+			'password'		=> 'test'
+		];
+
+		$this->DI->get('session')->set('form_token', 'testcsrfstring');
+		$this->DI->get('request')->make('/form', 'POST', $data);	
+
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+
+		$success = $form->validate();
+
+		$this->assertTrue($success);
+	}
+
+	/**
+	 * Test a request with no form token param
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_csrfFailure()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Forms\InvalidCSRFToken');
+
+		$this->DI->get('request')->make('/form', 'POST', []);
+		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$form->open();
+		$form->validate();
+	}
 
 
 } // END class FormTest extends TestCase
