@@ -183,14 +183,14 @@ class FormTest extends TestCase
 	public function test_csrfProtection()
 	{
 		$data = [
-			'form_token'	=> 'testcsrfstring',
+			'token'	=> 'testcsrfstring',
 			'password'		=> 'test'
 		];
 
-		$this->DI->get('session')->set('form_token', 'testcsrfstring');
 		$this->DI->get('request')->make('/form', 'POST', $data);	
 
 		$form = new Wasp\Test\Forms\Forms\TestForm();
+		$this->DI->get('session')->set('token_' . $form->getName(), 'testcsrfstring');
 
 		$success = $form->validate();
 
@@ -198,18 +198,20 @@ class FormTest extends TestCase
 	}
 
 	/**
-	 * Test a request with no form token param
+	 * Fail test with invalid csrf set
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function test_csrfFailure()
+	public function test_csrfFailWithTokenSet()
 	{
 		$this->setExpectedException('Wasp\Exceptions\Forms\InvalidCSRFToken');
 
-		$this->DI->get('request')->make('/form', 'POST', []);
-		$form = new Wasp\Test\Forms\Forms\TestForm();
-		$form->open();
+		$this->DI->get('request')->make('/form', 'POST', ['token' => 'wrong']);
+
+		$form = new Wasp\Test\Forms\Forms\TestForm ();
+		$this->DI->get('session')->set('token_' . $form->getName(), 'test');
+
 		$form->validate();
 	}
 

@@ -23,6 +23,13 @@ class Form
 	private $fields;
 
 	/**
+	 * Unique name given to form
+	 *
+	 * @var String
+	 */
+	private $name;
+
+	/**
 	 * Reflection instance of the called form class
 	 *
 	 * @var ReflectionClass
@@ -107,6 +114,7 @@ class Form
 	public function __construct()
 	{
 		$this->container = DI::getContainer();
+		$this->name = base64_encode(get_called_class());
 		$this->errors = new Collection;
 
 		$this->setup();
@@ -277,6 +285,17 @@ class Form
 	}
 
 	/**
+	 * Returns the form name
+	 *
+	 * @return String
+	 * @author Dan Cox
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
 	 * Checks that the CSRF token set is correct
 	 *
 	 * @return Boolean
@@ -287,9 +306,9 @@ class Form
 	{
 		$session = $this->container->get('session');
 
-		if ($session->has('form_token'))
+		if ($session->has('token_' . $this->name))
 		{
-			if (isset($this->input['form_token']) && $this->input['form_token'] == $session->get('form_token'))
+			if (isset($this->input['token']) && $this->input['token'] == $session->get('token_'. $this->name))
 			{
 				// Passed
 				return true;
@@ -312,7 +331,7 @@ class Form
 		$this->token = md5(uniqid(rand(), TRUE));
 		
 		// Add to the session
-		$this->container->get('session')->set('form_token', $this->token);	
+		$this->container->get('session')->set('token_' . $this->name, $this->token);	
 	}
 
 	/**
@@ -331,17 +350,6 @@ class Form
 		$html .= sprintf('<input type="hidden" name="token" value="%s" />', $this->token);
 
 		return $html;
-	}
-
-	/**
-	 * Returns the CSRF Token
-	 *
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function getToken()
-	{
-		return $this->token;
 	}
 
 	/**
