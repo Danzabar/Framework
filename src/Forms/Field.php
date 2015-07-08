@@ -20,35 +20,49 @@ class Field
 	 *
 	 * @var String
 	 */
-	protected $label;
+	public $label;
 
 	/**
 	 * Field identifier
 	 *
 	 * @var String
 	 */
-	protected $id;
+	public $id;
 
 	/**
 	 * Raw value of the field
 	 *
 	 * @var Mixed
 	 */
-	protected $value;
+	public $value;
 
 	/**
 	 * Default field value
 	 *
 	 * @var String
 	 */
-	protected $default;
+	public $default;
+
+	/**
+	 * An instance of the abstract output class
+	 *
+	 * @var \Wasp\Forms\FieldOutput\AbstractOutputField
+	 */
+	protected $output;
 
 	/**
 	 * A Collection of rules associated with this field
 	 *
 	 * @var Wasp\Utils\Collection
 	 */
-	protected $rules;
+	public $rules;
+
+	/**
+	 * Set of usable values for Checkbox, Radio and Select boxes
+	 *
+	 * @var Array | String
+	 */
+	public $values;
 
 	/**
 	 * A collection of validation errors associated with this error
@@ -56,13 +70,6 @@ class Field
 	 * @var Wasp\Utils\Collection
 	 */
 	protected $errors;
-
-	/**
-	 * Set of usable values for Checkbox, Radio and Select boxes
-	 *
-	 * @var Array | String
-	 */
-	protected $values;
 
 	/**
 	 * Input array from the form class
@@ -76,6 +83,8 @@ class Field
 	 *
 	 * @param String $label
 	 * @param String $type
+	 * @param \Wasp\Forms\FieldOutput\AbstractFieldOutput $output
+	 * @param String $id
 	 * @param Array $rules
 	 * @param String $default
 	 * @param Array|String $values
@@ -84,7 +93,8 @@ class Field
 	 */
 	public function __construct(
 		$label, 
-		$type = 'String', 
+		$type = 'text', 
+		$output = NULL,
 		$id = '',
 		Array $rules = Array(),
 		$default = '',
@@ -93,8 +103,9 @@ class Field
 	)
 	{
 		$this->label = $label;
-		$this->id = ($id !== '' ? $id : Str::id($label));
 		$this->type = $type;
+		$this->output = (!is_null($output) ? $output : 'Wasp\Forms\FieldOutput\InputStringOutput');
+		$this->id = ($id !== '' ? $id : Str::id($label));
 		$this->values = $values;
 		$this->default = $default;
 		$this->rules = new Collection($rules);	
@@ -160,13 +171,11 @@ class Field
 	 */
 	public function field(Array $elementExtras = Array())
 	{
-		$this->fieldTypes();
+		$outputReflection = new \ReflectionClass($this->output);
+		$instance = $outputReflection->newInstance();
+		$instance->load($this);
 
-		/**
-		 * The Map function, defined in the TypeMapTrait Deals with
-		 * Creating the relevent field and label type.
-		 */			
-		return $this->map($this->type, 'Wasp\Exceptions\Forms\IncorrectFieldType', [$elementExtras]);	
+		return $instance->output($elementExtras);
 	}
 
 	/**
@@ -203,130 +212,6 @@ class Field
 		$elementExtras = array_merge($elementExtras, ['for' => $this->id]);
 
 		return sprintf('<label %s>%s</label>', Str::arrayToHtmlProperties($elementExtras), $this->label);
-	}
-
-	/**
-	 * Builds the array of types for type map trait
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function fieldTypes()
-	{
-		$this->typeMap = Array(
-			'String'			=> 'createStringField',
-			'Checkbox'			=> 'createBox',
-			'Radio'				=> 'createBox',
-			'TextArea'			=> 'createTextArea',
-			'Select'			=> 'createSelectBox',
-			'CheckboxGroup'		=> 'createBoxGroup',
-			'RadioGroup'		=> 'createBoxGroup'
-		);
-	}
-
-	/**
-	 * Creates a select box element
-	 *
-	 * @param Array $extras
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function createSelectBox(Array $extras)
-	{
-		$options = '';
-		
-		foreach ($this->values as $key => $value)
-		{
-			$options .= sprintf('<option value="%s"%s>%s</option>', $value, ($this->value == $value ? ' selected="selected"' : ''), $key);
-		}		
-
-		return sprintf('<select name="%1$s" id="%1$s" %2$s>%3$s</select>', $this->id, Str::arrayToHtmlProperties($extras), $options);
-	}
-
-	/**
-	 * Returns an input field of various types
-	 *
-	 * @param String $type
-	 * @param Array $extras
-	 * @param Mixed $value
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function inputString($type, Array $extras, $value)
-	{
-		return sprintf('<input type="%1$s" name="%2$s" id="%2$s" value="%3$s" %4$s/>', $type, $this->id, $value, Str::arrayToHtmlProperties($extras));
-	}
-
-	/**
-	 * Creates a text field
-	 *
-	 * @param Array $extras
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function createStringField(Array $extras)
-	{
-		return $this->inputString('text', $extras, $this->value);
-	}
-
-	/**
-	 * Creates a text area field
-	 *
-	 * @param Array $extras
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function createTextArea(Array $extras)
-	{
-		return sprintf('<textarea name="%1$s" id="%1$s" %2$s>%3$s</textarea>', $this->id, Str::arrayToHtmlProperties($extras), $this->value);
-	}
-
-	/**
-	 * Creates a group of checkboxes or radio buttons
-	 *
-	 * @param Array $extras
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function createBoxGroup(Array $extras)
-	{
-		$type = ($this->type == 'CheckboxGroup' ? 'checkbox' : 'radio');
-		$group = '';
-
-		foreach ($this->values as $label => $value)
-		{
-			$fieldExtras = $extras;
-
-			if ($this->value == $value)
-			{
-				$fieldExtras = array_merge($fieldExtras, Array('checked' => 'checked'));
-			}
-
-			$group .= '<label>';
-			$group .= sprintf('<input type="%s" name="%s" value="%s" %s/>', $type, $this->id, $value, Str::arrayToHtmlProperties($fieldExtras));
-			$group .= sprintf('%s</label>', $label);
-		}
-
-		return $group;
-	}
-
-	/**
-	 * Creates check boxes or Radio boxes
-	 *
-	 * @param Array $extras
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function createBox(Array $extras)
-	{
-		$type = ($this->type == 'Checkbox' ? 'checkbox' : 'radio');
-
-		if ($this->value == $this->values)
-		{
-			$extras = array_merge($extras, Array('checked' => 'checked'));	
-		}
-		
-		return $this->inputString($type, $extras, $this->values);
 	}
 
 	/**

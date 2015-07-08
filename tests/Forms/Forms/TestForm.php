@@ -19,7 +19,7 @@ class TestForm extends Form
 	 */
 	public $username = Array(
 		'name'		 => 'Username',
-		'type'		 => 'String',
+		'type'		 => 'text',
 		'default'	 => 'Dan'
 	);
 
@@ -30,7 +30,7 @@ class TestForm extends Form
 	 */
 	public $password = Array(
 		'name'		 => 'Password',
-		'type'		 => 'Password');
+		'type'		 => 'password');
 
 	/**
 	 * undocumented class variable
@@ -39,7 +39,8 @@ class TestForm extends Form
 	 */
 	public $checkgroup = Array(
 		'name'		 => 'checkgroup',
-		'type'		 => 'CheckboxGroup',
+		'output'	 => 'Wasp\Forms\FieldOutput\BoxGroupOutput',
+		'type'		 => 'checkbox',
 		'values'	 => ['Yes' => 'Y', 'No' => 'N']
 	);
 
@@ -50,6 +51,7 @@ class TestForm extends Form
 	 */
 	public $remember = Array(
 		'name' => 'Remember me', 
+		'output' => 'Wasp\Forms\FieldOutput\BoxOutput',
 		'type' => 'checkbox');
 	
 	/**

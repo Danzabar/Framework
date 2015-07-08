@@ -21,7 +21,7 @@ class TestModelForm extends Form
 	public $name = [
 		'name'		=> 'You\'re name',
 		'id'		=> 'name',
-		'type'		=> 'String'
+		'type'		=> 'text'
 	];
 
 	/**
@@ -31,7 +31,7 @@ class TestModelForm extends Form
 	 */
 	public $message = [
 		'name'		=> 'Message',
-		'type'		=> 'String'
+		'type'		=> 'text'
 	];
 
 	/**

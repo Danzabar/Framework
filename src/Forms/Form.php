@@ -214,6 +214,7 @@ class Form
 				$this->fields[] = new Field(
 									$props['name'], 
 									$props['type'], 
+									$props['output'],
 									$props['id'],
 									$props['rules'],
 									$props['default'],
@@ -232,7 +233,7 @@ class Form
 	 */
 	public function formatPropertyArgs(Array $field)
 	{
-		$expected = ['name' => '', 'id' => '',  'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
+		$expected = ['name' => '', 'id' => '', 'output' => NULL,  'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
 		$props = Array();
 		
 		foreach ($expected as $key => $default)
