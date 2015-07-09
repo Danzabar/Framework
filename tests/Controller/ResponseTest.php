@@ -13,6 +13,20 @@ use Wasp\Test\TestCase,
 class ResponseTest extends TestCase
 {
 	/**
+	 * Set up test env
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function setUp()
+	{
+		$mock = new ServiceMockery('response.file');
+		$mock->add();
+
+		parent::setUp();
+	}
+
+	/**
 	 * Create a response
 	 *
 	 * @return void
@@ -70,6 +84,20 @@ class ResponseTest extends TestCase
 
 		$this->assertEquals($result, json_decode($json->getContent(), true));
 		$this->assertEquals(200, $json->getStatusCode());
+	}
+
+	/**
+	 * Basic test for binary file data responses
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_binaryFileResponse()
+	{
+		$this->DI->get('response.file')->shouldReceive('setFile')->with('path/to/file.txt');
+
+		$res = $this->DI->get('response');
+		$binary = $res->file('path/to/file.txt');
 	}
 
 	/**
