@@ -78,6 +78,20 @@ class Response
 	}
 
 	/**
+	 * Creates a binary file response
+	 *
+	 * @param String $file - Path to file
+	 * @return Symfony\Component\HttpFoundation\BinaryFileResponse
+	 * @author Dan Cox
+	 */
+	public function file($file)
+	{
+		$response = $this->DI->get('response.file');
+		$response->setFile($file);
+		return $response;
+	}
+
+	/**
 	 * Redirect to a url
 	 *
 	 * @param String $url

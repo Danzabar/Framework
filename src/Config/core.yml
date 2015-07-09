@@ -87,6 +87,10 @@ services:
         lazy: true
         calls:
            - [setDI, ["@service_container"]]
+    response.file:
+        class: Symfony\Component\HttpFoundation\BinaryFileResponse
+        lazy: true
+        scope: prototype
     response.json:
         class: Symfony\Component\HttpFoundation\JsonResponse
         lazy: true

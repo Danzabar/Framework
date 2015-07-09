@@ -1,6 +1,6 @@
 <?php namespace Wasp\Forms\Validation;
 
-use Wasp\Forms\Validation\Rule;
+use Wasp\Forms\Validation\AbstractRule;
 
 /**
  * Validation rule for a required field
@@ -9,7 +9,7 @@ use Wasp\Forms\Validation\Rule;
  * @subpackage Forms
  * @author Dan Cox
  */
-class Required extends Rule
+class Required extends AbstractRule
 {
 	
 	/**
@@ -35,4 +35,4 @@ class Required extends Rule
 		return false;
 	}
 
-} // END class Required extends Rule
+} // END class Required extends AbstractRule

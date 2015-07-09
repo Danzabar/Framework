@@ -1,6 +1,7 @@
 <?php namespace Wasp\DI\Pass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
+	Symfony\Component\DependencyInjection\Definition,
 	Symfony\Component\DependencyInjection\ContainerBuilder,
 	Wasp\DI\ServiceMockeryLibrary;
 
@@ -46,7 +47,7 @@ class MockeryPass implements CompilerPassInterface
 			if ($this->container->hasDefinition($service))
 			{
 				// Get the current definition
-				$def = $this->transformDefinition($this->container->getDefinition($service), $mockery);
+				$def = $this->transformDefinition($mockery);
 
 				// Replace its current definition
 				$this->container->setDefinition($service, $def);
@@ -60,8 +61,10 @@ class MockeryPass implements CompilerPassInterface
 	 * @return Object
 	 * @author Dan Cox
 	 */
-	public function transformDefinition($definition, $mockery)
+	public function transformDefinition($mockery)
 	{
+		$definition	= new Definition;
+
 		// Set the class to the mockery decorator
 		$definition->setClass('Wasp\DI\ServiceMockeryDecorator');
 		

@@ -188,7 +188,7 @@ class Form
 		$this->reflection = new \ReflectionClass(get_called_class());
 		$this->properties = $this->reflection->getProperties(\ReflectionProperty::IS_PUBLIC);
 
-		$this->processPropertyValues();
+		$this->processProperties();
 
 		return $this;
 	}
@@ -196,30 +196,36 @@ class Form
 	/**
 	 * Creates fields based on the public properties from the called form class
 	 *
+	 * @param Array $field
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function processPropertyValues()
+	public function addField(Array $field = Array())
 	{
-		/**
-		 * Each property value should be an array. It should be structured like so:
-		 * Array('name' => 'test', 'type' => 'string', 'rules' => Array());
-		 */
+		$props = $this->formatPropertyArgs($field);
+
+		$this->fields[] = new Field(
+							$props['name'], 
+							$props['type'], 
+							$props['output'],
+							$props['id'],
+							$props['rules'],
+							$props['default'],
+							$props['values'],
+							$this->input);
+	}
+
+	/**
+	 * Loops through the forms properties.
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function processProperties()
+	{
 		foreach ($this->properties as $property)
 		{
-			$field = $property->getValue($this);
-
-			if (is_array($field)) {
-				$props = $this->formatPropertyArgs($field);
-				$this->fields[] = new Field(
-									$props['name'], 
-									$props['type'], 
-									$props['id'],
-									$props['rules'],
-									$props['default'],
-									$props['values'],
-									$this->input);
-			}		
+			$this->addField($property->getValue($this));
 		}
 	}
 
@@ -232,7 +238,7 @@ class Form
 	 */
 	public function formatPropertyArgs(Array $field)
 	{
-		$expected = ['name' => '', 'id' => '',  'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
+		$expected = ['name' => '', 'id' => '', 'output' => NULL,  'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
 		$props = Array();
 		
 		foreach ($expected as $key => $default)

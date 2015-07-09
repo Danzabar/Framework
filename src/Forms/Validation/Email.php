@@ -1,6 +1,6 @@
 <?php namespace Wasp\Forms\Validation;
 
-use Wasp\Forms\Validation\Rule;
+use Wasp\Forms\Validation\AbstractRule;
 
 /**
  * Email validation rule
@@ -9,7 +9,7 @@ use Wasp\Forms\Validation\Rule;
  * @subpackage Forms
  * @author Dan Cox
  */
-class Email extends Rule
+class Email extends AbstractRule
 {
 	/**
 	 * Message
@@ -34,4 +34,4 @@ class Email extends Rule
 		return true;
 	}
 
-} // END class Email extends Rule
+} // END class Email extends AbstractRule
