@@ -1,6 +1,6 @@
 <?php namespace Wasp\Forms\Validation;
 
-use Wasp\Forms\Validation\Rule;
+use Wasp\Forms\Validation\AbstractRule;
 
 /**
  * Validation rule for int's
@@ -9,7 +9,7 @@ use Wasp\Forms\Validation\Rule;
  * @subpackage Forms
  * @author Dan Cox
  */
-class IntValidation extends Rule
+class IntValidation extends AbstractRule
 {
 	
 	/**
@@ -35,4 +35,4 @@ class IntValidation extends Rule
 		return true;
 	}
 
-} // END class IntValidation extends Rule
+} // END class IntValidation extends AbstractRule

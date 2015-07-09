@@ -1,6 +1,6 @@
 <?php namespace Wasp\Forms\Validation;
 
-use Wasp\Forms\Validation\Rule;
+use Wasp\Forms\Validation\AbstractRule;
 
 /**
  * Float type validation rule
@@ -9,7 +9,7 @@ use Wasp\Forms\Validation\Rule;
  * @subpackage Forms
  * @author Dan Cox
  */
-class FloatValidation extends Rule
+class FloatValidation extends AbstractRule
 {
 	
 	/**
@@ -35,4 +35,4 @@ class FloatValidation extends Rule
 		return true;
 	}
 
-} // END class FloatValidation extends Rule
+} // END class FloatValidation extends AbstractRule

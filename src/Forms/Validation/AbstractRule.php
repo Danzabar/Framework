@@ -7,7 +7,7 @@
  * @subpackage Forms
  * @author Dan Cox
  */
-class Rule
+abstract class AbstractRule
 {
 	
 	/**
@@ -59,6 +59,14 @@ class Rule
 	{	
 		return $this->message;
 	}
+
+	/**
+	 * Validates the given value against the current rule
+	 *
+	 * @return Boolean
+	 * @author Dan Cox
+	 */
+	abstract public function validate();
 	
 
-} // END class Rule
+} // END class AbstractRule

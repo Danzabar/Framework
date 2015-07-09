@@ -1,6 +1,6 @@
 <?php namespace Wasp\Forms\Validation;
 
-use Wasp\Forms\Validation\Rule;
+use Wasp\Forms\Validation\AbstractRule;
 
 /**
  * Regexp validation rule
@@ -9,7 +9,7 @@ use Wasp\Forms\Validation\Rule;
  * @subpackage Forms
  * @author Dan Cox
  */
-class RegexValidation extends Rule
+class RegexValidation extends AbstractRule
 {
 	/**
 	 * Message
@@ -58,4 +58,4 @@ class RegexValidation extends Rule
 		return true;
 	}
 
-} // END class RegexValidation extends Rule
+} // END class RegexValidation extends AbstractRule

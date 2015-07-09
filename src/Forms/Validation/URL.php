@@ -1,6 +1,6 @@
 <?php namespace Wasp\Forms\Validation;
 
-use Wasp\Forms\Validation\Rule;
+use Wasp\Forms\Validation\AbstractRule;
 
 /**
  * URL Validation rule
@@ -9,7 +9,7 @@ use Wasp\Forms\Validation\Rule;
  * @subpackage Forms
  * @author Dan Cox
  */
-class URL extends Rule
+class URL extends AbstractRule
 {
 	
 	/**
@@ -36,4 +36,4 @@ class URL extends Rule
 	}
 
 
-} // END class URL extends Rule
+} // END class URL extends AbstractRule
