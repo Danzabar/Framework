@@ -2,6 +2,7 @@
 
 use Wasp\Entity\Entity,
 	Wasp\Entity\Traits\DateStamp,
+	Wasp\Entity\Traits\Slugify,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,7 +16,7 @@ use Wasp\Entity\Entity,
  */
 class Test extends Entity
 {
-	use DateStamp;
+	use DateStamp, Slugify;
 
 	/**
 	 * Identifier

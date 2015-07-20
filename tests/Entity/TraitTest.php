@@ -59,5 +59,31 @@ class TraitTest extends TestCase
 		$this->assertTrue($test->createdAt->getTimestamp() < $test->updatedAt->getTimestamp());
 	}
 
+	/**
+	 * Test the slug trait
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_slugify()
+	{
+		$test = new Test;
+		$test->name = 'slug_test';
+		$test->title = 'Test Title';
+		$test->save();
+
+		$this->assertEquals('test-title', $test->slug);
+
+		$test->name = 'slug_test_2';
+		$test->save();
+
+		$this->assertEquals('test-title', $test->slug);
+
+		$test->title = 'New Title';
+		$test->save();
+
+		$this->assertEquals('new-title', $test->slug);
+	}
+
 	
 } // END class TraitTest extends TestCase
