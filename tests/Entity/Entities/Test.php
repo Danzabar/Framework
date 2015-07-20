@@ -1,18 +1,22 @@
 <?php namespace Wasp\Test\Entity\Entities;
 
 use Wasp\Entity\Entity,
+	Wasp\Entity\Traits\DateStamp,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
  * The Test Entity
  *
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @package Wasp
  * @subpackage Entity\Test
  * @author Dan Cox
  */
 class Test extends Entity
 {
+	use DateStamp;
+
 	/**
 	 * Identifier
 	 *

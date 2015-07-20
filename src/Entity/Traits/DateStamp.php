@@ -15,7 +15,7 @@ Trait DateStamp
 	/**
 	 * Created At DateTime field
 	 *
-	 * @ORM\Column(name="created_at", type="datetime") 
+	 * @ORM\Column(name="created_at", type="datetime", nullable=TRUE) 
 	 * @var DateTime
 	 */
 	protected $createdAt;	
@@ -23,7 +23,7 @@ Trait DateStamp
 	/**
 	 * Updated at DateTime field
 	 *
-	 * @ORM\Column(name="updated_at", type="datetime")
+	 * @ORM\Column(name="updated_at", type="datetime", nullable=TRUE)
 	 * @var DateTime
 	 */
 	protected $updatedAt;
@@ -37,8 +37,8 @@ Trait DateStamp
 	 */
 	public function createDateStamp()
 	{
-		$this->createdAt = new DateTime('NOW');
-		$this->updatedAt = new DateTime('NOW');
+		$this->createdAt = new \DateTime('NOW');
+		$this->updatedAt = new \DateTime('NOW');
 	}
 
 	/**
@@ -50,7 +50,7 @@ Trait DateStamp
 	 */
 	public function updateDateStamp()
 	{
-		$this->updatedAt = new DateTime('NOW');
+		$this->updatedAt = new \DateTime('NOW');
 	}
 
 }

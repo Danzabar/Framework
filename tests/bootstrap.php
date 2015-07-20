@@ -8,6 +8,8 @@ $loader = require dirname(__DIR__) . '/vendor/autoload.php';
 
 Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
+date_default_timezone_set('GMT');
+
 /**
  * For the Dependency Injection Tests, We need the two test classes
  *
