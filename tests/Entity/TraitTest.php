@@ -85,5 +85,26 @@ class TraitTest extends TestCase
 		$this->assertEquals('new-title', $test->slug);
 	}
 
+	/**
+	 * Test the suspendable trait
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_suspension()
+	{
+		$test = new Test;
+		$test->name = 'test_suspension';
+		$test->save();
+
+		$this->assertEquals(null, $test->suspendedFrom);
+		$this->assertEquals(null, $test->suspendedUntil);
+
+		$test->suspend(['+4 days', '+2 months']);
+
+		$this->assertInstanceOf('DateTime', $test->suspendedFrom);
+		$this->assertInstanceof('DateTime', $test->suspendedUntil);
+	}
+
 	
 } // END class TraitTest extends TestCase
