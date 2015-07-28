@@ -89,5 +89,24 @@ class ShieldWallTest extends TestCase
 		$this->assertTrue($response->isRedirection());
 	}
 
+	/**
+	 * Test a successful journey through an authenticated route
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_AuthenticatedRoute_Success()
+	{
+		$shield = $this->DI->get('shield');
+		$shield->map->loadFromYML(__DIR__ . '/Extension/map.yml');
+
+		$shield->authenticate('test@test.com', 'password');
+
+		$response = $this->fakeRequest('/test', 'GET');
+
+		$this->assertFalse($response->isRedirection());
+		$this->assertTrue($response->isOK());
+	}
+
 
 } // END class ShieldWallTest extends TestCase
