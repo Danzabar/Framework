@@ -1,7 +1,7 @@
 services:
     connection:
         class: Wasp\Database\Connection
-        arguments: 
+        arguments:
             - "@connections"
             - "@validator"
     connections:
@@ -51,6 +51,9 @@ services:
     fs:
         class: Symfony\Component\Filesystem\Filesystem
         lazy: true
+    hash:
+        class: Wasp\ShieldWall\Hash
+        lazy: true
     kernel:
         class: Symfony\Component\HttpKernel\HttpKernel
         arguments:
@@ -91,7 +94,7 @@ services:
     request:
         class: Wasp\Routing\Request
         lazy: true
-        arguments: 
+        arguments:
             - "@session"
     request.context:
         class: Symfony\Component\Routing\RequestContext
@@ -121,6 +124,10 @@ services:
     serializer:
         class: Wasp\Utils\Serializer
         lazy: true
+    shieldwall.listener:
+        class: Wasp\Events\Listeners\ShieldWallListener
+        calls:
+            - [setDI, ["@service_container"]]
     profile:
         class: Wasp\Application\Profile
         arguments:

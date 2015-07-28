@@ -1,8 +1,6 @@
 <?php
 
-use Wasp\Test\TestCase,
-	Wasp\DI\ServiceMockery;
-
+use Wasp\Test\TestCase;
 
 /**
  * Rest controller mocked tests
@@ -13,6 +11,16 @@ use Wasp\Test\TestCase,
  */
 class MockedRestControllerTest extends TestCase
 {
+
+	/**
+	 * An array of service mockeries
+	 *
+	 * @var Array
+	 */
+	protected $mocks = [
+		'database',
+		'paginator'
+	];
 	
 	/**
 	 * Set up test env
@@ -22,13 +30,6 @@ class MockedRestControllerTest extends TestCase
 	 */
 	public function setUp()
 	{
-		// Mock for database
-		$m = new ServiceMockery('database');
-		$m->add();
-
-		$mPaginator = new ServiceMockery('paginator');
-		$mPaginator->add();
-
 		parent::setUp();
 
 		$this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Contact');

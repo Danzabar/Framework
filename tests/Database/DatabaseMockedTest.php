@@ -28,6 +28,15 @@ class DatabaseMockedTest extends TestCase
 	protected $builderStub;
 
 	/**
+	 * An array of mocks used in this test
+	 *
+	 * @var Array
+	 */
+	protected $mocks = [
+		'connection'
+	];
+
+	/**
 	 * Setup test env
 	 *
 	 * @return void
@@ -36,9 +45,6 @@ class DatabaseMockedTest extends TestCase
 	public function setUp()
 	{
 		// Create the Service Mockerys before running the parent setup
-		$database = new ServiceMockery('connection');
-		$database->add();
-
 		$this->returnStub = new STDClass;
 		$this->returnStub->foo = 'bar';
 

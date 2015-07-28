@@ -2,7 +2,9 @@
 
 use Wasp\Environment\Environment,
 	Wasp\Utils\Collection,
+	Wasp\Events\ShieldWallEvent,
 	Wasp\Exceptions\Application\UnknownEnvironment,
+	Symfony\Component\HttpKernel\KernelEvents,
 	Symfony\Component\HttpKernel\HttpKernel;
 
 /**
@@ -33,7 +35,7 @@ class Application
 	 *
 	 * @var \Wasp\Application\Profile
 	 **/
-	public $profile;	
+	public $profile;
 
 	/**
 	 * Collection instance containing environments
@@ -41,7 +43,7 @@ class Application
 	 * @var Wasp\Utils\Collection
 	 */
 	protected $envCollection;
-	
+
 	/**
 	 * Set up Application Defaults
 	 *
@@ -66,6 +68,10 @@ class Application
 	 */
 	public function react()
 	{
+		// Add the shield wall event
+		$this->DI->get('kernel.dispatcher')
+			->addListener(KernelEvents::REQUEST, Array($this->DI->get('shieldwall.listener'), 'onKernelRequest'));
+
 		return $this->DI->get('kernel')->handle($this->DI->get('request')->getRequest());
 	}
 
@@ -95,7 +101,7 @@ class Application
 	{
 		// Get the Environment's class
 		$class = $this->getEnvironment($name);
-	
+
 		// Create reflection and invoke a new instance
 		$reflection = new \ReflectionClass($class);
 		$instance = $reflection->newInstance();

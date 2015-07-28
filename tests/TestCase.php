@@ -1,8 +1,11 @@
 <?php namespace Wasp\Test;
 
 use Wasp\DI\DICompilerPassRegister,
+	Wasp\DI\ExtensionRegister,
+	Wasp\DI\ServiceMockery,
+	Wasp\DI\ServiceMockeryLibrary,
 	Wasp\Application\Profile,
-	Symfony\Component\FileSystem\FileSystem,
+	Symfony\Component\Filesystem\Filesystem,
 	Symfony\Component\DomCrawler\Crawler;
 
 
@@ -31,6 +34,20 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	protected $passes;
 
 	/**
+	 * An array of mocks that will be auto-added to the service-mockery library on load
+	 *
+	 * @var Array
+	 */
+	protected $mocks;
+
+	/**
+	 * An array of extension classes that will be loaded before the DI is compiled
+	 *
+	 * @var Array
+	 */
+	protected $extensions;
+
+	/**
 	 * Instance of the WASP DI
 	 *
 	 * @var Object
@@ -42,7 +59,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	 *
 	 * @var String
 	 */
-	protected $env;	
+	protected $env;
 
 	/**
 	 * The response
@@ -72,15 +89,17 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		}
 
 		$this->registerPasses();
+		$this->registerMocks();
+		$this->registerExtensions();
 
 		$this->application = new \Wasp\Application\Application;
-		$this->application->profile = new Profile(new FileSystem);
+		$this->application->profile = new Profile(new Filesystem);
 		$this->application->loadEnv($this->env);
 		$this->DI = $this->application->env->getDI();
 
 		if(property_exists($this, 'commands') && is_array($this->commands))
 		{
-			$this->DI->get('command.loader')->fromArray($this->commands);	
+			$this->DI->get('command.loader')->fromArray($this->commands);
 		}
 	}
 
@@ -112,7 +131,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		$this->DI->get('twigengine')->create();
 		$this->DI->get('template')
 				 ->addEngine($this->DI->get('twigengine'))
-			 	 ->start();	 
+			 	 ->start();
 	}
 
 	/**
@@ -148,6 +167,39 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Registers the mocks present in the Mock property
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function registerMocks()
+	{
+		if (!is_null($this->mocks))
+		{
+			foreach ($this->mocks as $m)
+			{
+				$mockery = new ServiceMockery($m);
+				$mockery->add();
+			}
+		}
+	}
+
+	/**
+	 * Registers extensions
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function registerExtensions()
+	{
+		if (!is_null($this->extensions))
+		{
+			$register = new ExtensionRegister;
+			$register->loadFromArray($this->extensions);
+		}
+	}
+
+	/**
 	 * Tear down test class
 	 *
 	 * @return void
@@ -158,7 +210,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 		\Mockery::close();
 
 		// Clear the mocks
-		$library = new \Wasp\DI\ServiceMockeryLibrary;
+		$library = new ServiceMockeryLibrary;
 		$library->clear();
 
 		$extensions = new \Wasp\DI\ExtensionRegister;
@@ -166,5 +218,5 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
 		DICompilerPassRegister::clear();
 	}
-	
+
 } // END class TestCase extends \PHPUnit_Framework_TestCase
