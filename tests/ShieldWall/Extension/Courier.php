@@ -22,6 +22,13 @@ class Courier implements CourierInterface
 	public $userStorage;
 
 	/**
+	 * A collection to mock storage of remembered users
+	 *
+	 * @var \Wasp\Utils\Collection
+	 */
+	public $rememberedUsers;
+
+	/**
 	 * Set up class dependencies
 	 *
 	 * @return void
@@ -30,6 +37,7 @@ class Courier implements CourierInterface
 	public function __construct()
 	{
 		$this->userStorage = new Collection;
+		$this->rememberedUsers = new Collection;
 	}
 
 	/**
@@ -51,7 +59,7 @@ class Courier implements CourierInterface
 	 */
 	public function getUserByRememberToken($token)
 	{
-		return $this->getUserByToken($token);
+		return $this->rememberedUsers->get($token);
 	}
 
 	/**
@@ -86,7 +94,7 @@ class Courier implements CourierInterface
 	{
 		list($key, $value) = each($data);
 
-		$this->saveToken($value, $userContract);
+		$this->rememberedUsers->add($value, $userContract);
 	}
 
 	/**

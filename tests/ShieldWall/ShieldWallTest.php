@@ -137,14 +137,14 @@ class ShieldWallTest extends TestCase
 		$shield = $this->DI->get('shield');
 		$shield->authenticate('test@test.com', 'password', true);
 
-		$token = $shield->getToken();
+		$token = array_keys($this->DI->get('courier')->rememberedUsers->all())[0];
 
 		$request = $this->DI->get('request')
-					->make('/test', 'GET')
-					->cookies->set('remember', $token);
+					->make('/test', 'GET');
 
-		$this->DI->get('session')->clear();
+		$request->cookies->set('remember', $token);
 
+		$shield->map->loadFromYML(__DIR__ . '/Extension/map.yml');
 		$response = $shield->request('test.route', $request);
 
 		$this->assertTrue($shield->isAuthenticated());
