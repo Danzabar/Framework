@@ -63,7 +63,7 @@ class SerializerTest extends TestCase
 		$serializer = $this->DI->get('serializer');
 		$json = $serializer->serialize($result, 'json');
 
-		$this->assertEquals('{"_id":1,"name":"foo"}', $json);
+		$this->assertContains('"_id":1,"name":"foo"', $json);
 	}
 
 	/**
@@ -82,7 +82,7 @@ class SerializerTest extends TestCase
 
 		$json = $result->json();
 
-		$this->assertEquals('{"_id":1,"name":"foo"}', $json);
+		$this->assertContains('"_id":1,"name":"foo"', $json);
 	}
 
 

@@ -29,6 +29,15 @@ class SchemaMockedTest extends TestCase
 	protected $metadataFactory;
 
 	/**
+	 * An array of service mocks to register
+	 *
+	 * @var Array
+	 */
+	protected $mocks = [
+		'connection'
+	];
+
+	/**
 	 * Setup test env
 	 *
 	 * @return void
@@ -36,9 +45,6 @@ class SchemaMockedTest extends TestCase
 	 */
 	public function setUp()
 	{
-		$conMock = new ServiceMockery('connection');
-		$conMock->add();
-
 		$this->schema = m::mock('schema');
 		$this->metadataFactory = m::mock('metadataFactory');
 

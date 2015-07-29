@@ -16,7 +16,7 @@ class Controller extends BaseController
 	 * @author Dan Cox
 	 */
 	public function returnObject()
-	{	
+	{
 		return $this->response->make('Foo', 200);
 	}
 
@@ -52,5 +52,5 @@ class Controller extends BaseController
 	{
 		return $this->response->persistInput()->redirect('/');
 	}
-	
+
 } // END class Controller extends BaseController

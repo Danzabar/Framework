@@ -6,7 +6,7 @@
  * @package Wasp
  * @subpackage Utils
  * @author Dan Cox
- */	
+ */
 Class Collection Implements \Iterator, \Countable, \ArrayAccess
 {
 	/**
@@ -77,8 +77,8 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 * @author Dan Cox
 	 */
 	public function append(Array $values)
-	{	
-		$this->collectable = array_merge($this->collectable, $values);		
+	{
+		$this->collectable = array_merge($this->collectable, $values);
 
 		return $this;
 	}
@@ -105,7 +105,7 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 */
 	public function json()
 	{
-		return json_encode($this->collectable); 
+		return json_encode($this->collectable);
 	}
 
 	/**
@@ -134,7 +134,7 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	}
 
 	/**
-	 * Rewind function as required by Iterable implementation 
+	 * Rewind function as required by Iterable implementation
 	 *
 	 * @return void
 	 * @author Dan Cox
@@ -195,7 +195,7 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 * @author Dan Cox
 	 */
 	public function count()
-	{	
+	{
 		return count($this->collectable);
 	}
 
@@ -250,6 +250,6 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
 	 */
 	public function offsetGet($offset)
 	{
-		return $this->get($offset);		
+		return $this->get($offset);
 	}
 }

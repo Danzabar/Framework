@@ -44,7 +44,7 @@ class Entity
 	{
 		$paginator = self::get('paginator');
 		$paginator->setEntity(get_called_class());
-		
+
 		return $paginator->query($limit, $params, $order);
 	}
 
@@ -80,7 +80,7 @@ class Entity
 	 * Update an entity from an array of values
 	 *
 	 * @param Array $data
-	 * @return 
+	 * @return
 	 * @author Dan Cox
 	 */
 	public function updateFromArray(Array $data)
@@ -88,17 +88,17 @@ class Entity
 		// Get fields from the entity
 		$reflection = new \ReflectionClass($this);
 		$properties = $reflection->getProperties();
-		
+
 		// Assign values
 		foreach ($properties as $prop)
 		{
 			if (array_key_exists($prop->getName(), $data))
 			{
-				$this->{$prop->getName()} = $data[$prop->getName()];		
+				$this->{$prop->getName()} = $data[$prop->getName()];
 			}
 		}
-		
-		return $this;	
+
+		return $this;
 	}
 
 	/**
@@ -160,5 +160,5 @@ class Entity
 
 		throw new AccessToInvalidKey(get_called_class(), $key);
 	}
-	
+
 } // END class Entity

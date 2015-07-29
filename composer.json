@@ -24,14 +24,14 @@
 		"symfony/css-selector": ">=2.7, <3.0",
 		"symfony/debug": ">=2.7, <3.0",
 		"symfony/yaml": ">=2.7, <3.0",
-		"symfony/security": ">=2.7, <3.0",
 		"doctrine/orm": "*",
 		"doctrine/data-fixtures": "2.0.*",
 		"twig/twig": "1.*",
 		"mockery/mockery": "dev-master",
 		"symfony/templating": ">=2.7, <3.0",
 		"symfony/validator": ">=2.7, <3.0",
-		"jms/serializer": "0.17.*@dev"
+		"jms/serializer": "1.x",
+		"wasp/shield-wall": "dev-master"
 	},
 	"require-dev": {
 		"satooshi/php-coveralls": "dev-master"

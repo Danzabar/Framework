@@ -99,7 +99,7 @@ class EntityCollectionTest extends TestCase
 
 		$result = \Wasp\Test\Entity\Entities\Test::db()->get(['name' => 'foo']);
 
-		$this->assertEquals('[{"_id":1,"name":"foo"}]', $result->json());
+		$this->assertContains('"_id":1,"name":"foo"', $result->json());
 	}
 	
 } // END class EntityCollectionTest extends TestCase
