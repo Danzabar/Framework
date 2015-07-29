@@ -144,6 +144,8 @@ class ShieldWallTest extends TestCase
 
 		$request->cookies->set('remember', $token);
 
+		$this->DI->get('session')->clear();
+
 		$shield->map->loadFromYML(__DIR__ . '/Extension/map.yml');
 		$response = $shield->request('test.route', $request);
 
