@@ -40,10 +40,7 @@ class Courier implements CourierInterface
 	 */
 	public function getUserByToken($token)
 	{
-		if ($this->userStorage->exists($token))
-		{
-			return $this->userStorage->get($token);
-		}
+		return $this->userStorage->get($token);
 	}
 
 	/**

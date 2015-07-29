@@ -40,6 +40,21 @@ class ShieldWallTest extends TestCase
 	}
 
 	/**
+	 * Test the courier
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_courier()
+	{
+		$courier = new \Wasp\Test\ShieldWall\Extension\Courier;
+
+		$user = $courier->getUserContractByIdentifier('fake');
+
+		$this->assertEquals(null, $user);
+	}
+
+	/**
 	 * Test authenticating a user record
 	 *
 	 * @return void
@@ -127,6 +142,8 @@ class ShieldWallTest extends TestCase
 		$request = $this->DI->get('request')
 					->make('/test', 'GET')
 					->cookies->set('remember', $token);
+
+		$this->DI->get('session')->clear();
 
 		$response = $shield->request('test.route', $request);
 
