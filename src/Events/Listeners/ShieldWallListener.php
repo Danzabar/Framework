@@ -54,17 +54,28 @@ class ShieldWallListener
 		{
 			$this->currentRoute = $this->event->getRequest()->get('_route');
 
-			try {
+			$this->shieldedRequest();
+		}
+	}
 
-				$this->DI->get('shield')->request($this->currentRoute);
+	/**
+	 * Runs the request through the shield wall
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function shieldedRequest()
+	{
+		try {
 
-			} catch (Exceptions\AuthenticationException $e) {
+			$this->DI->get('shield')->request($this->currentRoute);
 
-				$response = $this->DI->get('response')
-								->redirect(isset($this->settings['auth']['login']) ? $this->settings['auth']['login'] : '/login');
+		} catch (Exceptions\AuthenticationException $e) {
 
-				$this->event->setResponse($response);
-			}
+			$response = $this->DI->get('response')
+							->redirect(isset($this->settings['auth']['login']) ? $this->settings['auth']['login'] : '/login');
+
+			$this->event->setResponse($response);
 		}
 	}
 

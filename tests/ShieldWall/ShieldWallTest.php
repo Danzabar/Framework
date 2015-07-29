@@ -48,7 +48,7 @@ class ShieldWallTest extends TestCase
 	public function test_authenticate()
 	{
 		$shield = $this->DI->get('shield');
-		$shield->authenticate('test@test.com', 'password');
+		$shield->authenticate('test@test.com', 'password', true);
 
 		$this->assertTrue($shield->isAuthenticated());
 	}
@@ -68,9 +68,12 @@ class ShieldWallTest extends TestCase
 
 		$shield->verifyToken($token);
 
+		$contract = $shield->user();
+
 		// The token should change
 		$this->assertNotEquals($this->DI->get('session')->get('auth/token'), $token);
 		$this->assertTrue($shield->isAuthenticated());
+		$this->assertInstanceOf('\Wasp\User\UserContract', $contract);
 	}
 
 	/**
@@ -106,6 +109,28 @@ class ShieldWallTest extends TestCase
 
 		$this->assertFalse($response->isRedirection());
 		$this->assertTrue($response->isOK());
+	}
+
+	/**
+	 * Test the remember token
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_remember_token()
+	{
+		$shield = $this->DI->get('shield');
+		$shield->authenticate('test@test.com', 'password', true);
+
+		$token = $shield->getToken();
+
+		$request = $this->DI->get('request')
+					->make('/test', 'GET')
+					->cookies->set('remember', $token);
+
+		$response = $shield->request('test.route', $request);
+
+		$this->assertTrue($shield->isAuthenticated());
 	}
 
 
