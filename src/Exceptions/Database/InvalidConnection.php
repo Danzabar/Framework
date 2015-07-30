@@ -39,5 +39,5 @@ class InvalidConnection extends \Exception
 	{
 		return $this->connection;
 	}
-	
+
 } // END class InvalidConnection extends \Exception

@@ -56,7 +56,7 @@ class RestController extends BaseController
 	{
 		$reflect = new \ReflectionClass($this->entity);
 
-		return $this->eObject = $reflect->newInstance();	
+		return $this->eObject = $reflect->newInstance();
 	}
 
 	/**
@@ -69,7 +69,7 @@ class RestController extends BaseController
 	public function findEntity($id)
 	{
 		try {
-			
+
 			$record = $this->database->setEntity($this->entity)->find($id);
 
 			return $record;
@@ -94,11 +94,11 @@ class RestController extends BaseController
 		foreach ($errors as $error)
 		{
 			$formatted[] = Array(
-				'property' => $error->getPropertyPath(), 
-				'message' => $error->getMessage(), 
-				'code' => $error->getCode(), 
+				'property' => $error->getPropertyPath(),
+				'message' => $error->getMessage(),
+				'code' => $error->getCode(),
 				'value' => $error->getInvalidValue()
-			); 
+			);
 		}
 
 		return $formatted;
@@ -145,7 +145,7 @@ class RestController extends BaseController
 	{
 		$this->paginationOptions = ['pageSize' => 100, 'page' => 0];
 		$input = $this->request->getInput()->all();
-	
+
 
 		foreach ($input as $key => $value)
 		{
@@ -169,16 +169,16 @@ class RestController extends BaseController
 	{
 		$this->getQueryOptions();
 
-		$paginator = $this->paginator->setEntity($this->entity);			
+		$paginator = $this->paginator->setEntity($this->entity);
 
 		try {
-			
+
 			$records = $paginator->query($this->paginationOptions['pageSize'], $this->filter);
 
 			return $this->response->json($records->toArray(), 200);
 
 		} catch (\Exception $e) {
-			
+
 			return $this->response->json(['status' => 'error', 'error' => $e->getMessage()], 400);
 		}
 	}
@@ -193,7 +193,7 @@ class RestController extends BaseController
 	public function show($id)
 	{
 		$record = $this->findEntity($id);
-			
+
 		if (is_null($record))
 		{
 			return $this->response->json(['status' => 'Invalid identifier'], 404);
@@ -211,7 +211,7 @@ class RestController extends BaseController
 	 */
 	public function create()
 	{
-		return $this->updateAndValidate();	
+		return $this->updateAndValidate();
 	}
 
 	/**
@@ -231,7 +231,7 @@ class RestController extends BaseController
 			return $this->response->json(['status' => 'Invalid identifier'], 404);
 		}
 
-		return $this->updateAndValidate($record);	
+		return $this->updateAndValidate($record);
 	}
 
 	/**
@@ -244,20 +244,20 @@ class RestController extends BaseController
 	public function delete($id)
 	{
 		$record = $this->findEntity($id);
-		
+
 		if (is_null($record))
 		{
 			return $this->response->json(['status' => 'Invalid identifier'], 404);
 		}
 
 		try {
-			
+
 			$record->delete();
-		
-			return $this->response->json(['status' => 'success'], 200);		
+
+			return $this->response->json(['status' => 'success'], 200);
 
 		} catch (\Exception $e) {
-			
+
 			return $this->response->json(['status' => 'error', 'error' => $e->getMessage()], 400);
 		}
 	}

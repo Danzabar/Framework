@@ -77,14 +77,14 @@ class PaginatedEntityCollection extends EntityCollection
 		if (isset($settings['database']['pagination_template']))
 		{
 			return $this->DI->get('template')->render(
-				$settings['database']['pagination_template'], 
+				$settings['database']['pagination_template'],
 				[
 					'total' 		=> $this->total,
 					'totalPages' 	=> $this->totalPages,
 					'pageNo'		=> $this->pageNo,
 					'pageSize'		=> $this->pageSize
 				]
-			);	
+			);
 		}
 
 		throw new PaginationTemplateNotSet();

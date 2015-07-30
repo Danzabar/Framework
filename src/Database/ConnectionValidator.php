@@ -50,7 +50,7 @@ class ConnectionValidator
 	{
 		$this->connection = new \STDClass;
 		$this->defaults();
-		
+
 		$this->typeMap = Array(
 			'Array'			=> 'convertFromArray'
 		);
@@ -79,7 +79,7 @@ class ConnectionValidator
 	/**
 	 * Loads a raw connection and type
 	 *
-	 * @param Mixed $raw - the raw configuration data 
+	 * @param Mixed $raw - the raw configuration data
 	 * @param String $type - the type of configuration
 	 * @return Object
 	 * @author Dan Cox
@@ -156,11 +156,11 @@ class ConnectionValidator
 	 */
 	public function mapDetailsFromArray()
 	{
-		foreach (array_keys($this->connection->details) as $key) 
+		foreach (array_keys($this->connection->details) as $key)
 		{
 			if (array_key_exists($key, $this->raw))
 			{
-				$this->connection->details[$key] = $this->raw[$key];		
+				$this->connection->details[$key] = $this->raw[$key];
 			}
 		}
 	}

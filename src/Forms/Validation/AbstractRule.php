@@ -9,7 +9,7 @@
  */
 abstract class AbstractRule
 {
-	
+
 	/**
 	 * The field value
 	 *
@@ -56,7 +56,7 @@ abstract class AbstractRule
 	 * @author Dan Cox
 	 */
 	public function getMessage()
-	{	
+	{
 		return $this->message;
 	}
 
@@ -67,6 +67,6 @@ abstract class AbstractRule
 	 * @author Dan Cox
 	 */
 	abstract public function validate();
-	
+
 
 } // END class AbstractRule

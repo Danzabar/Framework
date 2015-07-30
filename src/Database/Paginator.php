@@ -12,7 +12,7 @@ use Wasp\Entity\PaginatedEntityCollection;
  */
 class Paginator
 {
-	
+
 	/**
 	 * Instance of the database class
 	 *
@@ -83,7 +83,7 @@ class Paginator
 		$this->database = $database;
 		$this->request = $request;
 		$this->container = $service_container;
-	}	
+	}
 
 	/**
 	 * Uses the request class to extract page number
@@ -94,7 +94,7 @@ class Paginator
 	public function extractPageDetails()
 	{
 		$paramBag = $this->request->query;
-		
+
 		if ($paramBag->has('page'))
 		{
 			$this->pageNo = $paramBag->get('page');
@@ -112,7 +112,7 @@ class Paginator
 	 * @author Dan Cox
 	 */
 	public function calculations()
-	{	
+	{
 		// Count of the total rows
 		$this->countRows();
 
@@ -138,12 +138,12 @@ class Paginator
 		$this->pageSize = $pageSize;
 		$this->calculations();
 		$offset = 0;
-		
+
 		if ($this->pageNo > 1)
 		{
 			$offset = ($pageSize * $this->pageNo);
 		}
-	
+
 		$records = $this->database->setEntity($this->entity)
 								  ->get($clauses, $order, $pageSize, $offset);
 
@@ -177,10 +177,10 @@ class Paginator
 	public function makeCollection($results)
 	{
 		$collection = new PaginatedEntityCollection(
-			$results->all(), 
-			$this->total, 
-			$this->totalPages, 
-			$this->pageNo, 
+			$results->all(),
+			$this->total,
+			$this->totalPages,
+			$this->pageNo,
 			$this->pageSize
 		);
 
@@ -212,5 +212,5 @@ class Paginator
 
 		return $this;
 	}
-		
+
 } // END class Paginator

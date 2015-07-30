@@ -31,10 +31,10 @@ Trait SectionSorterTrait
 			{
 				if (in_array($k, $value))
 				{
-					$section->add($k, $v);		
+					$section->add($k, $v);
 				}
-			}		
-			
+			}
+
 			$collection->add($key, $section);
 		}
 
@@ -59,14 +59,14 @@ Trait SectionSorterTrait
 			{
 				$section = $collection->get($sortKeys[$key]);
 				$section->append( (is_array($value) ? $value : [$value]) );
-			}	
+			}
 		}
-		
-		return $collection;	
+
+		return $collection;
 	}
 
 	/**
-	 * creates collection elements for sections	
+	 * creates collection elements for sections
 	 *
 	 * @param Array $sections
 	 * @return Collection

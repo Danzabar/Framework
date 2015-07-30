@@ -51,9 +51,9 @@ class RegexValidation extends AbstractRule
 	{
 		if (!is_null($this->regexp))
 		{
-			return filter_var($this->value, FILTER_VALIDATE_REGEXP, Array('options' => Array('regexp' => $this->regexp)));		
+			return filter_var($this->value, FILTER_VALIDATE_REGEXP, Array('options' => Array('regexp' => $this->regexp)));
 		}
-		
+
 		// No regexp was given.
 		return true;
 	}

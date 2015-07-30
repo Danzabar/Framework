@@ -9,7 +9,7 @@
  */
 class AccessToInvalidKey extends \Exception
 {
-	
+
 	/**
 	 * The entity attempted
 	 *

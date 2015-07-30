@@ -67,22 +67,22 @@ class Route
 	 * @param Array $defaults
 	 * @param Array $requirements
 	 * @param String $host
-	 * @param Array $schemes	
+	 * @param Array $schemes
 	 * @return void
 	 * @author Dan Cox
 	 **/
 	public function add(
-		$name, 
-		$uri, 
+		$name,
+		$uri,
 		$methods = Array(),
-		$defaults = Array(), 
-		$requirements = Array(), 
-		$host = '', 
-		$schemes = Array()		
+		$defaults = Array(),
+		$requirements = Array(),
+		$host = '',
+		$schemes = Array()
 	)
 	{
 		$route = new SymfonyRoute(
-			(is_null($this->prefix) ? $uri : $this->prefix . $uri), 
+			(is_null($this->prefix) ? $uri : $this->prefix . $uri),
 			$defaults,
 			$requirements,
 			Array(),
@@ -91,11 +91,11 @@ class Route
 			$methods
 		);
 
-		$this->processRoute($name, $route);	
-	}	
+		$this->processRoute($name, $route);
+	}
 
 	/**
-	 * Uses the standard Rest controller to provide a rest 
+	 * Uses the standard Rest controller to provide a rest
 	 * structure for an entity
 	 *
 	 * @param String $name
@@ -130,7 +130,7 @@ class Route
 	public function rest($name, $uri, $action, $methods = Array(), $defaults = Array())
 	{
 		$methods = (!empty($methods) ? $methods : Array('all', 'show', 'update', 'create', 'new', 'edit', 'delete'));
-		
+
 		foreach ($methods as $method)
 		{
 			$m = $this->typeMap[$method];
@@ -172,14 +172,14 @@ class Route
 	 **/
 	public function processRoute($name, $route)
 	{
-		if (!is_null($this->activeGroup)) 
+		if (!is_null($this->activeGroup))
 		{
 			$this->activeGroup->add($name, $route);
 
-		} else 
+		} else
 		{
 			$this->collection->add($name, $route);
-		}		
+		}
 	}
 
 	/**
@@ -210,7 +210,7 @@ class Route
 	 **/
 	public function addPrefix($prefix)
 	{
-		$this->prefix = $prefix;			
+		$this->prefix = $prefix;
 		return $this;
 	}
 

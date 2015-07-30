@@ -15,10 +15,10 @@ Trait DateStamp
 	/**
 	 * Created At DateTime field
 	 *
-	 * @ORM\Column(name="created_at", type="datetime", nullable=TRUE) 
+	 * @ORM\Column(name="created_at", type="datetime", nullable=TRUE)
 	 * @var DateTime
 	 */
-	protected $createdAt;	
+	protected $createdAt;
 
 	/**
 	 * Updated at DateTime field

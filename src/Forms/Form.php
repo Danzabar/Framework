@@ -131,7 +131,7 @@ class Form
 	{
 		// Build the URL from the given route name
 		$this->buildURL();
-	
+
 		// Create the nessecary input param bag;
 		$this->determineInput();
 	}
@@ -145,7 +145,7 @@ class Form
 	public function determineInput()
 	{
 		/**
-		 * The order of importance of input 
+		 * The order of importance of input
 		 *	- request data
 		 *	- model data
 		 *	- default values (these get added in the field class if no value is given)
@@ -158,7 +158,7 @@ class Form
 		{
 			// Grab an array representation of the entity
 			$this->input = $this->model->toArray();
-		}	
+		}
 	}
 
 	/**
@@ -172,7 +172,7 @@ class Form
 		if (is_null($this->url) && !is_null($this->route))
 		{
 			$params = (!is_null($this->route_params) ? $this->route_params : Array());
-			$this->url = $this->container->get('url')->route($this->route, $params); 
+			$this->url = $this->container->get('url')->route($this->route, $params);
 		}
 	}
 
@@ -205,8 +205,8 @@ class Form
 		$props = $this->formatPropertyArgs($field);
 
 		$this->fields[] = new Field(
-							$props['name'], 
-							$props['type'], 
+							$props['name'],
+							$props['type'],
 							$props['output'],
 							$props['id'],
 							$props['rules'],
@@ -240,15 +240,15 @@ class Form
 	{
 		$expected = ['name' => '', 'id' => '', 'output' => NULL,  'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
 		$props = Array();
-		
+
 		foreach ($expected as $key => $default)
 		{
 			if (array_key_exists($key, $field))
 			{
 				$props[$key] = $field[$key];
-			} else 
+			} else
 			{
-				$props[$key] = $default;	
+				$props[$key] = $default;
 			}
 		}
 
@@ -322,7 +322,7 @@ class Form
 
 			throw new InvalidCSRFToken;
 		}
-		
+
 		return false;
 	}
 
@@ -335,9 +335,9 @@ class Form
 	public function generateCSRF()
 	{
 		$this->token = md5(uniqid(rand(), TRUE));
-		
+
 		// Add to the session
-		$this->container->get('session')->set('token_' . $this->name, $this->token);	
+		$this->container->get('session')->set('token_' . $this->name, $this->token);
 	}
 
 	/**

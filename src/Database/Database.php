@@ -26,7 +26,7 @@ class Database
 	/**
 	 * Set up class vars
 	 *
-	 * @param Wasp\Database\Connection $connection 
+	 * @param Wasp\Database\Connection $connection
 	 * @author Dan Cox
 	 */
 	public function __construct($connection)
@@ -129,7 +129,7 @@ class Database
 		$query = $this->perform()
 					  ->getConnection()
 					  ->prepare($query);
-		
+
 		if ($execute)
 		{
 			$query->execute();
@@ -174,7 +174,7 @@ class Database
 	 */
 	public function performOnRepository($entity)
 	{
-		return $this->perform()->getRepository($entity); 
+		return $this->perform()->getRepository($entity);
 	}
 
 	/**
@@ -207,7 +207,7 @@ class Database
 	 * @author Dan Cox
 	 */
 	public function entityManager()
-	{	
+	{
 		return $this->perform();
 	}
 

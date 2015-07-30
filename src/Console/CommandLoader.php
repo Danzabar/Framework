@@ -54,13 +54,13 @@ class CommandLoader
 		foreach ($commands as $command)
 		{
 			$this->add($command);
-		}	
+		}
 	}
 
 	/**
 	 * Adds a single command instance
 	 *
-	 * @param String $command - A Fully Qualified class 
+	 * @param String $command - A Fully Qualified class
 	 * @return void
 	 * @author Dan Cox
 	 */
@@ -72,5 +72,5 @@ class CommandLoader
 		$this->console->add($instance);
 	}
 
-	
+
 } // END class CommandLoader

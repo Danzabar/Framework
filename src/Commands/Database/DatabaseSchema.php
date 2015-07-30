@@ -50,7 +50,7 @@ class DatabaseSchema extends BaseCommand
 		if ($this->input->getOption('remove'))
 		{
 			$entity = $this->input->getArgument('entity');
-			
+
 			if (!is_null($entity))
 			{
 				$this->dropTable($entity);
