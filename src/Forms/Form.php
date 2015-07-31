@@ -104,7 +104,7 @@ class Form
 	 *
 	 * @var Object
 	 */
-	protected $DI;
+	protected $container;
 
 	/**
 	 * Configures the form based on its properties

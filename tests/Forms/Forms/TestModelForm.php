@@ -1,6 +1,7 @@
 <?php namespace Wasp\Test\Forms\Forms;
 
 use Wasp\Forms\Form,
+	Wasp\DI\DI,
 	Wasp\Forms\Validation;
 
 /**
@@ -12,7 +13,7 @@ use Wasp\Forms\Form,
  */
 class TestModelForm extends Form
 {
-	
+
 	/**
 	 * Name Mapping
 	 *
@@ -41,20 +42,20 @@ class TestModelForm extends Form
 	 * @author Dan Cox
 	 */
 	public function __construct()
-	{		
+	{
 		$this->route = 'form.test';
 		$this->method = 'post';
 
-		$model = new \Wasp\Test\Entity\Entities\Contact();
+		$model = DI::getContainer()->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 		$model->name = 'Dan';
 		$model->message = 'This is a default message';
-		$model->save();		
+		$model->save();
 
 		$this->model = $model;
 
 		parent::__construct();
 	}
 
-	
+
 } // END class TestModelForm extends Form
 

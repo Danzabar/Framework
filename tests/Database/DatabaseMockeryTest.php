@@ -56,12 +56,12 @@ class DatabaseMockeryTest extends TestCase
 	 */
 	public function test_connectionToMock()
 	{
-		$test = new Test();
+		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$test->name = 'bob';
 		$test->save();
 
 		// We should be able to query out bob now
-		$results = Test::db()->findOneBy(['name' => 'bob']);
+		$results = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test')->findOneBy(['name' => 'bob']);
 
 		$this->assertEquals('bob', $results->name);
 	}
@@ -74,12 +74,12 @@ class DatabaseMockeryTest extends TestCase
 	 */
 	public function test_clearingDatabase()
 	{
-		$test = new Test();
+		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$test->name = 'dave';
 		$test->save();
 
 		// Clear the db
 		$this->DI->get('database')->clearMockedData();
 	}
-	
+
 } // END class DatabaseMockeryTest extends TestCase

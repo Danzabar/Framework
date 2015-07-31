@@ -44,7 +44,7 @@ class ValidationTest extends TestCase
 	 */
 	public function test_basicValidation()
 	{
-		$contact = new Contact();
+		$contact = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 
 		$contact->name = 'Test';
 
@@ -53,5 +53,5 @@ class ValidationTest extends TestCase
 
 		$this->assertEquals(1, $errors->count());
 	}
-	
+
 } // END class ValidationTest extends TestCase

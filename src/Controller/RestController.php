@@ -54,9 +54,7 @@ class RestController extends BaseController
 	 */
 	public function entityInstance()
 	{
-		$reflect = new \ReflectionClass($this->entity);
-
-		return $this->eObject = $reflect->newInstance();
+		return $this->DI->get('entity')->load($this->entity);
 	}
 
 	/**

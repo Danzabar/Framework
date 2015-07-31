@@ -1,20 +1,21 @@
 <?php namespace Wasp\Entity;
 
-use Wasp\DI\StaticContainerAwareTrait,
-	Wasp\Exceptions\Entity\AccessToInvalidKey,
+use	Wasp\Exceptions\Entity\AccessToInvalidKey,
+	Wasp\DI\DependencyInjectionAwareTrait,
+	JMS\Serializer\Annotation\ExclusionPolicy,
 	Doctrine\ORM\Mapping as ORM;
 
 /**
  * The Entity class is a base for entities(models)
  *
- * @ORM\MappedSuperClass
  * @package Wasp
  * @subpackage Entity
  * @author Dan Cox
+ * @ExclusionPolicy("all")
  */
 class Entity
 {
-	use StaticContainerAwareTrait;
+	use DependencyInjectionAwareTrait;
 
 	/**
 	 * Access to the database through the entity
@@ -31,6 +32,22 @@ class Entity
 	}
 
 	/**
+	 * Magic call method for interacting with the database
+	 *
+	 * @param String $method
+	 * @param Array $args
+	 * @return Mixed
+	 * @author Dan Cox
+	 */
+	public function __call($method, Array $args = Array())
+	{
+		$db = $this->DI->get('database');
+		$db->setEntity(get_called_class());
+
+		return call_user_func_array([$db, $method], $args);
+	}
+
+	/**
 	 * Uses the paginator to perform a paginated query on the entity
 	 *
 	 * @param Integer $limit
@@ -40,9 +57,9 @@ class Entity
 	 * @return EntityCollection
 	 * @author Dan Cox
 	 */
-	public static function paginate($limit, $params = Array(), $order = Array())
+	public function paginate($limit, $params = Array(), $order = Array())
 	{
-		$paginator = self::get('paginator');
+		$paginator = $this->DI->get('paginator');
 		$paginator->setEntity(get_called_class());
 
 		return $paginator->query($limit, $params, $order);
@@ -56,7 +73,7 @@ class Entity
 	 */
 	public function json()
 	{
-		$serializer = self::get('serializer');
+		$serializer = $this->DI->get('serializer');
 
 		return $serializer->serialize($this, 'json');
 	}
@@ -70,7 +87,7 @@ class Entity
 	 */
 	public function toArray()
 	{
-		$serializer = self::get('serializer');
+		$serializer = $this->DI->get('serializer');
 		$json = $serializer->serialize($this, 'json');
 
 		return json_decode($json, true);
@@ -109,7 +126,7 @@ class Entity
 	 */
 	public function save()
 	{
-		$db = self::get('database');
+		$db = $this->DI->get('database');
 		$db->save($this);
 	}
 
@@ -121,7 +138,7 @@ class Entity
 	 */
 	public function delete()
 	{
-		$db = self::get('database');
+		$db = $this->DI->get('database');
 		$db->remove($this);
 	}
 

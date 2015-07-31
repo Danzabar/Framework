@@ -13,7 +13,7 @@ use Wasp\Test\TestCase,
  */
 class PaginatorTest extends TestCase
 {
-	
+
 	/**
 	 * An array of passes used by this test
 	 *
@@ -22,6 +22,13 @@ class PaginatorTest extends TestCase
 	protected $passes = [
 		'Wasp\DI\Pass\DatabaseMockeryPass'
 	];
+
+	/**
+	 * Instance of the contact entity
+	 *
+	 * @var \Wasp\Test\Entity\Entities\Contact
+	 */
+	protected $contact;
 
 	/**
 	 * Set up test env
@@ -38,11 +45,13 @@ class PaginatorTest extends TestCase
 		// Inserting 50 test contacts
 		for ($i = 0; $i < 51; $i ++)
 		{
-			$ent = new Contact;
+			$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 			$ent->name = 'Test ' . $i;
 			$ent->message = 'TestMessage_' . $i;
 			$ent->save();
 		}
+
+		$this->contact = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 	}
 
 	/**
@@ -58,11 +67,11 @@ class PaginatorTest extends TestCase
 
 		$this->DI->get('request')->make('/test', 'GET', []);
 
-		$collection = Contact::paginate(10);
+		$collection = $this->contact->paginate(10);
 
 		$crawler = new Crawler ($collection->pagination());
 		$next = $crawler->filterXPath('//a')->attr('href');
-		
+
 		$this->assertEquals('/?page=2', $next);
 	}
 
@@ -79,7 +88,7 @@ class PaginatorTest extends TestCase
 		$this->DI->get('profile')->setSettings(['database' => []]);
 		$this->DI->get('request')->make('/test', 'GET', []);
 
-		$collection = Contact::paginate(10);
+		$collection = $this->contact->paginate(10);
 
 		$pagination = $collection->pagination();
 	}
@@ -94,8 +103,8 @@ class PaginatorTest extends TestCase
 	{
 		$this->DI->get('request')->make('/test', 'GET', []);
 
-		$records = Contact::paginate(10);
-	
+		$records = $this->contact->paginate(10);
+
 		$record = $records[0];
 
 		$this->assertEquals(10, count($records));
@@ -118,7 +127,7 @@ class PaginatorTest extends TestCase
 	{
 		$this->DI->get('request')->make('/test', 'GET', ['page' => 2]);
 
-		$records = Contact::paginate(10);
+		$records = $this->contact->paginate(10);
 
 		$record = $records[0];
 
@@ -134,7 +143,7 @@ class PaginatorTest extends TestCase
 	public function test_paginationWithoutEntity()
 	{
 		$this->DI->get('request')->make('/test', 'GET', ['page' => 1]);
-		
+
 		$paginator = $this->DI->get('paginator');
 		$records = $paginator->setEntity('Wasp\Test\Entity\Entities\Contact')
 					  		 ->query(10);

@@ -1,7 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase;
-	
+
 /**
  * Test case for the fixtures class
  *
@@ -11,7 +11,7 @@ use Wasp\Test\TestCase;
  */
 class FixtureTest extends TestCase
 {
-	
+
 	/**
 	 * Set up test env
 	 *
@@ -60,14 +60,16 @@ class FixtureTest extends TestCase
 		$FM->load();
 		$FM->import();
 
+		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+
 		// We should have a jim.
-		$result = Wasp\Test\Entity\Entities\Test::db()->get();
+		$result = $test->get();
 
 		$this->assertEquals('jim', $result[0]->name);
 
 		$FM->purge();
 
-		$result2 = Wasp\Test\Entity\Entities\Test::db()->get();
+		$result2 = $test->get();
 
 		$this->assertEquals(0, count($result2));
 		$this->assertEquals(__DIR__ . '/Fixtures/', $FM->getDirectory());

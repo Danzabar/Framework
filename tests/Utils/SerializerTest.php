@@ -20,7 +20,14 @@ class SerializerTest extends TestCase
 	protected $passes = [
 		'Wasp\DI\Pass\DatabaseMockeryPass'
 	];
-	
+
+	/**
+	 * Instance of the test entity
+	 *
+	 * @var Wasp\Test\Entity\Entities\Test
+	 */
+	protected $entity;
+
 	/**
 	 * Set up tests
 	 *
@@ -32,6 +39,7 @@ class SerializerTest extends TestCase
 		parent::setUp();
 
 		$this->DI->get('database')->create(ENTITIES);
+		$this->entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 	}
 
 	/**
@@ -43,7 +51,7 @@ class SerializerTest extends TestCase
 	public function test_createSerializer()
 	{
 		$serializer = $this->DI->get('serializer');
-		$serializer->config(__DIR__ . '/SerializerCache', TRUE);		
+		$serializer->config(__DIR__ . '/SerializerCache', TRUE);
 	}
 
 	/**
@@ -53,12 +61,12 @@ class SerializerTest extends TestCase
 	 * @author Dan Cox
 	 */
 	public function test_serializingORMEntity()
-	{	
-		$test = new \Wasp\Test\Entity\Entities\Test();
+	{
+		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$test->name = 'foo';
 		$test->save();
 
-		$result = \Wasp\Test\Entity\Entities\Test::db()->findOneBy(['name' => 'foo']);
+		$result = $this->entity->findOneBy(['name' => 'foo']);
 
 		$serializer = $this->DI->get('serializer');
 		$json = $serializer->serialize($result, 'json');
@@ -74,11 +82,11 @@ class SerializerTest extends TestCase
 	 */
 	public function test_serializeThroughEntity()
 	{
-		$test = new \Wasp\Test\Entity\Entities\Test();
+		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$test->name = 'foo';
 		$test->save();
 
-		$result = \Wasp\Test\Entity\Entities\Test::db()->findOneBy(['name' => 'foo']);
+		$result = $this->entity->findOneBy(['name' => 'foo']);
 
 		$json = $result->json();
 

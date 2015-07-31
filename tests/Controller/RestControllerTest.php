@@ -12,7 +12,7 @@ use Wasp\Test\TestCase,
  */
 class RestControllerTest extends TestCase
 {
-	
+
 	/**
 	 * An Array of Passes this test uses
 	 *
@@ -21,6 +21,13 @@ class RestControllerTest extends TestCase
 	protected $passes = [
 		'Wasp\DI\Pass\DatabaseMockeryPass'
 	];
+
+	/**
+	 * Instance of the contact entity
+	 *
+	 * @var \Wasp\Test\Entity\Entities\Contact
+	 */
+	protected $contact;
 
 	/**
 	 * Set up test env
@@ -37,6 +44,8 @@ class RestControllerTest extends TestCase
 
 		// Add a resource route
 		$this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Contact');
+
+		$this->contact = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 	}
 
 	/**
@@ -48,7 +57,7 @@ class RestControllerTest extends TestCase
 	public function test_showRoute()
 	{
 		// Create the entry first
-		$ent = new Contact;
+		$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 		$ent->name = 'Test';
 		$ent->message = 'Test message';
 		$ent->save();
@@ -90,7 +99,7 @@ class RestControllerTest extends TestCase
 		// Check the response
 		$obj = json_decode($response->getContent());
 
-		$ent = Contact::db()->find($obj->data->id);
+		$ent = $this->contact->find($obj->data->id);
 
 		$this->assertEquals('success', $obj->status);
 		$this->assertEquals('CreateTest1', $obj->data->name);
@@ -109,7 +118,7 @@ class RestControllerTest extends TestCase
 		$data = ['name' => 'CreateTest2', 'message' => ''];
 
 		$response = $this->fakeRequest('/test/new', 'POST', $data);
-		
+
 		$obj = json_decode($response->getContent());
 
 		$this->assertEquals('message', $obj->errors[0]->property);
@@ -124,7 +133,7 @@ class RestControllerTest extends TestCase
 	 */
 	public function test_updateRoute()
 	{
-		$ent = new Contact();
+		$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 		$ent->name = 'UpdateTest1';
 		$ent->message = 'MyMessage';
 		$ent->save();
@@ -134,7 +143,7 @@ class RestControllerTest extends TestCase
 
 		$obj = json_decode($response->getContent());
 
-		$record = Contact::db()->find($obj->data->id);
+		$record = $this->contact->find($obj->data->id);
 
 		$this->assertEquals('success', $obj->status);
 		$this->assertEquals('UpdateTest1', $obj->data->name);
@@ -166,16 +175,16 @@ class RestControllerTest extends TestCase
 	 */
 	public function test_updateRouteValidation()
 	{
-		$ent = new Contact();
+		$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 		$ent->name = 'UpdateTest2';
 		$ent->message = 'Validation error';
 		$ent->save();
 
 		$response = $this->fakeRequest('/test/update/1', 'PATCH', ['message' => '']);
-		
+
 		$obj = json_decode($response->getContent());
 
-		$this->assertEquals('message', $obj->errors[0]->property);	
+		$this->assertEquals('message', $obj->errors[0]->property);
 	}
 
 	/**
@@ -186,7 +195,7 @@ class RestControllerTest extends TestCase
 	 */
 	public function test_deleteRoute()
 	{
-		$ent = new Contact();
+		$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 		$ent->name = 'Delete1Test';
 		$ent->message = 'Test';
 		$ent->save();
@@ -195,7 +204,7 @@ class RestControllerTest extends TestCase
 
 		$obj = json_decode($response->getContent());
 
-		$records = Contact::db()->get();
+		$records = $this->contact->get();
 
 		$this->assertEquals(200, $response->getStatusCode());
 		$this->assertEquals('success', $obj->status);
@@ -228,7 +237,7 @@ class RestControllerTest extends TestCase
 	{
 		for ($i = 0; $i < 10; $i++)
 		{
-			$c = new Contact;
+			$c = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 			$c->name = $i;
 			$c->message = $i;
 			$c->save();
@@ -250,7 +259,7 @@ class RestControllerTest extends TestCase
 	{
 		for ($i = 0; $i < 3; $i++)
 		{
-			$c = new Contact();
+			$c = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
 			$c->name = $i;
 			$c->message = $i;
 			$c->save();

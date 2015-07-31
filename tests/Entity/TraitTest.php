@@ -1,7 +1,6 @@
 <?php
 
-use Wasp\Test\TestCase,
-	Wasp\Test\Entity\Entities\Test;
+use Wasp\Test\TestCase;
 
 /**
  * Test case for the entity traits
@@ -44,7 +43,7 @@ class TraitTest extends TestCase
 	 */
 	public function test_dateStamp()
 	{
-		$test = new Test;
+		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$test->name = 'test_dateStamp';
 		$test->save();
 
@@ -67,7 +66,7 @@ class TraitTest extends TestCase
 	 */
 	public function test_slugify()
 	{
-		$test = new Test;
+		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$test->name = 'slug_test';
 		$test->title = 'Test Title';
 		$test->save();
@@ -93,7 +92,7 @@ class TraitTest extends TestCase
 	 */
 	public function test_suspension()
 	{
-		$test = new Test;
+		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$test->name = 'test_suspension';
 		$test->save();
 
@@ -106,5 +105,5 @@ class TraitTest extends TestCase
 		$this->assertInstanceof('DateTime', $test->suspendedUntil);
 	}
 
-	
+
 } // END class TraitTest extends TestCase
