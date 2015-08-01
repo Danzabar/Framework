@@ -18,20 +18,6 @@ class Entity
 	use DependencyInjectionAwareTrait;
 
 	/**
-	 * Access to the database through the entity
-	 *
-	 * @return Wasp\Database\Database
-	 * @author Dan Cox
-	 */
-	public static function db()
-	{
-		$db = self::get('database');
-		$db->setEntity(get_called_class());
-
-		return $db;
-	}
-
-	/**
 	 * Magic call method for interacting with the database
 	 *
 	 * @param String $method
