@@ -92,11 +92,11 @@ class BaseCommand extends SymfonyCommand
 	public function argumentInputMappings()
 	{
 		$this->addArgumentMap('arguments', $this->inputArgumentRequirements);
-		$this->addArgumentMap('options', $this->inputOptionRequirements);	
+		$this->addArgumentMap('options', $this->inputOptionRequirements);
 	}
 
 	/**
-	 * Adds an argument expectation to the command 
+	 * Adds an argument expectation to the command
 	 *
 	 * @param String $name
 	 * @param String $description
@@ -107,8 +107,8 @@ class BaseCommand extends SymfonyCommand
 	public function argument($name, $description, $required = 'required')
 	{
 		$this->addArgument(
-			$name, 
-			$this->getArgumentMapValue('arguments', $required), 
+			$name,
+			$this->getArgumentMapValue('arguments', $required),
 			$description
 		);
 
@@ -152,5 +152,5 @@ class BaseCommand extends SymfonyCommand
 
 		$this->fire();
 	}
-	
+
 } // END class BaseCommand extends SymfonyCommand

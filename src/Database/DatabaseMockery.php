@@ -11,7 +11,7 @@ use Wasp\Database\Database;
  */
 class DatabaseMockery
 {
-	
+
 	/**
 	 * Instance of the schema class
 	 *

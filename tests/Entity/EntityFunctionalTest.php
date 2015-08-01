@@ -12,7 +12,7 @@ use Wasp\Test\TestCase,
  */
 class EntityFunctionalTest extends TestCase
 {
-	
+
 	/**
 	 * An array of compiler passes used in this test
 	 *
@@ -43,13 +43,15 @@ class EntityFunctionalTest extends TestCase
 	 */
 	public function test_updatingWithArray()
 	{
-		$entity = new Test;
+		$entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$entity->updateFromArray(['name' => 'bob']);
 		$entity->save();
 
-		$res = Test::db()->findOneBy(['name' => 'bob']);
-		
-		$this->assertEquals('bob', $res->name);	
+		$res = $this->DI->get('entity')
+					->load('Wasp\Test\Entity\Entities\Test')
+					->findOneBy(['name' => 'bob']);
+
+		$this->assertEquals('bob', $res->name);
 	}
 
 

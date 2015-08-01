@@ -124,7 +124,7 @@ class Template
 	{
 		return join($this->directory, ',');
 	}
-	
+
 	/**
 	 * Adds an engine to the array
 	 *
@@ -132,7 +132,7 @@ class Template
 	 * @author Dan Cox
 	 */
 	public function addEngine($engine)
-	{	
+	{
 		$this->engines[] = $engine;
 		return $this;
 	}

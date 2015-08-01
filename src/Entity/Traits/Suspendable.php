@@ -42,7 +42,7 @@ Trait Suspendable
 		foreach ($conditions as $condition)
 		{
 			$this->suspendedUntil->modify($condition);
-		}	
+		}
 
 		$this->save();
 	}

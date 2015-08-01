@@ -11,7 +11,7 @@ use Wasp\Forms\Validation\AbstractRule;
  */
 class IntValidation extends AbstractRule
 {
-	
+
 	/**
 	 * Message
 	 *

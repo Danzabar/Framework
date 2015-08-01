@@ -9,7 +9,7 @@ use Wasp\Application\Application;
  * @subpackage Environment
  * @author Dan Cox
  */
-Interface EnvironmentInterface 
+Interface EnvironmentInterface
 {
 
 	/**

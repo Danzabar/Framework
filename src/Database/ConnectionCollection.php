@@ -76,7 +76,7 @@ class ConnectionCollection extends Collection
 		{
 			return $this->get($name);
 		}
-		
+
 		throw new InvalidConnection($name);
 	}
 

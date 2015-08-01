@@ -92,8 +92,8 @@ class Field
 	 * @author Dan Cox
 	 */
 	public function __construct(
-		$label, 
-		$type = 'text', 
+		$label,
+		$type = 'text',
 		$output = NULL,
 		$id = '',
 		Array $rules = Array(),
@@ -108,7 +108,7 @@ class Field
 		$this->id = ($id !== '' ? $id : Str::id($label));
 		$this->values = $values;
 		$this->default = $default;
-		$this->rules = new Collection($rules);	
+		$this->rules = new Collection($rules);
 		$this->input = $input;
 		$this->errors = new Collection();
 
@@ -133,7 +133,7 @@ class Field
 			{
 				$this->errors[] = $rule->getMessage();
 				$passes = false;
-			}			
+			}
 		}
 
 		return $passes;
@@ -148,7 +148,7 @@ class Field
 	public function extractValue()
 	{
 		$this->value = '';
-		
+
 		// Check if there is a default value set
 		if (!is_null($this->default))
 		{
@@ -156,7 +156,7 @@ class Field
 		}
 
 		// Check the Input Array for a set value.
-		if (array_key_exists($this->id, $this->input)) 
+		if (array_key_exists($this->id, $this->input))
 		{
 			$this->value = $this->input[$this->id];
 		}

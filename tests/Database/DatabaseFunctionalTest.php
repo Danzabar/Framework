@@ -31,7 +31,7 @@ class DatabaseFunctionalTest extends TestCase
 
 		$this->DI->get('connection')->connect('func');
 	}
-	
+
 	/**
 	 * Remove all the tables added
 	 *
@@ -53,14 +53,14 @@ class DatabaseFunctionalTest extends TestCase
 	{
 		// Create the Schema because we dont already have one
 		$this->DI->get('schema')->create();
-		
+
 		// Add a row using the entity
-		$entity = new Wasp\Test\Entity\Entities\Test;
+		$entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$entity->name = 'foo';
 		$entity->save();
 
 		// Query it back out using the entity class
-		$result = Wasp\Test\Entity\Entities\Test::db()->findOneBy(['name' => 'foo']);
+		$result = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test')->findOneBy(['name' => 'foo']);
 
 		$this->assertEquals('foo', $result->name);
 		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $this->DI->get('database')->entityManager());
@@ -76,22 +76,24 @@ class DatabaseFunctionalTest extends TestCase
 	{
 		$this->DI->get('schema')->update();
 
-		$entity = new Wasp\Test\Entity\Entities\Test;
+		$entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$entity->name = 'foo';
 		$entity->save();
 
-		$entity = new Wasp\Test\Entity\Entities\Test;
+		$entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$entity->name = 'bar';
 		$entity->save();
 
-		$entity = new Wasp\Test\Entity\Entities\Test;
+		$entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 		$entity->name = 'zim';
 		$entity->save();
 
-		$results = Wasp\Test\Entity\Entities\Test::db()->get();
-		$results2 = Wasp\Test\Entity\Entities\Test::db()->get(Array(), Array(), 2, 1);
+		$e = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+
+		$results = $e->get();
+		$results2 = $e->get(Array(), Array(), 2, 1);
 		$results3 = $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Test')->findOneBy(['name' => 'bar']);
-		$results4 = Wasp\Test\Entity\Entities\Test::db()->get([], ['name' => 'desc']);
+		$results4 = $e->get([], ['name' => 'desc']);
 
 		// Assertions for result1
 		$this->assertEquals(3, count($results));

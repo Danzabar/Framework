@@ -21,8 +21,8 @@ class EntityCollection extends Collection
 	public function json()
 	{
 		$serializer = DI::getContainer()->get('serializer');
-		
-		return $serializer->serialize($this->collectable, 'json');		
+
+		return $serializer->serialize($this->collectable, 'json');
 	}
 
 	/**

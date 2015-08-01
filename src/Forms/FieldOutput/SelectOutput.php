@@ -12,7 +12,7 @@ use Wasp\Forms\FieldOutput\AbstractFieldOutput,
  */
 class SelectOutput extends AbstractFieldOutput
 {
-	
+
 	/**
 	 * Returns a string representation of the select field
 	 *
@@ -25,11 +25,11 @@ class SelectOutput extends AbstractFieldOutput
 
 		foreach ($this->field->values as $key => $value)
 		{
-			$options .= sprintf('<option value="%s"%s>%s</option>', 
+			$options .= sprintf('<option value="%s"%s>%s</option>',
 				$value, ($this->field->value == $value ? 'selected="selected"' : ''), $key);
 		}
 
-		return sprintf('<select name="%1$s" id="%1$s" %2$s>%3$s</select>', 
+		return sprintf('<select name="%1$s" id="%1$s" %2$s>%3$s</select>',
 			$this->field->id, Str::arrayToHtmlProperties($extras), $options);
 	}
 

@@ -53,7 +53,7 @@ class DatabaseFixtures extends BaseCommand
 		{
 			$FM->setDirectory($this->input->getArgument('directory'));
 		}
-		
+
 		$FM->load();
 
 		if ($this->input->getOption('purge'))
@@ -64,7 +64,7 @@ class DatabaseFixtures extends BaseCommand
 		{
 			$FM->import();
 			$this->output->writeln("Successfully imported fixtures");
-		}	
+		}
 	}
 
 } // END class DatabaseFixtures extends BaseCommand

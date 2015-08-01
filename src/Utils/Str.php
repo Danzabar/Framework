@@ -9,7 +9,7 @@
  */
 class Str
 {
-	
+
 	/**
 	 * Slugify a string
 	 *
@@ -37,12 +37,12 @@ class Str
 	 */
 	public static function id($str)
 	{
-		return self::slug($str, '_');	
+		return self::slug($str, '_');
 	}
 
 	/**
 	 * Converts an array to a useful string that can be used
-	 * in html elements	
+	 * in html elements
 	 *
 	 * @param Array $arr
 	 * @return String

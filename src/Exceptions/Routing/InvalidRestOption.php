@@ -9,7 +9,7 @@
  */
 class InvalidRestOption extends \Exception
 {
-	
+
 	/**
 	 * The offending option
 	 *
@@ -48,7 +48,7 @@ class InvalidRestOption extends \Exception
 	 * @author Dan Cox
 	 */
 	public function getOption()
-	{	
+	{
 		return $this->option;
 	}
 
@@ -59,7 +59,7 @@ class InvalidRestOption extends \Exception
 	 * @author Dan Cox
 	 */
 	public function getList()
-	{	
+	{
 		return $this->list;
 	}
 

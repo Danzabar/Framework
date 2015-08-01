@@ -60,7 +60,7 @@ class Schema
 	 */
 	public function loadMetaData()
 	{
-		return $this->classes = $this->metadataFactory->getAllMetadata();	
+		return $this->classes = $this->metadataFactory->getAllMetadata();
 	}
 
 	/**

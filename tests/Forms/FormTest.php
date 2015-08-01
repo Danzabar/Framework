@@ -30,7 +30,7 @@ class FormTest extends TestCase
 	public function setUp()
 	{
 		parent::setUp();
-		
+
 		// The route we use.
 		$this->DI->get('route')->add('form.test', '/form/test', Array('GET'));
 
@@ -39,7 +39,7 @@ class FormTest extends TestCase
 	}
 
 	/**
-	 * Test building a new form 
+	 * Test building a new form
 	 *
 	 * @return void
 	 * @author Dan Cox
@@ -154,7 +154,7 @@ class FormTest extends TestCase
 		$name = $fields[0];
 
 		$this->assertEquals('Dan', $name->getValue());
-	}	
+	}
 
 	/**
 	 * Test that input from the request has higher priority than the model data
@@ -173,7 +173,7 @@ class FormTest extends TestCase
 
 		$this->assertEquals('Bob', $name->getValue());
 	}
-	
+
 	/**
 	 * Check the CSRF stuff works properly
 	 *
@@ -187,7 +187,7 @@ class FormTest extends TestCase
 			'password'		=> 'test'
 		];
 
-		$this->DI->get('request')->make('/form', 'POST', $data);	
+		$this->DI->get('request')->make('/form', 'POST', $data);
 
 		$form = new Wasp\Test\Forms\Forms\TestForm();
 		$this->DI->get('session')->set('token_' . $form->getName(), 'testcsrfstring');

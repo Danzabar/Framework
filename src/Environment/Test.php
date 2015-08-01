@@ -25,8 +25,8 @@ class Test extends Environment Implements EnvironmentInterface
 	{
 		$this->DI->addCompilerPass(new MockeryPass);
 		$this->DI->addCompilerPass(new SessionFilePass);
-		
-		// No need to cache here. 
+
+		// No need to cache here.
 		$this->createDI();
 	}
 

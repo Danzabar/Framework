@@ -23,5 +23,5 @@ class DirectoryNotSet extends \Exception
 			$previous
 		);
 	}
-	
+
 } // END class DirectoryNotSet extends \Exception

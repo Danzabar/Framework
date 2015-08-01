@@ -101,7 +101,7 @@ class TwigEngine implements EngineInterface
 	public function exists($name)
 	{
 		foreach ($this->template->getDirectory() as $temp)
-		{	
+		{
 			if ($this->fs->exists($temp . $name))
 			{
 				return true;
@@ -121,7 +121,7 @@ class TwigEngine implements EngineInterface
 	 */
 	public function render($name, Array $params = Array())
 	{
-		return $this->environment->render($name, $params);	
+		return $this->environment->render($name, $params);
 	}
 
 } // END class TwigEngine implements EngineInterface

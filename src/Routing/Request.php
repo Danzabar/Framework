@@ -24,7 +24,7 @@ class Request
 	 * @var \Symfony\Component\HttpFoundation\Session\Session
 	 */
 	protected $session;
-	
+
 
 	/**
 	 * Load dependencies
@@ -72,7 +72,7 @@ class Request
 	}
 
 	/**
-	 * Creates a request from given details 
+	 * Creates a request from given details
 	 *
 	 * @param String $uri
 	 * @param String $type
@@ -139,7 +139,7 @@ class Request
 
 		return $this;
 	}
-	
+
 	/**
 	 * Magic Getter for the request object
 	 *
@@ -152,7 +152,7 @@ class Request
 	}
 
 	/**
-	 * Call method for calling functions from the created request object 
+	 * Call method for calling functions from the created request object
 	 *
 	 * @return void
 	 * @author Dan Cox

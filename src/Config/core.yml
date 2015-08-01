@@ -25,6 +25,11 @@ services:
         lazy: true
         arguments:
             - "@console"
+    entity:
+        class: Wasp\Entity\EntityLoader
+        lazy: true
+        calls:
+           - [setDI, ["@service_container"]]
     event.dispatch:
         class: Symfony\Component\EventDispatcher\EventDispatcher
         lazy: true

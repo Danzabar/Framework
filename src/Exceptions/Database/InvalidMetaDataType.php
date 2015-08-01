@@ -10,7 +10,7 @@
  */
 class InvalidMetaDataType extends \Exception
 {
-	
+
 	/**
 	 * The metadata type
 	 *

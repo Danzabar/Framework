@@ -112,7 +112,7 @@ class Response
 	public function persistInput()
 	{
 		$input = $this->DI->get('request')->getInput();
-		$type = $this->DI->get('request')->isMethod('GET') ? 'query' : 'request';	
+		$type = $this->DI->get('request')->isMethod('GET') ? 'query' : 'request';
 		$session = $this->DI->get('session');
 
 		$obsfucated = base64_encode(serialize($input));
@@ -121,5 +121,5 @@ class Response
 
 		return $this;
 	}
-	
+
 } // END class Response

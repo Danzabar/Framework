@@ -9,7 +9,7 @@
  */
 class InvalidConnectionType extends \Exception
 {
-	
+
 	/**
 	 * The Attempted type
 	 *
@@ -38,7 +38,7 @@ class InvalidConnectionType extends \Exception
 	}
 
 	/**
-	 * Returns the type 
+	 * Returns the type
 	 *
 	 * @return string
 	 * @author Dan Cox

@@ -41,5 +41,5 @@ class InvalidServiceDirectory extends \Exception
 	{
 		return $this->DI;
 	}
-	
+
 } // END class InvalidServiceDirectory extends \Exception

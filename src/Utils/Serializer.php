@@ -9,7 +9,7 @@
  */
 class Serializer
 {
-	
+
 	/**
 	 * Instance of the serializer
 	 *

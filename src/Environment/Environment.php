@@ -67,7 +67,7 @@ class Environment
 	public function DIInstance()
 	{
 		$di_cache_dir = (isset($this->settings['application']['di_cache_directory']) ? $this->settings['application']['di_cache_directory'] : NULL);
-		$di_cache_ns = (isset($this->settings['application']['di_cache_namespace']) ? $this->settings['application']['di_cache_namespace'] : NULL);			
+		$di_cache_ns = (isset($this->settings['application']['di_cache_namespace']) ? $this->settings['application']['di_cache_namespace'] : NULL);
 
 		$this->DI = new DI(dirname(__DIR__) . '/Config/', $di_cache_dir, $di_cache_ns);
 
@@ -120,7 +120,7 @@ class Environment
 
 		$this->DI->get('template')
 				 ->setDirectory($directory);
-		
+
 		$twig->create($twigConfig);
 
 		$this->DI->get('template')
@@ -137,13 +137,13 @@ class Environment
 	public function connectTo($connection)
 	{
 		try {
-			
+
 			$this->DI->get('connection')->connect($connection);
 
 		} catch (\Exception $e) {
 
 			$response = $this->DI->get('response')->make('<p>The database connection details seem invalid, please check them.</p>', 200);
-			$response->send();		
+			$response->send();
 		}
 	}
 
@@ -160,7 +160,7 @@ class Environment
 			$this->connectTo($this->settings['application']['default_connection']);
 
 			return true;
-		}		
+		}
 
 		return false;
 	}
