@@ -2,7 +2,6 @@
 
 use Wasp\Environment\Environment,
 	Wasp\Utils\Collection,
-	Wasp\Events\ShieldWallEvent,
 	Wasp\Exceptions\Application\UnknownEnvironment,
 	Symfony\Component\HttpKernel\KernelEvents,
 	Symfony\Component\HttpKernel\HttpKernel;
@@ -68,10 +67,6 @@ class Application
 	 */
 	public function react()
 	{
-		// Add the shield wall event
-		$this->DI->get('kernel.dispatcher')
-			->addListener(KernelEvents::REQUEST, Array($this->DI->get('shieldwall.listener'), 'onKernelRequest'));
-
 		return $this->DI->get('kernel')->handle($this->DI->get('request')->getRequest());
 	}
 
