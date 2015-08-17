@@ -1,8 +1,0 @@
-services:
-    courier:
-        class: Wasp\Test\ShieldWall\Extension\Courier
-    shield:
-        class: Wasp\ShieldWall\ShieldWall
-        arguments:
-            - "@courier"
-            - "@session"
