@@ -136,4 +136,42 @@ class DatabaseFunctionalTest extends TestCase
 		$this->assertEquals('Bob', $results['name']);
 	}
 
+	/**
+	 * Test the find or fail method throws an exception with no results
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_find_or_fail()
+	{
+		$this->setExpectedException('Wasp\Exceptions\Entity\RecordNotFound');
+
+		$this->DI->get('schema')->update();
+
+		$this->DI->get('entity')
+				 ->load('Wasp\Test\Entity\Entities\Test')
+				 ->findOrFail(['name' => 'BatMan']);
+	}
+
+	/**
+	 * Test a successful find or fail
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_find_or_fail_success()
+	{
+		$this->DI->get('schema')->update();
+
+		$entity = $this->DI->get('entity')
+				 		->load('Wasp\Test\Entity\Entities\Test');
+
+		$entity->name = 'bob';
+		$entity->save();
+
+		$result = $entity->findOrFail(['name' => 'bob']);
+
+		$this->assertInstanceOf('Wasp\Test\Entity\Entities\Test', $result);
+	}
+
 } // END class DatabaseFunctionalTest extends TestCase

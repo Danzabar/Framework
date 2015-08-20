@@ -1,5 +1,7 @@
 <?php namespace Wasp\Database;
 
+use Wasp\Exceptions\Entity\RecordNotFound;
+
 /**
  * The database class interacts with the database through Doctrine ORM
  *
@@ -72,6 +74,27 @@ class Database
 	{
 		return $this->performOnRepository($this->entity)
 					->findOneBy($params, $order, NULL, NULL);
+	}
+
+	/**
+	 * Finds a single record or throws an exception if not found
+	 *
+	 * @param Array $params
+	 * @param Array $order
+	 * @return Object
+	 * @throws \Wasp\Exceptions\Entity\RecordNotFound
+	 * @author Dan Cox
+	 */
+	public function findOrFail($params = Array(), $order = Array())
+	{
+		$result = $this->findOneBy($params, $order);
+
+		if (is_null($result))
+		{
+			throw new RecordNotFound();
+		}
+
+		return $result;
 	}
 
 	/**
