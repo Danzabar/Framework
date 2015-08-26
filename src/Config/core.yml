@@ -44,6 +44,11 @@ services:
         class: Wasp\Database\Database
         arguments:
             - "@connection"
+    filter.listener:
+        class: Wasp\Filter\FilterListener
+        lazy: true
+        arguments:
+            - "@service_container"
     finder:
         class: Symfony\Component\Finder\Finder
         lazy: true

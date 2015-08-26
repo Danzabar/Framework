@@ -1,0 +1,7 @@
+services:
+    filter.test:
+        class: Wasp\Test\Filter\Filters\Test
+        scope: prototype
+        lazy: true
+        calls:
+            - [setDI, ["@service_container"]]
