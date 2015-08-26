@@ -1,6 +1,7 @@
 <?php namespace Wasp\Test\Forms\Forms;
 
 use Wasp\Forms\Form,
+	Wasp\Forms\FormInterface,
 	Wasp\Forms\Validation;
 
 /**
@@ -10,7 +11,7 @@ use Wasp\Forms\Form,
  * @subpackage Tests\Forms
  * @author Dan Cox
  */
-class TestForm extends Form
+class TestForm extends Form implements FormInterface
 {
 	/**
 	 * Username field
@@ -50,24 +51,22 @@ class TestForm extends Form
 	 * @var Array
 	 */
 	public $remember = Array(
-		'name' => 'Remember me', 
+		'name' => 'Remember me',
 		'output' => 'Wasp\Forms\FieldOutput\BoxOutput',
 		'type' => 'checkbox');
-	
+
 	/**
 	 * Setup form
 	 *
 	 * @author Dan Cox
 	 */
-	public function __construct()
+	public function configure()
 	{
 		$this->route = 'form.test';
 		$this->method = 'post';
 
 		// Add the rules
 		$this->password['rules'] = Array(new Validation\Required());
-
-		parent::__construct();
 	}
 
 } // END class TestForm extends Form

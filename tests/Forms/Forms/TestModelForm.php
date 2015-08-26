@@ -1,6 +1,7 @@
 <?php namespace Wasp\Test\Forms\Forms;
 
 use Wasp\Forms\Form,
+	Wasp\Forms\FormInterface,
 	Wasp\DI\DI,
 	Wasp\Forms\Validation;
 
@@ -11,7 +12,7 @@ use Wasp\Forms\Form,
  * @subpackage Tests\Forms
  * @author Dan Cox
  */
-class TestModelForm extends Form
+class TestModelForm extends Form implements FormInterface
 {
 
 	/**
@@ -41,7 +42,7 @@ class TestModelForm extends Form
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct()
+	public function configure()
 	{
 		$this->route = 'form.test';
 		$this->method = 'post';
@@ -52,8 +53,6 @@ class TestModelForm extends Form
 		$model->save();
 
 		$this->model = $model;
-
-		parent::__construct();
 	}
 
 

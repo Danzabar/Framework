@@ -4,6 +4,7 @@ use Wasp\Utils\Collection,
 	Wasp\DI\DI,
 	Wasp\Utils\Str,
 	Wasp\Exceptions\Forms\InvalidCSRFToken,
+	Wasp\DI\DependencyInjectionAwareTrait,
 	Wasp\Forms\Field;
 
 /**
@@ -15,6 +16,8 @@ use Wasp\Utils\Collection,
  */
 class Form
 {
+	use DependencyInjectionAwareTrait;
+
 	/**
 	 * A Collection fields
 	 *
@@ -117,8 +120,9 @@ class Form
 		$this->name = base64_encode(get_called_class());
 		$this->errors = new Collection;
 
-		$this->setup();
 		$this->configure();
+
+		$this->setup();
 	}
 
 	/**
@@ -134,6 +138,14 @@ class Form
 
 		// Create the nessecary input param bag;
 		$this->determineInput();
+
+		$this->fields = new Collection();
+		$this->reflection = new \ReflectionClass(get_called_class());
+		$this->properties = $this->reflection->getProperties(\ReflectionProperty::IS_PUBLIC);
+
+		$this->processProperties();
+
+		return $this;
 	}
 
 	/**
@@ -174,23 +186,6 @@ class Form
 			$params = (!is_null($this->route_params) ? $this->route_params : Array());
 			$this->url = $this->container->get('url')->route($this->route, $params);
 		}
-	}
-
-	/**
-	 * Configures the forms settings from its parent
-	 *
-	 * @return Form
-	 * @author Dan Cox
-	 */
-	public function configure()
-	{
-		$this->fields = new Collection();
-		$this->reflection = new \ReflectionClass(get_called_class());
-		$this->properties = $this->reflection->getProperties(\ReflectionProperty::IS_PUBLIC);
-
-		$this->processProperties();
-
-		return $this;
 	}
 
 	/**
