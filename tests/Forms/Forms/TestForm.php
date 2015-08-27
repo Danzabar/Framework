@@ -1,7 +1,6 @@
 <?php namespace Wasp\Test\Forms\Forms;
 
 use Wasp\Forms\Form,
-	Wasp\Forms\FormInterface,
 	Wasp\Forms\Validation;
 
 /**
@@ -11,7 +10,7 @@ use Wasp\Forms\Form,
  * @subpackage Tests\Forms
  * @author Dan Cox
  */
-class TestForm extends Form implements FormInterface
+class TestForm extends Form
 {
 	/**
 	 * Username field
