@@ -87,8 +87,31 @@ class Template
 	 */
 	public function setDirectory($directory)
 	{
-		$this->directory[] = $directory;
+		if (is_array($directory))
+		{
+			foreach ($directory as $d)
+			{
+				$this->addDirectory($d);
+			}
+
+		} else {
+
+			$this->addDirectory($directory);
+		}
+
 		return $this;
+	}
+
+	/**
+	 * Adds a directory to the array
+	 *
+	 * @param String $directory
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function addDirectory($directory)
+	{
+		$this->directory[] = $directory;
 	}
 
 	/**

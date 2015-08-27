@@ -82,9 +82,24 @@ class TemplateTest extends TestCase
 				 ->start();
 
 		$response = $this->DI->get('template')->make('twigDITest.html.twig');
-	
+
 		$this->assertContains($this->DI->get('template')->getDirectoryString(), $response->getContent());
 	}
-	
+
+	/**
+	 * Test the templates delagtion between directories
+	 *
+	 * @return void
+	 * @author Dan Cox
+	 */
+	public function test_multiple_directories()
+	{
+		$this->setupTemplates([__DIR__ . '/Temp/', __DIR__ . '/Templates/']);	
+
+		$response = $this->DI->get('template')->make('delegationtest.twig.html');
+
+		$this->assertContains('test', $response->getContent());
+	}
+
 
 } // END class TemplateTest extends TestCase

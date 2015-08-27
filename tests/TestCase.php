@@ -120,7 +120,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	/**
 	 * Sets up the template classes
 	 *
-	 * @param String $directory
+	 * @param String|Array $directory
 	 * @return void
 	 * @author Dan Cox
 	 */
