@@ -41,7 +41,7 @@ class TestModelForm extends Form
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function __construct()
+	public function configure()
 	{
 		$this->route = 'form.test';
 		$this->method = 'post';
@@ -52,8 +52,6 @@ class TestModelForm extends Form
 		$model->save();
 
 		$this->model = $model;
-
-		parent::__construct();
 	}
 
 
