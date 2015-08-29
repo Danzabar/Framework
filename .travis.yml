@@ -18,6 +18,7 @@ before_script:
     - mysql -e "CREATE DATABASE IF NOT EXISTS wasp;" -uroot
 
 script:
+    - ./vendor/bin/phpcs . --standard=PSR2 --ignore=vendor/* --extensions=php --report=full -s
     - mkdir -p build/logs
     - phpunit --coverage-clover build/logs/clover.xml
 
