@@ -54,6 +54,13 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     public function test_buildDI()
     {
         $env = new Environment();
+
+        $this->app->profile->setSettings([
+            'application'       => [
+                'di_cache_namespace'    => 'test'
+            ],
+        ]);
+
         $env->load($this->app);
 
         $env->createDI('core');
