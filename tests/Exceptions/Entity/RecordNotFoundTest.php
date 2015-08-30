@@ -11,24 +11,24 @@ use Wasp\Exceptions\Entity\RecordNotFound;
  */
 class RecordNotFoundTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * Test firing exception
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fire()
-	{
-		try {
+    /**
+     * Test firing exception
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fire()
+    {
+        try {
 
-			throw new RecordNotFound;
+            throw new RecordNotFound;
 
-		} catch (\Exception $e) {
-			// No need to assert anything here.
-			return;
-		}
+        } catch (\Exception $e) {
+            // No need to assert anything here.
+            return;
+        }
 
-		$this->fail('Exception not caught');
-	}
+        $this->fail('Exception not caught');
+    }
 
 } // END class RecordNotFoundTest extends \PHPUnit_Framework_TestCase

@@ -1,8 +1,8 @@
-<?php	namespace Wasp\Test\Entity\Entities;
+<?php   namespace Wasp\Test\Entity\Entities;
 
 use Wasp\Entity\Entity,
-	Symfony\Component\Validator\Constraints as Assert,
-	Doctrine\ORM\Mapping as ORM;
+    Symfony\Component\Validator\Constraints as Assert,
+    Doctrine\ORM\Mapping as ORM;
 
 /**
  * A test Contact entity
@@ -14,34 +14,34 @@ use Wasp\Entity\Entity,
  */
 class Contact extends Entity
 {
-	/**
-	 * Identifier
-	 *
-	 * @ORM\Id
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\GeneratedValue
-	 *
-	 * @var integer
-	 */
-	protected $id;
+    /**
+     * Identifier
+     *
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue
+     *
+     * @var integer
+     */
+    protected $id;
 
-	/**
-	 * Name
-	 *
-	 * @ORM\Column(name="name", type="string")
-	 * @Assert\NotBlank
-	 * @var String
-	 */
-	protected $name;
+    /**
+     * Name
+     *
+     * @ORM\Column(name="name", type="string")
+     * @Assert\NotBlank
+     * @var String
+     */
+    protected $name;
 
-	/**
-	 * Message
-	 *
-	 * @ORM\Column(name="message", type="string")
-	 * @Assert\NotBlank
-	 * @var String
-	 */
-	protected $message;
-	
+    /**
+     * Message
+     *
+     * @ORM\Column(name="message", type="string")
+     * @Assert\NotBlank
+     * @var String
+     */
+    protected $message;
+    
 } // END class Contact extends Entity
 

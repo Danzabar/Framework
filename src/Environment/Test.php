@@ -1,9 +1,11 @@
-<?php namespace Wasp\Environment;
+<?php
 
-use Wasp\Environment\Environment,
-	Wasp\Environment\EnvironmentInterface,
-	Wasp\DI\Pass\SessionFilePass,
-	Wasp\DI\Pass\MockeryPass;
+namespace Wasp\Environment;
+
+use Wasp\Environment\Environment;
+use Wasp\Environment\EnvironmentInterface;
+use Wasp\DI\Pass\SessionFilePass;
+use Wasp\DI\Pass\MockeryPass;
 
 /**
  * Environment Class for the Test environment.
@@ -12,23 +14,20 @@ use Wasp\Environment\Environment,
  * @subpackage Environment
  * @author Dan Cox
  */
-class Test extends Environment Implements EnvironmentInterface
+class Test extends Environment implements EnvironmentInterface
 {
+    /**
+     * Setup the environment properties
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function setup()
+    {
+        $this->DI->addCompilerPass(new MockeryPass);
+        $this->DI->addCompilerPass(new SessionFilePass);
 
-	/**
-	 * Setup the environment properties
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function setup()
-	{
-		$this->DI->addCompilerPass(new MockeryPass);
-		$this->DI->addCompilerPass(new SessionFilePass);
-
-		// No need to cache here.
-		$this->createDI();
-	}
-
-
+        // No need to cache here.
+        $this->createDI();
+    }
 } // END class Test extends Environment Implements EnvironmentInterface

@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\Forms;
+<?php
+
+namespace Wasp\Exceptions\Forms;
 
 /**
  * Exception class for an invalid csrf token
@@ -9,16 +11,15 @@
  */
 class InvalidCSRFToken extends \Exception
 {
-	/**
-	 * Fire exception
-	 *
-	 * @param Integer $code
-	 * @param Exception $previous
-	 * @author Dan Cox
-	 */
-	public function __construct($code = 0, \Exception $previous = NULL)
-	{
-		parent::__construct("The CSRF token provided is invalid.", $code, $previous);
-	}
-
+    /**
+     * Fire exception
+     *
+     * @param Integer $code
+     * @param Exception $previous
+     * @author Dan Cox
+     */
+    public function __construct($code = 0, \Exception $previous = null)
+    {
+        parent::__construct("The CSRF token provided is invalid.", $code, $previous);
+    }
 } // END class InvalidCSRFToken extends \Exception

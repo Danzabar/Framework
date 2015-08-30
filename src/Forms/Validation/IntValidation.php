@@ -1,4 +1,6 @@
-<?php namespace Wasp\Forms\Validation;
+<?php
+
+namespace Wasp\Forms\Validation;
 
 use Wasp\Forms\Validation\AbstractRule;
 
@@ -12,27 +14,25 @@ use Wasp\Forms\Validation\AbstractRule;
 class IntValidation extends AbstractRule
 {
 
-	/**
-	 * Message
-	 *
-	 * @var String
-	 */
-	protected $message = 'An integer was expected';
+    /**
+     * Message
+     *
+     * @var String
+     */
+    protected $message = 'An integer was expected';
 
-	/**
-	 * Validate value
-	 *
-	 * @return Boolean
-	 * @author Dan Cox
-	 */
-	public function validate()
-	{
-		if (!empty($this->value))
-		{
-			return filter_var($this->value, FILTER_VALIDATE_INT);
-		}
+    /**
+     * Validate value
+     *
+     * @return Boolean
+     * @author Dan Cox
+     */
+    public function validate()
+    {
+        if (!empty($this->value)) {
+            return filter_var($this->value, FILTER_VALIDATE_INT);
+        }
 
-		return true;
-	}
-
+        return true;
+    }
 } // END class IntValidation extends AbstractRule

@@ -1,9 +1,11 @@
-<?php namespace Wasp\DI\Pass;
+<?php
 
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
-	Symfony\Component\DependencyInjection\Definition,
-	Symfony\Component\DependencyInjection\ContainerBuilder,
-	Wasp\DI\ServiceMockeryLibrary;
+namespace Wasp\DI\Pass;
+
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Wasp\DI\ServiceMockeryLibrary;
 
 /**
  * Compiler Pass for Mockery Objects
@@ -15,79 +17,76 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
 class MockeryPass implements CompilerPassInterface
 {
 
-	/**
-	 * The container 
-	 *
-	 * @var Object
-	 */
-	protected $container;
+    /**
+     * The container
+     *
+     * @var Object
+     */
+    protected $container;
 
-	/**
-	 * Instance of the Library
-	 *
-	 * @var Object
-	 */
-	protected $library;
-	
-	/**
-	 * Process the Container
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function process(ContainerBuilder $container)
-	{
-		$this->container = $container;
-		
-		// Grab the service definitions from the library.
-		$definitions = $this->getLibraryDefinitions();
+    /**
+     * Instance of the Library
+     *
+     * @var Object
+     */
+    protected $library;
 
-		foreach ($definitions as $service => $mockery)
-		{
-			if ($this->container->hasDefinition($service))
-			{
-				// Get the current definition
-				$def = $this->transformDefinition($mockery);
+    /**
+     * Process the Container
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function process(ContainerBuilder $container)
+    {
+        $this->container = $container;
 
-				// Replace its current definition
-				$this->container->setDefinition($service, $def);
-			}			
-		}
-	}
+        // Grab the service definitions from the library.
+        $definitions = $this->getLibraryDefinitions();
 
-	/**
-	 * Transforms the Definition into one we can use for mocks
-	 *
-	 * @return Object
-	 * @author Dan Cox
-	 */
-	public function transformDefinition($mockery)
-	{
-		$definition	= new Definition;
+        foreach ($definitions as $service => $mockery) {
+            if ($this->container->hasDefinition($service)) {
+                // Get the current definition
+                $def = $this->transformDefinition($mockery);
 
-		// Set the class to the mockery decorator
-		$definition->setClass('Wasp\DI\ServiceMockeryDecorator');
-		
-		// Add the mockery name as a definition;
-		$definition->setArguments([$mockery]);
+                // Replace its current definition
+                $this->container->setDefinition($service, $def);
+            }
+        }
+    }
 
-		// Incase it is a prototype scoped class
-		$definition->setScope('container');
+    /**
+     * Transforms the Definition into one we can use for mocks
+     *
+     * @return Object
+     * @author Dan Cox
+     */
+    public function transformDefinition($mockery)
+    {
+        $definition = new Definition;
 
-		return $definition;
-	}
+        // Set the class to the mockery decorator
+        $definition->setClass('Wasp\DI\ServiceMockeryDecorator');
 
-	/**
-	 * Grabs the current library definitions
-	 *
-	 * @return Array
-	 * @author Dan Cox
-	 */
-	public function getLibraryDefinitions()
-	{
-		$this->library = new ServiceMockeryLibrary;
-		
-		return $this->library->all();	
-	}
+        // Add the mockery name as a definition;
+        $definition->setArguments([$mockery]);
 
+        // Incase it is a prototype scoped class
+        $definition->setScope('container');
+
+        return $definition;
+    }
+
+    /**
+     * Grabs the current library definitions
+     *
+     * @return Array
+     * @author Dan Cox
+     */
+    public function getLibraryDefinitions()
+    {
+        $this->library = new ServiceMockeryLibrary;
+
+        return $this->library->all();
+    }
 } // END class MockeryPass implements CompilerPassInterface

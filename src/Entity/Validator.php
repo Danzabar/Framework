@@ -1,4 +1,6 @@
-<?php namespace Wasp\Entity;
+<?php
+
+namespace Wasp\Entity;
 
 use Symfony\Component\Validator\Validation as SymValidator;
 
@@ -11,36 +13,35 @@ use Symfony\Component\Validator\Validation as SymValidator;
  */
 class Validator
 {
-	/**
-	 * Instance of the SymValidator
-	 *
-	 * @var \Symfony\Component\Validator\Validation
-	 */
-	protected $validator;
+    /**
+     * Instance of the SymValidator
+     *
+     * @var \Symfony\Component\Validator\Validation
+     */
+    protected $validator;
 
-	/**
-	 * Set up class dependencies
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function __construct()
-	{
-		$this->validator = SymValidator::createValidatorBuilder()
-							->enableAnnotationMapping()
-							->getValidator();
-	}
+    /**
+     * Set up class dependencies
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function __construct()
+    {
+        $this->validator = SymValidator::createValidatorBuilder()
+                            ->enableAnnotationMapping()
+                            ->getValidator();
+    }
 
-	/**
-	 * Validates the specified entity against its annotated rules
-	 *
-	 * @param \Wasp\Entity\Entity
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function validate($entity)
-	{
-		return $this->validator->validate($entity);
-	}
-
+    /**
+     * Validates the specified entity against its annotated rules
+     *
+     * @param \Wasp\Entity\Entity
+     * @return void
+     * @author Dan Cox
+     */
+    public function validate($entity)
+    {
+        return $this->validator->validate($entity);
+    }
 } // END class Validator

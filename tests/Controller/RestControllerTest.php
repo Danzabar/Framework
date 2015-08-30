@@ -1,7 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase,
-	Wasp\Test\Entity\Entities\Contact;
+    Wasp\Test\Entity\Entities\Contact;
 
 /**
  * Test case for the rest controller
@@ -13,264 +13,264 @@ use Wasp\Test\TestCase,
 class RestControllerTest extends TestCase
 {
 
-	/**
-	 * An Array of Passes this test uses
-	 *
-	 * @var Array
-	 */
-	protected $passes = [
-		'Wasp\DI\Pass\DatabaseMockeryPass'
-	];
+    /**
+     * An Array of Passes this test uses
+     *
+     * @var Array
+     */
+    protected $passes = [
+        'Wasp\DI\Pass\DatabaseMockeryPass'
+    ];
 
-	/**
-	 * Instance of the contact entity
-	 *
-	 * @var \Wasp\Test\Entity\Entities\Contact
-	 */
-	protected $contact;
+    /**
+     * Instance of the contact entity
+     *
+     * @var \Wasp\Test\Entity\Entities\Contact
+     */
+    protected $contact;
 
-	/**
-	 * Set up test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function setUp()
-	{
-		parent::setUp();
+    /**
+     * Set up test env
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function setUp()
+    {
+        parent::setUp();
 
-		// Set up the test DB
-		$this->DI->get('database')->create(ENTITIES);
+        // Set up the test DB
+        $this->DI->get('database')->create(ENTITIES);
 
-		// Add a resource route
-		$this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Contact');
+        // Add a resource route
+        $this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Contact');
 
-		$this->contact = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
-	}
+        $this->contact = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+    }
 
-	/**
-	 * Test the show route
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_showRoute()
-	{
-		// Create the entry first
-		$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
-		$ent->name = 'Test';
-		$ent->message = 'Test message';
-		$ent->save();
+    /**
+     * Test the show route
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_showRoute()
+    {
+        // Create the entry first
+        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $ent->name = 'Test';
+        $ent->message = 'Test message';
+        $ent->save();
 
-		$response = $this->fakeRequest('/test/1', 'GET');
+        $response = $this->fakeRequest('/test/1', 'GET');
 
-		$obj = json_decode($response->getContent());
+        $obj = json_decode($response->getContent());
 
-		$this->assertEquals('Test', $obj->name);
-	}
+        $this->assertEquals('Test', $obj->name);
+    }
 
-	/**
-	 * Test the show route with an invalid identifier
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_showRouteInvalidIdentifier()
-	{
-		$response = $this->fakeRequest('/test/1', 'GET');
+    /**
+     * Test the show route with an invalid identifier
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_showRouteInvalidIdentifier()
+    {
+        $response = $this->fakeRequest('/test/1', 'GET');
 
-		$obj = json_decode($response->getContent());
-		$this->assertEquals('Invalid identifier', $obj->status);
-		$this->assertEquals(404, $response->getStatusCode());
-	}
+        $obj = json_decode($response->getContent());
+        $this->assertEquals('Invalid identifier', $obj->status);
+        $this->assertEquals(404, $response->getStatusCode());
+    }
 
-	/**
-	 * Test a successful create route
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_createRoute()
-	{
-		$data = ['name' => 'CreateTest1', 'message' => 'This was created in test_createRoute'];
+    /**
+     * Test a successful create route
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_createRoute()
+    {
+        $data = ['name' => 'CreateTest1', 'message' => 'This was created in test_createRoute'];
 
-		$response = $this->fakeRequest('/test/new', 'POST', $data);
+        $response = $this->fakeRequest('/test/new', 'POST', $data);
 
-		// Check the response
-		$obj = json_decode($response->getContent());
+        // Check the response
+        $obj = json_decode($response->getContent());
 
-		$ent = $this->contact->find($obj->data->id);
+        $ent = $this->contact->find($obj->data->id);
 
-		$this->assertEquals('success', $obj->status);
-		$this->assertEquals('CreateTest1', $obj->data->name);
+        $this->assertEquals('success', $obj->status);
+        $this->assertEquals('CreateTest1', $obj->data->name);
 
-		$this->assertEquals($ent->name, $obj->data->name);
-	}
+        $this->assertEquals($ent->name, $obj->data->name);
+    }
 
-	/**
-	 * Test create route returning a validation error
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_createRouteValidationError()
-	{
-		$data = ['name' => 'CreateTest2', 'message' => ''];
+    /**
+     * Test create route returning a validation error
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_createRouteValidationError()
+    {
+        $data = ['name' => 'CreateTest2', 'message' => ''];
 
-		$response = $this->fakeRequest('/test/new', 'POST', $data);
+        $response = $this->fakeRequest('/test/new', 'POST', $data);
 
-		$obj = json_decode($response->getContent());
+        $obj = json_decode($response->getContent());
 
-		$this->assertEquals('message', $obj->errors[0]->property);
-		$this->assertEquals('', $obj->errors[0]->value);
-	}
+        $this->assertEquals('message', $obj->errors[0]->property);
+        $this->assertEquals('', $obj->errors[0]->value);
+    }
 
-	/**
-	 * Test a successful update route
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_updateRoute()
-	{
-		$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
-		$ent->name = 'UpdateTest1';
-		$ent->message = 'MyMessage';
-		$ent->save();
+    /**
+     * Test a successful update route
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_updateRoute()
+    {
+        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $ent->name = 'UpdateTest1';
+        $ent->message = 'MyMessage';
+        $ent->save();
 
-		$data = ['message' => 'The New message'];
-		$response = $this->fakeRequest('/test/update/1', 'PATCH', $data);
+        $data = ['message' => 'The New message'];
+        $response = $this->fakeRequest('/test/update/1', 'PATCH', $data);
 
-		$obj = json_decode($response->getContent());
+        $obj = json_decode($response->getContent());
 
-		$record = $this->contact->find($obj->data->id);
+        $record = $this->contact->find($obj->data->id);
 
-		$this->assertEquals('success', $obj->status);
-		$this->assertEquals('UpdateTest1', $obj->data->name);
-		$this->assertEquals('The New message', $obj->data->message);
-		$this->assertEquals($record->message, $obj->data->message);
-	}
+        $this->assertEquals('success', $obj->status);
+        $this->assertEquals('UpdateTest1', $obj->data->name);
+        $this->assertEquals('The New message', $obj->data->message);
+        $this->assertEquals($record->message, $obj->data->message);
+    }
 
-	/**
-	 * Test update route with an invalid identifier
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_updateRouteInvalid()
-	{
-		$response = $this->fakeRequest('/test/update/1', 'PATCH');
+    /**
+     * Test update route with an invalid identifier
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_updateRouteInvalid()
+    {
+        $response = $this->fakeRequest('/test/update/1', 'PATCH');
 
-		$obj = json_decode($response->getContent());
+        $obj = json_decode($response->getContent());
 
-		$this->assertEquals(404, $response->getStatusCode());
-		$this->assertEquals('Invalid identifier', $obj->status);
-	}
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals('Invalid identifier', $obj->status);
+    }
 
-	/**
-	 * Test validation error on update route
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_updateRouteValidation()
-	{
-		$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
-		$ent->name = 'UpdateTest2';
-		$ent->message = 'Validation error';
-		$ent->save();
+    /**
+     * Test validation error on update route
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_updateRouteValidation()
+    {
+        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $ent->name = 'UpdateTest2';
+        $ent->message = 'Validation error';
+        $ent->save();
 
-		$response = $this->fakeRequest('/test/update/1', 'PATCH', ['message' => '']);
+        $response = $this->fakeRequest('/test/update/1', 'PATCH', ['message' => '']);
 
-		$obj = json_decode($response->getContent());
+        $obj = json_decode($response->getContent());
 
-		$this->assertEquals('message', $obj->errors[0]->property);
-	}
+        $this->assertEquals('message', $obj->errors[0]->property);
+    }
 
-	/**
-	 * Test a successful delete route
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_deleteRoute()
-	{
-		$ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
-		$ent->name = 'Delete1Test';
-		$ent->message = 'Test';
-		$ent->save();
+    /**
+     * Test a successful delete route
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_deleteRoute()
+    {
+        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $ent->name = 'Delete1Test';
+        $ent->message = 'Test';
+        $ent->save();
 
-		$response = $this->fakeRequest('/test/delete/1', 'DELETE');
+        $response = $this->fakeRequest('/test/delete/1', 'DELETE');
 
-		$obj = json_decode($response->getContent());
+        $obj = json_decode($response->getContent());
 
-		$records = $this->contact->get();
+        $records = $this->contact->get();
 
-		$this->assertEquals(200, $response->getStatusCode());
-		$this->assertEquals('success', $obj->status);
-		$this->assertEquals(0, count($records));
-	}
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('success', $obj->status);
+        $this->assertEquals(0, count($records));
+    }
 
-	/**
-	 * Test a delete route where the identifier is invalid
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_deleteRouteInvalid()
-	{
-		$response = $this->fakeRequest('/test/delete/1', 'DELETE');
+    /**
+     * Test a delete route where the identifier is invalid
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_deleteRouteInvalid()
+    {
+        $response = $this->fakeRequest('/test/delete/1', 'DELETE');
 
-		$obj = json_decode($response->getContent());
+        $obj = json_decode($response->getContent());
 
-		$this->assertEquals(404, $response->getStatusCode());
-		$this->assertEquals('Invalid identifier', $obj->status);
-	}
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals('Invalid identifier', $obj->status);
+    }
 
-	/**
-	 * Test the All route
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_allRoute()
-	{
-		for ($i = 0; $i < 10; $i++)
-		{
-			$c = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
-			$c->name = $i;
-			$c->message = $i;
-			$c->save();
-		}
+    /**
+     * Test the All route
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_allRoute()
+    {
+        for ($i = 0; $i < 10; $i++)
+        {
+            $c = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+            $c->name = $i;
+            $c->message = $i;
+            $c->save();
+        }
 
-		$response = $this->fakeRequest('/test', 'GET', ['pageSize' => 5]);
-		$obj = json_decode($response->getContent());
+        $response = $this->fakeRequest('/test', 'GET', ['pageSize' => 5]);
+        $obj = json_decode($response->getContent());
 
-		$this->assertEquals(5, count($obj));
-	}
+        $this->assertEquals(5, count($obj));
+    }
 
-	/**
-	 * Test adding where clauses to the request
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_allWithFilter()
-	{
-		for ($i = 0; $i < 3; $i++)
-		{
-			$c = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
-			$c->name = $i;
-			$c->message = $i;
-			$c->save();
-		}
+    /**
+     * Test adding where clauses to the request
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_allWithFilter()
+    {
+        for ($i = 0; $i < 3; $i++)
+        {
+            $c = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+            $c->name = $i;
+            $c->message = $i;
+            $c->save();
+        }
 
-		$response = $this->fakeRequest('/test', 'GET', ['pageSize' => 5, 'name' => 2]);
-		$obj = json_decode($response->getContent());
+        $response = $this->fakeRequest('/test', 'GET', ['pageSize' => 5, 'name' => 2]);
+        $obj = json_decode($response->getContent());
 
-		$this->assertEquals(1, count($obj));
-		//$this->assertEquals(2, $obj[0]->name);
-	}
+        $this->assertEquals(1, count($obj));
+        //$this->assertEquals(2, $obj[0]->name);
+    }
 
 
 } // END class RestControllerTest extends TestCase

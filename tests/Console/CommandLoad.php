@@ -1,5 +1,5 @@
 <?php
 
 return Array(
-	'Wasp\Commands\Database\DatabaseSchema'
+    'Wasp\Commands\Database\DatabaseSchema'
 );

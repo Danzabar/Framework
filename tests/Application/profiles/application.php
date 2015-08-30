@@ -1,6 +1,6 @@
 <?php
 
 return Array(
-	'foo'		=> 'bar',
-	'test'		=> 'case'
+    'foo'       => 'bar',
+    'test'      => 'case'
 );

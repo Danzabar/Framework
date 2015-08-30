@@ -5,7 +5,7 @@ use Wasp\DI\StaticContainerAwareTrait;
 
 class StaticDITestClass
 {
-	use StaticContainerAwareTrait;
+    use StaticContainerAwareTrait;
 
-	
+    
 } // END class StaticDITestClass

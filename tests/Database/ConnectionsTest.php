@@ -12,188 +12,188 @@ use Wasp\Test\TestCase;
 class ConnectionsTest extends TestCase
 {
 
-	/**
-	 * Test adding connections
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_addConnections()
-	{
-		$this->DI->get('connections')->add('test', [
-			'driver'		=> 'mysqli',
-			'user'			=> 'user',
-			'debug'			=> false
-		]);
+    /**
+     * Test adding connections
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_addConnections()
+    {
+        $this->DI->get('connections')->add('test', [
+            'driver'        => 'mysqli',
+            'user'          => 'user',
+            'debug'         => false
+        ]);
 
-		$connection = $this->DI->get('connections')->find('test');
-		$this->assertEquals('mysqli', $connection->details['driver']);
-		$this->assertEquals('user', $connection->details['user']);
-		$this->assertFalse($connection->debug);
-		$this->assertEquals(Array(), $connection->models);
-	}
+        $connection = $this->DI->get('connections')->find('test');
+        $this->assertEquals('mysqli', $connection->details['driver']);
+        $this->assertEquals('user', $connection->details['user']);
+        $this->assertFalse($connection->debug);
+        $this->assertEquals(Array(), $connection->models);
+    }
 
-	/**
-	 * Test failing to get a connection back
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_connectionFail()
-	{
-		$this->setExpectedException("Wasp\Exceptions\Database\InvalidConnection");
+    /**
+     * Test failing to get a connection back
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_connectionFail()
+    {
+        $this->setExpectedException("Wasp\Exceptions\Database\InvalidConnection");
 
-		$this->DI->get('connections')->find('fake');
-	}
+        $this->DI->get('connections')->find('fake');
+    }
 
-	/**
-	 * Test adding a connection that has an array of models
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_addConnectionWithModelArray()
-	{
-		$this->DI->get('connections')->add('testModelsArray', [
-			'models'		=> ["test/", "test-dir/"]
-		]);
+    /**
+     * Test adding a connection that has an array of models
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_addConnectionWithModelArray()
+    {
+        $this->DI->get('connections')->add('testModelsArray', [
+            'models'        => ["test/", "test-dir/"]
+        ]);
 
-		$connection = $this->DI->get('connections')->find('testModelsArray');
-		$this->assertEquals(["test/", "test-dir/"], $connection->models);
-	}
+        $connection = $this->DI->get('connections')->find('testModelsArray');
+        $this->assertEquals(["test/", "test-dir/"], $connection->models);
+    }
 
-	/**
-	 * Test adding a connection that has a single model
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_addConnectionWithSingleModel()
-	{
-		$this->DI->get('connections')->add('testModelSingle', [
-			'models'		=> 'test'
-		]);
+    /**
+     * Test adding a connection that has a single model
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_addConnectionWithSingleModel()
+    {
+        $this->DI->get('connections')->add('testModelSingle', [
+            'models'        => 'test'
+        ]);
 
-		$connection = $this->DI->get('connections')->find('testModelSingle');
-		$this->assertEquals(["test"], $connection->models);
-	}
+        $connection = $this->DI->get('connections')->find('testModelSingle');
+        $this->assertEquals(["test"], $connection->models);
+    }
 
-	/**
-	 * Test a failing validation due to an unknown type
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_connectionValidationFail()
-	{
-		$this->setExpectedException("Wasp\Exceptions\Database\InvalidConnectionType");
+    /**
+     * Test a failing validation due to an unknown type
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_connectionValidationFail()
+    {
+        $this->setExpectedException("Wasp\Exceptions\Database\InvalidConnectionType");
 
-		$this->DI->get('connections')
-				 ->add('test', Array(), 'Fake');
-	}
+        $this->DI->get('connections')
+                 ->add('test', Array(), 'Fake');
+    }
 
-	/**
-	 * Test a connection fail through an unknown type
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_connectionConnectFail()
-	{
-		$this->setExpectedException('Wasp\Exceptions\Database\InvalidMetaDataType');
+    /**
+     * Test a connection fail through an unknown type
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_connectionConnectFail()
+    {
+        $this->setExpectedException('Wasp\Exceptions\Database\InvalidMetaDataType');
 
-		$this->DI->get('connections')
-				 ->add('test', Array(), 'Array');
+        $this->DI->get('connections')
+                 ->add('test', Array(), 'Array');
 
-		$connection = $this->DI->get('connection');
-	   	$connection->connect('test', 'Fake');	
-	}
+        $connection = $this->DI->get('connection');
+        $connection->connect('test', 'Fake');   
+    }
 
-	/**
-	 * Test a full working connection
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fullConnectionAnnotationMetaData()
-	{
-		$this->DI->get('connections')
-				 ->add('wasp', Array(
-					 'driver'		=> 'pdo_mysql',
-					 'user'			=> 'user',
-					 'models'		=> '',
-					 'dbname'		=> 'wasp'
-				 ));
+    /**
+     * Test a full working connection
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fullConnectionAnnotationMetaData()
+    {
+        $this->DI->get('connections')
+                 ->add('wasp', Array(
+                     'driver'       => 'pdo_mysql',
+                     'user'         => 'user',
+                     'models'       => '',
+                     'dbname'       => 'wasp'
+                 ));
 
-		$connection = $this->DI->get('connection');
-		$connection->connect('wasp');
+        $connection = $this->DI->get('connection');
+        $connection->connect('wasp');
 
-		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
-	}
+        $this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
+    }
 
-	/**
-	 * Test a full working YML metadata connection
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fullConnectionYAMLMetaData()
-	{
-		$this->DI->get('connections')
-				 ->add('wasp', Array(
-				 	'driver'		=> 'pdo_mysql',
-					'user'			=> 'user',
-					'models'		=> '',
-					'database'		=> 'wasp'
-				 ));
+    /**
+     * Test a full working YML metadata connection
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fullConnectionYAMLMetaData()
+    {
+        $this->DI->get('connections')
+                 ->add('wasp', Array(
+                    'driver'        => 'pdo_mysql',
+                    'user'          => 'user',
+                    'models'        => '',
+                    'database'      => 'wasp'
+                 ));
 
-		$connection = $this->DI->get('connection');
-		$connection->connect('wasp', 'YAML');
+        $connection = $this->DI->get('connection');
+        $connection->connect('wasp', 'YAML');
 
-		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
-	}
+        $this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
+    }
 
-	/**
-	 * Test a full working XML connection
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fullConnectionXMLMetaData()
-	{
-		$this->DI->get('connections')
-				 ->add('wasp', Array(
-				 	'driver'		=> 'pdo_mysql',
-					'user'			=> 'user',
-					'models'		=> '',
-					'database'		=> 'wasp'
-				 ));
+    /**
+     * Test a full working XML connection
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fullConnectionXMLMetaData()
+    {
+        $this->DI->get('connections')
+                 ->add('wasp', Array(
+                    'driver'        => 'pdo_mysql',
+                    'user'          => 'user',
+                    'models'        => '',
+                    'database'      => 'wasp'
+                 ));
 
-		$connection = $this->DI->get('connection');
-		$connection->connect('wasp', 'XML');
+        $connection = $this->DI->get('connection');
+        $connection->connect('wasp', 'XML');
 
-		$this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
-	}
+        $this->assertInstanceOf('Doctrine\ORM\EntityManager', $connection->connection());
+    }
 
-	/**
-	 * Test that the connection validator handles default model directories
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_connectionValidatorHandlesDefaultDirectories()
-	{
-		$validator = $this->DI->get('connection.validator');
+    /**
+     * Test that the connection validator handles default model directories
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_connectionValidatorHandlesDefaultDirectories()
+    {
+        $validator = $this->DI->get('connection.validator');
 
-		$conn = $validator->load([
-				'driver'	=> 'pdo_mysql',
-				'user'		=> 'user',
-				'models'	=> '',
-				'database'	=> 'wasp'
-			], 'Array', ['test/directory']);
+        $conn = $validator->load([
+                'driver'    => 'pdo_mysql',
+                'user'      => 'user',
+                'models'    => '',
+                'database'  => 'wasp'
+            ], 'Array', ['test/directory']);
 
-		$this->assertContains('test/directory', $conn->models);
-	}
+        $this->assertContains('test/directory', $conn->models);
+    }
 
 } // END class ConnectionsTest extends TestCase
 

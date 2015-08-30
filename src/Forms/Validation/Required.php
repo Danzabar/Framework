@@ -1,4 +1,6 @@
-<?php namespace Wasp\Forms\Validation;
+<?php
+
+namespace Wasp\Forms\Validation;
 
 use Wasp\Forms\Validation\AbstractRule;
 
@@ -12,27 +14,25 @@ use Wasp\Forms\Validation\AbstractRule;
 class Required extends AbstractRule
 {
 
-	/**
-	 * Message
-	 *
-	 * @var String
-	 */
-	protected $message = 'This field is required';
+    /**
+     * Message
+     *
+     * @var String
+     */
+    protected $message = 'This field is required';
 
-	/**
-	 * Validates the value
-	 *
-	 * @return Boolean
-	 * @author Dan Cox
-	 */
-	public function validate()
-	{
-		if (!empty($this->value) && !is_null($this->value) && $this->value != '')
-		{
-			return true;
-		}
+    /**
+     * Validates the value
+     *
+     * @return Boolean
+     * @author Dan Cox
+     */
+    public function validate()
+    {
+        if (!empty($this->value) && !is_null($this->value) && $this->value != '') {
+            return true;
+        }
 
-		return false;
-	}
-
+        return false;
+    }
 } // END class Required extends AbstractRule

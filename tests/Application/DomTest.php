@@ -11,42 +11,42 @@ use Wasp\Test\TestCase;
  */
 class DomTest extends TestCase
 {
-	
-	/**
-	 * Set up test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function setUp()
-	{
-		parent::setUp();
+    
+    /**
+     * Set up test env
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function setUp()
+    {
+        parent::setUp();
 
-		$this->DI->get('route')->add('dom.test', '/dom/test', Array('GET'), Array('_controller' => 'Wasp\Test\Controller\Controller::returnHtml'));	
-	}
+        $this->DI->get('route')->add('dom.test', '/dom/test', Array('GET'), Array('_controller' => 'Wasp\Test\Controller\Controller::returnHtml')); 
+    }
 
-	/**
-	 * Test assertions against the html
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_assertionOnHtml()
-	{
-		// Make a request
-		$this->DI->get('request')->make('/dom/test', 'GET');
+    /**
+     * Test assertions against the html
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_assertionOnHtml()
+    {
+        // Make a request
+        $this->DI->get('request')->make('/dom/test', 'GET');
 
-		// Respond
-		$this->respond();
+        // Respond
+        $this->respond();
 
-		// Make assertions
-		$node = $this->crawler
-					 ->filter('p')
-					 ->reduce(function($node, $i) {
-					 	return $node->text() == 'foo';
-					 });
+        // Make assertions
+        $node = $this->crawler
+                     ->filter('p')
+                     ->reduce(function($node, $i) {
+                        return $node->text() == 'foo';
+                     });
 
-		$this->assertEquals(1, count($node));
-	}
+        $this->assertEquals(1, count($node));
+    }
 
 } // END class DomTests extends TestCase

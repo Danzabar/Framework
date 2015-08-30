@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI;
+<?php
+
+namespace Wasp\DI;
 
 /**
  * A storage for the ServiceMockery classes
@@ -10,82 +12,79 @@
 class ServiceMockeryLibrary
 {
 
-	/**
-	 * An Array of Services
-	 *
-	 * @var Array
-	 */
-	protected static $services = Array();
+    /**
+     * An Array of Services
+     *
+     * @var Array
+     */
+    protected static $services = array();
 
-	/**
-	 * Adds an item to the library
-	 *
-	 * @param String $name -  The name of the service
-	 * @return ServiceMockeryLibrary
-	 * @author Dan Cox
-	 */
-	public function add($name)
-	{
-		static::$services[$name] = $name;	
-		return $this;
-	}
+    /**
+     * Adds an item to the library
+     *
+     * @param String $name -  The name of the service
+     * @return ServiceMockeryLibrary
+     * @author Dan Cox
+     */
+    public function add($name)
+    {
+        static::$services[$name] = $name;
+        return $this;
+    }
 
-	/**
-	 * Finds a service by Name
-	 *
-	 * @param String $name - The name of the service
-	 * @return String|NULL
-	 * @author Dan Cox
-	 */
-	public function find($name)
-	{
-		if (array_key_exists($name, static::$services)) 
-		{
-			return static::$services[$name];
-		}
+    /**
+     * Finds a service by Name
+     *
+     * @param String $name - The name of the service
+     * @return String|NULL
+     * @author Dan Cox
+     */
+    public function find($name)
+    {
+        if (array_key_exists($name, static::$services)) {
+            return static::$services[$name];
+        }
 
-		return NULL;
-	}
+        return null;
+    }
 
-	/**
-	 * Remove a service by Name
-	 *
-	 * @param String $name - The name of the service
-	 * @return ServiceMockeryLibrary
-	 * @author Dan Cox
-	 */
-	public function remove($name)
-	{
-		if (array_key_exists($name, static::$services))
-		{
-			unset(static::$services[$name]);	
-		}
+    /**
+     * Remove a service by Name
+     *
+     * @param String $name - The name of the service
+     * @return ServiceMockeryLibrary
+     * @author Dan Cox
+     */
+    public function remove($name)
+    {
+        if (array_key_exists($name, static::$services)) {
+            unset(static::$services[$name]);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Returns All definitions
-	 *
-	 * @return Array
-	 * @author Dan Cox
-	 */
-	public function all()
-	{
-		return static::$services;
-	}
+    /**
+     * Returns All definitions
+     *
+     * @return Array
+     * @author Dan Cox
+     */
+    public function all()
+    {
+        return static::$services;
+    }
 
-	/**
-	 * Removes all definitions
-	 *
-	 * @return ServiceMockeryLibrary
-	 * @author Dan Cox
-	 */
-	public function clear()
-	{
-		static::$services = Array();
+    /**
+     * Removes all definitions
+     *
+     * @return ServiceMockeryLibrary
+     * @author Dan Cox
+     */
+    public function clear()
+    {
+        static::$services = array();
 
-		return $this;
-	}
-
+        return $this;
+    }
 } // END class ServiceMockeryLibrary

@@ -1,8 +1,8 @@
 <?php
 
 use Wasp\Test\TestCase,
-	Wasp\DI\ServiceMockery,
-	Symfony\Component\Console\Tester\CommandTester;
+    Wasp\DI\ServiceMockery,
+    Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * Test case for the database fixture command
@@ -14,96 +14,96 @@ use Wasp\Test\TestCase,
 class DatabaseFixtureTest extends TestCase
 {
 
-	/**
-	 * Commands used by this test
-	 *
-	 * @var Array
-	 */
-	protected $commands = [
-		'Wasp\Commands\Database\DatabaseFixtures'
-	];
+    /**
+     * Commands used by this test
+     *
+     * @var Array
+     */
+    protected $commands = [
+        'Wasp\Commands\Database\DatabaseFixtures'
+    ];
 
-	/**
-	 * Set up test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function setUp()
-	{
-		$mock = new ServiceMockery('fixtures');
-		$mock->add();
+    /**
+     * Set up test env
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function setUp()
+    {
+        $mock = new ServiceMockery('fixtures');
+        $mock->add();
 
-		parent::setUp();
-	}
+        parent::setUp();
+    }
 
-	/**
-	 * Test importing fixtures
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_importingFixtures()
-	{
-		$fixtures = $this->DI->get('fixtures');
-		$command = $this->DI->get('console')->find('database:fixtures');
+    /**
+     * Test importing fixtures
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_importingFixtures()
+    {
+        $fixtures = $this->DI->get('fixtures');
+        $command = $this->DI->get('console')->find('database:fixtures');
 
-		$fixtures->shouldReceive('load')->once();
-		$fixtures->shouldReceive('import')->once();
+        $fixtures->shouldReceive('load')->once();
+        $fixtures->shouldReceive('import')->once();
 
-		$CT = new CommandTester($command);
-		$CT->execute([
-			'command'		=> $command->getName()
-		]);
+        $CT = new CommandTester($command);
+        $CT->execute([
+            'command'       => $command->getName()
+        ]);
 
-		$this->assertContains('imported', $CT->getDisplay());
-	}
+        $this->assertContains('imported', $CT->getDisplay());
+    }
 
-	/**
-	 * Test running the purge method
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_purgeFixtures()
-	{
-		$fixtures = $this->DI->get('fixtures');
-		$command = $this->DI->get('console')->find('database:fixtures');
+    /**
+     * Test running the purge method
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_purgeFixtures()
+    {
+        $fixtures = $this->DI->get('fixtures');
+        $command = $this->DI->get('console')->find('database:fixtures');
 
-		$fixtures->shouldReceive('load')->once();
-		$fixtures->shouldReceive('purge')->once();
+        $fixtures->shouldReceive('load')->once();
+        $fixtures->shouldReceive('purge')->once();
 
-		$CT = new CommandTester($command);
-		$CT->execute([
-			'command'		=> $command->getName(),
-			'--purge'		=> true
-		]);
+        $CT = new CommandTester($command);
+        $CT->execute([
+            'command'       => $command->getName(),
+            '--purge'       => true
+        ]);
 
-		$this->assertContains('purged', $CT->getDisplay());
-	}
+        $this->assertContains('purged', $CT->getDisplay());
+    }
 
-	/**
-	 * Test setting a new directory before importing
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_setNewDirectory()
-	{
-		$fixtures = $this->DI->get('fixtures');
-		$command = $this->DI->get('console')->find('database:fixtures');
+    /**
+     * Test setting a new directory before importing
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_setNewDirectory()
+    {
+        $fixtures = $this->DI->get('fixtures');
+        $command = $this->DI->get('console')->find('database:fixtures');
 
-		$fixtures->shouldReceive('setDirectory')->with('test')->once();
-		$fixtures->shouldReceive('load')->once();
-		$fixtures->shouldReceive('import')->once();
+        $fixtures->shouldReceive('setDirectory')->with('test')->once();
+        $fixtures->shouldReceive('load')->once();
+        $fixtures->shouldReceive('import')->once();
 
-		$CT = new CommandTester($command);
-		$CT->execute([
-			'command'		=> $command->getName(),
-			'directory'		=> 'test'
-		]);
+        $CT = new CommandTester($command);
+        $CT->execute([
+            'command'       => $command->getName(),
+            'directory'     => 'test'
+        ]);
 
-		$this->assertContains('imported', $CT->getDisplay());
-	}
+        $this->assertContains('imported', $CT->getDisplay());
+    }
 
 } // END class DatabaseFixtureTest extends TestCase

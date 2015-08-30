@@ -1,4 +1,6 @@
-<?php namespace Wasp\Filter;
+<?php
+
+namespace Wasp\Filter;
 
 /**
  * Filter interface
@@ -7,16 +9,15 @@
  * @subpackage Filter
  * @author Dan Cox
  */
-Interface FilterInterface
+interface FilterInterface
 {
 
-	/**
-	 * Run the filter
-	 *
-	 * @param Object $event
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function filter($event);
-
+    /**
+     * Run the filter
+     *
+     * @param Object $event
+     * @return void
+     * @author Dan Cox
+     */
+    public function filter($event);
 }

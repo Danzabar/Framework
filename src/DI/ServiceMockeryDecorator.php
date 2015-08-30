@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI;
+<?php
+
+namespace Wasp\DI;
 
 /**
  * Decorator class for Service Mockeries
@@ -9,63 +11,62 @@
  */
 class ServiceMockeryDecorator
 {
-	/**
-	 * The Mockery
-	 *
-	 * @var Object
-	 */
-	protected $mockery;
+    /**
+     * The Mockery
+     *
+     * @var Object
+     */
+    protected $mockery;
 
-	/**
-	 * Creates the Mockery based on the service name
-	 *
-	 * @param string $service
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function __construct($service)
-	{
-		$service = str_replace('.', '_', $service);
+    /**
+     * Creates the Mockery based on the service name
+     *
+     * @param string $service
+     * @return void
+     * @author Dan Cox
+     */
+    public function __construct($service)
+    {
+        $service = str_replace('.', '_', $service);
 
-		$this->mockery = \Mockery::mock($service);
+        $this->mockery = \Mockery::mock($service);
 
-		// Add a call for the DI
-		$this->mockery->shouldReceive('getDI')->andReturn($this->mockery);
-		$this->mockery->shouldReceive('setDI')->andReturn($this->mockery);
-	}
+        // Add a call for the DI
+        $this->mockery->shouldReceive('getDI')->andReturn($this->mockery);
+        $this->mockery->shouldReceive('setDI')->andReturn($this->mockery);
+    }
 
-	/**
-	 * Proxy for calling
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function __call($method, $args = Array())
-	{
-		return call_user_func_array([$this->mockery, $method], $args);
-	}
+    /**
+     * Proxy for calling
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function __call($method, $args = array())
+    {
+        return call_user_func_array([$this->mockery, $method], $args);
+    }
 
-	/**
-	 * Proxy for properties
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function __get($key)
-	{
-		return $this->mockery->$key;
-	}
+    /**
+     * Proxy for properties
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function __get($key)
+    {
+        return $this->mockery->$key;
+    }
 
-	/**
-	 * Proxy for settings
-	 *
-	 * @return ServiceMockeryDecorator
-	 * @author Dan Cox
-	 */
-	public function __set($key, $value)
-	{
-		$this->mockery->$key = $value;
-		return $this;
-	}
-
+    /**
+     * Proxy for settings
+     *
+     * @return ServiceMockeryDecorator
+     * @author Dan Cox
+     */
+    public function __set($key, $value)
+    {
+        $this->mockery->$key = $value;
+        return $this;
+    }
 } // END class ServiceMockeryDecorator

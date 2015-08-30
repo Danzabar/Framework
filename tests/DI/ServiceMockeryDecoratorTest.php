@@ -12,21 +12,21 @@ use Wasp\DI\ServiceMockeryDecorator;
 class ServiceMockeryDecoratorTest extends \PHPUnit_Framework_TestCase
 {
 
-	/**
-	 * Just a basic test
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_basic()
-	{
-		$mock = new ServiceMockeryDecorator('database');
+    /**
+     * Just a basic test
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_basic()
+    {
+        $mock = new ServiceMockeryDecorator('database');
 
-		$mock->foo = 'bar';
-		$mock->shouldReceive('test')->andReturn('testing');
+        $mock->foo = 'bar';
+        $mock->shouldReceive('test')->andReturn('testing');
 
-		$this->assertEquals('bar', $mock->foo);
-		$this->assertEquals('testing', $mock->test());
-	}
-	
+        $this->assertEquals('bar', $mock->foo);
+        $this->assertEquals('testing', $mock->test());
+    }
+    
 } // END class ServiceMockeryDecoratorTest extends \PHPUnit_Framework_TestCase
