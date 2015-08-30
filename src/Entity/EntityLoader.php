@@ -11,23 +11,23 @@ use Wasp\DI\DependencyInjectionAwareTrait;
  */
 class EntityLoader
 {
-	use DependencyInjectionAwareTrait;
+    use DependencyInjectionAwareTrait;
 
-	/**
-	 * Returns an instatiated entity class from its name
-	 *
-	 * @param String $entity
-	 * @return Wasp\Entity\Entity
-	 * @author Dan Cox
-	 */
-	public function load($entity)
-	{
-		$reflection = new \ReflectionClass($entity);
+    /**
+     * Returns an instatiated entity class from its name
+     *
+     * @param String $entity
+     * @return Wasp\Entity\Entity
+     * @author Dan Cox
+     */
+    public function load($entity)
+    {
+        $reflection = new \ReflectionClass($entity);
 
-		$instance = $reflection->newInstance();
-		$instance->setDI($this->DI);
+        $instance = $reflection->newInstance();
+        $instance->setDI($this->DI);
 
-		return $instance;
-	}
+        return $instance;
+    }
 
 } // END class EntityLoader

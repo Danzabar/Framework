@@ -1,7 +1,7 @@
 <?php namespace Wasp\Test\Filter\Filters;
 
 use Wasp\Filter\FilterInterface,
-	Wasp\DI\DependencyInjectionAwareTrait;
+    Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
  * Test filter
@@ -12,23 +12,23 @@ use Wasp\Filter\FilterInterface,
  */
 class Test implements FilterInterface
 {
-	use DependencyInjectionAwareTrait;
+    use DependencyInjectionAwareTrait;
 
-	/**
-	 * Filter
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function filter($event)
-	{
-		$response = $this->DI->get('response')->redirect('/test');
+    /**
+     * Filter
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function filter($event)
+    {
+        $response = $this->DI->get('response')->redirect('/test');
 
-		$event->setResponse($response);
-		$event->stopPropagation();
+        $event->setResponse($response);
+        $event->stopPropagation();
 
-		return $event;
-	}
+        return $event;
+    }
 
 } // END class Test implements FilterInterface
 

@@ -1,7 +1,7 @@
 <?php namespace Wasp\Forms\FieldOutput;
 
 use Wasp\Forms\FieldOutput\AbstractFieldOutput,
-	Wasp\Utils\Str;
+    Wasp\Utils\Str;
 
 /**
  * Field outputting for checkbox or radio groups
@@ -12,31 +12,31 @@ use Wasp\Forms\FieldOutput\AbstractFieldOutput,
  */
 class BoxGroupOutput extends AbstractFieldOutput
 {
-	/**
-	 * Returns string representation of the field
-	 *
-	 * @return String
-	 * @author Dan Cox
-	 */
-	public function output(Array $extras = Array())
-	{
-		$group = '';
+    /**
+     * Returns string representation of the field
+     *
+     * @return String
+     * @author Dan Cox
+     */
+    public function output(Array $extras = Array())
+    {
+        $group = '';
 
-		foreach ($this->field->values as $label => $value)
-		{
-			$e = $extras;
+        foreach ($this->field->values as $label => $value)
+        {
+            $e = $extras;
 
-			if ($this->field->value == $value)
-			{
-				$e = array_merge($e, ['checked' => 'checked']);
-			}
+            if ($this->field->value == $value)
+            {
+                $e = array_merge($e, ['checked' => 'checked']);
+            }
 
-			$group .= '<label>';
-			$group .= sprintf('<input type="%s" name="%s" value="%s" %s/>', $this->field->type, $this->field->id, $value, Str::arrayToHtmlProperties($e));
-			$group .= sprintf('%s</label>', $label);
-		}
+            $group .= '<label>';
+            $group .= sprintf('<input type="%s" name="%s" value="%s" %s/>', $this->field->type, $this->field->id, $value, Str::arrayToHtmlProperties($e));
+            $group .= sprintf('%s</label>', $label);
+        }
 
-		return $group;
-	}
+        return $group;
+    }
 
 } // END class BoxGroupOutput extends AbstractFieldOutput

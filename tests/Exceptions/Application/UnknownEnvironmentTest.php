@@ -11,20 +11,20 @@ use Wasp\Exceptions\Application\UnknownEnvironment;
  */
 class UnknownEnvironmentTest extends \PHPUnit_Framework_TestCase
 {
-	
-	/**
-	 * Test firing the Exception
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fire()
-	{
-		try {
-			throw new UnknownEnvironment("Test");
-		} catch (\Exception $e) {
-			$this->assertEquals("Test", $e->getEnvironment());
-		}
-	}
+    
+    /**
+     * Test firing the Exception
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fire()
+    {
+        try {
+            throw new UnknownEnvironment("Test");
+        } catch (\Exception $e) {
+            $this->assertEquals("Test", $e->getEnvironment());
+        }
+    }
 
 } // END class UnknownEnvironmentTest extends \PHPUnit_Framework_TestCase

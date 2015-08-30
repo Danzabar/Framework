@@ -9,16 +9,16 @@
  */
 class RecordNotFound extends \Exception
 {
-	/**
-	 * Fire exception
-	 *
-	 * @param Integer $code
-	 * @param \Exception $previous
-	 * @author Dan Cox
-	 */
-	public function __construct($code = 0, \Exception $previous = NULL)
-	{
-		parent::__construct("Query found no results.", $code, $previous);
-	}
+    /**
+     * Fire exception
+     *
+     * @param Integer $code
+     * @param \Exception $previous
+     * @author Dan Cox
+     */
+    public function __construct($code = 0, \Exception $previous = NULL)
+    {
+        parent::__construct("Query found no results.", $code, $previous);
+    }
 
 } // END class RecordNotFound extends \Exception

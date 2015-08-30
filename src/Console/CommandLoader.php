@@ -10,67 +10,67 @@
 class CommandLoader
 {
 
-	/**
-	 * Instance of the console class
-	 *
-	 * @var \Wasp\Console\ConsoleApplication
-	 **/
-	protected $console;
+    /**
+     * Instance of the console class
+     *
+     * @var \Wasp\Console\ConsoleApplication
+     **/
+    protected $console;
 
-	/**
-	 * Get dependencies
-	 *
-	 * @param \Wasp\Console\ConsoleApplication $console
-	 * @author Dan Cox
-	 **/
-	public function __construct($console)
-	{
-		$this->console = $console;
-	}
+    /**
+     * Get dependencies
+     *
+     * @param \Wasp\Console\ConsoleApplication $console
+     * @author Dan Cox
+     **/
+    public function __construct($console)
+    {
+        $this->console = $console;
+    }
 
-	/**
-	 * Loads commands listed as an array inside a file
-	 *
-	 * @param String $file
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function fromFile($file)
-	{
-		$data = require_once $file;
+    /**
+     * Loads commands listed as an array inside a file
+     *
+     * @param String $file
+     * @return void
+     * @author Dan Cox
+     */
+    public function fromFile($file)
+    {
+        $data = require_once $file;
 
-		$this->fromArray($data);
-	}
+        $this->fromArray($data);
+    }
 
-	/**
-	 * Loads commands from an array
-	 *
-	 * @param Array $commands
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function fromArray($commands)
-	{
-		foreach ($commands as $command)
-		{
-			$this->add($command);
-		}
-	}
+    /**
+     * Loads commands from an array
+     *
+     * @param Array $commands
+     * @return void
+     * @author Dan Cox
+     */
+    public function fromArray($commands)
+    {
+        foreach ($commands as $command)
+        {
+            $this->add($command);
+        }
+    }
 
-	/**
-	 * Adds a single command instance
-	 *
-	 * @param String $command - A Fully Qualified class
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function add($command)
-	{
-		$reflection = new \ReflectionClass($command);
-		$instance = $reflection->newInstance();
+    /**
+     * Adds a single command instance
+     *
+     * @param String $command - A Fully Qualified class
+     * @return void
+     * @author Dan Cox
+     */
+    public function add($command)
+    {
+        $reflection = new \ReflectionClass($command);
+        $instance = $reflection->newInstance();
 
-		$this->console->add($instance);
-	}
+        $this->console->add($instance);
+    }
 
 
 } // END class CommandLoader

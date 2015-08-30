@@ -1,5 +1,5 @@
 <?php
 
 return Array(
-	'Wasp\Test\DI\Extension\TestExtension'
+    'Wasp\Test\DI\Extension\TestExtension'
 );

@@ -11,21 +11,21 @@ use Wasp\Exceptions\Routing\InvalidRestOption;
  */
 class InvalidRestOptionTest extends \PHPUnit_Framework_TestCase
 {
-	
-	/**
-	 * Fire exception 
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fireException()
-	{
-		try {
-			throw new InvalidRestOption('test', ['foo', 'bar']);
-		} catch (\Exception $e) {
-			$this->assertEquals('test', $e->getOption());
-			$this->assertEquals(['foo', 'bar'], $e->getList());
-		}
-	}
+    
+    /**
+     * Fire exception 
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fireException()
+    {
+        try {
+            throw new InvalidRestOption('test', ['foo', 'bar']);
+        } catch (\Exception $e) {
+            $this->assertEquals('test', $e->getOption());
+            $this->assertEquals(['foo', 'bar'], $e->getList());
+        }
+    }
 
 } // END class InvalidRestOptionTest extends \PHPUnit_Framework_TestCase

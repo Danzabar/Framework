@@ -12,28 +12,28 @@ use Wasp\Forms\Validation\AbstractRule;
 class URL extends AbstractRule
 {
 
-	/**
-	 * Message
-	 *
-	 * @var String
-	 */
-	protected $message = 'A valid URL was expected';
+    /**
+     * Message
+     *
+     * @var String
+     */
+    protected $message = 'A valid URL was expected';
 
-	/**
-	 * Validate
-	 *
-	 * @return Boolean
-	 * @author Dan Cox
-	 */
-	public function validate()
-	{
-		if (!empty($this->value))
-		{
-			return filter_var($this->value, FILTER_VALIDATE_URL);
-		}
+    /**
+     * Validate
+     *
+     * @return Boolean
+     * @author Dan Cox
+     */
+    public function validate()
+    {
+        if (!empty($this->value))
+        {
+            return filter_var($this->value, FILTER_VALIDATE_URL);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
 
 } // END class URL extends AbstractRule

@@ -1,7 +1,7 @@
 <?php
 
 use Wasp\DI\ServiceMockery,
-	Wasp\DI\ServiceMockeryLibrary;
+    Wasp\DI\ServiceMockeryLibrary;
 
 /**
  * Test case for the Service Mockery class and library
@@ -12,71 +12,71 @@ use Wasp\DI\ServiceMockery,
  */
 class ServiceMockeryTest extends \PHPUnit_Framework_TestCase
 {
-	/**
-	 * Instance of the library
-	 *
-	 * @var Object
-	 */
-	protected $library;
+    /**
+     * Instance of the library
+     *
+     * @var Object
+     */
+    protected $library;
 
-	/**
-	 * Set up test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function setUp()
-	{
-		$this->library = new ServiceMockeryLibrary;
-	}
+    /**
+     * Set up test env
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function setUp()
+    {
+        $this->library = new ServiceMockeryLibrary;
+    }
 
-	/**
-	 * Tear down test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function tearDown()
-	{
-		$this->library->clear();
-	}
+    /**
+     * Tear down test env
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function tearDown()
+    {
+        $this->library->clear();
+    }
 
-	/**
-	 * Test that you can add and remove service mocks.
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_basicAddingRemoving()
-	{
-		$mock = new ServiceMockery('database');
-		$mock->add();
+    /**
+     * Test that you can add and remove service mocks.
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_basicAddingRemoving()
+    {
+        $mock = new ServiceMockery('database');
+        $mock->add();
 
-		$library = new ServiceMockeryLibrary;
+        $library = new ServiceMockeryLibrary;
 
-		$this->assertEquals('database', $library->find('database'));
-		$this->assertEquals('database', $mock->getLibrary()->find('database'));
+        $this->assertEquals('database', $library->find('database'));
+        $this->assertEquals('database', $mock->getLibrary()->find('database'));
 
-		$mock->remove();
+        $mock->remove();
 
-		$this->assertEquals(NULL, $library->find('database'));
-		$this->assertEquals(NULL, $mock->getLibrary()->find('database'));
-	}
+        $this->assertEquals(NULL, $library->find('database'));
+        $this->assertEquals(NULL, $mock->getLibrary()->find('database'));
+    }
 
-	/**
-	 * Test getting a decorator without adding this to the library
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_getMockDecoratorWithoutAdding()
-	{
-		$mock = new ServiceMockery('template');
+    /**
+     * Test getting a decorator without adding this to the library
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_getMockDecoratorWithoutAdding()
+    {
+        $mock = new ServiceMockery('template');
 
-		$m = $mock->getMock();
+        $m = $mock->getMock();
 
-		$this->assertInstanceOf('Wasp\DI\ServiceMockeryDecorator', $m);
-	}
+        $this->assertInstanceOf('Wasp\DI\ServiceMockeryDecorator', $m);
+    }
 
 
 

@@ -12,34 +12,34 @@ use Wasp\DI\DICompilerPassRegister;
 class CompilerPassRegisterTest extends \PHPUnit_Framework_TestCase
 {
 
-	/**
-	 * tear down test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function tearDown()
-	{
-		$register = new DICompilerPassRegister;
-		$register->clear();
-	}
-	
-	/**
-	 * Test adding and removing compiler passes
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_addRemovePasses()
-	{
-		$register = new DICompilerPassRegister;
+    /**
+     * tear down test env
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function tearDown()
+    {
+        $register = new DICompilerPassRegister;
+        $register->clear();
+    }
+    
+    /**
+     * Test adding and removing compiler passes
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_addRemovePasses()
+    {
+        $register = new DICompilerPassRegister;
 
-		$register->add('TestClass');
-		$register->add(['Test2', 'Test3']);
+        $register->add('TestClass');
+        $register->add(['Test2', 'Test3']);
 
-		$register->remove('Test2');
+        $register->remove('Test2');
 
-		$this->assertEquals(['TestClass', 'Test3'], $register->getPasses());
-	}
+        $this->assertEquals(['TestClass', 'Test3'], $register->getPasses());
+    }
 
 } // END class CompilerPassRegisterTest extends \PHPUnit_Framework_TestCase

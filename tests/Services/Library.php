@@ -10,16 +10,16 @@
 class Library
 {
 
-	/**
-	 * Test func
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function foo()
-	{
-		return 'bar';
-	}
+    /**
+     * Test func
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function foo()
+    {
+        return 'bar';
+    }
 
 
 } // END class Library

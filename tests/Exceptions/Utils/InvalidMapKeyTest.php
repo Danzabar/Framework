@@ -11,20 +11,20 @@ use Wasp\Exceptions\Utils\InvalidMapKey;
  */
 class InvalidMapKeyTest extends \PHPUnit_Framework_TestCase
 {
-	
-	/**
-	 * Fire exception
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fire()
-	{
-		try {
-			throw new InvalidMapKey("Test");
-		} catch (\Exception $e) {
-			$this->assertEquals("Test", $e->getKey());
-		}
-	}
+    
+    /**
+     * Fire exception
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fire()
+    {
+        try {
+            throw new InvalidMapKey("Test");
+        } catch (\Exception $e) {
+            $this->assertEquals("Test", $e->getKey());
+        }
+    }
 
 } // END class InvalidMapKeyTest extends \PHPUnit_Framework_TestCase

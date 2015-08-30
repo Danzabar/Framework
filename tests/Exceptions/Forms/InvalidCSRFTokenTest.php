@@ -12,24 +12,24 @@ use Wasp\Exceptions\Forms\InvalidCSRFToken;
 class InvalidCSRFTokenTest extends \PHPUnit_Framework_TestCase
 {
 
-	/**
-	 * Test firing exception
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fire()
-	{
-		try {	
+    /**
+     * Test firing exception
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fire()
+    {
+        try {   
 
-			throw new InvalidCSRFToken;
+            throw new InvalidCSRFToken;
 
-		} catch (Exception $e) {
-			$this->assertContains('CSRF token provided is invalid', $e->getMessage());
-			return;
-		}
+        } catch (Exception $e) {
+            $this->assertContains('CSRF token provided is invalid', $e->getMessage());
+            return;
+        }
 
-		$this->fail('Exception did not fire correctly');
-	}
+        $this->fail('Exception did not fire correctly');
+    }
 
 } // END class InvalidCSRFTokenTest extends \PHPUnit_Framework_TestCase

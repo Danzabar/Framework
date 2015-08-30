@@ -9,47 +9,47 @@ use Wasp\Commands\BaseCommand;
 class TestCommand extends BaseCommand
 {
 
-	/**
-	 * Command name
-	 *
-	 * @var string
-	 */
-	protected $name = 'test:command';
+    /**
+     * Command name
+     *
+     * @var string
+     */
+    protected $name = 'test:command';
 
-	/**
-	 * Command description
-	 *
-	 * @var string
-	 */
-	protected $description = 'Just a test command';
+    /**
+     * Command description
+     *
+     * @var string
+     */
+    protected $description = 'Just a test command';
 
-	/**
-	 * Setup command 
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function setup()
-	{
-		$this
-			->argument('test', 'a test argument')
-			->option('flag', '');
-	}
+    /**
+     * Setup command 
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function setup()
+    {
+        $this
+            ->argument('test', 'a test argument')
+            ->option('flag', '');
+    }
 
-	/**
-	 * Fire command
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function fire()
-	{
-		$this->output->writeln($this->input->getArgument('test'));
+    /**
+     * Fire command
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function fire()
+    {
+        $this->output->writeln($this->input->getArgument('test'));
 
-		if($this->input->hasOption('flag'))
-		{
-			$this->output->writeln('flag set');
-		}
-	}
-	
+        if($this->input->hasOption('flag'))
+        {
+            $this->output->writeln('flag set');
+        }
+    }
+    
 } // END class TestCommand extends BaseCommand

@@ -12,19 +12,19 @@ use Wasp\Exceptions\Forms\IncorrectFieldType;
 class IncorrectFieldTypeTest extends \PHPUnit_Framework_TestCase
 {
 
-	/**
-	 * Test firing the exception
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function test_fireException()
-	{
-		try {
-			throw new IncorrectFieldType('Test');
-		} catch (\Exception $e) {
-			$this->assertEquals('Test', $e->getType());
-		}
-	}
+    /**
+     * Test firing the exception
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_fireException()
+    {
+        try {
+            throw new IncorrectFieldType('Test');
+        } catch (\Exception $e) {
+            $this->assertEquals('Test', $e->getType());
+        }
+    }
 
 } // END class IncorrectFieldTypeTest extends \PHPUnit_Framework_TestCase

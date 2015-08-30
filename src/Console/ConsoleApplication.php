@@ -1,8 +1,8 @@
 <?php namespace Wasp\Console;
 
 use Symfony\Component\Console\Application as SymfonyApplication,
-	Symfony\Component\Console\Command\Command as SymfonyCommand,
-	Wasp\DI\DependencyInjectionAwareTrait;
+    Symfony\Component\Console\Command\Command as SymfonyCommand,
+    Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
  * Application Class for the Console
@@ -13,23 +13,23 @@ use Symfony\Component\Console\Application as SymfonyApplication,
  */
 class ConsoleApplication extends SymfonyApplication
 {
-	use DependencyInjectionAwareTrait;
+    use DependencyInjectionAwareTrait;
 
-	/**
-	 * Adds a command into the application
-	 *
-	 * @param \Symfony\Component\Console\Command\Command $command
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function add(SymfonyCommand $command)
-	{
-		if (is_a($command, '\Wasp\Commands\BaseCommand'))
-		{
-			$command->setDI($this->DI);
-		}
+    /**
+     * Adds a command into the application
+     *
+     * @param \Symfony\Component\Console\Command\Command $command
+     * @return void
+     * @author Dan Cox
+     */
+    public function add(SymfonyCommand $command)
+    {
+        if (is_a($command, '\Wasp\Commands\BaseCommand'))
+        {
+            $command->setDI($this->DI);
+        }
 
-		parent::add($command);
-	}
+        parent::add($command);
+    }
 
 } // END class ConsoleApplication extends SymfonyApplication

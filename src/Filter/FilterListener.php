@@ -1,7 +1,7 @@
 <?php namespace Wasp\Filter;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent,
-	Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+    Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 /**
  * Listener class for filters
@@ -12,89 +12,89 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent,
  */
 class FilterListener
 {
-	/**
-	 * Instance of the DependencyInjection class
-	 *
-	 * @var \Symfony\Component\DependencyInjection\Container
-	 */
-	protected $DI;
+    /**
+     * Instance of the DependencyInjection class
+     *
+     * @var \Symfony\Component\DependencyInjection\Container
+     */
+    protected $DI;
 
-	/**
-	 * Event object
-	 *
-	 * @var Object
-	 */
-	protected $event;
+    /**
+     * Event object
+     *
+     * @var Object
+     */
+    protected $event;
 
-	/**
-	 * Set up class dependencies
-	 *
-	 * @author Dan Cox
-	 */
-	public function __construct($di)
-	{
-		$this->DI = $di;
-	}
+    /**
+     * Set up class dependencies
+     *
+     * @author Dan Cox
+     */
+    public function __construct($di)
+    {
+        $this->DI = $di;
+    }
 
-	/**
-	 * before request event
-	 *
-	 * @param Symfony\Component\HttpKernel\Event\GetResponseEvent $event
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function beforeRequest(GetResponseEvent $event)
-	{
-		$this->handleEvent($event, 'before');
-	}
+    /**
+     * before request event
+     *
+     * @param Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * @return void
+     * @author Dan Cox
+     */
+    public function beforeRequest(GetResponseEvent $event)
+    {
+        $this->handleEvent($event, 'before');
+    }
 
-	/**
-	 * Event listener for kernel.response
-	 *
-	 * @param Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function onResponse(FilterResponseEvent $event)
-	{
-		$this->handleEvent($event, 'after');
-	}
+    /**
+     * Event listener for kernel.response
+     *
+     * @param Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
+     * @return void
+     * @author Dan Cox
+     */
+    public function onResponse(FilterResponseEvent $event)
+    {
+        $this->handleEvent($event, 'after');
+    }
 
-	/**
-	 * Handles filter functionality, as to not duplicate code
-	 *
-	 * @param Object $event
-	 * @param String $filterType eg. before, after
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function handleEvent($event, $filterType)
-	{
-		$this->event = $event;
+    /**
+     * Handles filter functionality, as to not duplicate code
+     *
+     * @param Object $event
+     * @param String $filterType eg. before, after
+     * @return void
+     * @author Dan Cox
+     */
+    public function handleEvent($event, $filterType)
+    {
+        $this->event = $event;
 
-		$filters = $this->event->getRequest()->get($filterType);
+        $filters = $this->event->getRequest()->get($filterType);
 
-		if (is_array($filters))
-			$this->triggerFilters($filters);
-	}
+        if (is_array($filters))
+            $this->triggerFilters($filters);
+    }
 
-	/**
-	 * Finds and fires filters
-	 *
-	 * @param Array $filters
-	 * @param Object $event
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function triggerFilters(Array $filters)
-	{
-		foreach ($filters as $filter)
-		{
-			$obj = $this->DI->get($filter);
+    /**
+     * Finds and fires filters
+     *
+     * @param Array $filters
+     * @param Object $event
+     * @return void
+     * @author Dan Cox
+     */
+    public function triggerFilters(Array $filters)
+    {
+        foreach ($filters as $filter)
+        {
+            $obj = $this->DI->get($filter);
 
-			$this->event = $obj->filter($this->event);
-		}
-	}
+            $this->event = $obj->filter($this->event);
+        }
+    }
 
 } // END class FilterListener
 

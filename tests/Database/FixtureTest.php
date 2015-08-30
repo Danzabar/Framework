@@ -12,67 +12,67 @@ use Wasp\Test\TestCase;
 class FixtureTest extends TestCase
 {
 
-	/**
-	 * Set up test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function setUp()
-	{
-		parent::setUp();
+    /**
+     * Set up test env
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function setUp()
+    {
+        parent::setUp();
 
-		// add a connection
-		$this->DI->get('connections')->add('func', [
-			'driver'		=> 'pdo_mysql',
-			'user'			=> 'user',
-			'dbname'		=> 'wasp',
-			'models'		=> ENTITIES
-		]);
+        // add a connection
+        $this->DI->get('connections')->add('func', [
+            'driver'        => 'pdo_mysql',
+            'user'          => 'user',
+            'dbname'        => 'wasp',
+            'models'        => ENTITIES
+        ]);
 
-		$this->DI->get('connection')->connect('func');
-	}
+        $this->DI->get('connection')->connect('func');
+    }
 
-	/**
-	 * Tear down test env
-	 *
-	 * @return void
-	 * @author Dan Cox
-	 */
-	public function tearDown()
-	{
-		parent::tearDown();
+    /**
+     * Tear down test env
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
 
-		$this->DI->get('schema')->dropTables();
-	}
+        $this->DI->get('schema')->dropTables();
+    }
 
-	/**
-	 * Test importing fixtures
-	 *
-	 * @author Dan Cox
-	 */
-	public function test_importFixturesPurgeFixtures()
-	{
-		$this->DI->get('schema')->create();
+    /**
+     * Test importing fixtures
+     *
+     * @author Dan Cox
+     */
+    public function test_importFixturesPurgeFixtures()
+    {
+        $this->DI->get('schema')->create();
 
-		$FM = $this->DI->get('fixtures');
-		$FM->setDirectory(__DIR__ . '/Fixtures/');
-		$FM->load();
-		$FM->import();
+        $FM = $this->DI->get('fixtures');
+        $FM->setDirectory(__DIR__ . '/Fixtures/');
+        $FM->load();
+        $FM->import();
 
-		$test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
 
-		// We should have a jim.
-		$result = $test->get();
+        // We should have a jim.
+        $result = $test->get();
 
-		$this->assertEquals('jim', $result[0]->name);
+        $this->assertEquals('jim', $result[0]->name);
 
-		$FM->purge();
+        $FM->purge();
 
-		$result2 = $test->get();
+        $result2 = $test->get();
 
-		$this->assertEquals(0, count($result2));
-		$this->assertEquals(__DIR__ . '/Fixtures/', $FM->getDirectory());
-	}
+        $this->assertEquals(0, count($result2));
+        $this->assertEquals(__DIR__ . '/Fixtures/', $FM->getDirectory());
+    }
 
 } // END class FixtureTest extends TestCase
