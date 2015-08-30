@@ -72,9 +72,8 @@ class DatabaseMockery
      * @return void
      * @author Dan Cox
      */
-    public function __call($method, $params = Array())
+    public function __call($method, $params = array())
     {
         return call_user_func_array([$this->database, $method], $params);
     }
-
 } // END class DatabaseMockery

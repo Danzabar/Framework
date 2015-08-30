@@ -74,5 +74,4 @@ class CompilerHelper
 
         return $definition;
     }
-
 } // END class CompilerHelper

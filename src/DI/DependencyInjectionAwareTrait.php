@@ -9,7 +9,8 @@ namespace Wasp\DI;
  * @subpackage DI
  * @author Dan Cox
  */
-trait DependencyInjectionAwareTrait {
+trait DependencyInjectionAwareTrait
+{
 
     /**
      * The DI instance

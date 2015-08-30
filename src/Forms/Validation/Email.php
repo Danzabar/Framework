@@ -28,12 +28,10 @@ class Email extends AbstractRule
      */
     public function validate()
     {
-        if (!empty($this->value))
-        {
+        if (!empty($this->value)) {
             return filter_var($this->value, FILTER_VALIDATE_EMAIL);
         }
 
         return true;
     }
-
 } // END class Email extends AbstractRule

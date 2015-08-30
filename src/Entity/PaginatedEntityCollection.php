@@ -55,7 +55,7 @@ class PaginatedEntityCollection extends EntityCollection
      * @param Integer $pageSize
      * @author Dan Cox
      */
-    public function __construct(Array $collectable = Array(), $total = 0, $totalPages = 0, $pageNo = 0, $pageSize = 0)
+    public function __construct(Array $collectable = array(), $total = 0, $totalPages = 0, $pageNo = 0, $pageSize = 0)
     {
         parent::__construct($collectable);
 
@@ -76,8 +76,7 @@ class PaginatedEntityCollection extends EntityCollection
     {
         $settings = $this->DI->get('profile')->getSettings();
 
-        if (isset($settings['database']['pagination_template']))
-        {
+        if (isset($settings['database']['pagination_template'])) {
             return $this->DI->get('template')->render(
                 $settings['database']['pagination_template'],
                 [
@@ -135,5 +134,4 @@ class PaginatedEntityCollection extends EntityCollection
     {
         return $this->pageSize;
     }
-
 } // END class PaginatedEntityCollection extends EntityCollection

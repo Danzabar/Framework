@@ -31,7 +31,7 @@ class ConnectionCollection extends Collection
      */
     public function __construct()
     {
-        $this->collectable = Array();
+        $this->collectable = array();
     }
 
     /**
@@ -42,9 +42,13 @@ class ConnectionCollection extends Collection
      * @return ConnectionCollection
      * @author Dan Cox
      */
-    public function add($name, $configuration = Array(), $type = 'Array')
+    public function add($name, $configuration = array(), $type = 'Array')
     {
-        parent::add($name, $this->DI->get('connection.validator')->load($configuration, $type, $this->modelDirectories));
+        parent::add(
+            $name,
+            $this->DI->get('connection.validator')
+                     ->load($configuration, $type, $this->modelDirectories)
+        );
     }
 
     /**
@@ -57,8 +61,7 @@ class ConnectionCollection extends Collection
      */
     public function addBulk(Array $connections, $type = 'Array')
     {
-        foreach ($connections as $name => $configuration)
-        {
+        foreach ($connections as $name => $configuration) {
             $this->add($name, $configuration, $type);
         }
 
@@ -74,12 +77,10 @@ class ConnectionCollection extends Collection
      */
     public function find($name)
     {
-        if ($this->exists($name))
-        {
+        if ($this->exists($name)) {
             return $this->get($name);
         }
 
         throw new InvalidConnection($name);
     }
-
 } // END class CollectionCollection

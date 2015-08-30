@@ -48,8 +48,7 @@ class EntityCollection extends Collection
      */
     public function delete()
     {
-        foreach ($this->collectable as $entity)
-        {
+        foreach ($this->collectable as $entity) {
             $entity->delete();
         }
     }
@@ -62,10 +61,8 @@ class EntityCollection extends Collection
      */
     public function save()
     {
-        foreach ($this->collectable as $entity)
-        {
+        foreach ($this->collectable as $entity) {
             $entity->save();
         }
     }
-
 } // END class EntityCollection extends Collection

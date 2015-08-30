@@ -29,12 +29,10 @@ class FloatValidation extends AbstractRule
      */
     public function validate()
     {
-        if (!empty($this->value))
-        {
+        if (!empty($this->value)) {
             return filter_var($this->value, FILTER_VALIDATE_FLOAT);
         }
 
         return true;
     }
-
 } // END class FloatValidation extends AbstractRule

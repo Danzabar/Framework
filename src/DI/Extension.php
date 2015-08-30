@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
-
 /**
  * A Base extension class for the DI
  *
@@ -60,15 +59,13 @@ class Extension implements ExtensionInterface
         $this->configs = $configs;
         $this->container = $container;
 
-        if (method_exists($this, 'setup'))
-        {
+        if (method_exists($this, 'setup')) {
             $this->setup();
         }
 
         $this->loader();
 
-        if (method_exists($this, 'extension'))
-        {
+        if (method_exists($this, 'extension')) {
             $this->extension();
         }
     }
@@ -81,8 +78,7 @@ class Extension implements ExtensionInterface
      */
     public function loader()
     {
-        if (!is_null($this->directory))
-        {
+        if (!is_null($this->directory)) {
             $this->loader = new YamlFileLoader($this->container, new FileLocator($this->directory));
         }
     }
@@ -119,6 +115,4 @@ class Extension implements ExtensionInterface
     {
         return;
     }
-
 } // END class Extension implements ExtensionInterface
-

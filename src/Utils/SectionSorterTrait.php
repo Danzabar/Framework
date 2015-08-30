@@ -11,7 +11,7 @@ use Wasp\Utils\Collection;
  * @subpackage Utils
  * @author Dan Cox
  */
-Trait SectionSorterTrait
+trait SectionSorterTrait
 {
     /**
      * Sorts the sortable array by the dictated keys in sortKeys
@@ -25,14 +25,11 @@ Trait SectionSorterTrait
     {
         $collection = new Collection;
 
-        foreach ($sortKeys as $key => $value)
-        {
+        foreach ($sortKeys as $key => $value) {
             $section = new Collection;
 
-            foreach ($sortable as $k => $v)
-            {
-                if (in_array($k, $value))
-                {
+            foreach ($sortable as $k => $v) {
+                if (in_array($k, $value)) {
                     $section->add($k, $v);
                 }
             }
@@ -55,12 +52,10 @@ Trait SectionSorterTrait
     {
         $collection = $this->createCollectionSections($sortKeys);
 
-        foreach ($sortable as $sub)
-        {
-            foreach ($sub as $key => $value)
-            {
+        foreach ($sortable as $sub) {
+            foreach ($sub as $key => $value) {
                 $section = $collection->get($sortKeys[$key]);
-                $section->append( (is_array($value) ? $value : [$value]) );
+                $section->append((is_array($value) ? $value : [$value]));
             }
         }
 
@@ -78,8 +73,7 @@ Trait SectionSorterTrait
     {
         $collection = new Collection();
 
-        foreach ($sections as $map => $key)
-        {
+        foreach ($sections as $map => $key) {
             $section = new Collection;
             $collection->add($key, $section);
         }

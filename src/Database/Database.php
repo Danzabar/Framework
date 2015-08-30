@@ -72,10 +72,10 @@ class Database
      * @return Object
      * @author Dan Cox
      */
-    public function findOneBy($params = Array(), $order = Array())
+    public function findOneBy($params = array(), $order = array())
     {
         return $this->performOnRepository($this->entity)
-                    ->findOneBy($params, $order, NULL, NULL);
+                    ->findOneBy($params, $order, null, null);
     }
 
     /**
@@ -87,12 +87,11 @@ class Database
      * @throws \Wasp\Exceptions\Entity\RecordNotFound
      * @author Dan Cox
      */
-    public function findOrFail($params = Array(), $order = Array())
+    public function findOrFail($params = array(), $order = array())
     {
         $result = $this->findOneBy($params, $order);
 
-        if (is_null($result))
-        {
+        if (is_null($result)) {
             throw new RecordNotFound();
         }
 
@@ -109,7 +108,7 @@ class Database
      * @return Array
      * @author Dan Cox
      */
-    public function get($params = Array(), $order = Array(), $limit = NULL, $offset = NULL)
+    public function get($params = array(), $order = array(), $limit = null, $offset = null)
     {
         $data = $this->performOnRepository($this->entity)->findBy($params, $order, $limit, $offset);
 
@@ -155,8 +154,7 @@ class Database
                       ->getConnection()
                       ->prepare($query);
 
-        if ($execute)
-        {
+        if ($execute) {
             $query->execute();
         }
 
@@ -235,5 +233,4 @@ class Database
     {
         return $this->perform();
     }
-
 } // END class Database

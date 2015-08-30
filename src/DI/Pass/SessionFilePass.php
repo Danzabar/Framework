@@ -30,5 +30,4 @@ class SessionFilePass implements CompilerPassInterface
         $helper->createDefinition('session.storage', new MockFileSessionStorage);
         $helper->updateDefinitionArguments('session', [new Reference('session.storage')]);
     }
-
 } // END class SessionFilePass implements CompilerPassInterface

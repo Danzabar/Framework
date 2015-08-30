@@ -47,6 +47,4 @@ class BaseController
     {
         return $this->DI->get($service);
     }
-
-
 } // END class BaseController

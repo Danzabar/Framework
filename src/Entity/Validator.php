@@ -44,5 +44,4 @@ class Validator
     {
         return $this->validator->validate($entity);
     }
-
 } // END class Validator

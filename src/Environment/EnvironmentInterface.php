@@ -29,5 +29,4 @@ interface EnvironmentInterface
      * @author Dan Cox
      */
     public function setup();
-
 }

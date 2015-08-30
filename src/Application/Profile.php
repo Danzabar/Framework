@@ -17,7 +17,7 @@ class Profile
      *
      * @var Array
      **/
-    protected $profiles = Array();
+    protected $profiles = array();
 
     /**
      * Symfony file system
@@ -45,7 +45,7 @@ class Profile
      *
      * @var Array
      **/
-    protected $files = Array();
+    protected $files = array();
 
     /**
      * Hostname of the current machine
@@ -74,8 +74,7 @@ class Profile
      **/
     public function settings()
     {
-        foreach ($this->files as $file)
-        {
+        foreach ($this->files as $file) {
             $this->settings[$file] = $this->extractSettings($file);
         }
     }
@@ -89,10 +88,9 @@ class Profile
      **/
     public function extractSettings($file)
     {
-        $custom = Array();
+        $custom = array();
 
-        if (array_key_exists($this->hostname, $this->profiles))
-        {
+        if (array_key_exists($this->hostname, $this->profiles)) {
             $custom = $this->extractSettingsFromFile($this->profiles[$this->hostname] . '/' . $file);
         }
 
@@ -109,12 +107,11 @@ class Profile
      **/
     public function extractSettingsFromFile($file)
     {
-        if ($this->fs->exists($this->directory . $file . '.php'))
-        {
-            return require ($this->directory . $file . '.php');
+        if ($this->fs->exists($this->directory . $file . '.php')) {
+            return require($this->directory . $file . '.php');
         }
 
-        return Array();
+        return array();
     }
 
     /**
@@ -138,15 +135,13 @@ class Profile
      * @return Profile
      * @author Dan Cox
      **/
-    public function addFiles($files, $directory = NULL)
+    public function addFiles($files, $directory = null)
     {
-        if (!is_null($directory))
-        {
+        if (!is_null($directory)) {
             $this->setDirectory($directory);
         }
 
-        if (is_array($files))
-        {
+        if (is_array($files)) {
             $this->files = array_merge($this->files, $files);
             return $this;
         }
@@ -179,8 +174,7 @@ class Profile
      */
     public function addProfiles(Array $profiles)
     {
-        foreach ($profiles as $hostname => $directory)
-        {
+        foreach ($profiles as $hostname => $directory) {
             $this->addProfile($hostname, $directory);
         }
 
@@ -243,5 +237,4 @@ class Profile
     {
         return $this->profiles;
     }
-
 } // END class Profile

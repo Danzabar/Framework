@@ -31,5 +31,4 @@ class EntityLoader
 
         return $instance;
     }
-
 } // END class EntityLoader

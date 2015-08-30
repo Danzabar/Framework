@@ -53,8 +53,7 @@ class CommandLoader
      */
     public function fromArray($commands)
     {
-        foreach ($commands as $command)
-        {
+        foreach ($commands as $command) {
             $this->add($command);
         }
     }
@@ -73,6 +72,4 @@ class CommandLoader
 
         $this->console->add($instance);
     }
-
-
 } // END class CommandLoader

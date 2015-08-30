@@ -46,8 +46,7 @@ class Template
      */
     public function start()
     {
-        if (empty($this->directory) || is_null($this->directory))
-        {
+        if (empty($this->directory) || is_null($this->directory)) {
             throw new DirectoryNotSet;
         }
 
@@ -62,7 +61,7 @@ class Template
      * @return \Symfony\Component\HttpFoundation\Response
      * @author Dan Cox
      */
-    public function make($template, $params = Array())
+    public function make($template, $params = array())
     {
         return $this->DI->get('response')->make($this->delegator->render($template, $params));
     }
@@ -75,7 +74,7 @@ class Template
      * @return String
      * @author Dan Cox
      */
-    public function render($template, $params = Array())
+    public function render($template, $params = array())
     {
         return $this->delegator->render($template, $params);
     }
@@ -89,15 +88,12 @@ class Template
      */
     public function setDirectory($directory)
     {
-        if (is_array($directory))
-        {
-            foreach ($directory as $d)
-            {
+        if (is_array($directory)) {
+            foreach ($directory as $d) {
                 $this->addDirectory($d);
             }
 
         } else {
-
             $this->addDirectory($directory);
         }
 
@@ -124,7 +120,7 @@ class Template
      */
     public function clearDirectory()
     {
-        $this->directory = Array();
+        $this->directory = array();
         return $this;
     }
 
@@ -161,6 +157,4 @@ class Template
         $this->engines[] = $engine;
         return $this;
     }
-
-
 } // END class Template

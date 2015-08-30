@@ -27,7 +27,7 @@ class InvalidMapKey extends \Exception
      * @return void
      * @author Dan Cox
      */
-    public function __construct($key, $code = 0, \Exception $previous = NULL)
+    public function __construct($key, $code = 0, \Exception $previous = null)
     {
         $this->key = $key;
 
@@ -44,6 +44,4 @@ class InvalidMapKey extends \Exception
     {
         return $this->key;
     }
-
-
 } // END class InvalidMapKey extends \Exception

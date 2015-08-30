@@ -17,7 +17,7 @@ class DICompilerPassRegister
      *
      * @var Array
      */
-    protected static $passes = Array();
+    protected static $passes = array();
 
     /**
      * Returns the passes array
@@ -39,9 +39,8 @@ class DICompilerPassRegister
      */
     public static function add($class)
     {
-        if (!is_array($class))
-        {
-            $class = Array($class);
+        if (!is_array($class)) {
+            $class = array($class);
         }
 
         static::$passes = array_merge(static::$passes, $class);
@@ -56,8 +55,7 @@ class DICompilerPassRegister
      */
     public static function remove($class)
     {
-        if ($key = array_search($class, static::$passes) !== false)
-        {
+        if ($key = array_search($class, static::$passes) !== false) {
             unset(static::$passes[$key]);
         }
 
@@ -72,7 +70,6 @@ class DICompilerPassRegister
      */
     public static function clear()
     {
-        static::$passes = Array();
+        static::$passes = array();
     }
-
 } // END class DICompilerPassRegister

@@ -51,7 +51,7 @@ class Application
      * @return void
      * @author Dan Cox
      */
-    public function __construct($profile = NULL)
+    public function __construct($profile = null)
     {
         $this->profile = $profile;
 
@@ -150,8 +150,7 @@ class Application
      */
     public function getEnvironment($name)
     {
-        if ($this->envCollection->exists($name))
-        {
+        if ($this->envCollection->exists($name)) {
             return $this->envCollection->get($name);
         }
 
@@ -167,8 +166,7 @@ class Application
      */
     public function deregisterEnvironment($name)
     {
-        if ($this->envCollection->exists($name))
-        {
+        if ($this->envCollection->exists($name)) {
             $this->envCollection->remove($name);
             return $this;
         }
@@ -187,5 +185,4 @@ class Application
     {
         return $this->DI;
     }
-
 } // END class Application

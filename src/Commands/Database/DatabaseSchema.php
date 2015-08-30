@@ -49,12 +49,10 @@ class DatabaseSchema extends BaseCommand
      */
     public function fire()
     {
-        if ($this->input->getOption('remove'))
-        {
+        if ($this->input->getOption('remove')) {
             $entity = $this->input->getArgument('entity');
 
-            if (!is_null($entity))
-            {
+            if (!is_null($entity)) {
                 $this->dropTable($entity);
                 $this->output->writeln("Successfully dropped $entity table");
                 return;
@@ -101,5 +99,4 @@ class DatabaseSchema extends BaseCommand
     {
         $this->DI->get('schema')->dropTable($class);
     }
-
 } // END class DatabaseSchema extends BaseCommand

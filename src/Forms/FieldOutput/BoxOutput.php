@@ -21,15 +21,18 @@ class BoxOutput extends AbstractFieldOutput
      * @return String
      * @author Dan Cox
      */
-    public function output(Array $extras = Array())
+    public function output(Array $extras = array())
     {
-        if ($this->field->value == $this->field->values)
-        {
+        if ($this->field->value == $this->field->values) {
             $extras = array_merge($extras, ['checked' => 'checked']);
         }
 
-        return sprintf('<input type="%1$s" name="%2$s" id="%2$s" value="%3$s" %4$s/>',
-            $this->field->type, $this->field->id, $this->field->value, Str::arrayToHtmlProperties($extras));
+        return sprintf(
+            '<input type="%1$s" name="%2$s" id="%2$s" value="%3$s" %4$s/>',
+            $this->field->type,
+            $this->field->id,
+            $this->field->value,
+            Str::arrayToHtmlProperties($extras)
+        );
     }
-
 } // END class BoxOutput extends AbstractFieldOutput

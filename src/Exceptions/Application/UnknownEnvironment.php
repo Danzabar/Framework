@@ -25,7 +25,7 @@ class UnknownEnvironment extends \Exception
      * @return void
      * @author Dan Cox
      */
-    public function __construct($env, $code = 0, \Exception $previous = NULL)
+    public function __construct($env, $code = 0, \Exception $previous = null)
     {
         $this->env = $env;
 
@@ -42,5 +42,4 @@ class UnknownEnvironment extends \Exception
     {
         return $this->env;
     }
-
 } // END class UnknownEnvironment extends \Exception

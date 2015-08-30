@@ -18,9 +18,8 @@ class InvalidCSRFToken extends \Exception
      * @param Exception $previous
      * @author Dan Cox
      */
-    public function __construct($code = 0, \Exception $previous = NULL)
+    public function __construct($code = 0, \Exception $previous = null)
     {
         parent::__construct("The CSRF token provided is invalid.", $code, $previous);
     }
-
 } // END class InvalidCSRFToken extends \Exception

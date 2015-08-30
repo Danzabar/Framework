@@ -35,8 +35,7 @@ class RegexValidation extends AbstractRule
      */
     public function __construct($message = null, $regexp = null)
     {
-        if (!is_null($message))
-        {
+        if (!is_null($message)) {
             $this->message = $message;
         }
 
@@ -51,13 +50,15 @@ class RegexValidation extends AbstractRule
      */
     public function validate()
     {
-        if (!is_null($this->regexp))
-        {
-            return filter_var($this->value, FILTER_VALIDATE_REGEXP, Array('options' => Array('regexp' => $this->regexp)));
+        if (!is_null($this->regexp)) {
+            return filter_var(
+                $this->value,
+                FILTER_VALIDATE_REGEXP,
+                array('options' => array('regexp' => $this->regexp))
+            );
         }
 
         // No regexp was given.
         return true;
     }
-
 } // END class RegexValidation extends AbstractRule

@@ -72,7 +72,7 @@ class TwigEngine implements EngineInterface
      * @return void
      * @author Dan Cox
      */
-    public function create(Array $settings = Array())
+    public function create(Array $settings = array())
     {
         $this->loader = new Loader($this->template->getDirectory());
         $this->environment = new Environment($this->loader, $settings);
@@ -102,10 +102,8 @@ class TwigEngine implements EngineInterface
      */
     public function exists($name)
     {
-        foreach ($this->template->getDirectory() as $temp)
-        {
-            if ($this->fs->exists($temp . $name))
-            {
+        foreach ($this->template->getDirectory() as $temp) {
+            if ($this->fs->exists($temp . $name)) {
                 return true;
             }
         }
@@ -121,9 +119,8 @@ class TwigEngine implements EngineInterface
      * @return String
      * @author Dan Cox
      */
-    public function render($name, Array $params = Array())
+    public function render($name, Array $params = array())
     {
         return $this->environment->render($name, $params);
     }
-
 } // END class TwigEngine implements EngineInterface

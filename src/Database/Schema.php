@@ -130,5 +130,4 @@ class Schema
     {
         $this->schema->dropDatabase();
     }
-
 } // END class Schema

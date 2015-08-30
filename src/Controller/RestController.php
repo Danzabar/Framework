@@ -32,7 +32,7 @@ class RestController extends BaseController
      *
      * @var Array
      */
-    protected $filter = Array();
+    protected $filter = array();
 
     /**
      * Sets the entity
@@ -69,13 +69,11 @@ class RestController extends BaseController
     public function findEntity($id)
     {
         try {
-
             $record = $this->database->setEntity($this->entity)->find($id);
 
             return $record;
 
         } catch (\Exception $e) {
-
             return null;
         }
     }
@@ -89,11 +87,10 @@ class RestController extends BaseController
      */
     public function formatErrors($errors)
     {
-        $formatted = Array();
+        $formatted = array();
 
-        foreach ($errors as $error)
-        {
-            $formatted[] = Array(
+        foreach ($errors as $error) {
+            $formatted[] = array(
                 'property' => $error->getPropertyPath(),
                 'message' => $error->getMessage(),
                 'code' => $error->getCode(),
@@ -111,13 +108,12 @@ class RestController extends BaseController
      * @return Response
      * @author Dan Cox
      */
-    public function updateAndValidate($record = NULL)
+    public function updateAndValidate($record = null)
     {
         $data = $this->request->getInput();
 
         // Create the entity if it doesn't exist
-        if (is_null($record))
-        {
+        if (is_null($record)) {
             $record = $this->entityInstance();
         }
 
@@ -125,9 +121,10 @@ class RestController extends BaseController
 
         $errors = $this->validator->validate($record);
 
-        if ($errors->count() > 0)
-        {
-            return $this->response->json(['status' => 'validation errors', 'errors' => $this->formatErrors($errors)], 400);
+        if ($errors->count() > 0) {
+            return $this->response->json([
+                'status' => 'validation errors',
+                'errors' => $this->formatErrors($errors)], 400);
         }
 
         $record->save();
@@ -147,10 +144,8 @@ class RestController extends BaseController
         $input = $this->request->getInput()->all();
 
 
-        foreach ($input as $key => $value)
-        {
-            if (array_key_exists($key, $this->paginationOptions))
-            {
+        foreach ($input as $key => $value) {
+            if (array_key_exists($key, $this->paginationOptions)) {
                 $this->paginationOptions[$key] = $value;
             } else {
                 $this->filter[$key] = $value;
@@ -172,13 +167,11 @@ class RestController extends BaseController
         $paginator = $this->paginator->setEntity($this->entity);
 
         try {
-
             $records = $paginator->query($this->paginationOptions['pageSize'], $this->filter);
 
             return $this->response->json($records->toArray(), 200);
 
         } catch (\Exception $e) {
-
             return $this->response->json(['status' => 'error', 'error' => $e->getMessage()], 400);
         }
     }
@@ -194,8 +187,7 @@ class RestController extends BaseController
     {
         $record = $this->findEntity($id);
 
-        if (is_null($record))
-        {
+        if (is_null($record)) {
             return $this->response->json(['status' => 'Invalid identifier'], 404);
         }
 
@@ -226,8 +218,7 @@ class RestController extends BaseController
         $data = $this->request->getInput();
         $record = $this->findEntity($id);
 
-        if (is_null($record))
-        {
+        if (is_null($record)) {
             return $this->response->json(['status' => 'Invalid identifier'], 404);
         }
 
@@ -245,22 +236,17 @@ class RestController extends BaseController
     {
         $record = $this->findEntity($id);
 
-        if (is_null($record))
-        {
+        if (is_null($record)) {
             return $this->response->json(['status' => 'Invalid identifier'], 404);
         }
 
         try {
-
             $record->delete();
 
             return $this->response->json(['status' => 'success'], 200);
 
         } catch (\Exception $e) {
-
             return $this->response->json(['status' => 'error', 'error' => $e->getMessage()], 400);
         }
     }
-
 } // END class RestController extends BaseController
-

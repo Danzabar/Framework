@@ -85,5 +85,4 @@ class ServiceMockery
         $this->library->remove($this->serviceName);
         return $this;
     }
-
 } // END class ServiceMockery

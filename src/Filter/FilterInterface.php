@@ -20,5 +20,4 @@ interface FilterInterface
      * @author Dan Cox
      */
     public function filter($event);
-
 }

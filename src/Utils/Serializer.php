@@ -26,13 +26,12 @@ class Serializer
      * @param Boolean $debug
      * @author Dan Cox
      */
-    public function config($cache_dir = NULL, $debug = TRUE)
+    public function config($cache_dir = null, $debug = true)
     {
         $builder = \JMS\Serializer\SerializerBuilder::create()
                     ->setDebug($debug);
 
-        if (!is_null($cache_dir))
-        {
+        if (!is_null($cache_dir)) {
             $builder->setCacheDir($cache_dir);
         }
 
@@ -47,14 +46,12 @@ class Serializer
      * @return Mixed
      * @author Dan Cox
      */
-    public function __call($method, Array $params = Array())
+    public function __call($method, Array $params = array())
     {
-        if (is_null($this->serializer))
-        {
+        if (is_null($this->serializer)) {
             $this->config();
         }
 
         return call_user_func_array([$this->serializer, $method], $params);
     }
-
 } // END class Serializer

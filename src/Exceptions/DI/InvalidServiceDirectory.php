@@ -26,11 +26,13 @@ class InvalidServiceDirectory extends \Exception
      * @return void
      * @author Dan Cox
      */
-    public function __construct($DI, $code = 0, \Exception $previous = NULL)
+    public function __construct($DI, $code = 0, \Exception $previous = null)
     {
         $this->DI = $DI;
 
-        parent::__construct("The service directory must be set before calling build on the Dependency Injection class.", $code, $previous);
+        $msg = "The service directory must be set before calling build on the Dependency Injection class.";
+
+        parent::__construct($msg, $code, $previous);
     }
 
     /**
@@ -43,5 +45,4 @@ class InvalidServiceDirectory extends \Exception
     {
         return $this->DI;
     }
-
 } // END class InvalidServiceDirectory extends \Exception

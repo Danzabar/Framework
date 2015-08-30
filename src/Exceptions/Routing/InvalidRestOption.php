@@ -35,7 +35,7 @@ class InvalidRestOption extends \Exception
      * @param \Exception $exception
      * @author Dan Cox
      */
-    public function __construct($option, $list, $code = 0, \Exception $previous = NULL)
+    public function __construct($option, $list, $code = 0, \Exception $previous = null)
     {
         $this->option = $option;
         $this->list = $list;
@@ -64,5 +64,4 @@ class InvalidRestOption extends \Exception
     {
         return $this->list;
     }
-
 } // END class InvalidRestOption extends \Exception

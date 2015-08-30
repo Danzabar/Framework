@@ -39,5 +39,4 @@ class IncorrectFieldType extends \Exception
     {
         return $this->type;
     }
-
 } // END class IncorrectFieldType extends \Exception

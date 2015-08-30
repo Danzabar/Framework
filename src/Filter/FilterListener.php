@@ -76,8 +76,9 @@ class FilterListener
 
         $filters = $this->event->getRequest()->get($filterType);
 
-        if (is_array($filters))
+        if (is_array($filters)) {
             $this->triggerFilters($filters);
+        }
     }
 
     /**
@@ -90,13 +91,10 @@ class FilterListener
      */
     public function triggerFilters(Array $filters)
     {
-        foreach ($filters as $filter)
-        {
+        foreach ($filters as $filter) {
             $obj = $this->DI->get($filter);
 
             $this->event = $obj->filter($this->event);
         }
     }
-
 } // END class FilterListener
-

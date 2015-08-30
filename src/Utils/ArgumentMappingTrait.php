@@ -11,7 +11,7 @@ use Wasp\Exceptions\Utils\InvalidMapKey;
  * @subpackage Utils
  * @author Dan Cox
  */
-Trait ArgumentMappingTrait
+trait ArgumentMappingTrait
 {
     /**
      * An associative array of argument maps
@@ -43,8 +43,7 @@ Trait ArgumentMappingTrait
      */
     public function checkArgumentMapValue($mapName, $key)
     {
-        if(array_key_exists($mapName, $this->maps))
-        {
+        if (array_key_exists($mapName, $this->maps)) {
             $map = $this->maps[$mapName];
 
             return array_key_exists($key, $map);
@@ -63,8 +62,7 @@ Trait ArgumentMappingTrait
      */
     public function getArgumentMapValue($mapName, $key)
     {
-        if($this->checkArgumentMapValue($mapName, $key))
-        {
+        if ($this->checkArgumentMapValue($mapName, $key)) {
             return $this->maps[$mapName][$key];
         }
 

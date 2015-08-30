@@ -14,7 +14,7 @@ use Wasp\DI\Pass\MockeryPass;
  * @subpackage Environment
  * @author Dan Cox
  */
-class Test extends Environment Implements EnvironmentInterface
+class Test extends Environment implements EnvironmentInterface
 {
     /**
      * Setup the environment properties
@@ -30,5 +30,4 @@ class Test extends Environment Implements EnvironmentInterface
         // No need to cache here.
         $this->createDI();
     }
-
 } // END class Test extends Environment Implements EnvironmentInterface

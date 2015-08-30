@@ -80,8 +80,8 @@ class URL
         $request = $this->request->getRequest();
 
         return $this->generator = new UrlGenerator(
-               $this->collection,
-               $this->context()->fromRequest($request)
+            $this->collection,
+            $this->context()->fromRequest($request)
         );
     }
 
@@ -93,11 +93,10 @@ class URL
      * @return String
      * @author Dan Cox
      **/
-    public function route($name, $params = Array())
+    public function route($name, $params = array())
     {
         $url = $this->generator()->generate($name, $params);
 
         return $url;
     }
-
 } // END class URL

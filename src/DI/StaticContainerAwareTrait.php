@@ -9,7 +9,7 @@ namespace Wasp\DI;
  * @subpackage Di
  * @author Dan Cox
  */
-Trait StaticContainerAwareTrait
+trait StaticContainerAwareTrait
 {
     /**
      * Gets a service using the static container
@@ -36,5 +36,4 @@ Trait StaticContainerAwareTrait
 
         return $container->getParameter($key);
     }
-
 }

@@ -36,7 +36,7 @@ class Response
      * @return Symfony\Component\HttpFoundation\Response
      * @author Dan Cox
      */
-    public function json($content = Array(), $code = 200)
+    public function json($content = array(), $code = 200)
     {
         $response = $this->DI->get('response.json');
         $response->setData($content);
@@ -54,7 +54,7 @@ class Response
      * @return Symfony\Component\HttpFoundation\Response
      * @author Dan Cox
      */
-    public function jsonp($handler, $content = Array(), $code = 200)
+    public function jsonp($handler, $content = array(), $code = 200)
     {
         $response = $this->json($content, $code);
         $response->setCallback($handler);
@@ -123,5 +123,4 @@ class Response
 
         return $this;
     }
-
 } // END class Response

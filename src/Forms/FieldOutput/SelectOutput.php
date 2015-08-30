@@ -21,18 +21,24 @@ class SelectOutput extends AbstractFieldOutput
      * @return String
      * @author Dan Cox
      */
-    public function output(Array $extras = Array ())
+    public function output(Array $extras = array ())
     {
         $options = '';
 
-        foreach ($this->field->values as $key => $value)
-        {
-            $options .= sprintf('<option value="%s"%s>%s</option>',
-                $value, ($this->field->value == $value ? 'selected="selected"' : ''), $key);
+        foreach ($this->field->values as $key => $value) {
+            $options .= sprintf(
+                '<option value="%s"%s>%s</option>',
+                $value,
+                ($this->field->value == $value ? 'selected="selected"' : ''),
+                $key
+            );
         }
 
-        return sprintf('<select name="%1$s" id="%1$s" %2$s>%3$s</select>',
-            $this->field->id, Str::arrayToHtmlProperties($extras), $options);
+        return sprintf(
+            '<select name="%1$s" id="%1$s" %2$s>%3$s</select>',
+            $this->field->id,
+            Str::arrayToHtmlProperties($extras),
+            $options
+        );
     }
-
 } // END class SelectOutput extends AbstractFieldOutput

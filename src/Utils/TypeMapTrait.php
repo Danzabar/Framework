@@ -9,7 +9,7 @@ namespace Wasp\Utils;
  * @subpackage Utilities
  * @author Dan Cox
  */
-Trait TypeMapTrait
+trait TypeMapTrait
 {
     /**
      * An associative array of type mappings
@@ -28,13 +28,11 @@ Trait TypeMapTrait
      * @return Mixed
      * @author Dan Cox
      */
-    public function map($type, $notFoundException = 'Exception', $params  = Array())
+    public function map($type, $notFoundException = 'Exception', $params = array())
     {
-        if (array_key_exists($type, $this->typeMap))
-        {
+        if (array_key_exists($type, $this->typeMap)) {
             return call_user_func_array([$this, $this->typeMap[$type]], $params);
-        } else
-        {
+        } else {
             throw new $notFoundException($type, $this->typeMap);
         }
     }

@@ -119,5 +119,4 @@ class FixtureManager
         $this->directory = $directory;
         return $this;
     }
-
 } // END class FixtureManager

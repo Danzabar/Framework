@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @subpackage Traits
  * @author Dan Cox
  */
-Trait Suspendable
+trait Suspendable
 {
     /**
      * The Start date of suspension
@@ -32,7 +32,7 @@ Trait Suspendable
     /**
      * Adds suspension data
      *
-     * @param Array $conditions - An array that contains the amount of time allocated for example. ['+4 days', '+2 months']
+     * @param Array $conditions
      * @return void
      * @author Dan Cox
      */
@@ -41,8 +41,7 @@ Trait Suspendable
         $this->suspendedFrom = new \DateTime('NOW');
         $this->suspendedUntil = new \DateTime('NOW');
 
-        foreach ($conditions as $condition)
-        {
+        foreach ($conditions as $condition) {
             $this->suspendedUntil->modify($condition);
         }
 

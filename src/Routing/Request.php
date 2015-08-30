@@ -61,8 +61,7 @@ class Request
      */
     public function oldInput()
     {
-        if ($this->session->has('input\old'))
-        {
+        if ($this->session->has('input\old')) {
             $input = $this->session->get('input\old');
             $type = $this->session->get('input\old.type');
             $deobsfucated = unserialize(base64_decode($input));
@@ -82,7 +81,7 @@ class Request
      * @return SymRequest
      * @author Dan Cox
      */
-    public function make($uri, $type = 'GET', $params = Array())
+    public function make($uri, $type = 'GET', $params = array())
     {
         $this->request = SymRequest::create($uri, $type, $params);
 
@@ -97,8 +96,7 @@ class Request
      */
     public function getRequest()
     {
-        if (is_null($this->request))
-        {
+        if (is_null($this->request)) {
             return $this->fromGlobals();
         }
 
@@ -113,8 +111,7 @@ class Request
      */
     public function getInput()
     {
-        if ($this->request->isMethod('GET'))
-        {
+        if ($this->request->isMethod('GET')) {
             return $this->request->query;
         }
 
@@ -131,11 +128,9 @@ class Request
      */
     public function putInput(\Symfony\Component\HttpFoundation\ParameterBag $input, $type)
     {
-        if ($type == 'query')
-        {
+        if ($type == 'query') {
             $this->request->query->add($input->all());
-        } else
-        {
+        } else {
             $this->request->request->add($input->all());
         }
 
@@ -159,9 +154,8 @@ class Request
      * @return void
      * @author Dan Cox
      */
-    public function __call($method, $args = Array())
+    public function __call($method, $args = array())
     {
         return call_user_func_array([$this->request, $method], $args);
     }
-
 } // END class Request

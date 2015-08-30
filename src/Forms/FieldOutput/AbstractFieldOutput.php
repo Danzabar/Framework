@@ -41,5 +41,4 @@ abstract class AbstractFieldOutput
      * @author Dan Cox
      */
     abstract public function output(Array $extras);
-
 } // END class AbstractFieldOutput

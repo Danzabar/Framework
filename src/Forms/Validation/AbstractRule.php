@@ -33,8 +33,7 @@ abstract class AbstractRule
      */
     public function __construct($message = null)
     {
-        if (!is_null($message))
-        {
+        if (!is_null($message)) {
             $this->message = $message;
         }
     }
@@ -69,6 +68,4 @@ abstract class AbstractRule
      * @author Dan Cox
      */
     abstract public function validate();
-
-
 } // END class AbstractRule

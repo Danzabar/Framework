@@ -168,9 +168,8 @@ class Form
 
         $this->input = (strtoupper($this->method) == 'GET' ? $request->query->all() : $request->request->all());
 
-        if (!is_null($this->model) && empty($this->input))
-        {
-            // Grab an array representation of the entity
+        if (!is_null($this->model) && empty($this->input)) {
+        // Grab an array representation of the entity
             $this->input = $this->model->toArray();
         }
     }
@@ -183,9 +182,8 @@ class Form
      */
     public function buildURL()
     {
-        if (is_null($this->url) && !is_null($this->route))
-        {
-            $params = (!is_null($this->route_params) ? $this->route_params : Array());
+        if (is_null($this->url) && !is_null($this->route)) {
+            $params = (!is_null($this->route_params) ? $this->route_params : array());
             $this->url = $this->container->get('url')->route($this->route, $params);
         }
     }
@@ -197,19 +195,20 @@ class Form
      * @return void
      * @author Dan Cox
      */
-    public function addField(Array $field = Array())
+    public function addField(Array $field = array())
     {
         $props = $this->formatPropertyArgs($field);
 
         $this->fields[] = new Field(
-                            $props['name'],
-                            $props['type'],
-                            $props['output'],
-                            $props['id'],
-                            $props['rules'],
-                            $props['default'],
-                            $props['values'],
-                            $this->input);
+            $props['name'],
+            $props['type'],
+            $props['output'],
+            $props['id'],
+            $props['rules'],
+            $props['default'],
+            $props['values'],
+            $this->input
+        );
     }
 
     /**
@@ -220,8 +219,7 @@ class Form
      */
     public function processProperties()
     {
-        foreach ($this->properties as $property)
-        {
+        foreach ($this->properties as $property) {
             $this->addField($property->getValue($this));
         }
     }
@@ -235,16 +233,22 @@ class Form
      */
     public function formatPropertyArgs(Array $field)
     {
-        $expected = ['name' => '', 'id' => '', 'output' => NULL,  'type' => 'String', 'rules' => Array(), 'default' => '', 'values' => Array()];
-        $props = Array();
+        $expected = [
+            'name' => '',
+            'id' => '',
+            'output' => null,
+            'type' => 'String',
+            'rules' => array(),
+            'default' => '',
+            'values' => array()
+        ];
 
-        foreach ($expected as $key => $default)
-        {
-            if (array_key_exists($key, $field))
-            {
+        $props = array();
+
+        foreach ($expected as $key => $default) {
+            if (array_key_exists($key, $field)) {
                 $props[$key] = $field[$key];
-            } else
-            {
+            } else {
                 $props[$key] = $default;
             }
         }
@@ -273,12 +277,10 @@ class Form
     {
         $passes = true;
 
-        $this->checkCSRFToken ();
+        $this->checkCSRFToken();
 
-        foreach ($this->fields as $field)
-        {
-            if (!$field->validate())
-            {
+        foreach ($this->fields as $field) {
+            if (!$field->validate()) {
                 $this->errors->add($field->getID(), $field->errors());
                 $passes = false;
             }
@@ -309,10 +311,8 @@ class Form
     {
         $session = $this->container->get('session');
 
-        if ($session->has('token_' . $this->name))
-        {
-            if (isset($this->input['token']) && $this->input['token'] == $session->get('token_'. $this->name))
-            {
+        if ($session->has('token_' . $this->name)) {
+            if (isset($this->input['token']) && $this->input['token'] == $session->get('token_'. $this->name)) {
                 // Passed
                 return true;
             }
@@ -331,7 +331,7 @@ class Form
      */
     public function generateCSRF()
     {
-        $this->token = md5(uniqid(rand(), TRUE));
+        $this->token = md5(uniqid(rand(), true));
 
         // Add to the session
         $this->container->get('session')->set('token_' . $this->name, $this->token);
@@ -344,12 +344,18 @@ class Form
      * @return String
      * @author Dan Cox
      */
-    public function open(Array $properties = Array())
+    public function open(Array $properties = array())
     {
         $this->generateCSRF();
 
         $html = '';
-        $html .= sprintf('<form action="%s" method="%s" %s>', $this->url, strtoupper($this->method), Str::arrayToHtmlProperties($properties));
+        $html .= sprintf(
+            '<form action="%s" method="%s" %s>',
+            $this->url,
+            strtoupper($this->method),
+            Str::arrayToHtmlProperties($properties)
+        );
+
         $html .= sprintf('<input type="hidden" name="token" value="%s" />', $this->token);
 
         return $html;
@@ -376,5 +382,4 @@ class Form
     {
         return '</form>';
     }
-
 } // END class Form

@@ -24,7 +24,7 @@ class InvalidConnection extends \Exception
      *
      * @author Dan Cox
      */
-    public function __construct($connection, $code = 0, \Exception $previous = NULL)
+    public function __construct($connection, $code = 0, \Exception $previous = null)
     {
         $this->connection = $connection;
 
@@ -41,5 +41,4 @@ class InvalidConnection extends \Exception
     {
         return $this->connection;
     }
-
 } // END class InvalidConnection extends \Exception

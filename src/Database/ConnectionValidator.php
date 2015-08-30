@@ -53,7 +53,7 @@ class ConnectionValidator
         $this->connection = new \STDClass;
         $this->defaults();
 
-        $this->typeMap = Array(
+        $this->typeMap = array(
             'Array'         => 'convertFromArray'
         );
     }
@@ -66,7 +66,7 @@ class ConnectionValidator
      */
     public function defaults()
     {
-        $this->connection->details = Array(
+        $this->connection->details = array(
             'driver'        => 'pdo_mysql',
             'user'          => 'root',
             'password'      => '',
@@ -74,7 +74,7 @@ class ConnectionValidator
             'dbname'        => ''
         );
 
-        $this->connection->models = Array();
+        $this->connection->models = array();
         $this->connection->debug = true;
     }
 
@@ -86,7 +86,7 @@ class ConnectionValidator
      * @return Object
      * @author Dan Cox
      */
-    public function load($raw, $type = 'Array', $defaultModelDirectories = Array())
+    public function load($raw, $type = 'Array', $defaultModelDirectories = array())
     {
         $this->raw = $raw;
         $this->type = $type;
@@ -108,8 +108,7 @@ class ConnectionValidator
         $this->mapDetailsFromArray();
 
         // Models Directory
-        if (isset($this->raw['models']))
-        {
+        if (isset($this->raw['models'])) {
             $this->setModelsDirectory($this->raw['models']);
         }
 
@@ -128,8 +127,7 @@ class ConnectionValidator
      */
     public function appendDefaultModelDirectories()
     {
-        foreach ($this->defaultModelDirectories as $md)
-        {
+        foreach ($this->defaultModelDirectories as $md) {
             $this->connection->models[] = $md;
         }
     }
@@ -142,9 +140,8 @@ class ConnectionValidator
      */
     public function setModelsDirectory($dir)
     {
-        if (!is_array($dir))
-        {
-            $dir = Array($dir);
+        if (!is_array($dir)) {
+            $dir = array($dir);
         }
 
         $this->connection->models = $dir;
@@ -158,13 +155,10 @@ class ConnectionValidator
      */
     public function mapDetailsFromArray()
     {
-        foreach (array_keys($this->connection->details) as $key)
-        {
-            if (array_key_exists($key, $this->raw))
-            {
+        foreach (array_keys($this->connection->details) as $key) {
+            if (array_key_exists($key, $this->raw)) {
                 $this->connection->details[$key] = $this->raw[$key];
             }
         }
     }
-
 } // END class ConnectionValidator

@@ -30,6 +30,4 @@ class DatabaseMockeryPass implements CompilerPassInterface
         $helper->updateDefinitionClass('database', 'Wasp\Database\DatabaseMockery');
         $helper->updateDefinitionArguments('database', [new Reference('service_container')]);
     }
-
 } // END class DatabaseMockeryPass implements CompilerPassInterface
-

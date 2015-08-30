@@ -18,7 +18,7 @@ class ExtensionRegister
      *
      * @var Array
      */
-    protected static $extensions = Array();
+    protected static $extensions = array();
 
     /**
      * Registers extensions on the container
@@ -30,8 +30,7 @@ class ExtensionRegister
      */
     public function register($container)
     {
-        foreach (static::$extensions as $extension)
-        {
+        foreach (static::$extensions as $extension) {
             $ext = new \ReflectionClass($extension);
             $instance = $ext->newInstance();
             $container->registerExtension($instance);
@@ -62,8 +61,7 @@ class ExtensionRegister
     {
         $fs = new Filesystem;
 
-        if ($fs->exists($file))
-        {
+        if ($fs->exists($file)) {
             $extensions = require $file;
 
             $this->loadFromArray($extensions);
@@ -89,7 +87,6 @@ class ExtensionRegister
      */
     public static function clearExtensions()
     {
-        static::$extensions = Array();
+        static::$extensions = array();
     }
-
 } // END class ExtensionRegister

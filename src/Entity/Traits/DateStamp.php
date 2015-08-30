@@ -53,5 +53,4 @@ trait DateStamp
     {
         $this->updatedAt = new \DateTime('NOW');
     }
-
 }

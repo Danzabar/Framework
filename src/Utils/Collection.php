@@ -9,7 +9,7 @@ namespace Wasp\Utils;
  * @subpackage Utils
  * @author Dan Cox
  */
-Class Collection Implements \Iterator, \Countable, \ArrayAccess
+class Collection implements \Iterator, \Countable, \ArrayAccess
 {
     /**
      * The raw array
@@ -24,7 +24,7 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
      * @param Array $collectable
      * @author Dan Cox
      */
-    public function __construct(Array $collectable = Array())
+    public function __construct(Array $collectable = array())
     {
         $this->collectable = $collectable;
     }
@@ -63,12 +63,11 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
      */
     public function get($key)
     {
-        if ($this->exists($key))
-        {
+        if ($this->exists($key)) {
             return $this->collectable[$key];
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -211,8 +210,7 @@ Class Collection Implements \Iterator, \Countable, \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset))
-        {
+        if (is_null($offset)) {
             $this->collectable[] = $value;
         } else {
             $this->collectable[$offset] = $value;

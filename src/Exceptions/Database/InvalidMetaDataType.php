@@ -31,12 +31,16 @@ class InvalidMetaDataType extends \Exception
      *
      * @author Dan Cox
      */
-    public function __construct($metadata, Array $typesAllowed, $code = 0, \Exception $previous = NULL)
+    public function __construct($metadata, Array $typesAllowed, $code = 0, \Exception $previous = null)
     {
         $this->metadata = $metadata;
         $this->typesAllowed = $typesAllowed;
 
-        parent::__construct("Invalid metadata type $metadata, allowed metadata types: " . join(',', $typesAllowed), $code, $previous);
+        parent::__construct(
+            "Invalid metadata type $metadata, allowed metadata types: " . join(',', $typesAllowed),
+            $code,
+            $previous
+        );
     }
 
     /**
@@ -60,7 +64,4 @@ class InvalidMetaDataType extends \Exception
     {
         return $this->typesAllowed;
     }
-
 } // END class InvalidMetaDataType extends \Exception
-
-

@@ -76,18 +76,17 @@ class Route
     public function add(
         $name,
         $uri,
-        $methods = Array(),
-        $defaults = Array(),
-        $requirements = Array(),
+        $methods = array(),
+        $defaults = array(),
+        $requirements = array(),
         $host = '',
-        $schemes = Array()
-    )
-    {
+        $schemes = array()
+    ) {
         $route = new SymfonyRoute(
             (is_null($this->prefix) ? $uri : $this->prefix . $uri),
             $defaults,
             $requirements,
-            Array(),
+            array(),
             $host,
             $schemes,
             $methods
@@ -129,12 +128,11 @@ class Route
      * @return void
      * @author Dan Cox
      */
-    public function rest($name, $uri, $action, $methods = Array(), $defaults = Array())
+    public function rest($name, $uri, $action, $methods = array(), $defaults = array())
     {
-        $methods = (!empty($methods) ? $methods : Array('all', 'show', 'update', 'create', 'new', 'edit', 'delete'));
+        $methods = (!empty($methods) ? $methods : array('all', 'show', 'update', 'create', 'new', 'edit', 'delete'));
 
-        foreach ($methods as $method)
-        {
+        foreach ($methods as $method) {
             $m = $this->typeMap[$method];
 
             $this->addRestRoute(
@@ -159,7 +157,7 @@ class Route
      * @return void
      * @author Dan Cox
      */
-    public function addRestRoute($name, $uri, $action, $method,  $defaults = Array())
+    public function addRestRoute($name, $uri, $action, $method, $defaults = array())
     {
         $this->add($name, $uri, $method, array_merge(['_controller' => $action], $defaults));
     }
@@ -174,12 +172,10 @@ class Route
      **/
     public function processRoute($name, $route)
     {
-        if (!is_null($this->activeGroup))
-        {
+        if (!is_null($this->activeGroup)) {
             $this->activeGroup->add($name, $route);
 
-        } else
-        {
+        } else {
             $this->collection->add($name, $route);
         }
     }
@@ -226,8 +222,6 @@ class Route
     {
         $this->collection->addCollection($this->activeGroup);
 
-        $this->activeGroup = NULL;
+        $this->activeGroup = null;
     }
-
 } // END class Route
-

@@ -39,8 +39,7 @@ trait Slugify
      */
     public function prePersistSlug()
     {
-        if (!is_null($this->title))
-        {
+        if (!is_null($this->title)) {
             $this->slug = Str::slug($this->title);
         }
     }
@@ -54,10 +53,8 @@ trait Slugify
      */
     public function preUpdateSlug()
     {
-        if (!is_null($this->title) && Str::slug($this->title) !== $this->slug)
-        {
+        if (!is_null($this->title) && Str::slug($this->title) !== $this->slug) {
             $this->slug = Str::slug($this->title);
         }
     }
-
 }

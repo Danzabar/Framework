@@ -27,7 +27,7 @@ class Entity
      * @return Mixed
      * @author Dan Cox
      */
-    public function __call($method, Array $args = Array())
+    public function __call($method, Array $args = array())
     {
         $db = $this->DI->get('database');
         $db->setEntity(get_called_class());
@@ -45,7 +45,7 @@ class Entity
      * @return EntityCollection
      * @author Dan Cox
      */
-    public function paginate($limit, $params = Array(), $order = Array())
+    public function paginate($limit, $params = array(), $order = array())
     {
         $paginator = $this->DI->get('paginator');
         $paginator->setEntity(get_called_class());
@@ -95,10 +95,8 @@ class Entity
         $properties = $reflection->getProperties();
 
         // Assign values
-        foreach ($properties as $prop)
-        {
-            if (array_key_exists($prop->getName(), $data))
-            {
+        foreach ($properties as $prop) {
+            if (array_key_exists($prop->getName(), $data)) {
                 $this->{$prop->getName()} = $data[$prop->getName()];
             }
         }
@@ -139,8 +137,7 @@ class Entity
      */
     public function __get($key)
     {
-        if (property_exists($this, $key))
-        {
+        if (property_exists($this, $key)) {
             return $this->$key;
         }
 
@@ -157,13 +154,11 @@ class Entity
      */
     public function __set($key, $value)
     {
-        if (property_exists($this, $key))
-        {
+        if (property_exists($this, $key)) {
             $this->$key = $value;
             return $this;
         }
 
         throw new AccessToInvalidKey(get_called_class(), $key);
     }
-
 } // END class Entity

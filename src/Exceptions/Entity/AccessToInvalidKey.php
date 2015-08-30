@@ -33,7 +33,7 @@ class AccessToInvalidKey extends \Exception
      * @return void
      * @author Dan Cox
      */
-    public function __construct($entity, $key, $code = 0, \Exception $previous = NULL)
+    public function __construct($entity, $key, $code = 0, \Exception $previous = null)
     {
         $this->entity = $entity;
         $this->key = $key;
@@ -62,5 +62,4 @@ class AccessToInvalidKey extends \Exception
     {
         return $this->key;
     }
-
 } // END class AccessToInvalidKey extends \Exception

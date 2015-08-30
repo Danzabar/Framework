@@ -29,12 +29,10 @@ class Required extends AbstractRule
      */
     public function validate()
     {
-        if (!empty($this->value) && !is_null($this->value) && $this->value != '')
-        {
+        if (!empty($this->value) && !is_null($this->value) && $this->value != '') {
             return true;
         }
 
         return false;
     }
-
 } // END class Required extends AbstractRule

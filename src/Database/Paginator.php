@@ -96,8 +96,7 @@ class Paginator
     {
         $paramBag = $this->request->query;
 
-        if ($paramBag->has('page'))
-        {
+        if ($paramBag->has('page')) {
             $this->pageNo = $paramBag->get('page');
 
             return;
@@ -134,14 +133,13 @@ class Paginator
      * @return PaginatedEntityCollection
      * @author Dan Cox
      */
-    public function query($pageSize = 100, $clauses = Array(), $order = Array())
+    public function query($pageSize = 100, $clauses = array(), $order = array())
     {
         $this->pageSize = $pageSize;
         $this->calculations();
         $offset = 0;
 
-        if ($this->pageNo > 1)
-        {
+        if ($this->pageNo > 1) {
             $offset = ($pageSize * $this->pageNo);
         }
 
@@ -158,7 +156,7 @@ class Paginator
      * @return void
      * @author Dan Cox
      */
-    public function countRows(Array $clauses = Array())
+    public function countRows(Array $clauses = array())
     {
         $qb = $this->database->setEntity($this->entity)
                              ->queryBuilder();
@@ -213,5 +211,4 @@ class Paginator
 
         return $this;
     }
-
 } // END class Paginator

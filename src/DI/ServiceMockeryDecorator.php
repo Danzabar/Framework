@@ -42,7 +42,7 @@ class ServiceMockeryDecorator
      * @return void
      * @author Dan Cox
      */
-    public function __call($method, $args = Array())
+    public function __call($method, $args = array())
     {
         return call_user_func_array([$this->mockery, $method], $args);
     }
@@ -69,5 +69,4 @@ class ServiceMockeryDecorator
         $this->mockery->$key = $value;
         return $this;
     }
-
 } // END class ServiceMockeryDecorator

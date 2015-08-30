@@ -18,9 +18,8 @@ class RecordNotFound extends \Exception
      * @param \Exception $previous
      * @author Dan Cox
      */
-    public function __construct($code = 0, \Exception $previous = NULL)
+    public function __construct($code = 0, \Exception $previous = null)
     {
         parent::__construct("Query found no results.", $code, $previous);
     }
-
 } // END class RecordNotFound extends \Exception

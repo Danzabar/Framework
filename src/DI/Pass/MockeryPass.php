@@ -44,10 +44,8 @@ class MockeryPass implements CompilerPassInterface
         // Grab the service definitions from the library.
         $definitions = $this->getLibraryDefinitions();
 
-        foreach ($definitions as $service => $mockery)
-        {
-            if ($this->container->hasDefinition($service))
-            {
+        foreach ($definitions as $service => $mockery) {
+            if ($this->container->hasDefinition($service)) {
                 // Get the current definition
                 $def = $this->transformDefinition($mockery);
 
@@ -91,5 +89,4 @@ class MockeryPass implements CompilerPassInterface
 
         return $this->library->all();
     }
-
 } // END class MockeryPass implements CompilerPassInterface

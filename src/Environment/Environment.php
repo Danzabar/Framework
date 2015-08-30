@@ -6,7 +6,6 @@ use Wasp\Application\Application;
 use Wasp\DI\DICompilerPassRegister;
 use Wasp\DI\DI;
 
-
 /**
  * Base environment class, Determines actions taken on Application Launch.
  *
@@ -47,13 +46,12 @@ class Environment
     {
         $this->App = $App;
 
-        $this->settings = (!is_null($this->App->profile) ? $this->App->profile->getSettings() : Array());
+        $this->settings = (!is_null($this->App->profile) ? $this->App->profile->getSettings() : array());
 
         $this->injectDependencies();
 
         // If the Child Environment Class has a Setup function, call it.
-        if (method_exists($this, 'setup'))
-        {
+        if (method_exists($this, 'setup')) {
             $this->setup();
         }
 
@@ -68,12 +66,28 @@ class Environment
      */
     public function DIInstance()
     {
-        $di_cache_dir = (isset($this->settings['application']['di_cache_directory']) ? $this->settings['application']['di_cache_directory'] : NULL);
-        $di_cache_ns = (isset($this->settings['application']['di_cache_namespace']) ? $this->settings['application']['di_cache_namespace'] : NULL);
+        $di_cache_dir = $this->getCacheSetting('di_cache_directory');
+        $di_cache_ns = $this->getCacheSetting('di_cache_namespace');
 
         $this->DI = new DI(dirname(__DIR__) . '/Config/', $di_cache_dir, $di_cache_ns);
 
         $this->loadRegisterCompilerPasses();
+    }
+
+    /**
+     * Gets the cache setting by key or returns null
+     *
+     * @param String $key
+     * @return String
+     * @author Dan Cox
+     */
+    public function getCacheSetting($key)
+    {
+        if (isset($this->settings['application'][$key])) {
+            return $this->settings['application'][$key];
+        }
+
+        return null;
     }
 
     /**
@@ -100,8 +114,7 @@ class Environment
     {
         $passes = DICompilerPassRegister::getPasses();
 
-        foreach ($passes as $pass)
-        {
+        foreach ($passes as $pass) {
             $reflection = new \ReflectionClass($pass);
 
             $this->DI->addCompilerPass($reflection->newInstance());
@@ -118,7 +131,7 @@ class Environment
     public function startTemplating($directory)
     {
         $twig = $this->DI->get('twigengine');
-        $twigConfig = (isset($this->settings['templates']['twig']) ? $this->settings['templates']['twig'] : Array());
+        $twigConfig = (isset($this->settings['templates']['twig']) ? $this->settings['templates']['twig'] : array());
 
         $this->DI->get('template')
                  ->setDirectory($directory);
@@ -139,12 +152,12 @@ class Environment
     public function connectTo($connection)
     {
         try {
-
             $this->DI->get('connection')->connect($connection);
 
         } catch (\Exception $e) {
+            $response = $this->DI->get('response')
+                                ->make('<p>The database connection details seem invalid, please check them.</p>', 200);
 
-            $response = $this->DI->get('response')->make('<p>The database connection details seem invalid, please check them.</p>', 200);
             $response->send();
         }
     }
@@ -157,8 +170,7 @@ class Environment
      */
     public function connect()
     {
-        if ($this->settings['application']['default_connection'] !== '')
-        {
+        if ($this->settings['application']['default_connection'] !== '') {
             $this->connectTo($this->settings['application']['default_connection']);
 
             return true;
@@ -213,6 +225,4 @@ class Environment
     {
         return $this->DI;
     }
-
-
 } // END class Environment

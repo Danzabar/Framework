@@ -84,14 +84,16 @@ class DI
      * @return void
      * @author Dan Cox
      */
-    public function __construct($directory = NULL, $cache_directory = NULL, $cache_namespace = NULL)
+    public function __construct($directory = null, $cache_directory = null, $cache_namespace = null)
     {
+        $default_dir = dirname(__DIR__) . '/Application/Cache/AppCache.php';
+
         $this->directory = $directory;
         $this->extensions = new ExtensionRegister;
-        $this->cache_directory = (!is_null($cache_directory) ? $cache_directory : dirname(__DIR__) . '/Application/Cache/AppCache.php');
+        $this->cache_directory = (!is_null($cache_directory) ? $cache_directory : $default_dir);
         $this->cache_namespace = (!is_null($cache_namespace) ? $cache_namespace : 'Wasp\Application\Cache');
 
-        $this->cache = new ConfigCache($this->cache_directory, False);
+        $this->cache = new ConfigCache($this->cache_directory, false);
         static::$container = new ContainerBuilder;
     }
 
@@ -104,8 +106,7 @@ class DI
     public function build()
     {
         // We must have a directory set;
-        if (is_null($this->directory))
-        {
+        if (is_null($this->directory)) {
             throw new Exceptions\DI\InvalidServiceDirectory($this);
         }
 
@@ -148,8 +149,7 @@ class DI
      */
     public function buildContainerFromCache($serviceFile)
     {
-        if (!$this->cache->isFresh())
-        {
+        if (!$this->cache->isFresh()) {
             $this
                 ->build()
                 ->load($serviceFile)
@@ -288,5 +288,4 @@ class DI
     {
         return $this->extensions;
     }
-
 } // END class DI

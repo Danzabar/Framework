@@ -17,7 +17,7 @@ class DirectoryNotSet extends \Exception
      *
      * @author Dan Cox
      */
-    public function __construct($code = 0, \Exception $previous = NULL)
+    public function __construct($code = 0, \Exception $previous = null)
     {
         parent::__construct(
             "Attempted to create an instance of Delegation Engine without a directory set",
@@ -25,5 +25,4 @@ class DirectoryNotSet extends \Exception
             $previous
         );
     }
-
 } // END class DirectoryNotSet extends \Exception

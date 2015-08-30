@@ -22,9 +22,13 @@ class TextAreaOutput extends AbstractFieldOutput
      * @return String
      * @author Dan Cox
      */
-    public function output(Array $extras = Array())
+    public function output(Array $extras = array())
     {
-        return sprintf('<textarea name="%1$s" id="%1$s" %2$s>%3$s</textarea>', $this->field->id, Str::arrayToHtmlProperties($extras), $this->field->value);
+        return sprintf(
+            '<textarea name="%1$s" id="%1$s" %2$s>%3$s</textarea>',
+            $this->field->id,
+            Str::arrayToHtmlProperties($extras),
+            $this->field->value
+        );
     }
-
 } // END class TextAreaOutput extends AbstractFieldOutput

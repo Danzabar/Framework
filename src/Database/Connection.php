@@ -68,7 +68,7 @@ class Connection
         $this->collection = $collection;
         $this->validator = $validator;
 
-        $this->typeMap = Array(
+        $this->typeMap = array(
             'Annotation'        => 'createMetaDataFromAnnotation',
             'YAML'              => 'createMetaDataFromYAML',
             'XML'               => 'createMetaDataFromXML'
@@ -117,7 +117,10 @@ class Connection
      */
     public function createMetaDataFromAnnotation()
     {
-        $this->setup = Setup::createAnnotationMetadataConfiguration($this->connection->models, $this->connection->debug);
+        $this->setup = Setup::createAnnotationMetadataConfiguration(
+            $this->connection->models,
+            $this->connection->debug
+        );
 
         // More advanced annotation engine
         $this->setup->setMetadataDriverImpl(
@@ -163,5 +166,4 @@ class Connection
     {
         return new SchemaTool($this->entityManager);
     }
-
 } // END class Connection

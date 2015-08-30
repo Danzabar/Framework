@@ -54,12 +54,10 @@ class Str
     {
         $str = '';
 
-        foreach ($arr as $key => $value)
-        {
+        foreach ($arr as $key => $value) {
             $str .= sprintf(' %s="%s"', $key, $value);
         }
 
         return ltrim($str, ' ');
     }
-
 } // END class String

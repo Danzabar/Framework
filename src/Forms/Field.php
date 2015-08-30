@@ -96,14 +96,13 @@ class Field
     public function __construct(
         $label,
         $type = 'text',
-        $output = NULL,
+        $output = null,
         $id = '',
-        Array $rules = Array(),
+        Array $rules = array(),
         $default = '',
-        $values = Array(),
-        $input = Array()
-    )
-    {
+        $values = array(),
+        $input = array()
+    ) {
         $this->label = $label;
         $this->type = $type;
         $this->output = (!is_null($output) ? $output : 'Wasp\Forms\FieldOutput\InputStringOutput');
@@ -127,12 +126,10 @@ class Field
     {
         $passes = true;
 
-        foreach ($this->rules as $rule)
-        {
+        foreach ($this->rules as $rule) {
             $rule->setValue($this->value);
 
-            if (!$rule->validate())
-            {
+            if (!$rule->validate()) {
                 $this->errors[] = $rule->getMessage();
                 $passes = false;
             }
@@ -152,14 +149,12 @@ class Field
         $this->value = '';
 
         // Check if there is a default value set
-        if (!is_null($this->default))
-        {
+        if (!is_null($this->default)) {
             $this->value = $this->default;
         }
 
         // Check the Input Array for a set value.
-        if (array_key_exists($this->id, $this->input))
-        {
+        if (array_key_exists($this->id, $this->input)) {
             $this->value = $this->input[$this->id];
         }
     }
@@ -171,7 +166,7 @@ class Field
      * @return String
      * @author Dan Cox
      */
-    public function field(Array $elementExtras = Array())
+    public function field(Array $elementExtras = array())
     {
         $outputReflection = new \ReflectionClass($this->output);
         $instance = $outputReflection->newInstance();
@@ -209,7 +204,7 @@ class Field
      * @return String
      * @author Dan Cox
      */
-    public function label(Array $elementExtras = Array())
+    public function label(Array $elementExtras = array())
     {
         $elementExtras = array_merge($elementExtras, ['for' => $this->id]);
 
@@ -226,5 +221,4 @@ class Field
     {
         return $this->id;
     }
-
 } // END class Field
