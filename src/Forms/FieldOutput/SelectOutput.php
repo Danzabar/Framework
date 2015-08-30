@@ -2,7 +2,7 @@
 
 namespace Wasp\Forms\FieldOutput;
 
-use Wasp\Forms\FieldOutput\AbstractFieldOutput,
+use Wasp\Forms\FieldOutput\AbstractFieldOutput;
 use Wasp\Utils\Str;
 
 /**
