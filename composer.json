@@ -1,6 +1,7 @@
 {
 	"name":"wasp/framework",
 	"description": "A PHP framework designed for REST Apis and small Apps",
+    "license":"MIT",
 	"authors": [
 		{
 			"name":"Daniel Cox",
