@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI;
+<?php
+
+namespace Wasp\DI;
 
 /**
  * Static container awareness trait

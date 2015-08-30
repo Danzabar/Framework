@@ -1,8 +1,10 @@
-<?php namespace Wasp\Templating\Engines;
+<?php
 
-use Symfony\Component\Templating\EngineInterface,
-    \Twig_Loader_Filesystem as Loader,
-    \Twig_Environment as Environment;
+namespace Wasp\Templating\Engines;
+
+use Symfony\Component\Templating\EngineInterface;
+use \Twig_Loader_Filesystem as Loader;
+use \Twig_Environment as Environment;
 
 /**
  * Custom engine for twig templating

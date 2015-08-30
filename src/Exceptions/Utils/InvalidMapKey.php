@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\Utils;
+<?php
+
+namespace Wasp\Exceptions\Utils;
 
 /**
  * Exception class for using the argument map trait with an invalid key

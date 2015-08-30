@@ -1,10 +1,12 @@
-<?php namespace Wasp\DI\Pass;
+<?php
 
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
-    Symfony\Component\DependencyInjection\ContainerBuilder,
-    Symfony\Component\DependencyInjection\Reference,
-    Wasp\DI\Pass\CompilerHelper,
-    Wasp\Database\DatabaseMockery;
+namespace Wasp\DI\Pass;
+
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+use Wasp\DI\Pass\CompilerHelper;
+use Wasp\Database\DatabaseMockery;
 
 /**
  * Compiler pass for database mocking

@@ -1,4 +1,6 @@
-<?php namespace Wasp\Forms\Validation;
+<?php
+
+namespace Wasp\Forms\Validation;
 
 use Wasp\Forms\Validation\AbstractRule;
 

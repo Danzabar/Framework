@@ -1,4 +1,6 @@
-<?php namespace Wasp\Utils;
+<?php
+
+namespace Wasp\Utils;
 
 /**
  * Type map trait calls class functions based on types

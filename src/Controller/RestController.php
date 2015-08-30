@@ -1,4 +1,6 @@
-<?php namespace Wasp\Controller;
+<?php
+
+namespace Wasp\Controller;
 
 use Wasp\Controller\BaseController;
 

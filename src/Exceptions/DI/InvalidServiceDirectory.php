@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\DI;
+<?php
+
+namespace Wasp\Exceptions\DI;
 
 /**
  * Exception for when the service definition directory has not been set

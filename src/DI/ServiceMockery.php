@@ -1,7 +1,9 @@
-<?php namespace Wasp\DI;
+<?php
 
-use Wasp\DI\ServiceMockeryLibrary,
-    Wasp\DI\ServiceMockeryDecorator;
+namespace Wasp\DI;
+
+use Wasp\DI\ServiceMockeryLibrary;
+use Wasp\DI\ServiceMockeryDecorator;
 
 /**
  * Service mockery class is used to create mockery instances of the DI services
@@ -68,7 +70,7 @@ class ServiceMockery
      */
     public function add()
     {
-        $this->library->add($this->serviceName);                        
+        $this->library->add($this->serviceName);
         return $this;
     }
 

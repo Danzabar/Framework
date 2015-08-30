@@ -1,11 +1,13 @@
-<?php namespace Wasp\Forms;
+<?php
 
-use Wasp\Utils\Collection,
-    Wasp\DI\DI,
-    Wasp\Utils\Str,
-    Wasp\Exceptions\Forms\InvalidCSRFToken,
-    Wasp\DI\DependencyInjectionAwareTrait,
-    Wasp\Forms\Field;
+namespace Wasp\Forms;
+
+use Wasp\Utils\Collection;
+use Wasp\DI\DI;
+use Wasp\Utils\Str;
+use Wasp\Exceptions\Forms\InvalidCSRFToken;
+use Wasp\DI\DependencyInjectionAwareTrait;
+use Wasp\Forms\Field;
 
 /**
  * Form class used to build forms as classes and handle validation and submissions

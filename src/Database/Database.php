@@ -1,4 +1,6 @@
-<?php namespace Wasp\Database;
+<?php
+
+namespace Wasp\Database;
 
 use Wasp\Exceptions\Entity\RecordNotFound;
 

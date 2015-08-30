@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI;
+<?php
+
+namespace Wasp\DI;
 
 /**
  * Decorator class for Service Mockeries

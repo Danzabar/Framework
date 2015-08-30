@@ -1,4 +1,6 @@
-<?php namespace Wasp\Entity\Traits;
+<?php
+
+namespace Wasp\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -47,4 +49,3 @@ Trait Suspendable
         $this->save();
     }
 }
-

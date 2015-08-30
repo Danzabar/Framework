@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI;
+<?php
+
+namespace Wasp\DI;
 
 /**
  * Registers Compiler pass classes that are triggered in the environment
@@ -9,7 +11,7 @@
  */
 class DICompilerPassRegister
 {
-        
+
     /**
      * An Array of passes
      *
@@ -40,7 +42,7 @@ class DICompilerPassRegister
         if (!is_array($class))
         {
             $class = Array($class);
-        }   
+        }
 
         static::$passes = array_merge(static::$passes, $class);
     }
@@ -55,7 +57,7 @@ class DICompilerPassRegister
     public static function remove($class)
     {
         if ($key = array_search($class, static::$passes) !== false)
-        {   
+        {
             unset(static::$passes[$key]);
         }
 

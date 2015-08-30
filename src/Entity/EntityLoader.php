@@ -1,4 +1,6 @@
-<?php namespace Wasp\Entity;
+<?php
+
+namespace Wasp\Entity;
 
 use Wasp\DI\DependencyInjectionAwareTrait;
 

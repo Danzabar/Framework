@@ -1,4 +1,6 @@
-<?php namespace Wasp\Application;
+<?php
+
+namespace Wasp\Application;
 
 /**
  * Profile class is used to set up the application
@@ -15,7 +17,7 @@ class Profile
      *
      * @var Array
      **/
-    protected $profiles = Array();  
+    protected $profiles = Array();
 
     /**
      * Symfony file system
@@ -204,7 +206,7 @@ class Profile
      * @author Dan Cox
      */
     public function setSettings(Array $settings)
-    {   
+    {
         $this->settings = $settings;
         return $this;
     }

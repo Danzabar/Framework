@@ -1,4 +1,6 @@
-<?php namespace Wasp\Forms\Validation;
+<?php
+
+namespace Wasp\Forms\Validation;
 
 /**
  * The Base Rule class

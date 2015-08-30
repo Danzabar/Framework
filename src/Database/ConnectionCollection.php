@@ -1,8 +1,10 @@
-<?php namespace Wasp\Database;
+<?php
 
-use Wasp\Exceptions\Database\InvalidConnection,
-    Wasp\DI\DependencyInjectionAwareTrait,
-    Wasp\Utils\Collection;
+namespace Wasp\Database;
+
+use Wasp\Exceptions\Database\InvalidConnection;
+use Wasp\DI\DependencyInjectionAwareTrait;
+use Wasp\Utils\Collection;
 
 /**
  * The Collection class for Database Connections

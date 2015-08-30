@@ -1,7 +1,8 @@
-<?php namespace Wasp\Entity\Traits;
+<?php
+
+namespace Wasp\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * The Date stamp trait adds two date field rows and events to update them
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @subpackage Entity
  * @author Dan Cox
  */
-Trait DateStamp
+trait DateStamp
 {
     /**
      * Created At DateTime field

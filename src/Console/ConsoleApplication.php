@@ -1,8 +1,10 @@
-<?php namespace Wasp\Console;
+<?php
 
-use Symfony\Component\Console\Application as SymfonyApplication,
-    Symfony\Component\Console\Command\Command as SymfonyCommand,
-    Wasp\DI\DependencyInjectionAwareTrait;
+namespace Wasp\Console;
+
+use Symfony\Component\Console\Application as SymfonyApplication;
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
+use Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
  * Application Class for the Console

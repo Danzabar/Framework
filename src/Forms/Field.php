@@ -1,8 +1,10 @@
-<?php namespace Wasp\Forms;
+<?php
 
-use Wasp\Utils\TypeMapTrait,
-    Wasp\Utils\Str,
-    Wasp\Utils\Collection;
+namespace Wasp\Forms;
+
+use Wasp\Utils\TypeMapTrait;
+use Wasp\Utils\Str;
+use Wasp\Utils\Collection;
 
 /**
  * Field class controls form fields, Acts as a base for specific field types

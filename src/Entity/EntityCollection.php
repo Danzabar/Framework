@@ -1,7 +1,9 @@
-<?php namespace Wasp\Entity;
+<?php
 
-use Wasp\Utils\Collection,
-    Wasp\DI\DI;
+namespace Wasp\Entity;
+
+use Wasp\Utils\Collection;
+use Wasp\DI\DI;
 
 /**
  * Collection class for entities

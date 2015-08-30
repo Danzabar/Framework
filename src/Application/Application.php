@@ -1,10 +1,12 @@
-<?php namespace Wasp\Application;
+<?php
 
-use Wasp\Environment\Environment,
-    Wasp\Utils\Collection,
-    Wasp\Exceptions\Application\UnknownEnvironment,
-    Symfony\Component\HttpKernel\KernelEvents,
-    Symfony\Component\HttpKernel\HttpKernel;
+namespace Wasp\Application;
+
+use Wasp\Environment\Environment;
+use Wasp\Utils\Collection;
+use Wasp\Exceptions\Application\UnknownEnvironment;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\HttpKernel;
 
 /**
  * Application class

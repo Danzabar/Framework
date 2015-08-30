@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI;
+<?php
+
+namespace Wasp\DI;
 
 /**
  * Dependency injection Awareness
@@ -7,7 +9,7 @@
  * @subpackage DI
  * @author Dan Cox
  */
-Trait DependencyInjectionAwareTrait {
+trait DependencyInjectionAwareTrait {
 
     /**
      * The DI instance

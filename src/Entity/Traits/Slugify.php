@@ -1,7 +1,9 @@
-<?php namespace Wasp\Entity\Traits;
+<?php
 
-use Doctrine\ORM\Mapping as ORM,
-    Wasp\Utils\Str;
+namespace Wasp\Entity\Traits;
+
+use Doctrine\ORM\Mapping as ORM;
+use Wasp\Utils\Str;
 
 /**
  * Slugify trait, adds a title and seo friendly url to the base table
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM,
  * @subpackage Entity
  * @author Dan Cox
  */
-Trait Slugify
+trait Slugify
 {
     /**
      * The title, from which the slug is based
@@ -57,6 +59,5 @@ Trait Slugify
             $this->slug = Str::slug($this->title);
         }
     }
-
 
 }

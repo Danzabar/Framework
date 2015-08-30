@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\Database;
+<?php
+
+namespace Wasp\Exceptions\Database;
 
 /**
  * Exception class for an invalid connection type

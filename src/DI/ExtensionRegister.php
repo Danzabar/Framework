@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI;
+<?php
+
+namespace Wasp\DI;
 
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -75,7 +77,7 @@ class ExtensionRegister
      * @author Dan Cox
      */
     public static function getExtensions()
-    {   
+    {
         return static::$extensions;
     }
 

@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\Forms;
+<?php
+
+namespace Wasp\Exceptions\Forms;
 
 /**
  * Exception class for invalid field types on forms

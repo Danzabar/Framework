@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\Templating;
+<?php
+
+namespace Wasp\Exceptions\Templating;
 
 /**
  * Exception class for directory not set

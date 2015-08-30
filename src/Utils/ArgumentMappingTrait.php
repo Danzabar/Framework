@@ -1,4 +1,6 @@
-<?php namespace Wasp\Utils;
+<?php
+
+namespace Wasp\Utils;
 
 use Wasp\Exceptions\Utils\InvalidMapKey;
 

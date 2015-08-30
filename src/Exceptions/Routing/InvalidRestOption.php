@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\Routing;
+<?php
+
+namespace Wasp\Exceptions\Routing;
 
 /**
  * Exception class for a wrong rest option selection

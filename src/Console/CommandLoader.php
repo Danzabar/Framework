@@ -1,4 +1,6 @@
-<?php namespace Wasp\Console;
+<?php
+
+namespace Wasp\Console;
 
 /**
  * Command loader class loads commands into the console application in a variation of ways

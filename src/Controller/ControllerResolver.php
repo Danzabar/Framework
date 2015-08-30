@@ -1,7 +1,9 @@
-<?php namespace Wasp\Controller;
+<?php
 
-use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseResolver,
-    Wasp\DI\DependencyInjectionAwareTrait;
+namespace Wasp\Controller;
+
+use Symfony\Component\HttpKernel\Controller\ControllerResolver as BaseResolver;
+use Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
  * Controller resolver class

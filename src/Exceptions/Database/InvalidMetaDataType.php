@@ -1,5 +1,6 @@
-<?php namespace Wasp\Exceptions\Database;
+<?php
 
+namespace Wasp\Exceptions\Database;
 
 /**
  * Exception class for the meta data type property in connections

@@ -1,14 +1,16 @@
-<?php namespace Wasp\Database;
+<?php
 
-use Wasp\Database\ConnectionCollection,
-    Wasp\Utils\TypeMapTrait,
-    Doctrine\ORM\EntityManager,
-    Doctrine\ORM\Tools\SchemaTool,
-    Doctrine\Common\Cache\ArrayCache,
-    Doctrine\Common\Annotations\CachedReader,
-    Doctrine\Common\Annotations\AnnotationReader,
-    Doctrine\ORM\Mapping\Driver\AnnotationDriver,
-    Doctrine\ORM\Tools\Setup;
+namespace Wasp\Database;
+
+use Wasp\Database\ConnectionCollection;
+use Wasp\Utils\TypeMapTrait;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Annotations\CachedReader;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Tools\Setup;
 
 /**
  * The connection class represents a single database connection

@@ -1,9 +1,11 @@
-<?php namespace Wasp\DI;
+<?php
 
-use Symfony\Component\DependencyInjection\ContainerBuilder,
-    Symfony\Component\DependencyInjection\Extension\ExtensionInterface,
-    Symfony\Component\DependencyInjection\Loader\YamlFileLoader,
-    Symfony\Component\Config\FileLocator;
+namespace Wasp\DI;
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\Config\FileLocator;
 
 
 /**
@@ -92,7 +94,7 @@ class Extension implements ExtensionInterface
      * @author Dan Cox
      */
     public function getAlias()
-    {   
+    {
         return (!is_null($this->alias) ? $this->alias : 'extension');
     }
 

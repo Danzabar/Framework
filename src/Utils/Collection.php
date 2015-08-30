@@ -1,4 +1,6 @@
-<?php namespace Wasp\Utils;
+<?php
+
+namespace Wasp\Utils;
 
 /**
  * Collection trait, Adds useful array sorting and iterating functionality

@@ -1,4 +1,6 @@
-<?php namespace Wasp\Filter;
+<?php
+
+namespace Wasp\Filter;
 
 /**
  * Filter interface
@@ -7,7 +9,7 @@
  * @subpackage Filter
  * @author Dan Cox
  */
-Interface FilterInterface
+interface FilterInterface
 {
 
     /**

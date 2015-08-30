@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI;
+<?php
+
+namespace Wasp\DI;
 
 /**
  * A storage for the ServiceMockery classes
@@ -26,7 +28,7 @@ class ServiceMockeryLibrary
      */
     public function add($name)
     {
-        static::$services[$name] = $name;   
+        static::$services[$name] = $name;
         return $this;
     }
 
@@ -39,7 +41,7 @@ class ServiceMockeryLibrary
      */
     public function find($name)
     {
-        if (array_key_exists($name, static::$services)) 
+        if (array_key_exists($name, static::$services))
         {
             return static::$services[$name];
         }
@@ -58,7 +60,7 @@ class ServiceMockeryLibrary
     {
         if (array_key_exists($name, static::$services))
         {
-            unset(static::$services[$name]);    
+            unset(static::$services[$name]);
         }
 
         return $this;

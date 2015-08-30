@@ -1,9 +1,11 @@
-<?php namespace Wasp\Environment;
+<?php
 
-use Wasp\Environment\Environment,
-    Wasp\Environment\EnvironmentInterface,
-    Wasp\DI\Pass\SessionFilePass,
-    Wasp\DI\Pass\MockeryPass;
+namespace Wasp\Environment;
+
+use Wasp\Environment\Environment;
+use Wasp\Environment\EnvironmentInterface;
+use Wasp\DI\Pass\SessionFilePass;
+use Wasp\DI\Pass\MockeryPass;
 
 /**
  * Environment Class for the Test environment.
@@ -14,7 +16,6 @@ use Wasp\Environment\Environment,
  */
 class Test extends Environment Implements EnvironmentInterface
 {
-
     /**
      * Setup the environment properties
      *
@@ -29,6 +30,5 @@ class Test extends Environment Implements EnvironmentInterface
         // No need to cache here.
         $this->createDI();
     }
-
 
 } // END class Test extends Environment Implements EnvironmentInterface

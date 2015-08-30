@@ -1,12 +1,14 @@
-<?php namespace Wasp\DI;
+<?php
 
-use Symfony\Component\DependencyInjection\ContainerBuilder,
-    Symfony\Component\Config\FileLocator,
-    Wasp\Exceptions,
-    Wasp\DI\ExtensionRegister,
-    Symfony\Component\DependencyInjection\Dumper\PhpDumper,
-    Symfony\Component\Config\ConfigCache,
-    Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+namespace Wasp\DI;
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Config\FileLocator;
+use Wasp\Exceptions;
+use Wasp\DI\ExtensionRegister;
+use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * Dependency Injector
@@ -88,7 +90,7 @@ class DI
         $this->extensions = new ExtensionRegister;
         $this->cache_directory = (!is_null($cache_directory) ? $cache_directory : dirname(__DIR__) . '/Application/Cache/AppCache.php');
         $this->cache_namespace = (!is_null($cache_namespace) ? $cache_namespace : 'Wasp\Application\Cache');
-        
+
         $this->cache = new ConfigCache($this->cache_directory, False);
         static::$container = new ContainerBuilder;
     }
@@ -123,7 +125,7 @@ class DI
      */
     public function loadExtensions()
     {
-        $this->extensions->register(static::$container);    
+        $this->extensions->register(static::$container);
     }
 
     /**
@@ -169,9 +171,9 @@ class DI
     public function cache()
     {
         $dump = new PhpDumper(static::$container);
-        
+
         $this->cache->write(
-            $dump->dump(['class' => $this->cache_class, 'namespace' => $this->cache_namespace]), 
+            $dump->dump(['class' => $this->cache_class, 'namespace' => $this->cache_namespace]),
             static::$container->getResources()
         );
 

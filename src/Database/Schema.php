@@ -1,4 +1,6 @@
-<?php namespace Wasp\Database;
+<?php
+
+namespace Wasp\Database;
 
 /**
  * The schema class, uses Doctrine's Schema Tools

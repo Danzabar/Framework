@@ -1,7 +1,9 @@
-<?php namespace Wasp\Forms\FieldOutput;
+<?php
 
-use Wasp\Forms\FieldOutput\AbstractFieldOutput,
-    Wasp\Utils\Str;
+namespace Wasp\Forms\FieldOutput;
+
+use Wasp\Forms\FieldOutput\AbstractFieldOutput;
+use Wasp\Utils\Str;
 
 /**
  * Outputing rules for checkboxes and radio buttons

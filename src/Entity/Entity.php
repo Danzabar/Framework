@@ -1,9 +1,11 @@
-<?php namespace Wasp\Entity;
+<?php
 
-use Wasp\Exceptions\Entity\AccessToInvalidKey,
-    Wasp\DI\DependencyInjectionAwareTrait,
-    JMS\Serializer\Annotation\ExclusionPolicy,
-    Doctrine\ORM\Mapping as ORM;
+namespace Wasp\Entity;
+
+use Wasp\Exceptions\Entity\AccessToInvalidKey;
+use Wasp\DI\DependencyInjectionAwareTrait;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * The Entity class is a base for entities(models)

@@ -33,7 +33,8 @@
 		"jms/serializer": "1.x"
 	},
 	"require-dev": {
-		"satooshi/php-coveralls": "dev-master"
+		"satooshi/php-coveralls": "dev-master",
+        "squizlabs/php_codesniffer": "dev-master"
 	},
 	"minimum-stability": "dev",
 	"autoload": {

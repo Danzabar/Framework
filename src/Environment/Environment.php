@@ -1,8 +1,10 @@
-<?php namespace Wasp\Environment;
+<?php
 
-use Wasp\Application\Application,
-    Wasp\DI\DICompilerPassRegister,
-    Wasp\DI\DI;
+namespace Wasp\Environment;
+
+use Wasp\Application\Application;
+use Wasp\DI\DICompilerPassRegister;
+use Wasp\DI\DI;
 
 
 /**

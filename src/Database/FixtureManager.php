@@ -1,9 +1,11 @@
-<?php namespace Wasp\Database;
+<?php
 
-use Doctrine\Fixture\Loader\DirectoryLoader,
-    Doctrine\Fixture\Executor,
-    Doctrine\Fixture\Filter\ChainFilter,
-    Doctrine\Fixture\Configuration;
+namespace Wasp\Database;
+
+use Doctrine\Fixture\Loader\DirectoryLoader;
+use Doctrine\Fixture\Executor;
+use Doctrine\Fixture\Filter\ChainFilter;
+use Doctrine\Fixture\Configuration;
 
 /**
  * Loads and runs fixture classes

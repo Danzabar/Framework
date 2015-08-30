@@ -1,8 +1,10 @@
-<?php namespace Wasp\Entity;
+<?php
 
-use Wasp\Entity\EntityCollection,
-    Wasp\Exceptions\Entity\PaginationTemplateNotSet,
-    Wasp\DI\DependencyInjectionAwareTrait;
+namespace Wasp\Entity;
+
+use Wasp\Entity\EntityCollection;
+use Wasp\Exceptions\Entity\PaginationTemplateNotSet;
+use Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
  * Collection class for returning paginated results

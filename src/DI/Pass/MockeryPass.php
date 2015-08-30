@@ -1,9 +1,11 @@
-<?php namespace Wasp\DI\Pass;
+<?php
 
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
-    Symfony\Component\DependencyInjection\Definition,
-    Symfony\Component\DependencyInjection\ContainerBuilder,
-    Wasp\DI\ServiceMockeryLibrary;
+namespace Wasp\DI\Pass;
+
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Wasp\DI\ServiceMockeryLibrary;
 
 /**
  * Compiler Pass for Mockery Objects
@@ -16,7 +18,7 @@ class MockeryPass implements CompilerPassInterface
 {
 
     /**
-     * The container 
+     * The container
      *
      * @var Object
      */
@@ -28,7 +30,7 @@ class MockeryPass implements CompilerPassInterface
      * @var Object
      */
     protected $library;
-    
+
     /**
      * Process the Container
      *
@@ -38,7 +40,7 @@ class MockeryPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $this->container = $container;
-        
+
         // Grab the service definitions from the library.
         $definitions = $this->getLibraryDefinitions();
 
@@ -51,7 +53,7 @@ class MockeryPass implements CompilerPassInterface
 
                 // Replace its current definition
                 $this->container->setDefinition($service, $def);
-            }           
+            }
         }
     }
 
@@ -67,7 +69,7 @@ class MockeryPass implements CompilerPassInterface
 
         // Set the class to the mockery decorator
         $definition->setClass('Wasp\DI\ServiceMockeryDecorator');
-        
+
         // Add the mockery name as a definition;
         $definition->setArguments([$mockery]);
 
@@ -86,8 +88,8 @@ class MockeryPass implements CompilerPassInterface
     public function getLibraryDefinitions()
     {
         $this->library = new ServiceMockeryLibrary;
-        
-        return $this->library->all();   
+
+        return $this->library->all();
     }
 
 } // END class MockeryPass implements CompilerPassInterface

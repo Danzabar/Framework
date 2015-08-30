@@ -1,7 +1,8 @@
-<?php namespace Wasp\Database;
+<?php
+
+namespace Wasp\Database;
 
 use Wasp\Entity\PaginatedEntityCollection;
-
 
 /**
  * Creates paginated result set

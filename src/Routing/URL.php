@@ -1,8 +1,10 @@
-<?php namespace Wasp\Routing;
+<?php
 
-use Wasp\DI\DependencyInjectionAwareTrait,
-    Symfony\Component\Routing\Generator\UrlGenerator,
-    Symfony\Component\Routing\RequestContext;
+namespace Wasp\Routing;
+
+use Wasp\DI\DependencyInjectionAwareTrait;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\RequestContext;
 
 /**
  * Url class for generating urls from routes

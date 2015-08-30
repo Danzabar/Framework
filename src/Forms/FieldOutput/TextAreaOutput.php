@@ -1,7 +1,9 @@
-<?php namespace Wasp\Forms\FieldOutput;
+<?php
+
+namespace Wasp\Forms\FieldOutput;
 
 use Wasp\Forms\FieldOutput\AbstractFieldOutput,
-    Wasp\Utils\Str;
+use Wasp\Utils\Str;
 
 /**
  * Output interface for textarea elements

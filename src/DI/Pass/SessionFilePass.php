@@ -1,10 +1,12 @@
-<?php namespace Wasp\DI\Pass;
+<?php
 
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
-    Symfony\Component\DependencyInjection\ContainerBuilder,
-    Symfony\Component\DependencyInjection\Reference,
-    Wasp\DI\Pass\CompilerHelper,
-    Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
+namespace Wasp\DI\Pass;
+
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+use Wasp\DI\Pass\CompilerHelper;
+use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 
 /**
  * Redifines the session reference in the DI to include the Mock File Session Storage

@@ -1,4 +1,6 @@
-<?php namespace Wasp\Environment;
+<?php
+
+namespace Wasp\Environment;
 
 use Wasp\Application\Application;
 
@@ -9,7 +11,7 @@ use Wasp\Application\Application;
  * @subpackage Environment
  * @author Dan Cox
  */
-Interface EnvironmentInterface
+interface EnvironmentInterface
 {
 
     /**

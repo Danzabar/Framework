@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\Entity;
+<?php
+
+namespace Wasp\Exceptions\Entity;
 
 /**
  * Exception class for records not found

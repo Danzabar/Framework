@@ -1,7 +1,9 @@
-<?php namespace Wasp\Filter;
+<?php
 
-use Symfony\Component\HttpKernel\Event\GetResponseEvent,
-    Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+namespace Wasp\Filter;
+
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 /**
  * Listener class for filters

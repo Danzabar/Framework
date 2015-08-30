@@ -1,4 +1,6 @@
-<?php namespace Wasp\Forms\FieldOutput;
+<?php
+
+namespace Wasp\Forms\FieldOutput;
 
 use Wasp\Forms\Field;
 

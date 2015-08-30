@@ -1,4 +1,6 @@
-<?php namespace Wasp\DI\Pass;
+<?php
+
+namespace Wasp\DI\Pass;
 
 /**
  * Compiler helper class to perform some tasks for compilers
@@ -34,7 +36,7 @@ class CompilerHelper
      */
     public function createDefinition($service, $class)
     {
-        return $this->container->register($service, $class);    
+        return $this->container->register($service, $class);
     }
 
     /**

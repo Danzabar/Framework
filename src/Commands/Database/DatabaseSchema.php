@@ -1,4 +1,6 @@
-<?php namespace Wasp\Commands\Database;
+<?php
+
+namespace Wasp\Commands\Database;
 
 use Wasp\Commands\BaseCommand;
 

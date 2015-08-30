@@ -1,4 +1,6 @@
-<?php namespace Wasp\Routing;
+<?php
+
+namespace Wasp\Routing;
 
 use Symfony\Component\Routing\Route as SymfonyRoute;
 

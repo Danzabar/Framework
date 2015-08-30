@@ -1,12 +1,12 @@
 <?php namespace Wasp\Commands;
 
-use Symfony\Component\Console\Command\Command as SymfonyCommand,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputInterface,
-    Symfony\Component\Console\Output\OutputInterface,
-    Wasp\Utils\ArgumentMappingTrait,
-    Wasp\DI\DependencyInjectionAwareTrait;
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Wasp\Utils\ArgumentMappingTrait;
+use Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
  * Base command class

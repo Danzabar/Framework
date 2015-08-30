@@ -1,4 +1,6 @@
-<?php namespace Wasp\Utils;
+<?php
+
+namespace Wasp\Utils;
 
 /**
  * Wrapper around the Serializer library, so it plays nice with DI

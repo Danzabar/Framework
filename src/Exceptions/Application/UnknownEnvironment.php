@@ -1,4 +1,6 @@
-<?php namespace Wasp\Exceptions\Application;
+<?php
+
+namespace Wasp\Exceptions\Application;
 
 /**
  * Exception class for unknown environments

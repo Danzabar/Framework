@@ -1,4 +1,6 @@
-<?php namespace Wasp\Utils;
+<?php
+
+namespace Wasp\Utils;
 
 /**
  * A utility class that helps with strings
