@@ -32,11 +32,17 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
      * @author Dan Cox
      */
     public function setUp()
-    {   
+    {
         $profile = new Profile(m::mock('filesystem'));
 
         $this->app = new Application;
         $this->app->profile = $profile;
+
+        $this->app->profile->setSettings([
+            'application'       => [
+                'di_cache_namespace'    => null
+            ],
+        ]);
     }
 
     /**
@@ -48,6 +54,13 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     public function test_buildDI()
     {
         $env = new Environment();
+
+        $this->app->profile->setSettings([
+            'application'       => [
+                'di_cache_namespace'    => 'test'
+            ],
+        ]);
+
         $env->load($this->app);
 
         $env->createDI('core');
@@ -90,14 +103,14 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
             'driver'            => 'pdo_mysql',
             'user'              => 'user',
             'dbname'            => 'wasp',
-            'models'            => ENTITIES 
+            'models'            => ENTITIES
         ]);
 
         $env->connectTo('test');
     }
 
     /**
-     * Test that the connection throws an exception which is caught 
+     * Test that the connection throws an exception which is caught
      *
      * @return void
      * @author Dan Cox
@@ -117,7 +130,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
             'driver'            => 'baddriver',
             'user'              => '',
             'dbname'            => '',
-            'models'            => ENTITIES 
+            'models'            => ENTITIES
         ]);
 
         $resp = $env->getDI()->get('response');
@@ -192,7 +205,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     {
         $profile = new Profile(new FileSystem);
         $profile->setSettings(['database' => ['connections' => ['default' => ['driver' => 'pdo_mysql', 'user' => 'user']]]]);
-        
+
         $this->app->profile = $profile;
 
         $env = new Environment;
@@ -241,7 +254,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
 
         $env = new Environment;
         $env->load($this->app);
-    
+
         $env->getDI()->addCompilerPass(new \Wasp\DI\Pass\MockeryPass);
 
         $t = new ServiceMockery('twigengine');
@@ -267,6 +280,6 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $library->clear();
     }
 
-    
+
 } // END class EnvironmentTest extends \PHPUnit_Framework_TestCase
 
