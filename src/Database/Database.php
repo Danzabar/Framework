@@ -129,6 +129,24 @@ class Database
     }
 
     /**
+     * Saves a collection of entities
+     *
+     * @param Collection|Array $collection
+     * @return void
+     * @author Dan Cox
+     */
+    public function saveAll($collection)
+    {
+        if (is_a($collection, 'Wasp\Utils\Collection')) {
+            $collection = $collection->all();
+        }
+
+        foreach ($collection as $row) {
+            $this->save($row);
+        }
+    }
+
+    /**
      * Remove an entity
      *
      * @param Object $entity
@@ -139,6 +157,24 @@ class Database
     {
         $this->perform()->remove($entity);
         $this->perform()->flush();
+    }
+
+    /**
+     * Removes a collection of entities
+     *
+     * @param Collection|Array $collection
+     * @return void
+     * @author Dan Cox
+     */
+    public function removeAll($collection)
+    {
+        if (is_a($collection, 'Wasp\Utils\Collection')) {
+            $collection = $collection->all();
+        }
+
+        foreach ($collection as $col) {
+            $this->remove($col);
+        }
     }
 
     /**
