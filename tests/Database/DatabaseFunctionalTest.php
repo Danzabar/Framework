@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase;
+use Wasp\Test\Entity\Entities\Test;
 
 /**
  * Functional tests, unmocked for the database
@@ -172,6 +173,43 @@ class DatabaseFunctionalTest extends TestCase
         $result = $entity->findOrFail(['name' => 'bob']);
 
         $this->assertInstanceOf('Wasp\Test\Entity\Entities\Test', $result);
+    }
+
+    /**
+     * Test the bulk remove functionality
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_bulk_remove()
+    {
+        $this->DI->get('schema')->update();
+
+        $entities = new Wasp\Utils\Collection;
+
+        $row1 = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $row1->name = 'bob';
+
+        $row2 = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $row2->name = 'test';
+
+        $row3 = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $row3->name = 'foo';
+
+        $entities->addAll([$row1, $row2, $row3]);
+
+        $this->DI->get('database')->saveAll($entities);
+
+        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $collection = $ent->get();
+
+        $this->assertEquals(3, count($collection));
+
+        $this->DI->get('database')->removeAll($collection);
+
+        $col2 = $ent->get();
+
+        $this->assertEquals(0, count($col2));
     }
 
 } // END class DatabaseFunctionalTest extends TestCase
