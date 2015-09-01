@@ -235,5 +235,30 @@ class FormTest extends TestCase
         $this->assertContains('required', $error->get(0));
     }
 
+    /**
+     * Test that errors on forms are persisted with each request
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_persistErrors()
+    {
+        // An intial form has errors
+        $this->DI->get('request')->make('/form', 'POST', []);
+        $form = new Wasp\Test\Forms\Forms\TestForm();
+        $form->validate();
+        $this->assertEquals(1, count($form->getErrors()));
+
+        // The errors should be seen in the second request
+        $this->DI->get('request')->make('/form', 'GET', []);
+        $form = new Wasp\Test\Forms\Forms\TestForm();
+        $this->assertEquals(1, count($form->getErrors()));
+
+        // No errors should be seen in the third request
+        $this->DI->get('request')->make('/form', 'GET', []);
+        $form = new Wasp\Test\Forms\Forms\TestForm();
+        $this->assertEquals(0, count($form->getErrors()));
+    }
+
 
 } // END class FormTest extends TestCase

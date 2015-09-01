@@ -122,9 +122,10 @@ class Form
         $this->name = base64_encode(get_called_class());
         $this->errors = new Collection;
 
+        // Configure and set up form
         $this->configure();
-
         $this->setup();
+        $this->reinstateErrors();
     }
 
     /**
@@ -286,7 +287,38 @@ class Form
             }
         }
 
+        $this->saveErrors();
+
         return $passes;
+    }
+
+    /**
+     * Saves errors in session to use on subsequent requests
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function saveErrors()
+    {
+        $this->container->get('session')
+                        ->set("form_errors_{$this->name}", $this->errors->all());
+    }
+
+    /**
+     * Adds errors from the session back into the error collection
+     * and removes the session entry
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function reinstateErrors()
+    {
+        $session = $this->container->get('session');
+
+        if ($session->has("form_errors_{$this->name}")) {
+            $this->errors->addAll($session->get("form_errors_{$this->name}"));
+            $session->remove("form_errors_{$this->name}");
+        }
     }
 
     /**

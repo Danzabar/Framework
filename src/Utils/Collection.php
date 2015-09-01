@@ -44,6 +44,22 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
+     * Adds all from an array into the collection
+     *
+     * @param Array $collection
+     * @return Collection
+     * @author Dan Cox
+     */
+    public function addAll(Array $collection)
+    {
+        foreach ($collection as $key => $value) {
+            $this->add($key, $value);
+        }
+
+        return $this;
+    }
+
+    /**
      * Returns the whole collection
      *
      * @return Array
