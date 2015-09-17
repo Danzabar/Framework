@@ -269,7 +269,30 @@ class RestControllerTest extends TestCase
         $obj = json_decode($response->getContent());
 
         $this->assertEquals(1, count($obj));
-        //$this->assertEquals(2, $obj[0]->name);
+        $this->assertEquals(2, $obj[0]->name);
+    }
+
+    /**
+     * Test that it handles relationships
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_allWithRelationships()
+    {
+        $contact = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $contact->name = 'Test';
+        $contact->message = 'Message';
+        $contact->save();
+
+        $detail = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\ContactDetail');
+        $detail->contact = $contact;
+        $detail->save();
+
+        $this->DI->get('route')
+                 ->resource('detail', '/detail', 'Wasp\Test\Entity\Entities\ContactDetail');
+
+        $response = $this->fakeRequest('/detail', 'GET');
     }
 
 

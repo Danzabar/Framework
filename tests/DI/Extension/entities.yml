@@ -1,0 +1,13 @@
+services:
+    entity.contact:
+        class: Wasp\Test\Entity\Entities\Contact
+        tags:
+            - {name: entity}
+    entity.contactdetail:
+        class: Wasp\Test\Entity\Entities\ContactDetail
+        tags:
+            - {name: entity}
+    entity.test:
+        class: Wasp\Test\Entity\Entities\Test
+        tags:
+            - {name: entity}

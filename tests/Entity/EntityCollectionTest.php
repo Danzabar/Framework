@@ -22,6 +22,15 @@ class EntityCollectionTest extends TestCase
     ];
 
     /**
+     * Registered extensions
+     *
+     * @var Array
+     */
+    protected $extensions = [
+        'Wasp\Test\DI\Extension\EntityExtension'
+    ];
+
+    /**
      * Instance of the test entity
      *
      * @var \Wasp\Test\Entity\Entities\Test

@@ -20,6 +20,15 @@ class DICompilerPassRegister
     protected static $passes = array();
 
     /**
+     * undocumented class variable
+     *
+     * @var string
+     */
+    protected static $standardPasses = [
+        'Wasp\DI\Pass\EntityInjectionPass'
+    ];
+
+    /**
      * Returns the passes array
      *
      * @return Array
@@ -27,7 +36,7 @@ class DICompilerPassRegister
      */
     public static function getPasses()
     {
-        return static::$passes;
+        return array_merge(static::$passes, static::$standardPasses);
     }
 
     /**
