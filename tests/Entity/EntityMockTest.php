@@ -12,6 +12,15 @@ use Wasp\DI\ServiceMockery,
  */
 class EntityMockTest extends TestCase
 {
+    /**
+     * Registered extensions
+     *
+     * @var Array
+     */
+    protected $extensions = [
+        'Wasp\Test\DI\Extension\EntityExtension'
+    ];
+
 
     /**
      * Setup test env
@@ -36,7 +45,7 @@ class EntityMockTest extends TestCase
     public function test_getFilledEntity()
     {
         // Coincidently, this will test the getters and setters of an entity.
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = $this->DI->get('entity.test');
         $entity->Id = 1;
         $entity->name = 'foo';
 
@@ -44,8 +53,7 @@ class EntityMockTest extends TestCase
         $db->shouldReceive('setEntity')->with('Wasp\Test\Entity\Entities\Test')->andReturn($db);
         $db->shouldReceive('find')->with(1)->andReturn($entity);
 
-        $result = $this->DI->get('entity')
-                       ->load('Wasp\Test\Entity\Entities\Test')
+        $result = $this->DI->get('entity.test')
                        ->find(1);
 
         $this->assertEquals(1, $result->Id);
@@ -63,7 +71,7 @@ class EntityMockTest extends TestCase
         $db = $this->DI->get('database');
         $db->shouldReceive('save')->once();
 
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = $this->DI->get('entity.test');
         $entity->name = 'foo';
         $entity->save();
     }
@@ -79,7 +87,7 @@ class EntityMockTest extends TestCase
         $db = $this->DI->get('database');
         $db->shouldReceive('remove')->once();
 
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = $this->DI->get('entity.test');
         $entity->Id = 1;
         $entity->name = 'test';
         $entity->delete();
@@ -95,7 +103,7 @@ class EntityMockTest extends TestCase
     {
         $this->setExpectedException('Wasp\Exceptions\Entity\AccessToInvalidKey');
 
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = $this->DI->get('entity.test');
         $entity->id = 1;
     }
 
@@ -109,7 +117,7 @@ class EntityMockTest extends TestCase
     {
         $this->setExpectedException('Wasp\Exceptions\Entity\AccessToInvalidKey');
 
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = $this->DI->get('entity.test');
         $entity->id;
     }
 
@@ -124,7 +132,7 @@ class EntityMockTest extends TestCase
         $db = $this->DI->get('database');
         $db->shouldReceive('save')->once();
 
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = $this->DI->get('entity.test');
         $entity->updateFromArray(['name' => 'bob']);
         $entity->save();
     }

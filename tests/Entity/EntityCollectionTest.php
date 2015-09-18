@@ -18,7 +18,7 @@ class EntityCollectionTest extends TestCase
      * @var Array
      */
     protected $passes = [
-        'Wasp\DI\Pass\DatabaseMockeryPass'
+        'Wasp\DI\Pass\DatabaseMockeryPass',
     ];
 
     /**
@@ -48,7 +48,6 @@ class EntityCollectionTest extends TestCase
         parent::setUp();
 
         $this->DI->get('database')->create(ENTITIES);
-        $this->test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
     }
 
     /**
@@ -60,16 +59,15 @@ class EntityCollectionTest extends TestCase
     public function test_bulkDelete()
     {
         for ($i = 0; $i < 10; $i++) {
-            $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+            $ent = $this->DI->get('entity.test');
             $ent->name = "bob_" . $i;
             $ent->save();
         }
 
-        $collection = $this->test->get();
-
+        $collection = $this->DI->get('entity.test')->get();
         $collection->delete();
 
-        $results = $this->test->get();
+        $results = $this->DI->get('entity.test')->get();
 
         $this->assertEquals(0, count($results));
     }
@@ -83,12 +81,12 @@ class EntityCollectionTest extends TestCase
     public function test_bulkUpdate()
     {
         for ($i = 0; $i < 10; $i++) {
-            $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+            $ent = $this->DI->get('entity.test');
             $ent->name = "bob_" . $i;
             $ent->save();
         }
 
-        $collection = $this->test->get();
+        $collection = $this->DI->get('entity.test')->get();
 
         foreach ($collection as $key => $coll)
         {
@@ -97,7 +95,7 @@ class EntityCollectionTest extends TestCase
 
         $collection->save();
 
-        $result = $this->test->get(['name' => 'jeff_1']);
+        $result = $this->DI->get('entity.test')->get(['name' => 'jeff_1']);
 
         $this->assertEquals(1, count($result));
     }
@@ -110,11 +108,11 @@ class EntityCollectionTest extends TestCase
      */
     public function test_json()
     {
-        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $ent = $this->DI->get('entity.test');
         $ent->name = 'foo';
         $ent->save();
 
-        $result = $this->test->get(['name' => 'foo']);
+        $result = $this->DI->get('entity.test')->get(['name' => 'foo']);
 
         $this->assertContains('"_id":1,"name":"foo"', $result->json());
     }

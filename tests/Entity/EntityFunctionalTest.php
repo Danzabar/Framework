@@ -23,6 +23,16 @@ class EntityFunctionalTest extends TestCase
     ];
 
     /**
+     * Registered extensions
+     *
+     * @var Array
+     */
+    protected $extensions = [
+        'Wasp\Test\DI\Extension\EntityExtension'
+    ];
+
+
+    /**
      * Set up test
      *
      * @return void
@@ -43,12 +53,11 @@ class EntityFunctionalTest extends TestCase
      */
     public function test_updatingWithArray()
     {
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = $this->DI->get('entity.test');
         $entity->updateFromArray(['name' => 'bob']);
         $entity->save();
 
-        $res = $this->DI->get('entity')
-                    ->load('Wasp\Test\Entity\Entities\Test')
+        $res = $this->DI->get('entity.test')
                     ->findOneBy(['name' => 'bob']);
 
         $this->assertEquals('bob', $res->name);

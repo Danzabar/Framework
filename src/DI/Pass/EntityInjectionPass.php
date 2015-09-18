@@ -26,15 +26,14 @@ class EntityInjectionPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has('entity')) {
-            return;
-        }
-
         $entities = $container->findTaggedServiceIds('entity');
 
         foreach ($entities as $id => $tags) {
             $def = $container->findDefinition($id);
-            $def->addMethodCall(['setDI', new Reference("service_container")]);
+            $def->addMethodCall('setDI', [new Reference("service_container")]);
+            $def->setScope('prototype');
+
+            $container->setDefinition($id, $def);
         }
     }
 } // END class EntityInjectionPass implements CompilerPassInterface

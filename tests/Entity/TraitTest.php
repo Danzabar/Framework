@@ -11,6 +11,15 @@ use Wasp\Test\TestCase;
  */
 class TraitTest extends TestCase
 {
+    /**
+     * Registered extensions
+     *
+     * @var Array
+     */
+    protected $extensions = [
+        'Wasp\Test\DI\Extension\EntityExtension'
+    ];
+
 
     /**
      * undocumented class variable
@@ -43,7 +52,7 @@ class TraitTest extends TestCase
      */
     public function test_dateStamp()
     {
-        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = $this->DI->get('entity.test');
         $test->name = 'test_dateStamp';
         $test->save();
 
@@ -66,7 +75,7 @@ class TraitTest extends TestCase
      */
     public function test_slugify()
     {
-        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = $this->DI->get('entity.test');
         $test->name = 'slug_test';
         $test->title = 'Test Title';
         $test->save();
@@ -92,7 +101,7 @@ class TraitTest extends TestCase
      */
     public function test_suspension()
     {
-        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = $this->DI->get('entity.test');
         $test->name = 'test_suspension';
         $test->save();
 
