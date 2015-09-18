@@ -143,8 +143,8 @@ class Paginator
             $offset = ($pageSize * $this->pageNo);
         }
 
-        $records = $this->database->setEntity($this->entity)
-                                  ->get($clauses, $order, $pageSize, $offset);
+        $records = $this->container->get($this->entity)
+                            ->get($clauses, $order, $pageSize, $offset);
 
         return $this->makeCollection($records);
     }
@@ -158,8 +158,8 @@ class Paginator
      */
     public function countRows(Array $clauses = array())
     {
-        $qb = $this->database->setEntity($this->entity)
-                             ->queryBuilder();
+        $qb = $this->container->get($this->entity)
+                       ->queryBuilder();
 
         $qb->select('count(u)');
 
