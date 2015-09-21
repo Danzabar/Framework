@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase;
+use Wasp\Test\Entity\Entities\Test;
 
 /**
  * Test case for the entity traits
@@ -12,16 +13,6 @@ use Wasp\Test\TestCase;
 class TraitTest extends TestCase
 {
     /**
-     * Registered extensions
-     *
-     * @var Array
-     */
-    protected $extensions = [
-        'Wasp\Test\DI\Extension\EntityExtension'
-    ];
-
-
-    /**
      * undocumented class variable
      *
      * @var string
@@ -29,7 +20,6 @@ class TraitTest extends TestCase
     protected $passes = [
         'Wasp\DI\Pass\DatabaseMockeryPass'
     ];
-
 
     /**
      * Set up test env
@@ -52,7 +42,7 @@ class TraitTest extends TestCase
      */
     public function test_dateStamp()
     {
-        $test = $this->DI->get('entity.test');
+        $test = new Test;
         $test->name = 'test_dateStamp';
         $test->save();
 
@@ -75,7 +65,7 @@ class TraitTest extends TestCase
      */
     public function test_slugify()
     {
-        $test = $this->DI->get('entity.test');
+        $test = new Test;
         $test->name = 'slug_test';
         $test->title = 'Test Title';
         $test->save();
@@ -101,7 +91,7 @@ class TraitTest extends TestCase
      */
     public function test_suspension()
     {
-        $test = $this->DI->get('entity.test');
+        $test = new Test;
         $test->name = 'test_suspension';
         $test->save();
 

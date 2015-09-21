@@ -45,13 +45,13 @@ class PaginatorTest extends TestCase
         // Inserting 50 test contacts
         for ($i = 0; $i < 51; $i ++)
         {
-            $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+            $ent = new Contact;
             $ent->name = 'Test ' . $i;
             $ent->message = 'TestMessage_' . $i;
             $ent->save();
         }
 
-        $this->contact = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Contact');
     }
 
     /**
@@ -67,7 +67,7 @@ class PaginatorTest extends TestCase
 
         $this->DI->get('request')->make('/test', 'GET', []);
 
-        $collection = $this->contact->paginate(10);
+        $collection = $this->DI->get('database')->paginate(10);
 
         $crawler = new Crawler ($collection->pagination());
         $next = $crawler->filterXPath('//a')->attr('href');
@@ -88,7 +88,7 @@ class PaginatorTest extends TestCase
         $this->DI->get('profile')->setSettings(['database' => []]);
         $this->DI->get('request')->make('/test', 'GET', []);
 
-        $collection = $this->contact->paginate(10);
+        $collection = $this->DI->get('database')->paginate(10);
 
         $pagination = $collection->pagination();
     }
@@ -103,7 +103,7 @@ class PaginatorTest extends TestCase
     {
         $this->DI->get('request')->make('/test', 'GET', []);
 
-        $records = $this->contact->paginate(10);
+        $records = $this->DI->get('database')->paginate(10);
 
         $record = $records[0];
 
@@ -127,7 +127,7 @@ class PaginatorTest extends TestCase
     {
         $this->DI->get('request')->make('/test', 'GET', ['page' => 2]);
 
-        $records = $this->contact->paginate(10);
+        $records = $this->DI->get('database')->paginate(10);
 
         $record = $records[0];
 

@@ -39,6 +39,7 @@ services:
         class: Wasp\Database\Database
         arguments:
             - "@connection"
+            - "@request"
     filter.listener:
         class: Wasp\Filter\FilterListener
         lazy: true
@@ -74,7 +75,6 @@ services:
         arguments:
             - "@database"
             - "@request"
-            - "@service_container"
     profile:
         class: Wasp\Application\Profile
         arguments:

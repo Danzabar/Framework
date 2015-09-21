@@ -23,15 +23,6 @@ class RestControllerTest extends TestCase
     ];
 
     /**
-     * Extensions
-     *
-     * @var Array
-     */
-    protected $extensions = [
-        'Wasp\Test\DI\Extension\EntityExtension'
-    ];
-
-    /**
      * Instance of the contact entity
      *
      * @var \Wasp\Test\Entity\Entities\Contact
@@ -52,9 +43,9 @@ class RestControllerTest extends TestCase
         $this->DI->get('database')->create(ENTITIES);
 
         // Add a resource route
-        $this->DI->get('route')->resource('test', '/test', 'entity.contact');
+        $this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Contact');
 
-        $this->contact = $this->DI->get('entity.contact');
+        $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Contact');
     }
 
     /**
@@ -66,7 +57,7 @@ class RestControllerTest extends TestCase
     public function test_showRoute()
     {
         // Create the entry first
-        $ent = $this->DI->get('entity.contact');
+        $ent = new Contact;
         $ent->name = 'Test';
         $ent->message = 'Test message';
         $ent->save();
@@ -108,7 +99,7 @@ class RestControllerTest extends TestCase
         // Check the response
         $obj = json_decode($response->getContent());
 
-        $ent = $this->contact->find($obj->data->id);
+        $ent = $this->DI->get('database')->find($obj->data->id);
 
         $this->assertEquals('success', $obj->status);
         $this->assertEquals('CreateTest1', $obj->data->name);
@@ -142,7 +133,7 @@ class RestControllerTest extends TestCase
      */
     public function test_updateRoute()
     {
-        $ent = $this->DI->get('entity.contact');
+        $ent = new Contact;
         $ent->name = 'UpdateTest1';
         $ent->message = 'MyMessage';
         $ent->save();
@@ -152,7 +143,7 @@ class RestControllerTest extends TestCase
 
         $obj = json_decode($response->getContent());
 
-        $record = $this->contact->find($obj->data->id);
+        $record = $this->DI->get('database')->find($obj->data->id);
 
         $this->assertEquals('success', $obj->status);
         $this->assertEquals('UpdateTest1', $obj->data->name);
@@ -184,7 +175,7 @@ class RestControllerTest extends TestCase
      */
     public function test_updateRouteValidation()
     {
-        $ent = $this->DI->get('entity.contact');
+        $ent = new Contact;
         $ent->name = 'UpdateTest2';
         $ent->message = 'Validation error';
         $ent->save();
@@ -204,7 +195,7 @@ class RestControllerTest extends TestCase
      */
     public function test_deleteRoute()
     {
-        $ent = $this->DI->get('entity.contact');
+        $ent = new Contact;
         $ent->name = 'Delete1Test';
         $ent->message = 'Test';
         $ent->save();
@@ -213,7 +204,7 @@ class RestControllerTest extends TestCase
 
         $obj = json_decode($response->getContent());
 
-        $records = $this->contact->get();
+        $records = $this->DI->get('database')->get();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('success', $obj->status);
@@ -246,7 +237,7 @@ class RestControllerTest extends TestCase
     {
         for ($i = 0; $i < 10; $i++)
         {
-            $c = $this->DI->get('entity.contact');
+            $c = new Contact;
             $c->name = $i;
             $c->message = $i;
             $c->save();
@@ -268,7 +259,7 @@ class RestControllerTest extends TestCase
     {
         for ($i = 0; $i < 3; $i++)
         {
-            $c = $this->DI->get('entity.contact');
+            $c = new Contact;
             $c->name = $i;
             $c->message = $i;
             $c->save();
@@ -289,12 +280,12 @@ class RestControllerTest extends TestCase
      */
     public function test_allWithRelationships()
     {
-        $contact = $this->DI->get('entity.contact');
+        $contact = new Contact;
         $contact->name = 'Test';
         $contact->message = 'Message';
         $contact->save();
 
-        $detail = $this->DI->get('entity.contactdetail');
+        $detail = new Contact;
         $detail->contact = $contact;
         $detail->save();
 

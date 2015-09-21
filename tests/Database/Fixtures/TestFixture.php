@@ -1,6 +1,7 @@
 <?php
 
 use Doctrine\Fixture\Fixture,
+    Wasp\Test\Entity\Entities\Test,
     Wasp\DI\StaticContainerAwareTrait;
 
 /**
@@ -19,7 +20,7 @@ class TestFixture implements Fixture
      */
     public function import()
     {
-        $test = self::get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = new Test;
         $test->name = 'jim';
         $test->save();
     }
@@ -33,7 +34,7 @@ class TestFixture implements Fixture
     public function purge()
     {
         // Remove jim
-        $jim = self::get('entity')->load('Wasp\Test\Entity\Entities\Test')->findOneBy(['name' => 'jim']);
+        $jim = self::get('database')->findOneBy(['name' => 'jim']);
         $jim->delete();
     }
 

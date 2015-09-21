@@ -31,6 +31,8 @@ class DatabaseFunctionalTest extends TestCase
         ));
 
         $this->DI->get('connection')->connect('func');
+
+        $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Test');
     }
 
     /**
@@ -56,12 +58,12 @@ class DatabaseFunctionalTest extends TestCase
         $this->DI->get('schema')->create();
 
         // Add a row using the entity
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = new Test;
         $entity->name = 'foo';
         $entity->save();
 
         // Query it back out using the entity class
-        $result = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test')->findOneBy(['name' => 'foo']);
+        $result = $this->DI->get('database')->findOneBy(['name' => 'foo']);
 
         $this->assertEquals('foo', $result->name);
         $this->assertInstanceOf('Doctrine\ORM\EntityManager', $this->DI->get('database')->entityManager());
@@ -77,24 +79,22 @@ class DatabaseFunctionalTest extends TestCase
     {
         $this->DI->get('schema')->update();
 
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = new Test;
         $entity->name = 'foo';
         $entity->save();
 
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = new Test;
         $entity->name = 'bar';
         $entity->save();
 
-        $entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $entity = new Test;
         $entity->name = 'zim';
         $entity->save();
 
-        $e = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
-
-        $results = $e->get();
-        $results2 = $e->get(Array(), Array(), 2, 1);
-        $results3 = $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Test')->findOneBy(['name' => 'bar']);
-        $results4 = $e->get([], ['name' => 'desc']);
+        $results = $this->DI->get('database')->get();
+        $results2 = $this->DI->get('database')->get(Array(), Array(), 2, 1);
+        $results3 = $this->DI->get('database')->findOneBy(['name' => 'bar']);
+        $results4 = $this->DI->get('database')->get([], ['name' => 'desc']);
 
         // Assertions for result1
         $this->assertEquals(3, count($results));
@@ -149,8 +149,7 @@ class DatabaseFunctionalTest extends TestCase
 
         $this->DI->get('schema')->update();
 
-        $this->DI->get('entity')
-                 ->load('Wasp\Test\Entity\Entities\Test')
+        $this->DI->get('database')
                  ->findOrFail(['name' => 'BatMan']);
     }
 
@@ -164,13 +163,11 @@ class DatabaseFunctionalTest extends TestCase
     {
         $this->DI->get('schema')->update();
 
-        $entity = $this->DI->get('entity')
-                        ->load('Wasp\Test\Entity\Entities\Test');
-
+        $entity = new Test;
         $entity->name = 'bob';
         $entity->save();
 
-        $result = $entity->findOrFail(['name' => 'bob']);
+        $result = $this->DI->get('database')->findOrFail(['name' => 'bob']);
 
         $this->assertInstanceOf('Wasp\Test\Entity\Entities\Test', $result);
     }
@@ -187,27 +184,26 @@ class DatabaseFunctionalTest extends TestCase
 
         $entities = new Wasp\Utils\Collection;
 
-        $row1 = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $row1 = new Test;
         $row1->name = 'bob';
 
-        $row2 = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $row2 = new Test;
         $row2->name = 'test';
 
-        $row3 = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $row3 = new Test;
         $row3->name = 'foo';
 
         $entities->addAll([$row1, $row2, $row3]);
 
         $this->DI->get('database')->saveAll($entities);
 
-        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
-        $collection = $ent->get();
+        $collection = $this->DI->get('database')->get();
 
         $this->assertEquals(3, count($collection));
 
         $this->DI->get('database')->removeAll($collection);
 
-        $col2 = $ent->get();
+        $col2 = $this->DI->get('database')->get();
 
         $this->assertEquals(0, count($col2));
     }

@@ -31,6 +31,7 @@ class FixtureTest extends TestCase
         ]);
 
         $this->DI->get('connection')->connect('func');
+        $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Test');
     }
 
     /**
@@ -60,16 +61,14 @@ class FixtureTest extends TestCase
         $FM->load();
         $FM->import();
 
-        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
-
         // We should have a jim.
-        $result = $test->get();
+        $result = $this->DI->get('database')->get();
 
         $this->assertEquals('jim', $result[0]->name);
 
         $FM->purge();
 
-        $result2 = $test->get();
+        $result2 = $this->DI->get('database')->get();
 
         $this->assertEquals(0, count($result2));
         $this->assertEquals(__DIR__ . '/Fixtures/', $FM->getDirectory());

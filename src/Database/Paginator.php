@@ -13,7 +13,6 @@ use Wasp\Entity\PaginatedEntityCollection;
  */
 class Paginator
 {
-
     /**
      * Instance of the database class
      *
@@ -27,13 +26,6 @@ class Paginator
      * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
-
-    /**
-     * Instance of the service container
-     *
-     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
-     */
-    protected $container;
 
     /**
      * The entity being uses
@@ -76,14 +68,12 @@ class Paginator
      *
      * @param \Wasp\Database\Database $database
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $service_container
      * @author Dan Cox
      */
-    public function __construct($database, $request, $service_container)
+    public function __construct($database, $request)
     {
         $this->database = $database;
         $this->request = $request;
-        $this->container = $service_container;
     }
 
     /**
@@ -143,7 +133,7 @@ class Paginator
             $offset = ($pageSize * $this->pageNo);
         }
 
-        $records = $this->container->get($this->entity)
+        $records = $this->database->setEntity($this->entity)
                             ->get($clauses, $order, $pageSize, $offset);
 
         return $this->makeCollection($records);
@@ -158,7 +148,7 @@ class Paginator
      */
     public function countRows(Array $clauses = array())
     {
-        $qb = $this->container->get($this->entity)
+        $qb = $this->database->setEntity($this->entity)
                        ->queryBuilder();
 
         $qb->select('count(u)');
@@ -182,8 +172,6 @@ class Paginator
             $this->pageNo,
             $this->pageSize
         );
-
-        $collection->setDI($this->container);
 
         return $collection;
     }

@@ -23,15 +23,6 @@ class ValidationTest extends TestCase
     ];
 
     /**
-     * Extensions
-     *
-     * @var Array
-     */
-    protected $extensions = [
-        'Wasp\Test\DI\Extension\EntityExtension'
-    ];
-
-    /**
      * Set up test env
      *
      * @return void
@@ -52,7 +43,7 @@ class ValidationTest extends TestCase
      */
     public function test_basicValidation()
     {
-        $contact = $this->DI->get('entity.contact');
+        $contact = new Contact;
 
         $contact->name = 'Test';
 
