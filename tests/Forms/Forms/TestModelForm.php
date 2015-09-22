@@ -1,6 +1,7 @@
 <?php namespace Wasp\Test\Forms\Forms;
 
 use Wasp\Forms\Form,
+    Wasp\Test\Entity\Entities\Contact,
     Wasp\DI\DI,
     Wasp\Forms\Validation;
 
@@ -46,7 +47,7 @@ class TestModelForm extends Form
         $this->route = 'form.test';
         $this->method = 'post';
 
-        $model = DI::getContainer()->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $model = new Contact;
         $model->name = 'Dan';
         $model->message = 'This is a default message';
         $model->save();

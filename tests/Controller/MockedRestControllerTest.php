@@ -23,15 +23,6 @@ class MockedRestControllerTest extends TestCase
     ];
 
     /**
-     * Extensions
-     *
-     * @var Array
-     */
-    protected $extensions = [
-        'Wasp\Test\DI\Extension\EntityExtension'
-    ];
-
-    /**
      * Set up test env
      *
      * @return void
@@ -41,7 +32,7 @@ class MockedRestControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->DI->get('route')->resource('test', '/test', 'entity.contact');
+        $this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Test');
     }
 
     /**
@@ -98,7 +89,9 @@ class MockedRestControllerTest extends TestCase
     public function test_allFailingRoute()
     {
         $paginator = $this->DI->get('paginator');
+        $db = $this->DI->get('database');
 
+        $db->shouldReceive('setEntity')->once()->andReturn($db);
         $paginator->shouldReceive('setEntity')->andReturn($paginator);
         $paginator->shouldReceive('query')->andThrow(new Exception('Test'));
 

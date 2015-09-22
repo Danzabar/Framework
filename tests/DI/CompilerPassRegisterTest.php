@@ -39,7 +39,7 @@ class CompilerPassRegisterTest extends \PHPUnit_Framework_TestCase
 
         $register->remove('Test2');
 
-        $this->assertEquals(['TestClass', 'Test3', 'Wasp\DI\Pass\EntityInjectionPass'], $register->getPasses());
+        $this->assertEquals(['TestClass', 'Test3'], $register->getPasses());
     }
 
 } // END class CompilerPassRegisterTest extends \PHPUnit_Framework_TestCase

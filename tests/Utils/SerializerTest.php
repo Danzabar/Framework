@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase;
+use Wasp\Test\Entity\Entities\Test;
 
 /**
  * Test case for the serializer class
@@ -39,7 +40,7 @@ class SerializerTest extends TestCase
         parent::setUp();
 
         $this->DI->get('database')->create(ENTITIES);
-        $this->entity = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Test');
     }
 
     /**
@@ -62,11 +63,11 @@ class SerializerTest extends TestCase
      */
     public function test_serializingORMEntity()
     {
-        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = new Test;
         $test->name = 'foo';
         $test->save();
 
-        $result = $this->entity->findOneBy(['name' => 'foo']);
+        $result = $this->DI->get('database')->findOneBy(['name' => 'foo']);
 
         $serializer = $this->DI->get('serializer');
         $json = $serializer->serialize($result, 'json');
@@ -82,16 +83,14 @@ class SerializerTest extends TestCase
      */
     public function test_serializeThroughEntity()
     {
-        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = new Test;
         $test->name = 'foo';
         $test->save();
 
-        $result = $this->entity->findOneBy(['name' => 'foo']);
+        $result = $this->DI->get('database')->findOneBy(['name' => 'foo']);
 
-        $json = $result->json();
+        $json = $result->toJSON();
 
         $this->assertContains('"_id":1,"name":"foo"', $json);
     }
-
-
 } // END class SerializerTest extends TestCase

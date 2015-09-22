@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase,
+    Wasp\Test\Entity\Entities\ContactDetail,
     Wasp\Test\Entity\Entities\Contact;
 
 /**
@@ -285,7 +286,7 @@ class RestControllerTest extends TestCase
         $contact->message = 'Message';
         $contact->save();
 
-        $detail = new Contact;
+        $detail = new ContactDetail;
         $detail->contact = $contact;
         $detail->save();
 
