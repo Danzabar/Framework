@@ -25,7 +25,7 @@ class EntityCollection extends Collection
      * Set up class base
      * @author Dan Cox
      */
-    public function __construct(Array $collectable = Array(), $di = null)
+    public function __construct(Array $collectable = array(), $di = null)
     {
         parent::__construct($collectable);
 

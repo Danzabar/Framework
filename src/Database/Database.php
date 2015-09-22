@@ -41,7 +41,7 @@ class Database
      * @param Wasp\Routing\Request
      * @author Dan Cox
      */
-    public function __construct($connection, $request = NULL)
+    public function __construct($connection, $request = null)
     {
         $this->connection = $connection;
         $this->request = $request;
