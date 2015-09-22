@@ -6,6 +6,7 @@ use Wasp\DI\DI;
 use Wasp\Exceptions\Entity\AccessToInvalidKey;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use Doctrine\ORM\Mapping as ORM;
+use Wasp\Utils\EntityHelper;
 
 /**
  * The Entity class is a base for entities(models)
@@ -18,54 +19,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Entity
 {
     /**
-     * Instance of the database
-     *
-     * @var Wasp\Database\Database
-     */
-    protected $database;
-
-    /**
-     * Instance of the serializer
-     *
-     * @var Wasp\Utils\Serializer
-     */
-    protected $serializer;
-
-    /**
-     * Set up base entity
-     *
-     * @return void
-     * @author Dan Cox
-     */
-    public function __construct()
-    {
-        $di = DI::getContainer();
-
-        $this->database = $di->get('database');
-        $this->serializer = $di->get('serializer');
-    }
-
-    /**
      * Update an entity from an array of values
      *
      * @param Array $data
-     * @return
+     * @return this
      * @author Dan Cox
      */
     public function updateFromArray(Array $data)
     {
-        // Get fields from the entity
-        $reflection = new \ReflectionClass($this);
-        $properties = $reflection->getProperties();
-
-        // Assign values
-        foreach ($properties as $prop) {
-            if (array_key_exists($prop->getName(), $data)) {
-                $this->{$prop->getName()} = $data[$prop->getName()];
-            }
-        }
-
-        return $this;
+        return EntityHelper::updateFromArray($this, $data);
     }
 
     /**
@@ -87,7 +49,9 @@ class Entity
      */
     public function toJSON()
     {
-        return $this->serializer->serialize($this, 'json');
+        return DI::getContainer()
+                    ->get('serializer')
+                    ->serialize($this, 'json');
     }
 
     /**
@@ -98,7 +62,9 @@ class Entity
      */
     public function save()
     {
-        $this->database->save($this);
+        DI::getContainer()
+            ->get('database')
+            ->save($this);
     }
 
     /**
@@ -109,7 +75,9 @@ class Entity
      */
     public function delete()
     {
-        $this->database->remove($this);
+        DI::getContainer()
+            ->get('database')
+            ->remove($this);
     }
 
     /**
