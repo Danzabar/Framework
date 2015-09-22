@@ -44,6 +44,7 @@ class RestController extends BaseController
     public function setEntity($entity)
     {
         $this->entity = $entity;
+        $this->DI->get('database')->setEntity($entity);
 
         return $this;
     }
@@ -56,7 +57,7 @@ class RestController extends BaseController
      */
     public function entityInstance()
     {
-        return $this->DI->get('entity')->load($this->entity);
+        return new $this->entity;
     }
 
     /**
@@ -69,7 +70,7 @@ class RestController extends BaseController
     public function findEntity($id)
     {
         try {
-            $record = $this->database->setEntity($this->entity)->find($id);
+            $record = $this->DI->get('database')->find($id);
 
             return $record;
 

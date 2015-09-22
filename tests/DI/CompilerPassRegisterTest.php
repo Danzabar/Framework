@@ -23,7 +23,7 @@ class CompilerPassRegisterTest extends \PHPUnit_Framework_TestCase
         $register = new DICompilerPassRegister;
         $register->clear();
     }
-    
+
     /**
      * Test adding and removing compiler passes
      *

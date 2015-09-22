@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase,
+    Wasp\Test\Entity\Entities\ContactDetail,
     Wasp\Test\Entity\Entities\Contact;
 
 /**
@@ -45,7 +46,7 @@ class RestControllerTest extends TestCase
         // Add a resource route
         $this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Contact');
 
-        $this->contact = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Contact');
     }
 
     /**
@@ -57,7 +58,7 @@ class RestControllerTest extends TestCase
     public function test_showRoute()
     {
         // Create the entry first
-        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $ent = new Contact;
         $ent->name = 'Test';
         $ent->message = 'Test message';
         $ent->save();
@@ -99,7 +100,7 @@ class RestControllerTest extends TestCase
         // Check the response
         $obj = json_decode($response->getContent());
 
-        $ent = $this->contact->find($obj->data->id);
+        $ent = $this->DI->get('database')->find($obj->data->id);
 
         $this->assertEquals('success', $obj->status);
         $this->assertEquals('CreateTest1', $obj->data->name);
@@ -133,7 +134,7 @@ class RestControllerTest extends TestCase
      */
     public function test_updateRoute()
     {
-        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $ent = new Contact;
         $ent->name = 'UpdateTest1';
         $ent->message = 'MyMessage';
         $ent->save();
@@ -143,7 +144,7 @@ class RestControllerTest extends TestCase
 
         $obj = json_decode($response->getContent());
 
-        $record = $this->contact->find($obj->data->id);
+        $record = $this->DI->get('database')->find($obj->data->id);
 
         $this->assertEquals('success', $obj->status);
         $this->assertEquals('UpdateTest1', $obj->data->name);
@@ -175,7 +176,7 @@ class RestControllerTest extends TestCase
      */
     public function test_updateRouteValidation()
     {
-        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $ent = new Contact;
         $ent->name = 'UpdateTest2';
         $ent->message = 'Validation error';
         $ent->save();
@@ -195,7 +196,7 @@ class RestControllerTest extends TestCase
      */
     public function test_deleteRoute()
     {
-        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+        $ent = new Contact;
         $ent->name = 'Delete1Test';
         $ent->message = 'Test';
         $ent->save();
@@ -204,7 +205,7 @@ class RestControllerTest extends TestCase
 
         $obj = json_decode($response->getContent());
 
-        $records = $this->contact->get();
+        $records = $this->DI->get('database')->get();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('success', $obj->status);
@@ -237,7 +238,7 @@ class RestControllerTest extends TestCase
     {
         for ($i = 0; $i < 10; $i++)
         {
-            $c = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+            $c = new Contact;
             $c->name = $i;
             $c->message = $i;
             $c->save();
@@ -259,7 +260,7 @@ class RestControllerTest extends TestCase
     {
         for ($i = 0; $i < 3; $i++)
         {
-            $c = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Contact');
+            $c = new Contact;
             $c->name = $i;
             $c->message = $i;
             $c->save();
@@ -269,7 +270,30 @@ class RestControllerTest extends TestCase
         $obj = json_decode($response->getContent());
 
         $this->assertEquals(1, count($obj));
-        //$this->assertEquals(2, $obj[0]->name);
+        $this->assertEquals(2, $obj[0]->name);
+    }
+
+    /**
+     * Test that it handles relationships
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_allWithRelationships()
+    {
+        $contact = new Contact;
+        $contact->name = 'Test';
+        $contact->message = 'Message';
+        $contact->save();
+
+        $detail = new ContactDetail;
+        $detail->contact = $contact;
+        $detail->save();
+
+        $this->DI->get('route')
+                 ->resource('detail', '/detail', 'entity.contactdetail');
+
+        $response = $this->fakeRequest('/detail', 'GET');
     }
 
 

@@ -21,6 +21,13 @@ class Database
     public $connection;
 
     /**
+     * Instance of the symfony http request
+     *
+     * @var Wasp\Routing\Request
+     */
+    protected $request;
+
+    /**
      * Relates to an entity object, its name.
      *
      * @var String
@@ -31,11 +38,13 @@ class Database
      * Set up class vars
      *
      * @param Wasp\Database\Connection $connection
+     * @param Wasp\Routing\Request
      * @author Dan Cox
      */
-    public function __construct($connection)
+    public function __construct($connection, $request = null)
     {
         $this->connection = $connection;
+        $this->request = $request;
     }
 
     /**
@@ -212,6 +221,21 @@ class Database
         $builder->from($this->entity, 'u');
 
         return $builder;
+    }
+
+    /**
+     * Returns a paginated entity collection
+     *
+     * @param Integer $limit
+     * @return Wasp\Entity\PaginatedEntityCollection
+     * @author Dan Cox
+     */
+    public function paginate($limit = 100, $clauses = array(), $order = array())
+    {
+        $paginator = new \Wasp\Database\Paginator($this, $this->request);
+        $paginator->setEntity($this->entity);
+
+        return $paginator->query($limit, $clauses, $order);
     }
 
     /**

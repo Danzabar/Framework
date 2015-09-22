@@ -21,7 +21,7 @@ class MockedRestControllerTest extends TestCase
         'database',
         'paginator'
     ];
-    
+
     /**
      * Set up test env
      *
@@ -32,7 +32,7 @@ class MockedRestControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Contact');
+        $this->DI->get('route')->resource('test', '/test', 'Wasp\Test\Entity\Entities\Test');
     }
 
     /**
@@ -47,7 +47,7 @@ class MockedRestControllerTest extends TestCase
 
         $db->shouldReceive('setEntity')->once()->andReturn($db);
         $db->shouldReceive('find')->andThrow(new Exception('Test'));
-        
+
         // Fabricate the request
         $response = $this->fakeRequest('/test/delete/1', 'DELETE');
 
@@ -69,7 +69,7 @@ class MockedRestControllerTest extends TestCase
         $db->shouldReceive('setEntity')->once()->andReturn($db);
         $db->shouldReceive('find')->with(1)->andReturn($db);
         $db->shouldReceive('delete')->andThrow(new Exception('Test'));
-        
+
         // Fabricate the request
         $response = $this->fakeRequest('/test/delete/1', 'DELETE');
 
@@ -89,7 +89,9 @@ class MockedRestControllerTest extends TestCase
     public function test_allFailingRoute()
     {
         $paginator = $this->DI->get('paginator');
+        $db = $this->DI->get('database');
 
+        $db->shouldReceive('setEntity')->once()->andReturn($db);
         $paginator->shouldReceive('setEntity')->andReturn($paginator);
         $paginator->shouldReceive('query')->andThrow(new Exception('Test'));
 

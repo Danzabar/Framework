@@ -2,8 +2,8 @@
 
 namespace Wasp\Entity;
 
+use Wasp\DI\DI;
 use Wasp\Exceptions\Entity\AccessToInvalidKey;
-use Wasp\DI\DependencyInjectionAwareTrait;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,68 +17,32 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Entity
 {
-    use DependencyInjectionAwareTrait;
+    /**
+     * Instance of the database
+     *
+     * @var Wasp\Database\Database
+     */
+    protected $database;
 
     /**
-     * Magic call method for interacting with the database
+     * Instance of the serializer
      *
-     * @param String $method
-     * @param Array $args
-     * @return Mixed
-     * @author Dan Cox
+     * @var Wasp\Utils\Serializer
      */
-    public function __call($method, Array $args = array())
-    {
-        $db = $this->DI->get('database');
-        $db->setEntity(get_called_class());
-
-        return call_user_func_array([$db, $method], $args);
-    }
+    protected $serializer;
 
     /**
-     * Uses the paginator to perform a paginated query on the entity
+     * Set up base entity
      *
-     * @param Integer $limit
-     * @param Array $params
-     * @param Array $order
-     *
-     * @return EntityCollection
+     * @return void
      * @author Dan Cox
      */
-    public function paginate($limit, $params = array(), $order = array())
+    public function __construct()
     {
-        $paginator = $this->DI->get('paginator');
-        $paginator->setEntity(get_called_class());
+        $di = DI::getContainer();
 
-        return $paginator->query($limit, $params, $order);
-    }
-
-    /**
-     * Returns JSON version of entity
-     *
-     * @return String
-     * @author Dan Cox
-     */
-    public function json()
-    {
-        $serializer = $this->DI->get('serializer');
-
-        return $serializer->serialize($this, 'json');
-    }
-
-    /**
-     * Converts entity values to array using the serializer
-     * We use the serializer because it allows users to hide/show values
-     *
-     * @return Array
-     * @author Dan Cox
-     */
-    public function toArray()
-    {
-        $serializer = $this->DI->get('serializer');
-        $json = $serializer->serialize($this, 'json');
-
-        return json_decode($json, true);
+        $this->database = $di->get('database');
+        $this->serializer = $di->get('serializer');
     }
 
     /**
@@ -105,6 +69,28 @@ class Entity
     }
 
     /**
+     * Returns an array representation of the entity
+     *
+     * @return Array
+     * @author Dan Cox
+     */
+    public function toArray()
+    {
+        return json_decode($this->toJSON(), true);
+    }
+
+    /**
+     * Returns json representation of the entity
+     *
+     * @return String
+     * @author Dan Cox
+     */
+    public function toJSON()
+    {
+        return $this->serializer->serialize($this, 'json');
+    }
+
+    /**
      * Saves the current state of the Entity
      *
      * @return void
@@ -112,8 +98,7 @@ class Entity
      */
     public function save()
     {
-        $db = $this->DI->get('database');
-        $db->save($this);
+        $this->database->save($this);
     }
 
     /**
@@ -124,8 +109,7 @@ class Entity
      */
     public function delete()
     {
-        $db = $this->DI->get('database');
-        $db->remove($this);
+        $this->database->remove($this);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase;
+use Wasp\Test\Entity\Entities\Test;
 
 /**
  * Test case for the EntityCollection class
@@ -18,15 +19,8 @@ class EntityCollectionTest extends TestCase
      * @var Array
      */
     protected $passes = [
-        'Wasp\DI\Pass\DatabaseMockeryPass'
+        'Wasp\DI\Pass\DatabaseMockeryPass',
     ];
-
-    /**
-     * Instance of the test entity
-     *
-     * @var \Wasp\Test\Entity\Entities\Test
-     */
-    protected $test;
 
     /**
      * Set up test class
@@ -39,7 +33,7 @@ class EntityCollectionTest extends TestCase
         parent::setUp();
 
         $this->DI->get('database')->create(ENTITIES);
-        $this->test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Test');
     }
 
     /**
@@ -51,16 +45,15 @@ class EntityCollectionTest extends TestCase
     public function test_bulkDelete()
     {
         for ($i = 0; $i < 10; $i++) {
-            $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+            $ent = new Test;
             $ent->name = "bob_" . $i;
             $ent->save();
         }
 
-        $collection = $this->test->get();
-
+        $collection = $this->DI->get('database')->get();
         $collection->delete();
 
-        $results = $this->test->get();
+        $results = $this->DI->get('database')->get();
 
         $this->assertEquals(0, count($results));
     }
@@ -74,12 +67,12 @@ class EntityCollectionTest extends TestCase
     public function test_bulkUpdate()
     {
         for ($i = 0; $i < 10; $i++) {
-            $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+            $ent = new Test;
             $ent->name = "bob_" . $i;
             $ent->save();
         }
 
-        $collection = $this->test->get();
+        $collection = $this->DI->get('database')->get();
 
         foreach ($collection as $key => $coll)
         {
@@ -88,26 +81,9 @@ class EntityCollectionTest extends TestCase
 
         $collection->save();
 
-        $result = $this->test->get(['name' => 'jeff_1']);
+        $result = $this->DI->get('database')->get(['name' => 'jeff_1']);
 
         $this->assertEquals(1, count($result));
-    }
-
-    /**
-     * Test convert to json
-     *
-     * @return void
-     * @author Dan Cox
-     */
-    public function test_json()
-    {
-        $ent = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
-        $ent->name = 'foo';
-        $ent->save();
-
-        $result = $this->test->get(['name' => 'foo']);
-
-        $this->assertContains('"_id":1,"name":"foo"', $result->json());
     }
 
 } // END class EntityCollectionTest extends TestCase

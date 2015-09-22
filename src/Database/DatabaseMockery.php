@@ -50,7 +50,7 @@ class DatabaseMockery
         // Connect to this
         $this->DI->get('connection')->connect('mock');
 
-        $this->database = new Database($this->DI->get('connection'));
+        $this->database = new Database($this->DI->get('connection'), $this->DI->get('request'));
 
         $this->DI->get('schema')->update();
     }

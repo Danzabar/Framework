@@ -4,7 +4,6 @@ namespace Wasp\Entity;
 
 use Wasp\Entity\EntityCollection;
 use Wasp\Exceptions\Entity\PaginationTemplateNotSet;
-use Wasp\DI\DependencyInjectionAwareTrait;
 
 /**
  * Collection class for returning paginated results
@@ -15,8 +14,6 @@ use Wasp\DI\DependencyInjectionAwareTrait;
  */
 class PaginatedEntityCollection extends EntityCollection
 {
-    use DependencyInjectionAwareTrait;
-
     /**
      * The total number of records
      *

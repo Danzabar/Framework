@@ -35,6 +35,7 @@ class DatabaseMockeryTest extends TestCase
         parent::setUp();
 
         $this->DI->get('database')->create(ENTITIES);
+        $this->DI->get('database')->setEntity('Wasp\Test\Entity\Entities\Test');
     }
 
     /**
@@ -56,12 +57,12 @@ class DatabaseMockeryTest extends TestCase
      */
     public function test_connectionToMock()
     {
-        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = new Test;
         $test->name = 'bob';
         $test->save();
 
         // We should be able to query out bob now
-        $results = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test')->findOneBy(['name' => 'bob']);
+        $results = $this->DI->get('database')->findOneBy(['name' => 'bob']);
 
         $this->assertEquals('bob', $results->name);
     }
@@ -74,7 +75,7 @@ class DatabaseMockeryTest extends TestCase
      */
     public function test_clearingDatabase()
     {
-        $test = $this->DI->get('entity')->load('Wasp\Test\Entity\Entities\Test');
+        $test = new Test;
         $test->name = 'dave';
         $test->save();
 

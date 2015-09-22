@@ -42,6 +42,14 @@ class Contact extends Entity
      * @var String
      */
     protected $message;
-    
+
+    /**
+     * The detail relationship
+     *
+     * @ORM\OneToMany(targetEntity="Wasp\Test\Entity\Entities\ContactDetail", mappedBy="Wasp\Test\Entity\Entities\Contact", fetch="LAZY")
+     * @var Object
+     */
+    protected $detail;
+
 } // END class Contact extends Entity
 

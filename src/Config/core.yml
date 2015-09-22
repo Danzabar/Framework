@@ -25,11 +25,6 @@ services:
         lazy: true
         arguments:
             - "@console"
-    entity:
-        class: Wasp\Entity\EntityLoader
-        lazy: true
-        calls:
-           - [setDI, ["@service_container"]]
     event.dispatch:
         class: Symfony\Component\EventDispatcher\EventDispatcher
         lazy: true
@@ -44,6 +39,7 @@ services:
         class: Wasp\Database\Database
         arguments:
             - "@connection"
+            - "@request"
     filter.listener:
         class: Wasp\Filter\FilterListener
         lazy: true
@@ -79,7 +75,6 @@ services:
         arguments:
             - "@database"
             - "@request"
-            - "@service_container"
     profile:
         class: Wasp\Application\Profile
         arguments:

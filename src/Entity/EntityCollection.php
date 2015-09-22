@@ -15,6 +15,24 @@ use Wasp\DI\DI;
 class EntityCollection extends Collection
 {
     /**
+     * The service container
+     *
+     * @var \Symfony\Component\DependencyInjection\Container
+     */
+    protected $DI;
+
+    /**
+     * Set up class base
+     * @author Dan Cox
+     */
+    public function __construct(Array $collectable = array(), $di = null)
+    {
+        parent::__construct($collectable);
+
+        $this->DI = $di == null ? DI::getContainer() : $di;
+    }
+
+    /**
      * Converts the collection class into a json string
      *
      * @return String
@@ -22,7 +40,7 @@ class EntityCollection extends Collection
      */
     public function json()
     {
-        $serializer = DI::getContainer()->get('serializer');
+        $serializer = $this->DI->get('serializer');
 
         return $serializer->serialize($this->collectable, 'json');
     }
@@ -49,7 +67,7 @@ class EntityCollection extends Collection
     public function delete()
     {
         foreach ($this->collectable as $entity) {
-            $entity->delete();
+            $this->DI->get('database')->remove($entity);
         }
     }
 
@@ -62,7 +80,7 @@ class EntityCollection extends Collection
     public function save()
     {
         foreach ($this->collectable as $entity) {
-            $entity->save();
+            $this->DI->get('database')->save($entity);
         }
     }
 } // END class EntityCollection extends Collection
