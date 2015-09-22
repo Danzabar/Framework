@@ -68,7 +68,7 @@ class MockedRestControllerTest extends TestCase
 
         $db->shouldReceive('setEntity')->once()->andReturn($db);
         $db->shouldReceive('find')->with(1)->andReturn($db);
-        $db->shouldReceive('delete')->andThrow(new Exception('Test'));
+        $db->shouldReceive('remove')->andThrow(new Exception('Test'));
 
         // Fabricate the request
         $response = $this->fakeRequest('/test/delete/1', 'DELETE');
