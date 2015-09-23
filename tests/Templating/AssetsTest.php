@@ -43,9 +43,12 @@ class AssetsTest extends TestCase
         $this->assets->register('css', 'css/test.css', 'css');
 
         $output = $this->assets->getAssets(['test', 'css']);
+        $singular = $this->assets->getAssets('test');
 
         $this->assertContains('js/test.js', $output);
         $this->assertContains('css/test.css', $output);
+        $this->assertContains('js/test.js', $singular);
+        $this->assertNotContains('css/test.css', $singular);
         $this->assertTrue($this->assets->has('test'));
     }
 
