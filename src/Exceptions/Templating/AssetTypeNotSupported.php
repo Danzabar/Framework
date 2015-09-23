@@ -49,7 +49,12 @@ class AssetTypeNotSupported extends \Exception
         $this->allowed = $allowed;
 
         parent::__construct(
-            sprintf("Invalid asset registry type used (%s) for %s asset, Allowed types are: %s", $type, $name, join($allowed, ',')),
+            sprintf(
+                "Invalid asset registry type used (%s) for %s asset, Allowed types are: %s",
+                $type,
+                $name,
+                join($allowed, ',')
+            ),
             $code,
             $previous
         );

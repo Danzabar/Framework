@@ -76,5 +76,4 @@ class AssetOutput
             Str::arrayToHtmlProperties($extras)
         );
     }
-
 } // END class AssetOutput

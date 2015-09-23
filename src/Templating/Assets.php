@@ -59,7 +59,7 @@ class Assets
      * @author Dan Cox
      * @throws \Wasp\Exceptions\Templating\AssetTypeNotSupported
      */
-    public function checkAssetType($type, $name = NULL)
+    public function checkAssetType($type, $name = null)
     {
         if (!in_array($type, $this->allowedTypes)) {
             throw new AssetTypeNotSupported($type, $name, $this->allowedTypes);
@@ -120,7 +120,6 @@ class Assets
         }
 
         foreach ($names as $name) {
-
             $asset = $this->get($name);
 
             $str .= $this->printer->output($asset['type'], $asset['uri'], $extras);
@@ -171,5 +170,4 @@ class Assets
     {
         return $this->assets->exists($name);
     }
-
 } // END class Assets
