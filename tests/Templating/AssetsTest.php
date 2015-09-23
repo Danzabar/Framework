@@ -50,6 +50,7 @@ class AssetsTest extends TestCase
         $this->assertContains('js/test.js', $singular);
         $this->assertNotContains('css/test.css', $singular);
         $this->assertTrue($this->assets->has('test'));
+        $this->assertFalse($this->assets->get('fake'));
     }
 
     /**
