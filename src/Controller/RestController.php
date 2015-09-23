@@ -3,6 +3,7 @@
 namespace Wasp\Controller;
 
 use Wasp\Controller\BaseController;
+use Wasp\Utils\EntityHelper;
 
 /**
  * A standard rest controller
@@ -118,7 +119,7 @@ class RestController extends BaseController
             $record = $this->entityInstance();
         }
 
-        $record->updateFromArray($data->all());
+        $record = EntityHelper::updateFromArray($record, $data->all());
 
         $errors = $this->validator->validate($record);
 
@@ -128,7 +129,7 @@ class RestController extends BaseController
                 'errors' => $this->formatErrors($errors)], 400);
         }
 
-        $record->save();
+        $this->database->save($record);
 
         return $this->response->json(['status' => 'success', 'data' => $record->toArray()], 200);
     }
@@ -242,7 +243,7 @@ class RestController extends BaseController
         }
 
         try {
-            $record->delete();
+            $this->database->remove($record);
 
             return $this->response->json(['status' => 'success'], 200);
 

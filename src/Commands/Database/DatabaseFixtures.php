@@ -38,7 +38,7 @@ class DatabaseFixtures extends BaseCommand
     {
         $this
             ->argument('directory', 'Set a different directory to use', 'optional')
-            ->option('purge', 'Flag to start the fixture purge');
+            ->option('append', 'Specifies whether the fixture should be appended rather than purged');
     }
 
     /**
@@ -50,6 +50,7 @@ class DatabaseFixtures extends BaseCommand
     public function fire()
     {
         $FM = $this->DI->get('fixtures');
+        $append = false;
 
         if (!is_null($this->input->getArgument('directory'))) {
             $FM->setDirectory($this->input->getArgument('directory'));
@@ -57,12 +58,11 @@ class DatabaseFixtures extends BaseCommand
 
         $FM->load();
 
-        if ($this->input->getOption('purge')) {
-            $FM->purge();
-            $this->output->writeln("Successfully purged fixtures");
-        } else {
-            $FM->import();
-            $this->output->writeln("Successfully imported fixtures");
+        if ($this->input->getOption('append')) {
+            $append = true;
         }
+
+        $FM->import($append);
+        $this->output->writeln("Successfully imported fixtures");
     }
 } // END class DatabaseFixtures extends BaseCommand

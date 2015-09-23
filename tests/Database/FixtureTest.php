@@ -65,12 +65,6 @@ class FixtureTest extends TestCase
         $result = $this->DI->get('database')->get();
 
         $this->assertEquals('jim', $result[0]->name);
-
-        $FM->purge();
-
-        $result2 = $this->DI->get('database')->get();
-
-        $this->assertEquals(0, count($result2));
         $this->assertEquals(__DIR__ . '/Fixtures/', $FM->getDirectory());
     }
 

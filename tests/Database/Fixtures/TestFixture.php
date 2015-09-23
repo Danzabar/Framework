@@ -1,41 +1,26 @@
 <?php
 
-use Doctrine\Fixture\Fixture,
-    Wasp\Test\Entity\Entities\Test,
-    Wasp\DI\StaticContainerAwareTrait;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\Persistence\ObjectManager;
+use Wasp\Test\Entity\Entities\Test;
 
 /**
  * A test fixture
  *
  */
-class TestFixture implements Fixture
+class TestFixture extends AbstractFixture
 {
-    use StaticContainerAwareTrait;
-
     /**
-     * Import
+     * Load fixtures
      *
      * @return void
      * @author Dan Cox
      */
-    public function import()
+    public function load(ObjectManager $manager)
     {
         $test = new Test;
         $test->name = 'jim';
         $test->save();
-    }
-
-    /**
-     * Purge
-     *
-     * @return void
-     * @author Dan Cox
-     */
-    public function purge()
-    {
-        // Remove jim
-        $jim = self::get('database')->findOneBy(['name' => 'jim']);
-        $jim->delete();
     }
 
 } // END class TestFixture

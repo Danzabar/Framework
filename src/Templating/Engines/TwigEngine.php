@@ -79,6 +79,7 @@ class TwigEngine implements EngineInterface
 
         // Add Globals
         $this->environment->addGlobal('app', $this->container);
+        $this->environment->addGlobal('assets', $this->container->get('assets'));
     }
 
     /**
