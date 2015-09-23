@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d6cd30ad0dfd1f931b624c516df589fb",
+    "hash": "56f72a0248eb546b408e4ed6f2a42058",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -285,30 +285,29 @@
         },
         {
             "name": "doctrine/data-fixtures",
-            "version": "2.0.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "a433e021548ff6c2a2626aa359cce4eff111e0f7"
+                "reference": "a02f0e7e2c68cc0237c33cbc8e8605aceb3b481a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/a433e021548ff6c2a2626aa359cce4eff111e0f7",
-                "reference": "a433e021548ff6c2a2626aa359cce4eff111e0f7",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/a02f0e7e2c68cc0237c33cbc8e8605aceb3b481a",
+                "reference": "a02f0e7e2c68cc0237c33cbc8e8605aceb3b481a",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": "~2.4",
+                "doctrine/common": "~2.2",
                 "php": ">=5.3.2"
             },
+            "conflict": {
+                "doctrine/orm": "< 2.4"
+            },
             "require-dev": {
-                "doctrine/dbal": "~2.4",
-                "doctrine/orm": "~2.4",
-                "phpunit/phpunit": "~3.7"
+                "doctrine/orm": "~2.4"
             },
             "suggest": {
-                "doctrine/dbal": "For loading DBAL fixtures",
-                "doctrine/mongodb": "For loading MongoDB fixtures",
                 "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
                 "doctrine/orm": "For loading ORM fixtures",
                 "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
@@ -316,12 +315,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\Fixture": "lib/"
+                    "Doctrine\\Common\\DataFixtures": "lib/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -331,23 +330,15 @@
             "authors": [
                 {
                     "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": "Creator"
-                },
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@hotmail.com"
+                    "email": "jonwage@gmail.com"
                 }
             ],
-            "description": "Data Fixtures for all Doctrine tools",
+            "description": "Data Fixtures for all Doctrine Object Managers",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
-                "Fixture",
-                "database",
-                "persistence"
+                "database"
             ],
-            "time": "2014-03-25 05:01:26"
+            "time": "2015-09-02 15:51:06"
         },
         {
             "name": "doctrine/dbal",

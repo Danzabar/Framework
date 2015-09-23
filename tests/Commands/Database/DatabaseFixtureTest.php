@@ -60,26 +60,26 @@ class DatabaseFixtureTest extends TestCase
     }
 
     /**
-     * Test running the purge method
+     * Test running with append specified
      *
      * @return void
      * @author Dan Cox
      */
-    public function test_purgeFixtures()
+    public function test_appendFixtures()
     {
         $fixtures = $this->DI->get('fixtures');
         $command = $this->DI->get('console')->find('database:fixtures');
 
         $fixtures->shouldReceive('load')->once();
-        $fixtures->shouldReceive('purge')->once();
+        $fixtures->shouldReceive('import')->once();
 
         $CT = new CommandTester($command);
         $CT->execute([
             'command'       => $command->getName(),
-            '--purge'       => true
+            '--append'       => true
         ]);
 
-        $this->assertContains('purged', $CT->getDisplay());
+        $this->assertContains('imported', $CT->getDisplay());
     }
 
     /**
@@ -105,5 +105,4 @@ class DatabaseFixtureTest extends TestCase
 
         $this->assertContains('imported', $CT->getDisplay());
     }
-
 } // END class DatabaseFixtureTest extends TestCase

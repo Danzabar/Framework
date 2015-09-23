@@ -2,10 +2,9 @@
 
 namespace Wasp\Database;
 
-use Doctrine\Fixture\Loader\DirectoryLoader;
-use Doctrine\Fixture\Executor;
-use Doctrine\Fixture\Filter\ChainFilter;
-use Doctrine\Fixture\Configuration;
+use Doctrine\Common\DataFixtures\Loader;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 /**
  * Loads and runs fixture classes
@@ -60,7 +59,7 @@ class FixtureManager
     public function __construct($connection)
     {
         $this->connection = $connection;
-        $this->executor = new Executor(new Configuration);
+        $this->executor = new ORMExecutor($this->connection->connection(), new ORMPurger());
     }
 
     /**
@@ -71,30 +70,21 @@ class FixtureManager
      */
     public function load()
     {
-        $this->loader = new DirectoryLoader($this->directory);
-        $this->fixtureList = $this->loader->load();
+        $this->loader = new Loader;
+        $this->loader->loadFromDirectory($this->directory);
+        $this->fixtureList = $this->loader->getFixtures();
     }
 
     /**
      * Run import method on loaded fixtures
      *
+     * @param Boolean $append - Appends the fixtures rather than purging first.
      * @return void
      * @author Dan Cox
      */
-    public function import()
+    public function import($append = false)
     {
-        $this->executor->execute($this->loader, new ChainFilter(), Executor::IMPORT);
-    }
-
-    /**
-     * Runs the purge method on loaded fixtures
-     *
-     * @return void
-     * @author Dan Cox
-     */
-    public function purge()
-    {
-        $this->executor->execute($this->loader, new ChainFilter(), Executor::PURGE);
+        $this->executor->execute($this->fixtureList, $append);
     }
 
     /**

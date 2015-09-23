@@ -26,7 +26,7 @@
 		"symfony/debug": ">=2.7, <3.0",
 		"symfony/yaml": ">=2.7, <3.0",
 		"doctrine/orm": "*",
-		"doctrine/data-fixtures": "2.0.*",
+		"doctrine/data-fixtures": "1.1.x",
 		"twig/twig": "1.*",
 		"mockery/mockery": "dev-master",
 		"symfony/templating": ">=2.7, <3.0",
