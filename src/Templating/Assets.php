@@ -145,6 +145,22 @@ class Assets
     }
 
     /**
+     * Loads multiple assets
+     *
+     * @param Array $assets
+     * @return Assets
+     * @author Dan Cox
+     */
+    public function registerAssets($assets)
+    {
+        foreach ($assets as $key => $data) {
+            $this->register($key, $data['uri'], $data['type']);
+        }
+
+        return $this;
+    }
+
+    /**
      * Returns an assets type and uri from the specified name
      *
      * @return Array

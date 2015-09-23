@@ -96,5 +96,28 @@ class AssetsTest extends TestCase
         $this->assertContains('css.css', $output);
     }
 
+    /**
+     * Test loading multiple assets
+     *
+     * @return void
+     * @author Dan Cox
+     */
+    public function test_load_multiple()
+    {
+        $this->assets->registerAssets([
+            'test'          => array(
+                'uri'       => 'js.js',
+                'type'      => 'javascript'
+            ),
+            'css'           => array(
+                'uri'       => 'css.css',
+                'type'      => 'css'
+            )
+        ]);
+
+        $this->assertTrue($this->assets->has('test'));
+        $this->assertTrue($this->assets->has('css'));
+    }
+
 } // END class AssetsTest extends TestCase
 
