@@ -1,4 +1,7 @@
 services:
+    assets:
+        class: Wasp\Templating\Assets
+        lazy: true
     connection:
         class: Wasp\Database\Connection
         arguments:

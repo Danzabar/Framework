@@ -44,6 +44,17 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
+     * Returns all array keys
+     *
+     * @return Array
+     * @author Dan Cox
+     */
+    public function keys()
+    {
+        return array_keys($this->collectable);
+    }
+
+    /**
      * Adds all from an array into the collection
      *
      * @param Array $collection
