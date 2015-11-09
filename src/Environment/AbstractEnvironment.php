@@ -40,13 +40,6 @@ abstract class AbstractEnvironment
     protected $profile;
 
     /**
-     * An array of settings from the profile class
-     *
-     * @var Array
-     */
-    protected $settings;
-
-    /**
      * Instance of the file system
      *
      * @var Filesystem
@@ -59,6 +52,13 @@ abstract class AbstractEnvironment
      * @var DI
      */
     protected $DI;
+
+    /**
+     * An array of settings from the profile class
+     *
+     * @var Array
+     */
+    public $settings;
 
     /**
      * Set up class dependencies
