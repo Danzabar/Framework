@@ -1,12 +1,11 @@
 <?php namespace Wasp\Test;
 
-use Wasp\DI\DICompilerPassRegister,
-    Wasp\DI\ExtensionRegister,
-    Wasp\DI\ServiceMockery,
-    Wasp\DI\ServiceMockeryLibrary,
-    Wasp\Application\Profile,
-    Symfony\Component\Filesystem\Filesystem,
-    Symfony\Component\DomCrawler\Crawler;
+use Wasp\DI\DICompilerPassRegister;
+use Wasp\Environment\TestEnvironment;
+use Wasp\DI\ExtensionRegister;
+use Wasp\DI\ServiceMockery;
+use Wasp\DI\ServiceMockeryLibrary;
+use Symfony\Component\DomCrawler\Crawler;
 
 
 /**
@@ -55,13 +54,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected $DI;
 
     /**
-     * The environment on which to build
-     *
-     * @var String
-     */
-    protected $env;
-
-    /**
      * The response
      *
      * @var Symfony\Component\HttpFoundation\Response
@@ -83,19 +75,15 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        if(is_null($this->env))
-        {
-            $this->env = 'test';
-        }
-
         $this->registerPasses();
         $this->registerMocks();
         $this->registerExtensions();
 
-        $this->application = new \Wasp\Application\Application;
-        $this->application->profile = new Profile(new Filesystem);
-        $this->application->loadEnv($this->env);
-        $this->DI = $this->application->env->getDI();
+        $environment = new TestEnvironment();
+        $environment->load();
+
+        $this->application = $environment->getApplication();
+        $this->DI = $environment->getDI();
 
         if(property_exists($this, 'commands') && is_array($this->commands))
         {

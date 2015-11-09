@@ -44,6 +44,17 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
+     * Replaces all the items of the collectable array
+     *
+     * @return Collection
+     */
+    public function replaceAll(array $collectable)
+    {
+        $this->collectable = $collectable;
+        return $this;
+    }
+
+    /**
      * Returns all array keys
      *
      * @return Array

@@ -2,6 +2,8 @@
 
 namespace Wasp\Application;
 
+use Wasp\Utils\Collection;
+
 /**
  * Profile class is used to set up the application
  *
@@ -27,9 +29,9 @@ class Profile
     protected $fs;
 
     /**
-     * An Array of settings
+     * An Collection of settings
      *
-     * @var Array
+     * @var Collection
      **/
     protected $settings;
 
@@ -63,6 +65,7 @@ class Profile
     public function __construct($fs)
     {
         $this->fs = $fs;
+        $this->settings = new Collection;
         $this->hostname = gethostname();
     }
 
@@ -75,7 +78,7 @@ class Profile
     public function settings()
     {
         foreach ($this->files as $file) {
-            $this->settings[$file] = $this->extractSettings($file);
+            $this->settings->add($file, $this->extractSettings($file));
         }
     }
 
@@ -201,7 +204,7 @@ class Profile
      */
     public function setSettings(Array $settings)
     {
-        $this->settings = $settings;
+        $this->settings->replaceAll($settings);
         return $this;
     }
 
