@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+use Wasp\Console\ConsoleApplication;
+
+$app = new ConsoleApplication;
+$app->setName('Wasp Administration');
+$app->setVersion('v0.1.0');
+
+$app->add(new Wasp\Commands\CreateApp);
+
+$app->run();
