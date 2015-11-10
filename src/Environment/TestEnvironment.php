@@ -38,5 +38,4 @@ class TestEnvironment extends AbstractEnvironment
 
         $this->buildDI();
     }
-
 } // END class TestEnvironment extends AbstractEnvironment

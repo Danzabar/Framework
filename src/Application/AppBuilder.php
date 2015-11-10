@@ -134,37 +134,36 @@ class AppBuilder
     protected function createCoreFiles()
     {
        // Environment Class
-       $this->fs->dumpFile(
-           sprintf('%s/%sEnvironment.php', $this->appDir, $this->appName),
-           $this->getFileContents(__DIR__ . '/AppTemplates/environment')
-       );
+        $this->fs->dumpFile(
+            sprintf('%s/%sEnvironment.php', $this->appDir, $this->appName),
+            $this->getFileContents(__DIR__ . '/AppTemplates/environment')
+        );
 
        // Config files
-       foreach ($this->configFiles as $config) {
-
-           $this->fs->dumpFile(
-               sprintf('%s/src/Config/%s.php', $this->appDir, $config),
-               $this->getFileContents(sprintf('%s/AppTemplates/Config/%s', __DIR__, $config))
-           );
-       }
+        foreach ($this->configFiles as $config) {
+            $this->fs->dumpFile(
+                sprintf('%s/src/Config/%s.php', $this->appDir, $config),
+                $this->getFileContents(sprintf('%s/AppTemplates/Config/%s', __DIR__, $config))
+            );
+        }
 
        // Route file
-       $this->fs->dumpFile(
-           sprintf('%s/Routes.php', $this->appDir),
-           $this->getFileContents(__DIR__ . '/AppTemplates/Routes')
-       );
+        $this->fs->dumpFile(
+            sprintf('%s/Routes.php', $this->appDir),
+            $this->getFileContents(__DIR__ . '/AppTemplates/Routes')
+        );
 
        // Bootstrap
-       $this->fs->dumpFile(
-           sprintf('%s/bootstrap/bootstrap.php', $this->appDir),
-           $this->getFileContents(__DIR__ . '/AppTemplates/bootstrap')
-       );
+        $this->fs->dumpFile(
+            sprintf('%s/bootstrap/bootstrap.php', $this->appDir),
+            $this->getFileContents(__DIR__ . '/AppTemplates/bootstrap')
+        );
 
        // Index
-       $this->fs->dumpFile(
-           sprintf('%s/public/index.php', $this->appDir),
-           $this->getFileContents(__DIR__ . '/AppTemplates/index')
-       );
+        $this->fs->dumpFile(
+            sprintf('%s/public/index.php', $this->appDir),
+            $this->getFileContents(__DIR__ . '/AppTemplates/index')
+        );
     }
 
     /**

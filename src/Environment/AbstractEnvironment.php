@@ -272,5 +272,4 @@ abstract class AbstractEnvironment
     {
         return $this->DI;
     }
-
 } // END abstract class AbstractEnvironment
