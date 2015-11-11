@@ -50,8 +50,8 @@ class AbstractEnvironmentTest extends TestCase
         ]);
 
         $this->settings = array(
-            'application'       => array(),
-            'extensions'        => array(),
+            'application'       => array('debug' => true),
+            'extensions'        => array('Wasp\Test\DI\Extension\FilterExtension'),
             'templates'         => array(),
             'database'          => array(
                 'connections'   => array(
