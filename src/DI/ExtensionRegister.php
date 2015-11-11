@@ -31,8 +31,7 @@ class ExtensionRegister
     public function register($container)
     {
         foreach (static::$extensions as $extension) {
-            $ext = new \ReflectionClass($extension);
-            $instance = $ext->newInstance();
+            $instance = new $extension;
             $container->registerExtension($instance);
             $container->loadFromExtension($instance->getAlias());
         }

@@ -2,6 +2,9 @@
 
 namespace Wasp\Application;
 
+use Wasp\Utils\Collection;
+use Symfony\Component\Filesystem\Filesystem;
+
 /**
  * Profile class is used to set up the application
  *
@@ -27,9 +30,9 @@ class Profile
     protected $fs;
 
     /**
-     * An Array of settings
+     * An Collection of settings
      *
-     * @var Array
+     * @var Collection
      **/
     protected $settings;
 
@@ -60,9 +63,10 @@ class Profile
      * @param \Symfony\Component\Filesystem\Filesystem
      * @author Dan Cox
      **/
-    public function __construct($fs)
+    public function __construct($fs = null)
     {
-        $this->fs = $fs;
+        $this->fs = (!is_null($fs) ? $fs : new Filesystem);
+        $this->settings = new Collection;
         $this->hostname = gethostname();
     }
 
@@ -75,7 +79,7 @@ class Profile
     public function settings()
     {
         foreach ($this->files as $file) {
-            $this->settings[$file] = $this->extractSettings($file);
+            $this->settings->add($file, $this->extractSettings($file));
         }
     }
 
@@ -201,7 +205,7 @@ class Profile
      */
     public function setSettings(Array $settings)
     {
-        $this->settings = $settings;
+        $this->settings->replaceAll($settings);
         return $this;
     }
 

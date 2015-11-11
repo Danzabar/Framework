@@ -1,0 +1,38 @@
+<?php
+
+namespace [AppNs];
+
+use Wasp\Environment\AbstractEnvironment;
+
+/**
+ * The environment controls how your application
+ * is built
+ */
+class [AppName]Environment extends AbstractEnvironment
+{
+
+    public function config()
+    {
+        $this->config->add('profiles', '[BaseDir]/profiles.php');
+        $this->config->add('config_files', array(
+            'application',
+            'assets',
+            'commands',
+            'database',
+            'extensions',
+            'templates'
+        ));
+    }
+
+    public function build()
+    {
+        // Build the Dependency Injector
+        $this->buildDI();
+
+        // Connect to the default database connection
+        $this->connect();
+
+        // Start templating engine
+        $this->setupTemplates('[AppDir]/Views/');
+    }
+}

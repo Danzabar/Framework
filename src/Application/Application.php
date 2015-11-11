@@ -25,25 +25,11 @@ class Application
     protected $DI;
 
     /**
-     * An environment instance
-     *
-     * @var Object
-     */
-    public $env;
-
-    /**
      * A setup instance of the profile class
      *
      * @var \Wasp\Application\Profile
      **/
     public $profile;
-
-    /**
-     * Collection instance containing environments
-     *
-     * @var Wasp\Utils\Collection
-     */
-    protected $envCollection;
 
     /**
      * Set up Application Defaults
@@ -54,11 +40,6 @@ class Application
     public function __construct($profile = null)
     {
         $this->profile = $profile;
-
-        $this->envCollection = new Collection;
-
-        // Default Environments
-        $this->registerEnvironment('test', 'Wasp\Environment\Test');
     }
 
     /**
@@ -93,89 +74,6 @@ class Application
     }
 
     /**
-     * Loads an environment by name
-     *
-     * @param String $name - The name of the environment
-     * @return void
-     * @author Dan Cox
-     */
-    public function loadEnv($name)
-    {
-        // Get the Environment's class
-        $class = $this->getEnvironment($name);
-
-        // Create reflection and invoke a new instance
-        $reflection = new \ReflectionClass($class);
-        $instance = $reflection->newInstance();
-
-        // Call the Load method;
-        $this->env = $instance->load($this);
-        $this->DI = $this->env->getDI();
-    }
-
-    /**
-     * Registers an environment so it can be used in App start up.
-     *
-     * @param String $name - the name of the environment
-     * @param String $class - fully qualified class name as a string
-     * @return Application
-     * @author Dan Cox
-     */
-    public function registerEnvironment($name, $class)
-    {
-        $this->envCollection->add($name, $class);
-        return $this;
-    }
-
-    /**
-     * Registers an array of environments
-     *
-     * @param Array $environments
-     * @return Application
-     * @author Dan Cox
-     */
-    public function registerEnvironments(Array $environments)
-    {
-        $this->envCollection->append($environments);
-
-        return $this;
-    }
-
-    /**
-     * Gets an environments class name by its label
-     *
-     * @param String $name - the name of the environment
-     * @return String
-     * @author Dan Cox
-     */
-    public function getEnvironment($name)
-    {
-        if ($this->envCollection->exists($name)) {
-            return $this->envCollection->get($name);
-        }
-
-        throw new UnknownEnvironment($name);
-    }
-
-    /**
-     * Removes the registered environment from the Application.
-     *
-     * @param String $name - the environment name
-     * @return Application
-     * @author Dan Cox
-     */
-    public function deregisterEnvironment($name)
-    {
-        if ($this->envCollection->exists($name)) {
-            $this->envCollection->remove($name);
-            return $this;
-        }
-
-        // Throw exception
-        throw new UnknownEnvironment($name);
-    }
-
-    /**
      * Returns the DI instance
      *
      * @return \Wasp\DI\DI
@@ -184,5 +82,17 @@ class Application
     public function getDI()
     {
         return $this->DI;
+    }
+
+    /**
+     * Sets the Dependency Injector instance
+     *
+     * @param Wasp\DI\DI
+     * @return Application
+     */
+    public function setDI($DI = null)
+    {
+        $this->DI = $DI;
+        return $this;
     }
 } // END class Application

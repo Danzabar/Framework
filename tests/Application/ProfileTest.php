@@ -25,7 +25,7 @@ class ProfileTest extends TestCase
         $profile->settings();
 
         $profile->getSettings();
-        $this->assertEquals(['application' => ['foo' => 'bar', 'test' => 'case']], $profile->getSettings());
+        $this->assertEquals(['application' => ['foo' => 'bar', 'test' => 'case']], $profile->getSettings()->all());
     }
 
     /**
@@ -35,7 +35,7 @@ class ProfileTest extends TestCase
      * @author Dan Cox
      **/
     public function test_customHostnameSettings()
-    {   
+    {
         $profile = $this->DI->get('profile');
         $profile->setDirectory(__DIR__ . '/profiles/');
         $profile->addFiles('application');
@@ -43,7 +43,7 @@ class ProfileTest extends TestCase
         $profile->hostname = 'Test';
 
         $profile->settings();
-        $this->assertEquals(['application' => ['foo' => 'zim', 'test' => 'case']], $profile->getSettings());
+        $this->assertEquals(['application' => ['foo' => 'zim', 'test' => 'case']], $profile->getSettings()->all());
         $this->assertEquals(['application'], $profile->getFiles());
         $this->assertEquals(__DIR__ . '/profiles/', $profile->getDirectory());
     }
@@ -79,7 +79,7 @@ class ProfileTest extends TestCase
         $profile->addFiles('test');
         $profile->settings();
 
-        $this->assertEquals(['test' => []], $profile->getSettings());
+        $this->assertEquals(['test' => []], $profile->getSettings()->all());
     }
 
 } // END class ProfileTest extends TestCase
