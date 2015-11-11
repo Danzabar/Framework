@@ -7,7 +7,8 @@ use Wasp\DI\DI;
 use Wasp\Utils\Collection;
 use Wasp\DI\DICompilerPassRegister;
 use Wasp\Application\Profile;
-use Symfony\Component\Filesystem\Filesystem;
+use Wasp\DI\ExtensionRegister;
+use Symfony\Component\Debug\Debug;
 
 /**
  * The abstract environment class helps with app start and management.
@@ -63,9 +64,9 @@ abstract class AbstractEnvironment
     /**
      * Set up class dependencies
      */
-    public function __construct()
+    public function __construct($profile = null)
     {
-        $this->profile = new Profile(new Filesystem);
+        $this->profile = (!is_null($profile) ? $profile : new Profile);
         $this->config = new Collection;
     }
 
@@ -93,11 +94,16 @@ abstract class AbstractEnvironment
         $this->config();
 
         $this->syncProfileSettings();
+        $this->debug();
+        $this->registerExtensions();
+
         $this->createDependencyInjector();
         $this->createApplication();
         $this->injectDependencies();
 
         $this->build();
+
+        $this->setupConnections();
     }
 
     /**
@@ -203,6 +209,33 @@ abstract class AbstractEnvironment
     }
 
     /**
+     * Registers extensions specified in the configuration
+     *
+     * @return void
+     */
+    public function registerExtensions()
+    {
+        if (isset($this->settings['extensions']) && !empty($this->settings['extensions'])) {
+            $register = new ExtensionRegister();
+            $register->loadFromArray($this->settings['extensions']);
+        }
+    }
+
+    /**
+     * Determines whether debug is set from settings
+     *
+     * @return void
+     */
+    public function debug()
+    {
+        $debug = $this->getSetting('application', 'debug');
+
+        if ($debug) {
+            Debug::enable();
+        }
+    }
+
+    /**
      * Returns settings from the profile
      *
      * @return void
@@ -223,9 +256,11 @@ abstract class AbstractEnvironment
      */
     public function setupConnections()
     {
-        $this->DI->get('connections')->addBulk(
-            $this->getSetting('database', 'connections')
-        );
+        $connections = $this->getSetting('database', 'connections');
+
+        if ($connections) {
+            $this->DI->get('connections')->addBulk($connections);
+        }
     }
 
     /**
@@ -271,5 +306,17 @@ abstract class AbstractEnvironment
     public function getDI()
     {
         return $this->DI;
+    }
+
+    /**
+     * Sets the config collection
+     *
+     * @param Collection $config
+     * @return AbstractEnvironment
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+        return $this;
     }
 } // END abstract class AbstractEnvironment

@@ -3,6 +3,7 @@
 namespace Wasp\Application;
 
 use Wasp\Utils\Collection;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Profile class is used to set up the application
@@ -62,9 +63,9 @@ class Profile
      * @param \Symfony\Component\Filesystem\Filesystem
      * @author Dan Cox
      **/
-    public function __construct($fs)
+    public function __construct($fs = null)
     {
-        $this->fs = $fs;
+        $this->fs = (!is_null($fs) ? $fs : new Filesystem);
         $this->settings = new Collection;
         $this->hostname = gethostname();
     }
