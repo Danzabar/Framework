@@ -38,9 +38,6 @@
 		"squizlabs/php_codesniffer": "dev-master"
 	},
 	"minimum-stability": "dev",
-    "bin": [
-        "bin/wasp"
-    ],
 	"autoload": {
 		"psr-4": {
 			"Wasp\\":"src/",
