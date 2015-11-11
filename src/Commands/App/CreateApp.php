@@ -74,4 +74,3 @@ class CreateApp extends BaseCommand
         $this->output->writeln("Created $project application, Don't forget to add the namespace to the composer file!");
     }
 } // END class CreateApp extends BaseCommand
-
