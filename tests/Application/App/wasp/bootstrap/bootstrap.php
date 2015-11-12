@@ -6,14 +6,14 @@ use App\Wasp\WaspEnvironment;
  *  Bootstrapping your app!
  *
  */
-$autoloader = require_once '[baseDir]/vendor/autoload.php';
+$autoloader = require_once '/var/www/Framework/tests/Application/App/vendor/autoload.php';
 
 /**
  *  Build the Environment
  *
  */
 $environment = new WaspEnvironment();
-$environment->build();
+$environment->load();
 
 /**
  *  Loading routes

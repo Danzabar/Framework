@@ -13,7 +13,9 @@ class WaspEnvironment extends AbstractEnvironment
 
     public function config()
     {
-        $this->config->add('profiles', '/var/www/Framework/tests/Application/App/profiles.php');
+        $profiles = require_once dirname(__DIR__) . '/profiles.php';
+
+        $this->config->add('profiles',  $profiles);
         $this->config->add('config_files', array(
             'application',
             'assets',
@@ -33,6 +35,6 @@ class WaspEnvironment extends AbstractEnvironment
         $this->connect();
 
         // Start templating engine
-        $this->setupTemplates('/var/www/Framework/tests/Application/App/wasp/Views/');
+        $this->setupTemplates( __DIR__ . '/Views/');
     }
 }

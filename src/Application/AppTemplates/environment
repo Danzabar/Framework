@@ -13,7 +13,9 @@ class [AppName]Environment extends AbstractEnvironment
 
     public function config()
     {
-        $this->config->add('profiles', '[BaseDir]/profiles.php');
+        $profiles = require_once dirname(__DIR__) . '/profiles.php';
+
+        $this->config->add('profiles',  $profiles);
         $this->config->add('config_files', array(
             'application',
             'assets',
@@ -33,6 +35,6 @@ class [AppName]Environment extends AbstractEnvironment
         $this->connect();
 
         // Start templating engine
-        $this->setupTemplates('[AppDir]/Views/');
+        $this->setupTemplates( __DIR__ . '/Views/');
     }
 }
