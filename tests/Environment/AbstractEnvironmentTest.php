@@ -151,6 +151,7 @@ class AbstractEnvironmentTest extends TestCase
         $env->setConfig($this->config);
 
         $env->load();
+        $env->setupConnections();
 
         // We should have a default connection;
         $connection = $this->DI->get('connections')->find('default');

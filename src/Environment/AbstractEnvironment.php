@@ -102,8 +102,6 @@ abstract class AbstractEnvironment
         $this->injectDependencies();
 
         $this->build();
-
-        $this->setupConnections();
     }
 
     /**

@@ -6,14 +6,14 @@ use [AppNs]\[AppName]Environment;
  *  Bootstrapping your app!
  *
  */
-$autoloader = require_once '[baseDir]/vendor/autoload.php';
+$autoloader = require_once '[BaseDir]/vendor/autoload.php';
 
 /**
  *  Build the Environment
  *
  */
 $environment = new [AppName]Environment();
-$environment->build();
+$environment->load();
 
 /**
  *  Loading routes
