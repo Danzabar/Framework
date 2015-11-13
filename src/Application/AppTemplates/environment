@@ -40,6 +40,6 @@ class [AppName]Environment extends AbstractEnvironment
         $this->connect();
 
         // Start templating engine
-        $this->setupTemplates( __DIR__ . '/src//Views/');
+        $this->setupTemplates( __DIR__ . '/src/Views/');
     }
 }
