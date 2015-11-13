@@ -45,6 +45,7 @@ class AbstractEnvironmentTest extends TestCase
         $this->profile = m::mock('Profile');
 
         $this->config = new Collection([
+            'config_dir'    => __DIR__,
             'profiles'      => ['host' => 'develop'],
             'config_files'  => ['application', 'database', 'templates']
         ]);
@@ -141,6 +142,7 @@ class AbstractEnvironmentTest extends TestCase
      */
     public function test_load_with_configuration()
     {
+        $this->profile->shouldReceive('setDirectory')->with(__DIR__)->once();
         $this->profile->shouldReceive('addProfiles')->once();
         $this->profile->shouldReceive('addFiles')->once();
         $this->profile->shouldReceive('settings')->once();
