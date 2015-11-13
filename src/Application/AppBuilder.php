@@ -92,7 +92,7 @@ class AppBuilder
     public function build($appName, $namespace = null)
     {
         $this->appName = ucwords($appName);
-        $this->namespace = (!is_null($namespace) ? $namespace : $appName);
+        $this->namespace = (!is_null($namespace) ? ucwords($namespace) : $this->appName);
 
         $this->createDirectoryTree();
         $this->createCoreFiles();
