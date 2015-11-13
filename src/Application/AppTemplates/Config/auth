@@ -15,4 +15,6 @@ return array(
     // The field name for password
     'password'      => 'password',
 
+    // The field name for the token
+    'token'         => 'token',
 );
