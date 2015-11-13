@@ -76,6 +76,7 @@ class AppBuilder
         $this->configFiles = array(
             'application',
             'assets',
+            'auth',
             'commands',
             'database',
             'extensions',
@@ -91,7 +92,7 @@ class AppBuilder
     public function build($appName, $namespace = null)
     {
         $this->appName = ucwords($appName);
-        $this->namespace = (!is_null($namespace) ? $namespace : $appName);
+        $this->namespace = (!is_null($namespace) ? ucwords($namespace) : $this->appName);
 
         $this->createDirectoryTree();
         $this->createCoreFiles();
@@ -124,6 +125,9 @@ class AppBuilder
         // Public folders
         $this->fs->mkdir($this->appDir . '/public');
         $this->fs->mkdir($this->appDir . '/bootstrap');
+
+        // Cache
+        $this->fs->mkdir($this->appDir . '/cache');
     }
 
     /**
@@ -133,13 +137,13 @@ class AppBuilder
      */
     protected function createCoreFiles()
     {
-       // Environment Class
+        // Environment Class
         $this->fs->dumpFile(
             sprintf('%s/%sEnvironment.php', $this->appDir, $this->appName),
             $this->getFileContents(__DIR__ . '/AppTemplates/environment')
         );
 
-       // Config files
+        // Config files
         foreach ($this->configFiles as $config) {
             $this->fs->dumpFile(
                 sprintf('%s/src/Config/%s.php', $this->appDir, $config),
@@ -147,22 +151,28 @@ class AppBuilder
             );
         }
 
-       // Route file
+        // Route file
         $this->fs->dumpFile(
             sprintf('%s/Routes.php', $this->appDir),
             $this->getFileContents(__DIR__ . '/AppTemplates/Routes')
         );
 
-       // Bootstrap
+        // Bootstrap
         $this->fs->dumpFile(
             sprintf('%s/bootstrap/bootstrap.php', $this->appDir),
             $this->getFileContents(__DIR__ . '/AppTemplates/bootstrap')
         );
 
-       // Index
+        // Index
         $this->fs->dumpFile(
             sprintf('%s/public/index.php', $this->appDir),
             $this->getFileContents(__DIR__ . '/AppTemplates/index')
+        );
+
+        // CLI
+        $this->fs->dumpFile(
+            sprintf('%s/cli', $this->appDir),
+            $this->getFileContents(__DIR__ . '/AppTemplates/cli')
         );
     }
 

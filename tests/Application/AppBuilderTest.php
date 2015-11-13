@@ -23,7 +23,7 @@ class AppBuilderTest extends TestCase
         $fs = new Filesystem;
 
         if ($fs->exists(__DIR__ . '/App/wasp')) {
-            //$fs->remove(__DIR__ . '/App/wasp');
+            $fs->remove(__DIR__ . '/App/wasp');
         }
     }
 

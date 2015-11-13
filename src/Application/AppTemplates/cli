@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+$env = require_once __DIR__ . '/bootstrap/bootstrap.php';
+
+$settings = $env->getDI()
+                ->get('profile')
+                ->getSettings();
+
+$app = $env->getDI()->get('console');
+$app->setName($settings['application']['cli_name']);
+$app->setVersion($settings['application']['version']);
+
+$loader = $env->getDI()->get('command.loader');
+$loader->fromArray($settings['commands']);
+
+$app->run();

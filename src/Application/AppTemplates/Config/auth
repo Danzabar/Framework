@@ -1,0 +1,20 @@
+<?php
+
+/**
+ *  Authentication configuration file
+ *
+ */
+return array(
+
+    // The namespace of the user entity
+    'user_model'    => '[AppNs]\Models\User',
+
+    // The field name for the identifier
+    'identifier'    => 'email',
+
+    // The field name for password
+    'password'      => 'password',
+
+    // The field name for the token
+    'token'         => 'token',
+);
