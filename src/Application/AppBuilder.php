@@ -76,6 +76,7 @@ class AppBuilder
         $this->configFiles = array(
             'application',
             'assets',
+            'auth',
             'commands',
             'database',
             'extensions',
@@ -124,6 +125,9 @@ class AppBuilder
         // Public folders
         $this->fs->mkdir($this->appDir . '/public');
         $this->fs->mkdir($this->appDir . '/bootstrap');
+
+        // Cache
+        $this->fs->mkdir($this->appDir . '/cache');
     }
 
     /**

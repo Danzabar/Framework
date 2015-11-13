@@ -19,7 +19,7 @@ return array(
 
     // Dependency Injection Cache
     'di_cache_namespace'                => 'Wasp\Cache',
-    'di_cache_directory'                => '/var/www/Framework/tests/Application/Appcache/AppCache.php',
+    'di_cache_directory'                => '/var/www/Framework/tests/Application/App/wasp/cache/AppCache.php',
 
     // Datetime settings
     'timezone'                          => 'GMT',

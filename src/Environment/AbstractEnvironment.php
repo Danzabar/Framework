@@ -111,6 +111,10 @@ abstract class AbstractEnvironment
      */
     public function syncProfileSettings()
     {
+        if ($this->config->exists('config_dir')) {
+            $this->profile->setDirectory($this->config->get('config_dir'));
+        }
+
         if ($this->config->exists('profiles')) {
             $this->profile->addProfiles($this->config->get('profiles'));
         }
@@ -256,7 +260,7 @@ abstract class AbstractEnvironment
     {
         $connections = $this->getSetting('database', 'connections');
 
-        if ($connections) {
+        if (!is_null($connections)) {
             $this->DI->get('connections')->addBulk($connections);
         }
     }
