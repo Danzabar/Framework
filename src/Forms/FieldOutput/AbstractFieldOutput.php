@@ -25,7 +25,6 @@ abstract class AbstractFieldOutput
      *
      * @param Wasp\Forms\Field
      * @return void
-     * @author Dan Cox
      */
     public function load(Field $field)
     {
@@ -38,7 +37,6 @@ abstract class AbstractFieldOutput
      *
      * @param Array $extras
      * @return String
-     * @author Dan Cox
      */
     abstract public function output(Array $extras);
 } // END class AbstractFieldOutput

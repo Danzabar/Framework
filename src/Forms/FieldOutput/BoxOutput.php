@@ -19,7 +19,6 @@ class BoxOutput extends AbstractFieldOutput
      * Return a string representation of a field
      *
      * @return String
-     * @author Dan Cox
      */
     public function output(Array $extras = array())
     {

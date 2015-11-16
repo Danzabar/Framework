@@ -26,7 +26,6 @@ class ExtensionRegister
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      *
      * @return void
-     * @author Dan Cox
      */
     public function register($container)
     {
@@ -41,7 +40,6 @@ class ExtensionRegister
      * Loads an array of extensions into the class var
      *
      * @return ExtensionRegister
-     * @author Dan Cox
      */
     public function loadFromArray(Array $extensions)
     {
@@ -54,7 +52,6 @@ class ExtensionRegister
      * Loads an array of extensions from a file
      *
      * @return ExtensionRegister
-     * @author Dan Cox
      */
     public function loadFromFile($file)
     {
@@ -71,7 +68,6 @@ class ExtensionRegister
      * Returns registered extensions
      *
      * @return Array
-     * @author Dan Cox
      */
     public static function getExtensions()
     {
@@ -82,7 +78,6 @@ class ExtensionRegister
      * Clears the extension list
      *
      * @return void
-     * @author Dan Cox
      */
     public static function clearExtensions()
     {

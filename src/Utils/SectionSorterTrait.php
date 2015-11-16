@@ -19,7 +19,6 @@ trait SectionSorterTrait
      * @param Array $sortable
      * @param Array $sortKeys
      * @return Collection
-     * @author Dan Cox
      */
     public function sortSections(Array $sortable, Array $sortKeys)
     {
@@ -46,7 +45,6 @@ trait SectionSorterTrait
      * @param Array $sortable
      * @param Array $sortKeys
      * @return Collection
-     * @author Dan Cox
      */
     public function orderSections(Array $sortable, Array $sortKeys)
     {
@@ -67,7 +65,6 @@ trait SectionSorterTrait
      *
      * @param Array $sections
      * @return Collection
-     * @author Dan Cox
      */
     public function createCollectionSections(Array $sections)
     {

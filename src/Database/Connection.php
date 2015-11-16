@@ -61,7 +61,6 @@ class Connection
     /**
      * Load the collection
      *
-     * @author Dan Cox
      */
     public function __construct(ConnectionCollection $collection, $validator)
     {
@@ -78,7 +77,6 @@ class Connection
     /**
      * Attempts to connect to a database through a named connection
      *
-     * @author Dan Cox
      */
     public function connect($name, $type = 'Annotation')
     {
@@ -91,7 +89,6 @@ class Connection
      * Returns the entity manager
      *
      * @return EntityManager
-     * @author Dan Cox
      */
     public function connection()
     {
@@ -102,7 +99,6 @@ class Connection
      * Creates an entity manager using the previously setup details
      *
      * @return void
-     * @author Dan Cox
      */
     public function createEntityManager()
     {
@@ -113,7 +109,6 @@ class Connection
      * Creates a setup object using Annotation Metadata
      *
      * @return void
-     * @author Dan Cox
      */
     public function createMetaDataFromAnnotation()
     {
@@ -138,7 +133,6 @@ class Connection
      * Creates a setup object using YAML Metadata
      *
      * @return void
-     * @author Dan Cox
      */
     public function createMetaDataFromYAML()
     {
@@ -149,7 +143,6 @@ class Connection
      * Creates a setup object using XML Metadat
      *
      * @return void
-     * @author Dan Cox
      */
     public function createMetaDataFromXML()
     {
@@ -160,7 +153,6 @@ class Connection
      * Returns an instanced Schema Tool
      *
      * @return SchemaTool
-     * @author Dan Cox
      */
     public function getSchemaTool()
     {

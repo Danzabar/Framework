@@ -29,7 +29,6 @@ abstract class AbstractRule
     /**
      * Set up the rule
      *
-     * @author Dan Cox
      */
     public function __construct($message = null)
     {
@@ -42,7 +41,6 @@ abstract class AbstractRule
      * Sets the value
      *
      * @return Rule
-     * @author Dan Cox
      */
     public function setValue($value)
     {
@@ -54,7 +52,6 @@ abstract class AbstractRule
      * Returns the set message
      *
      * @return String
-     * @author Dan Cox
      */
     public function getMessage()
     {
@@ -65,7 +62,6 @@ abstract class AbstractRule
      * Validates the given value against the current rule
      *
      * @return Boolean
-     * @author Dan Cox
      */
     abstract public function validate();
 } // END class AbstractRule

@@ -34,7 +34,6 @@ trait DateStamp
      *
      * @ORM\PrePersist
      * @return void
-     * @author Dan Cox
      */
     public function createDateStamp()
     {
@@ -47,7 +46,6 @@ trait DateStamp
      *
      * @ORM\PreUpdate
      * @return void
-     * @author Dan Cox
      */
     public function updateDateStamp()
     {

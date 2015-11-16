@@ -35,7 +35,6 @@ trait Slugify
      *
      * @ORM\PrePersist
      * @return void
-     * @author Dan Cox
      */
     public function prePersistSlug()
     {
@@ -49,7 +48,6 @@ trait Slugify
      *
      * @ORM\PreUpdate
      * @return void
-     * @author Dan Cox
      */
     public function preUpdateSlug()
     {

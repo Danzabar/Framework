@@ -61,7 +61,6 @@ class Profile
      * Load dependencies
      *
      * @param \Symfony\Component\Filesystem\Filesystem
-     * @author Dan Cox
      **/
     public function __construct($fs = null)
     {
@@ -74,7 +73,6 @@ class Profile
      * Gets the settings from the files array while checking for custom settings
      *
      * @return void
-     * @author Dan Cox
      **/
     public function settings()
     {
@@ -88,7 +86,6 @@ class Profile
      *
      * @param String $file
      * @return Array
-     * @author Dan Cox
      **/
     public function extractSettings($file)
     {
@@ -107,7 +104,6 @@ class Profile
      * Extracts an array from the file if it exists
      *
      * @return Array
-     * @author Dan Cox
      **/
     public function extractSettingsFromFile($file)
     {
@@ -123,7 +119,6 @@ class Profile
      *
      * @param String $directory
      * @return Profile
-     * @author Dan Cox
      **/
     public function setDirectory($directory)
     {
@@ -137,7 +132,6 @@ class Profile
      * @param Array|String $files
      * @param String $directory
      * @return Profile
-     * @author Dan Cox
      **/
     public function addFiles($files, $directory = null)
     {
@@ -160,7 +154,6 @@ class Profile
      * @param String $hostname
      * @param String $directory
      * @return Profile
-     * @author Dan Cox
      **/
     public function addProfile($hostname, $directory)
     {
@@ -174,7 +167,6 @@ class Profile
      *
      * @param Array $profiles
      * @return Profile
-     * @author Dan Cox
      */
     public function addProfiles(Array $profiles)
     {
@@ -189,7 +181,6 @@ class Profile
      * Returns the settings
      *
      * @return Array
-     * @author Dan Cox
      **/
     public function getSettings()
     {
@@ -201,7 +192,6 @@ class Profile
      *
      * @param Array $settings
      * @return Profile
-     * @author Dan Cox
      */
     public function setSettings(Array $settings)
     {
@@ -213,7 +203,6 @@ class Profile
      * Returns the current set base directory
      *
      * @return String
-     * @author Dan Cox
      **/
     public function getDirectory()
     {
@@ -224,7 +213,6 @@ class Profile
      * Returns the files array
      *
      * @return Array
-     * @author Dan Cox
      **/
     public function getFiles()
     {
@@ -235,7 +223,6 @@ class Profile
      * Returns the current loaded profiles
      *
      * @return Array
-     * @author Dan Cox
      */
     public function getProfiles()
     {

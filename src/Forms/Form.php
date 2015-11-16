@@ -114,7 +114,6 @@ class Form
     /**
      * Configures the form based on its properties
      *
-     * @author Dan Cox
      */
     public function __construct()
     {
@@ -132,7 +131,6 @@ class Form
      * Setup the core form details
      *
      * @return void
-     * @author Dan Cox
      */
     public function setup()
     {
@@ -155,7 +153,6 @@ class Form
      * Determines what input source to use
      *
      * @return void
-     * @author Dan Cox
      */
     public function determineInput()
     {
@@ -179,7 +176,6 @@ class Form
      * Builds the url from route
      *
      * @return void
-     * @author Dan Cox
      */
     public function buildURL()
     {
@@ -194,7 +190,6 @@ class Form
      *
      * @param Array $field
      * @return void
-     * @author Dan Cox
      */
     public function addField(Array $field = array())
     {
@@ -216,7 +211,6 @@ class Form
      * Loops through the forms properties.
      *
      * @return void
-     * @author Dan Cox
      */
     public function processProperties()
     {
@@ -230,7 +224,6 @@ class Form
      *
      * @param Array $field
      * @return Array
-     * @author Dan Cox
      */
     public function formatPropertyArgs(Array $field)
     {
@@ -261,7 +254,6 @@ class Form
      * Returns the fields associated with this form
      *
      * @return Wasp\Utils\Collection
-     * @author Dan Cox
      */
     public function fields()
     {
@@ -272,7 +264,6 @@ class Form
      * Calls the validation method for each fields rules
      *
      * @return Boolean
-     * @author Dan Cox
      */
     public function validate()
     {
@@ -296,7 +287,6 @@ class Form
      * Saves errors in session to use on subsequent requests
      *
      * @return void
-     * @author Dan Cox
      */
     public function saveErrors()
     {
@@ -309,7 +299,6 @@ class Form
      * and removes the session entry
      *
      * @return void
-     * @author Dan Cox
      */
     public function reinstateErrors()
     {
@@ -325,7 +314,6 @@ class Form
      * Returns the form name
      *
      * @return String
-     * @author Dan Cox
      */
     public function getName()
     {
@@ -337,7 +325,6 @@ class Form
      *
      * @return Boolean
      * @throws InvalidCSRFToken
-     * @author Dan Cox
      */
     public function checkCSRFToken()
     {
@@ -359,7 +346,6 @@ class Form
      * Generates the csrf token and a field to output it
      *
      * @return void
-     * @author Dan Cox
      */
     public function generateCSRF()
     {
@@ -374,7 +360,6 @@ class Form
      *
      * @param Array $properties
      * @return String
-     * @author Dan Cox
      */
     public function open(Array $properties = array())
     {
@@ -397,7 +382,6 @@ class Form
      * Returns a collection of all errors from all fields
      *
      * @return Wasp\Utils\Collection
-     * @author Dan Cox
      */
     public function getErrors()
     {
@@ -408,7 +392,6 @@ class Form
      * Returns a closing form element
      *
      * @return String
-     * @author Dan Cox
      */
     public function close()
     {

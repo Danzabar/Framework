@@ -22,7 +22,6 @@ class DatabaseMockeryPass implements CompilerPassInterface
      *
      * @param \Symfony\Component\DepdencyInjection\ContainerBuilder $container
      * @return void
-     * @author Dan Cox
      */
     public function process(ContainerBuilder $container)
     {

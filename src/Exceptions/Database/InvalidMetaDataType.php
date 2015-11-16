@@ -29,7 +29,6 @@ class InvalidMetaDataType extends \Exception
     /**
      * Fire exception
      *
-     * @author Dan Cox
      */
     public function __construct($metadata, Array $typesAllowed, $code = 0, \Exception $previous = null)
     {
@@ -47,7 +46,6 @@ class InvalidMetaDataType extends \Exception
      * Returns the metadata string
      *
      * @return String
-     * @author Dan Cox
      */
     public function getMetadata()
     {
@@ -58,7 +56,6 @@ class InvalidMetaDataType extends \Exception
      * Returns the allowed metadata
      *
      * @return Array
-     * @author Dan Cox
      */
     public function getAllowedTypes()
     {

@@ -25,7 +25,6 @@ class IntValidation extends AbstractRule
      * Validate value
      *
      * @return Boolean
-     * @author Dan Cox
      */
     public function validate()
     {

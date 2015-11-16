@@ -40,7 +40,6 @@ class AssetTypeNotSupported extends \Exception
      * @param Array $allowed
      * @param Integer $code
      * @param \Exception $previous
-     * @author Dan Cox
      */
     public function __construct($type, $name, $allowed, $code = 0, \Exception $previous = null)
     {
@@ -64,7 +63,6 @@ class AssetTypeNotSupported extends \Exception
      * Returns the type value
      *
      * @return String
-     * @author Dan Cox
      */
     public function getType()
     {
@@ -75,7 +73,6 @@ class AssetTypeNotSupported extends \Exception
      * Returns the name value
      *
      * @return String
-     * @author Dan Cox
      */
     public function getName()
     {
@@ -86,7 +83,6 @@ class AssetTypeNotSupported extends \Exception
      * Returns the allowed types
      *
      * @return Array
-     * @author Dan Cox
      */
     public function getAllowed()
     {

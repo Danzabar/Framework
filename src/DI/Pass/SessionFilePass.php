@@ -22,7 +22,6 @@ class SessionFilePass implements CompilerPassInterface
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @return void
-     * @author Dan Cox
      */
     public function process(ContainerBuilder $container)
     {

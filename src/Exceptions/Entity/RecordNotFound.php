@@ -16,7 +16,6 @@ class RecordNotFound extends \Exception
      *
      * @param Integer $code
      * @param \Exception $previous
-     * @author Dan Cox
      */
     public function __construct($code = 0, \Exception $previous = null)
     {

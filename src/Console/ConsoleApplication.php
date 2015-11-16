@@ -22,7 +22,6 @@ class ConsoleApplication extends SymfonyApplication
      *
      * @param \Symfony\Component\Console\Command\Command $command
      * @return void
-     * @author Dan Cox
      */
     public function add(SymfonyCommand $command)
     {

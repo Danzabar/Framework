@@ -68,7 +68,6 @@ class Paginator
      *
      * @param \Wasp\Database\Database $database
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @author Dan Cox
      */
     public function __construct($database, $request)
     {
@@ -80,7 +79,6 @@ class Paginator
      * Uses the request class to extract page number
      *
      * @return void
-     * @author Dan Cox
      */
     public function extractPageDetails()
     {
@@ -99,7 +97,6 @@ class Paginator
      * Runs all the calculation functions
      *
      * @return void
-     * @author Dan Cox
      */
     public function calculations()
     {
@@ -121,7 +118,6 @@ class Paginator
      * @param Array $order
      *
      * @return PaginatedEntityCollection
-     * @author Dan Cox
      */
     public function query($pageSize = 100, $clauses = array(), $order = array())
     {
@@ -144,7 +140,6 @@ class Paginator
      *
      * @param Array $clauses
      * @return void
-     * @author Dan Cox
      */
     public function countRows(Array $clauses = array())
     {
@@ -161,7 +156,6 @@ class Paginator
      *
      * @param \Wasp\Entity\EntityCollection $results
      * @return PaginatedEntityCollection
-     * @author Dan Cox
      */
     public function makeCollection($results)
     {
@@ -180,7 +174,6 @@ class Paginator
      * Calculates how many pages we should have
      *
      * @return void
-     * @author Dan Cox
      */
     public function calculateTotalPages()
     {
@@ -191,7 +184,6 @@ class Paginator
      * Sets the entity
      *
      * @return Paginator
-     * @author Dan Cox
      */
     public function setEntity($entity)
     {

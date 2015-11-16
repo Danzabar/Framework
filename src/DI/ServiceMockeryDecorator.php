@@ -23,7 +23,6 @@ class ServiceMockeryDecorator
      *
      * @param string $service
      * @return void
-     * @author Dan Cox
      */
     public function __construct($service)
     {
@@ -40,7 +39,6 @@ class ServiceMockeryDecorator
      * Proxy for calling
      *
      * @return void
-     * @author Dan Cox
      */
     public function __call($method, $args = array())
     {
@@ -51,7 +49,6 @@ class ServiceMockeryDecorator
      * Proxy for properties
      *
      * @return void
-     * @author Dan Cox
      */
     public function __get($key)
     {
@@ -62,7 +59,6 @@ class ServiceMockeryDecorator
      * Proxy for settings
      *
      * @return ServiceMockeryDecorator
-     * @author Dan Cox
      */
     public function __set($key, $value)
     {

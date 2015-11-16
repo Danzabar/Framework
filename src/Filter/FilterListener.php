@@ -31,7 +31,6 @@ class FilterListener
     /**
      * Set up class dependencies
      *
-     * @author Dan Cox
      */
     public function __construct($di)
     {
@@ -43,7 +42,6 @@ class FilterListener
      *
      * @param Symfony\Component\HttpKernel\Event\GetResponseEvent $event
      * @return void
-     * @author Dan Cox
      */
     public function beforeRequest(GetResponseEvent $event)
     {
@@ -55,7 +53,6 @@ class FilterListener
      *
      * @param Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
      * @return void
-     * @author Dan Cox
      */
     public function onResponse(FilterResponseEvent $event)
     {
@@ -68,7 +65,6 @@ class FilterListener
      * @param Object $event
      * @param String $filterType eg. before, after
      * @return void
-     * @author Dan Cox
      */
     public function handleEvent($event, $filterType)
     {
@@ -87,7 +83,6 @@ class FilterListener
      * @param Array $filters
      * @param Object $event
      * @return void
-     * @author Dan Cox
      */
     public function triggerFilters(Array $filters)
     {

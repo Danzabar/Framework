@@ -82,7 +82,6 @@ class DI
      *
      * @param String $directory
      * @return void
-     * @author Dan Cox
      */
     public function __construct($directory = null, $cache_directory = null, $cache_namespace = null)
     {
@@ -101,7 +100,6 @@ class DI
      * Builds the DI container
      *
      * @return DI
-     * @author Dan Cox
      */
     public function build()
     {
@@ -122,7 +120,6 @@ class DI
      * Loads registered extensions if there are any
      *
      * @return void
-     * @author Dan Cox
      */
     public function loadExtensions()
     {
@@ -133,7 +130,6 @@ class DI
      * Compiles the container
      *
      * @return DI
-     * @author Dan Cox
      */
     public function compile()
     {
@@ -145,7 +141,6 @@ class DI
      * Attempts to use cache or creates cache
      *
      * @return void
-     * @author Dan Cox
      */
     public function buildContainerFromCache($serviceFile)
     {
@@ -166,7 +161,6 @@ class DI
      * Caches the compiled container
      *
      * @return DI
-     * @author Dan Cox
      */
     public function cache()
     {
@@ -185,7 +179,6 @@ class DI
      *
      * @param Object $pass
      * @return DI
-     * @author Dan Cox
      */
     public function addCompilerPass($pass)
     {
@@ -199,7 +192,6 @@ class DI
      *
      * @param String $filename
      * @return DI
-     * @author Dan Cox
      */
     public function load($filename)
     {
@@ -212,7 +204,6 @@ class DI
      *
      * @param String $service
      * @return Mixed
-     * @author Dan Cox
      */
     public function get($service)
     {
@@ -226,7 +217,6 @@ class DI
      * @param Object $service
      * @param String $scope
      * @return void
-     * @author Dan Cox
      */
     public function set($id, $service, $scope = ContainerBuilder::SCOPE_CONTAINER)
     {
@@ -238,7 +228,6 @@ class DI
      *
      * @param String $key
      * @return Mixed
-     * @author Dan Cox
      */
     public function param($key)
     {
@@ -271,7 +260,6 @@ class DI
      * Returns the DI Container
      *
      * @return Object
-     * @author Dan Cox
      */
     public static function getContainer()
     {
@@ -282,7 +270,6 @@ class DI
      * Returns the extension instance
      *
      * @return Wasp\DI\ExtensionRegister
-     * @author Dan Cox
      */
     public function extensions()
     {

@@ -25,7 +25,6 @@ class InvalidMapKey extends \Exception
      * @param Integer $code
      * @param Exception $previous
      * @return void
-     * @author Dan Cox
      */
     public function __construct($key, $code = 0, \Exception $previous = null)
     {
@@ -38,7 +37,6 @@ class InvalidMapKey extends \Exception
      * Returns the key
      *
      * @return String
-     * @author Dan Cox
      */
     public function getKey()
     {

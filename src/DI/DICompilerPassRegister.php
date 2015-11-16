@@ -23,7 +23,6 @@ class DICompilerPassRegister
      * Returns the passes array
      *
      * @return Array
-     * @author Dan Cox
      */
     public static function getPasses()
     {
@@ -35,7 +34,6 @@ class DICompilerPassRegister
      *
      * @param String|Array $class - Qualified class name for the pass
      * @return void
-     * @author Dan Cox
      */
     public static function add($class)
     {
@@ -51,7 +49,6 @@ class DICompilerPassRegister
      *
      * @param String $class
      * @return void
-     * @author Dan Cox
      */
     public static function remove($class)
     {
@@ -66,7 +63,6 @@ class DICompilerPassRegister
      * Clears the list of registered classes
      *
      * @return void
-     * @author Dan Cox
      */
     public static function clear()
     {

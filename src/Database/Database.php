@@ -39,7 +39,6 @@ class Database
      *
      * @param Wasp\Database\Connection $connection
      * @param Wasp\Routing\Request
-     * @author Dan Cox
      */
     public function __construct($connection, $request = null)
     {
@@ -52,7 +51,6 @@ class Database
      *
      * @param String $entity - An entities name
      * @return Database
-     * @author Dan Cox
      */
     public function setEntity($entity)
     {
@@ -65,7 +63,6 @@ class Database
      *
      * @param Mixed $identifier - An id that relates to this entities identifier
      * @return Object
-     * @author Dan Cox
      */
     public function find($identifier)
     {
@@ -79,7 +76,6 @@ class Database
      * @param Array $params - An array of parameters
      * @param Array $order - The query order
      * @return Object
-     * @author Dan Cox
      */
     public function findOneBy($params = array(), $order = array())
     {
@@ -94,7 +90,6 @@ class Database
      * @param Array $order
      * @return Object
      * @throws \Wasp\Exceptions\Entity\RecordNotFound
-     * @author Dan Cox
      */
     public function findOrFail($params = array(), $order = array())
     {
@@ -115,7 +110,6 @@ class Database
      * @param Integer $limit - Query limit
      * @param Integer $offset - Query offset
      * @return Array
-     * @author Dan Cox
      */
     public function get($params = array(), $order = array(), $limit = null, $offset = null)
     {
@@ -129,7 +123,6 @@ class Database
      *
      * @param Object $entity
      * @return void
-     * @author Dan Cox
      */
     public function save($entity)
     {
@@ -142,7 +135,6 @@ class Database
      *
      * @param Collection|Array $collection
      * @return void
-     * @author Dan Cox
      */
     public function saveAll($collection)
     {
@@ -160,7 +152,6 @@ class Database
      *
      * @param Object $entity
      * @return void
-     * @author Dan Cox
      */
     public function remove($entity)
     {
@@ -173,7 +164,6 @@ class Database
      *
      * @param Collection|Array $collection
      * @return void
-     * @author Dan Cox
      */
     public function removeAll($collection)
     {
@@ -191,7 +181,6 @@ class Database
      *
      * @param String $query
      * @return Mixed
-     * @author Dan Cox
      */
     public function raw($query, $execute = true)
     {
@@ -210,7 +199,6 @@ class Database
      * Returns the query builder class
      *
      * @return Object
-     * @author Dan Cox
      */
     public function queryBuilder()
     {
@@ -228,7 +216,6 @@ class Database
      *
      * @param Integer $limit
      * @return Wasp\Entity\PaginatedEntityCollection
-     * @author Dan Cox
      */
     public function paginate($limit = 100, $clauses = array(), $order = array())
     {
@@ -242,7 +229,6 @@ class Database
      * Returns the entity manager on the current connection
      *
      * @return Object
-     * @author Dan Cox
      */
     public function perform()
     {
@@ -253,7 +239,6 @@ class Database
      * Returns the Repository from the entity manager
      *
      * @return Object
-     * @author Dan Cox
      */
     public function performOnRepository($entity)
     {
@@ -265,7 +250,6 @@ class Database
      *
      * @param Array $results
      * @return Wasp\Entity\Collection | Object
-     * @author Dan Cox
      */
     public function data($results)
     {
@@ -276,7 +260,6 @@ class Database
      * Returns the current entity
      *
      * @return String
-     * @author Dan Cox
      */
     public function getEntity()
     {
@@ -287,7 +270,6 @@ class Database
      * Returns the entity Manager - Alias for Peform
      *
      * @return Object
-     * @author Dan Cox
      */
     public function entityManager()
     {

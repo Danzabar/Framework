@@ -15,7 +15,6 @@ trait StaticContainerAwareTrait
      * Gets a service using the static container
      *
      * @return object
-     * @author Dan Cox
      */
     public static function get($service)
     {
@@ -28,7 +27,6 @@ trait StaticContainerAwareTrait
      * Gets a parameter using the static container
      *
      * @return mixed
-     * @author Dan Cox
      */
     public static function param($key)
     {

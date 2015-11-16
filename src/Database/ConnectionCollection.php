@@ -27,7 +27,6 @@ class ConnectionCollection extends Collection
     /**
      * Set up class defaults
      *
-     * @author Dan Cox
      */
     public function __construct()
     {
@@ -40,7 +39,6 @@ class ConnectionCollection extends Collection
      * @param String $name - The name of the connection
      * @param Array $configuration - The database settings for this connection
      * @return ConnectionCollection
-     * @author Dan Cox
      */
     public function add($name, $configuration = array(), $type = 'Array')
     {
@@ -57,7 +55,6 @@ class ConnectionCollection extends Collection
      * @param Array $connections
      * @param String $type
      * @return ConnectionCollection
-     * @author Dan Cox
      */
     public function addBulk(Array $connections, $type = 'Array')
     {
@@ -73,7 +70,6 @@ class ConnectionCollection extends Collection
      *
      * @param String $name - The name of the desired connection
      * @return Array
-     * @author Dan Cox
      */
     public function find($name)
     {

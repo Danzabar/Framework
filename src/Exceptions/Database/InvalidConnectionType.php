@@ -29,7 +29,6 @@ class InvalidConnectionType extends \Exception
     /**
      * Fire exception
      *
-     * @author Dan Cox
      */
     public function __construct($type, Array $allowed, $code = 0, \Exception $previous = null)
     {
@@ -49,7 +48,6 @@ class InvalidConnectionType extends \Exception
      * Returns the type
      *
      * @return string
-     * @author Dan Cox
      */
     public function getType()
     {
@@ -60,7 +58,6 @@ class InvalidConnectionType extends \Exception
      * Returns the allowed type
      *
      * @return Array
-     * @author Dan Cox
      */
     public function getAllowed()
     {

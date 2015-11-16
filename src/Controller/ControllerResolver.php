@@ -21,7 +21,6 @@ class ControllerResolver extends BaseResolver
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return Callable|False
-     * @author Dan Cox
      */
     public function getController(\Symfony\Component\HttpFoundation\Request $request)
     {

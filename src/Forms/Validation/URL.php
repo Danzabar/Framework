@@ -25,7 +25,6 @@ class URL extends AbstractRule
      * Validate
      *
      * @return Boolean
-     * @author Dan Cox
      */
     public function validate()
     {

@@ -35,7 +35,6 @@ class MockeryPass implements CompilerPassInterface
      * Process the Container
      *
      * @return void
-     * @author Dan Cox
      */
     public function process(ContainerBuilder $container)
     {
@@ -59,7 +58,6 @@ class MockeryPass implements CompilerPassInterface
      * Transforms the Definition into one we can use for mocks
      *
      * @return Object
-     * @author Dan Cox
      */
     public function transformDefinition($mockery)
     {
@@ -81,7 +79,6 @@ class MockeryPass implements CompilerPassInterface
      * Grabs the current library definitions
      *
      * @return Array
-     * @author Dan Cox
      */
     public function getLibraryDefinitions()
     {

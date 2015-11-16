@@ -22,7 +22,6 @@ trait DependencyInjectionAwareTrait
     /**
      * Sets the DI Container
      *
-     * @author Dan Cox
      */
     public function setDI($DI)
     {
@@ -33,7 +32,6 @@ trait DependencyInjectionAwareTrait
      * Returns the DI
      *
      * @return DI
-     * @author Dan Cox
      */
     public function getDI()
     {

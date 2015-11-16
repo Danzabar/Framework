@@ -27,7 +27,6 @@ class BaseController
      *
      * @param String $key
      * @return Object
-     * @author Dan Cox
      */
     public function __get($key)
     {
@@ -41,7 +40,6 @@ class BaseController
      *
      * @param String $service
      * @return Object
-     * @author Dan Cox
      */
     public function get($service)
     {

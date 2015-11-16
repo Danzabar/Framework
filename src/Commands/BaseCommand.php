@@ -73,7 +73,6 @@ class BaseCommand extends SymfonyCommand
     /**
      * Set up the command details
      *
-     * @author Dan Cox
      */
     public function __construct()
     {
@@ -87,7 +86,6 @@ class BaseCommand extends SymfonyCommand
      * Adds the constant values for input arguments and options
      *
      * @return void
-     * @author Dan Cox
      */
     public function argumentInputMappings()
     {
@@ -102,7 +100,6 @@ class BaseCommand extends SymfonyCommand
      * @param String $description
      * @param String $required
      * @return BaseCommand
-     * @author Dan Cox
      */
     public function argument($name, $description, $required = 'required')
     {
@@ -123,7 +120,6 @@ class BaseCommand extends SymfonyCommand
      * @param String $required
      * @param String $keyBinding
      * @return BaseCommand
-     * @author Dan Cox
      */
     public function option($name, $description, $required = 'optional', $keyBinding = null)
     {
@@ -143,7 +139,6 @@ class BaseCommand extends SymfonyCommand
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return void
-     * @author Dan Cox
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {

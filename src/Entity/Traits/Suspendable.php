@@ -34,7 +34,6 @@ trait Suspendable
      *
      * @param Array $conditions
      * @return void
-     * @author Dan Cox
      */
     public function suspend(Array $conditions)
     {

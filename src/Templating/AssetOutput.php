@@ -19,7 +19,6 @@ class AssetOutput
     /**
      * Creates type map array
      *
-     * @author Dan Cox
      */
     public function __construct()
     {
@@ -36,7 +35,6 @@ class AssetOutput
      * @param String $uri
      * @param Array $extras
      * @return String
-     * @author Dan Cox
      */
     public function output($type, $uri, array $extras = array())
     {
@@ -49,7 +47,6 @@ class AssetOutput
      * @param String $uri
      * @param Array $extras
      * @return String
-     * @author Dan Cox
      */
     public function outputJavascript($uri, array $extras = array())
     {
@@ -66,7 +63,6 @@ class AssetOutput
      * @param String $uri
      * @param Array $extras
      * @return String
-     * @author Dan Cox
      */
     public function outputCss($uri, array $extras = array())
     {

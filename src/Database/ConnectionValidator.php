@@ -46,7 +46,6 @@ class ConnectionValidator
     /**
      * Set up class vars
      *
-     * @author Dan Cox
      */
     public function __construct()
     {
@@ -62,7 +61,6 @@ class ConnectionValidator
      * Creates a default object which can be extended
      *
      * @return void
-     * @author Dan Cox
      */
     public function defaults()
     {
@@ -84,7 +82,6 @@ class ConnectionValidator
      * @param Mixed $raw - the raw configuration data
      * @param String $type - the type of configuration
      * @return Object
-     * @author Dan Cox
      */
     public function load($raw, $type = 'Array', $defaultModelDirectories = array())
     {
@@ -100,7 +97,6 @@ class ConnectionValidator
      * Converts the array into usable blocks of data using the STD class.
      *
      * @return void
-     * @author Dan Cox
      */
     public function convertFromArray()
     {
@@ -123,7 +119,6 @@ class ConnectionValidator
      * Appends the default model directories
      *
      * @return void
-     * @author Dan Cox
      */
     public function appendDefaultModelDirectories()
     {
@@ -136,7 +131,6 @@ class ConnectionValidator
      * Sets the models directory
      *
      * @return void
-     * @author Dan Cox
      */
     public function setModelsDirectory($dir)
     {
@@ -151,7 +145,6 @@ class ConnectionValidator
      * Maps details from the raw variable to the connection
      *
      * @return void
-     * @author Dan Cox
      */
     public function mapDetailsFromArray()
     {

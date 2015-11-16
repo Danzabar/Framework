@@ -19,7 +19,6 @@ class SelectOutput extends AbstractFieldOutput
      * Returns a string representation of the select field
      *
      * @return String
-     * @author Dan Cox
      */
     public function output(Array $extras = array ())
     {

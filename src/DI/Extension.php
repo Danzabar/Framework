@@ -52,7 +52,6 @@ class Extension implements ExtensionInterface
      * @param ContainerBuilder $container
      *
      * @return void
-     * @author Dan Cox
      */
     public function load(Array $configs, ContainerBuilder $container)
     {
@@ -74,7 +73,6 @@ class Extension implements ExtensionInterface
      * Creates a loader instance
      *
      * @return void
-     * @author Dan Cox
      */
     public function loader()
     {
@@ -87,7 +85,6 @@ class Extension implements ExtensionInterface
      * Returns the Alias
      *
      * @return String
-     * @author Dan Cox
      */
     public function getAlias()
     {
@@ -98,7 +95,6 @@ class Extension implements ExtensionInterface
      * returns the namespace for xml files (not used)
      *
      * @return string
-     * @author Dan Cox
      */
     public function getNamespace()
     {
@@ -109,7 +105,6 @@ class Extension implements ExtensionInterface
      * Returns base path for XSD files.
      *
      * @return void
-     * @author Dan Cox
      */
     public function getXsdValidationBasePath()
     {

@@ -24,7 +24,6 @@ class InvalidServiceDirectory extends \Exception
      *
      * @param \Wasp\DI\DI $DI
      * @return void
-     * @author Dan Cox
      */
     public function __construct($DI, $code = 0, \Exception $previous = null)
     {
@@ -39,7 +38,6 @@ class InvalidServiceDirectory extends \Exception
      * Returns the DI Object
      *
      * @return DI
-     * @author Dan Cox
      */
     public function getDI()
     {

@@ -23,7 +23,6 @@ class EntityCollection extends Collection
 
     /**
      * Set up class base
-     * @author Dan Cox
      */
     public function __construct(Array $collectable = array(), $di = null)
     {
@@ -36,7 +35,6 @@ class EntityCollection extends Collection
      * Converts the collection class into a json string
      *
      * @return String
-     * @author Dan Cox
      */
     public function json()
     {
@@ -49,7 +47,6 @@ class EntityCollection extends Collection
      * Converts entities to array using the serializer
      *
      * @return Array
-     * @author Dan Cox
      */
     public function toArray()
     {
@@ -62,7 +59,6 @@ class EntityCollection extends Collection
      * Performs the Delete function on the whole collection of entities.
      *
      * @return void
-     * @author Dan Cox
      */
     public function delete()
     {
@@ -75,7 +71,6 @@ class EntityCollection extends Collection
      * Performs the Save function on the whole collection of entities
      *
      * @return void
-     * @author Dan Cox
      */
     public function save()
     {

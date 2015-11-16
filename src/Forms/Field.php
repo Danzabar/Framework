@@ -91,7 +91,6 @@ class Field
      * @param String $default
      * @param Array|String $values
      * @param Array $input
-     * @author Dan Cox
      */
     public function __construct(
         $label,
@@ -120,7 +119,6 @@ class Field
      * Validates fields through its rules collection
      *
      * @return Boolean
-     * @author Dan Cox
      */
     public function validate()
     {
@@ -142,7 +140,6 @@ class Field
      * Checks for values using the Input Array and the Default settings
      *
      * @return void
-     * @author Dan Cox
      */
     public function extractValue()
     {
@@ -164,7 +161,6 @@ class Field
      *
      * @param Array $elementExtras - An Array of values to include in the element html
      * @return String
-     * @author Dan Cox
      */
     public function field(Array $elementExtras = array())
     {
@@ -179,7 +175,6 @@ class Field
      * Returns the current value of the input field
      *
      * @return Mixed
-     * @author Dan Cox
      */
     public function getValue()
     {
@@ -190,7 +185,6 @@ class Field
      * Returns the collection of errors
      *
      * @return \Wasp\Utils\Collection
-     * @author Dan Cox
      */
     public function errors()
     {
@@ -202,7 +196,6 @@ class Field
      *
      * @param Array $elementExtras
      * @return String
-     * @author Dan Cox
      */
     public function label(Array $elementExtras = array())
     {
@@ -215,7 +208,6 @@ class Field
      * Returns the ID of the field
      *
      * @return String
-     * @author Dan Cox
      */
     public function getID()
     {

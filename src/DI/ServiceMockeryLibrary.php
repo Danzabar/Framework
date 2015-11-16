@@ -24,7 +24,6 @@ class ServiceMockeryLibrary
      *
      * @param String $name -  The name of the service
      * @return ServiceMockeryLibrary
-     * @author Dan Cox
      */
     public function add($name)
     {
@@ -37,7 +36,6 @@ class ServiceMockeryLibrary
      *
      * @param String $name - The name of the service
      * @return String|NULL
-     * @author Dan Cox
      */
     public function find($name)
     {
@@ -53,7 +51,6 @@ class ServiceMockeryLibrary
      *
      * @param String $name - The name of the service
      * @return ServiceMockeryLibrary
-     * @author Dan Cox
      */
     public function remove($name)
     {
@@ -68,7 +65,6 @@ class ServiceMockeryLibrary
      * Returns All definitions
      *
      * @return Array
-     * @author Dan Cox
      */
     public function all()
     {
@@ -79,7 +75,6 @@ class ServiceMockeryLibrary
      * Removes all definitions
      *
      * @return ServiceMockeryLibrary
-     * @author Dan Cox
      */
     public function clear()
     {
