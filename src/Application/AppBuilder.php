@@ -139,7 +139,7 @@ class AppBuilder
     {
         // Environment Class
         $this->fs->dumpFile(
-            sprintf('%s/%sEnvironment.php', $this->appDir, $this->appName),
+            sprintf('%s/%sEnvironment.php', $this->appSrcDir, $this->appName),
             $this->getFileContents(__DIR__ . '/AppTemplates/environment')
         );
 

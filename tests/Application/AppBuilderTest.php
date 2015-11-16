@@ -40,7 +40,7 @@ class AppBuilderTest extends TestCase
         $fs = new Filesystem;
 
         $this->assertTrue($fs->exists(__DIR__ . '/App/wasp'));
-        $this->assertTrue($fs->exists(__DIR__ . '/App/wasp/WaspEnvironment.php'));
+        $this->assertTrue($fs->exists(__DIR__ . '/App/wasp/src/WaspEnvironment.php'));
         $this->assertTrue($fs->exists(__DIR__ . '/App/wasp/Routes.php'));
         $this->assertTrue($fs->exists(__DIR__ . '/App/wasp/src'));
         $this->assertTrue($fs->exists(__DIR__ . '/App/wasp/bootstrap'));
