@@ -32,7 +32,6 @@ class DatabaseSchema extends BaseCommand
      * Set up command
      *
      * @return void
-     * @author Dan Cox
      */
     public function setup()
     {
@@ -45,7 +44,6 @@ class DatabaseSchema extends BaseCommand
      * Fire command
      *
      * @return void
-     * @author Dan Cox
      */
     public function fire()
     {
@@ -71,7 +69,6 @@ class DatabaseSchema extends BaseCommand
      * Builds the schema
      *
      * @return void
-     * @author Dan Cox
      */
     public function buildSchema()
     {
@@ -82,7 +79,6 @@ class DatabaseSchema extends BaseCommand
      * Drops all tables
      *
      * @return void
-     * @author Dan Cox
      */
     public function dropTables()
     {
@@ -93,7 +89,6 @@ class DatabaseSchema extends BaseCommand
      * Drops table through specific entity class
      *
      * @return void
-     * @author Dan Cox
      */
     public function dropTable($class)
     {

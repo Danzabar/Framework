@@ -50,7 +50,6 @@ class URL
      *
      * @param \Wasp\Routing\Request $request
      * @param \Symfony\Component\Routing\RouteCollection $collection
-     * @author Dan Cox
      **/
     public function __construct($request, $collection)
     {
@@ -62,7 +61,6 @@ class URL
      * Returns a instance of the Request Context class
      *
      * @return \Symfony\Component\Routing\RequestContext
-     * @author Dan Cox
      **/
     public function context()
     {
@@ -73,7 +71,6 @@ class URL
      * Creates the URL Generator object
      *
      * @return \Symfony\Component\Routing\Generator\UrlGenerator
-     * @author Dan Cox
      **/
     public function generator()
     {
@@ -91,7 +88,6 @@ class URL
      * @param String $name - the route name
      * @param Array $params
      * @return String
-     * @author Dan Cox
      **/
     public function route($name, $params = array())
     {

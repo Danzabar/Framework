@@ -18,7 +18,6 @@ class Str
      * @param String $str
      * @param String $spaceReplacement
      * @return String
-     * @author Dan Cox
      */
     public static function slug($str, $spaceReplacement = '-')
     {
@@ -35,7 +34,6 @@ class Str
      *
      * @param String str
      * @return String
-     * @author Dan Cox
      */
     public static function id($str)
     {
@@ -48,7 +46,6 @@ class Str
      *
      * @param Array $arr
      * @return String
-     * @author Dan Cox
      */
     public static function arrayToHtmlProperties(Array $arr)
     {

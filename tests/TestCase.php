@@ -47,6 +47,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected $extensions;
 
     /**
+     * The environment class that should be used
+     *
+     * @var String
+     */
+    protected $environment;
+
+    /**
      * Instance of the WASP DI
      *
      * @var Object
@@ -79,16 +86,42 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $this->registerMocks();
         $this->registerExtensions();
 
-        $environment = new TestEnvironment();
-        $environment->load();
-
-        $this->application = $environment->getApplication();
-        $this->DI = $environment->getDI();
+        $this->loadEnvironment();
 
         if(property_exists($this, 'commands') && is_array($this->commands))
         {
             $this->DI->get('command.loader')->fromArray($this->commands);
         }
+    }
+
+    /**
+     * Loads environment if set, if not uses the test environment
+     *
+     * @return void
+     */
+    public function loadEnvironment()
+    {
+        if (!is_null($this->environment)) {
+            $refl = new \ReflectionClass($this->environment);
+            $environment = $refl->newInstance();
+        } else {
+            $environment = new TestEnvironment();
+        }
+
+        $environment->load();
+        $this->application = $environment->getApplication();
+        $this->DI = $environment->getDI();
+    }
+
+    /**
+     * Loads routes file from directory
+     *
+     * @return void
+     */
+    public function loadRoutes($dir)
+    {
+        $route = $this->DI->get('route');
+        require_once ($dir . 'Routes.php');
     }
 
     /**

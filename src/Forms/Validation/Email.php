@@ -24,7 +24,6 @@ class Email extends AbstractRule
      * Validate the value
      *
      * @return Boolean
-     * @author Dan Cox
      */
     public function validate()
     {

@@ -24,7 +24,6 @@ class Serializer
      *
      * @param String $cache_dir
      * @param Boolean $debug
-     * @author Dan Cox
      */
     public function config($cache_dir = null, $debug = true)
     {
@@ -44,7 +43,6 @@ class Serializer
      * @param String $method
      * @param Array $params
      * @return Mixed
-     * @author Dan Cox
      */
     public function __call($method, Array $params = array())
     {

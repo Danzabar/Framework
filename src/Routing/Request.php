@@ -32,7 +32,6 @@ class Request
      * Load dependencies
      *
      * @param \Symfony\Component\HttpFoundation\Session\Session $session
-     * @author Dan Cox
      */
     public function __construct(\Symfony\Component\HttpFoundation\Session\Session $session)
     {
@@ -43,7 +42,6 @@ class Request
      * Get the request object from the current global var
      *
      * @return SymRequest
-     * @author Dan Cox
      */
     public function fromGlobals()
     {
@@ -57,7 +55,6 @@ class Request
      * Loads input from the session, which has been persisted through the response class
      *
      * @return void
-     * @author Dan Cox
      */
     public function oldInput()
     {
@@ -79,7 +76,6 @@ class Request
      * @param String $type
      * @param Array $params
      * @return SymRequest
-     * @author Dan Cox
      */
     public function make($uri, $type = 'GET', $params = array())
     {
@@ -92,7 +88,6 @@ class Request
      * Returns the current request
      *
      * @return \Symfony\Component\HttpFoundation\Request
-     * @author Dan Cox
      */
     public function getRequest()
     {
@@ -107,7 +102,6 @@ class Request
      * Returns input from the current request
      *
      * @return Symfony\Component\HttpFoundation\ParamBag
-     * @author Dan Cox
      */
     public function getInput()
     {
@@ -124,7 +118,6 @@ class Request
      * @param \Symfony\Component\HttpFoundation\ParamBag $input
      * @param String $type
      * @return Request
-     * @author Dan Cox
      */
     public function putInput(\Symfony\Component\HttpFoundation\ParameterBag $input, $type)
     {
@@ -141,7 +134,6 @@ class Request
      * Magic Getter for the request object
      *
      * @return Mixed
-     * @author Dan Cox
      */
     public function __get($key)
     {
@@ -152,7 +144,6 @@ class Request
      * Call method for calling functions from the created request object
      *
      * @return void
-     * @author Dan Cox
      */
     public function __call($method, $args = array())
     {

@@ -26,7 +26,6 @@ trait ArgumentMappingTrait
      * @param String $name
      * @param Array $map
      * @return void
-     * @author Dan Cox
      */
     public function addArgumentMap($name, Array $map)
     {
@@ -39,7 +38,6 @@ trait ArgumentMappingTrait
      * @param String $mapName
      * @param String $key
      * @return Boolean
-     * @author Dan Cox
      */
     public function checkArgumentMapValue($mapName, $key)
     {
@@ -58,7 +56,6 @@ trait ArgumentMappingTrait
      * @param String $mapName
      * @param String $key
      * @return Mixed
-     * @author Dan Cox
      */
     public function getArgumentMapValue($mapName, $key)
     {

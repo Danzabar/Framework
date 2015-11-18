@@ -35,7 +35,6 @@ class Application
      * Set up Application Defaults
      *
      * @return void
-     * @author Dan Cox
      */
     public function __construct($profile = null)
     {
@@ -46,7 +45,6 @@ class Application
      * Start the http kernel events
      *
      * @return void
-     * @author Dan Cox
      */
     public function react()
     {
@@ -62,7 +60,6 @@ class Application
      * Responds to the current request
      *
      * @return void
-     * @author Dan Cox
      **/
     public function respond()
     {
@@ -77,7 +74,6 @@ class Application
      * Returns the DI instance
      *
      * @return \Wasp\DI\DI
-     * @author Dan Cox
      */
     public function getDI()
     {

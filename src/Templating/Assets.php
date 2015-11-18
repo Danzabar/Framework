@@ -42,7 +42,6 @@ class Assets
     /**
      * Set up class
      *
-     * @author Dan Cox
      */
     public function __construct()
     {
@@ -56,7 +55,6 @@ class Assets
      * @param String $type
      * @param String $name - Optional
      * @return void
-     * @author Dan Cox
      * @throws \Wasp\Exceptions\Templating\AssetTypeNotSupported
      */
     public function checkAssetType($type, $name = null)
@@ -71,7 +69,6 @@ class Assets
      *
      * @param String $type
      * @return String
-     * @author Dan Cox
      */
     public function all($type = null)
     {
@@ -88,7 +85,6 @@ class Assets
      * Returns asset names of a certain type
      *
      * @return Array
-     * @author Dan Cox
      */
     public function getAssetType($type)
     {
@@ -109,7 +105,6 @@ class Assets
      * @param String|Array $names
      * @param Array $extras
      * @return String
-     * @author Dan Cox
      */
     public function getAssets($names, array $extras = array())
     {
@@ -134,7 +129,6 @@ class Assets
      * @param String $name - The usable asset name, eg. jquery.
      * @param String $uri - The resolvable uri for this asset.
      * @return Assets
-     * @author Dan Cox
      */
     public function register($name, $uri, $type = 'javascript')
     {
@@ -149,7 +143,6 @@ class Assets
      *
      * @param Array $assets
      * @return Assets
-     * @author Dan Cox
      */
     public function registerAssets($assets)
     {
@@ -164,7 +157,6 @@ class Assets
      * Returns an assets type and uri from the specified name
      *
      * @return Array
-     * @author Dan Cox
      */
     public function get($name)
     {
@@ -180,7 +172,6 @@ class Assets
      *
      * @param String $name
      * @return Boolean
-     * @author Dan Cox
      */
     public function has($name)
     {

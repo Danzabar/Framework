@@ -23,7 +23,6 @@ class UnknownEnvironment extends \Exception
      *
      * @param string $env
      * @return void
-     * @author Dan Cox
      */
     public function __construct($env, $code = 0, \Exception $previous = null)
     {
@@ -36,7 +35,6 @@ class UnknownEnvironment extends \Exception
      * Returns the environment
      *
      * @return String
-     * @author Dan Cox
      */
     public function getEnvironment()
     {

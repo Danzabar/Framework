@@ -22,7 +22,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Load the collectable
      *
      * @param Array $collectable
-     * @author Dan Cox
      */
     public function __construct(Array $collectable = array())
     {
@@ -35,7 +34,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * @param String $key
      * @param Mixed $value
      * @return Collection
-     * @author Dan Cox
      */
     public function add($key, $value)
     {
@@ -58,7 +56,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Returns all array keys
      *
      * @return Array
-     * @author Dan Cox
      */
     public function keys()
     {
@@ -70,7 +67,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param Array $collection
      * @return Collection
-     * @author Dan Cox
      */
     public function addAll(Array $collection)
     {
@@ -85,7 +81,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Returns the whole collection
      *
      * @return Array
-     * @author Dan Cox
      */
     public function all()
     {
@@ -97,7 +92,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param String|Integer $key
      * @return Mixed
-     * @author Dan Cox
      */
     public function get($key)
     {
@@ -113,7 +107,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param Array $values
      * @return Collection
-     * @author Dan Cox
      */
     public function append(Array $values)
     {
@@ -127,7 +120,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param Array $values
      * @return Collection
-     * @author Dan Cox
      */
     public function prepend(Array $values)
     {
@@ -140,7 +132,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Returns json version of collectable array
      *
      * @return String
-     * @author Dan Cox
      */
     public function json()
     {
@@ -152,7 +143,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param String|Integer $key
      * @return Collection
-     * @author Dan Cox
      */
     public function remove($key)
     {
@@ -165,7 +155,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param String|Integer $key
      * @return Boolean
-     * @author Dan Cox
      */
     public function exists($key)
     {
@@ -176,7 +165,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Rewind function as required by Iterable implementation
      *
      * @return void
-     * @author Dan Cox
      */
     public function rewind()
     {
@@ -187,7 +175,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Current function as required by Iterable implementation
      *
      * @return Mixed
-     * @author Dan Cox
      */
     public function current()
     {
@@ -198,7 +185,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Key function as required by Iterablt implementation
      *
      * @return String
-     * @author Dan Cox
      */
     public function key()
     {
@@ -209,7 +195,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Next function as required by Iterable implementation
      *
      * @return Mixed
-     * @author Dan Cox
      */
     public function next()
     {
@@ -220,7 +205,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Valid function as required by Iterable implementation
      *
      * @return Boolean
-     * @author Dan Cox
      */
     public function valid()
     {
@@ -231,7 +215,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * Count function as required by Countable implementation
      *
      * @return Integer
-     * @author Dan Cox
      */
     public function count()
     {
@@ -244,7 +227,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      * @param String|Integer $offset
      * @param Mixed $value
      * @return void
-     * @author Dan Cox
      */
     public function offsetSet($offset, $value)
     {
@@ -260,7 +242,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param String|Integer $offset
      * @return Boolean
-     * @author Dan Cox
      */
     public function offsetExists($offset)
     {
@@ -272,7 +253,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param String|Integer $offset
      * @return void
-     * @author Dan Cox
      */
     public function offsetUnset($offset)
     {
@@ -284,7 +264,6 @@ class Collection implements \Iterator, \Countable, \ArrayAccess
      *
      * @param String|Integer $offset
      * @return Mixed
-     * @author Dan Cox
      */
     public function offsetGet($offset)
     {

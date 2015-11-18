@@ -24,7 +24,6 @@ class Validator
      * Set up class dependencies
      *
      * @return void
-     * @author Dan Cox
      */
     public function __construct()
     {
@@ -38,7 +37,6 @@ class Validator
      *
      * @param \Wasp\Entity\Entity
      * @return void
-     * @author Dan Cox
      */
     public function validate($entity)
     {

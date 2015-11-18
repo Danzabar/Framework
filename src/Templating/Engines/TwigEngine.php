@@ -56,7 +56,6 @@ class TwigEngine implements EngineInterface
      * @param \Wasp\Templating\Template $template $template
      * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @author Dan Cox
      **/
     public function __construct($template, $fs, $container)
     {
@@ -70,7 +69,6 @@ class TwigEngine implements EngineInterface
      *
      * @param Array $settings
      * @return void
-     * @author Dan Cox
      */
     public function create(Array $settings = array())
     {
@@ -87,7 +85,6 @@ class TwigEngine implements EngineInterface
      *
      * @param String $name
      * @return Boolean
-     * @author Dan Cox
      */
     public function supports($name)
     {
@@ -99,7 +96,6 @@ class TwigEngine implements EngineInterface
      *
      * @param String $name
      * @return Boolean
-     * @author Dan Cox
      */
     public function exists($name)
     {
@@ -118,7 +114,6 @@ class TwigEngine implements EngineInterface
      * @param String $name
      * @param Array $params
      * @return String
-     * @author Dan Cox
      */
     public function render($name, Array $params = array())
     {

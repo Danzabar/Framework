@@ -40,7 +40,6 @@ class RestController extends BaseController
      *
      * @param String $entity
      * @return RestController
-     * @author Dan Cox
      */
     public function setEntity($entity)
     {
@@ -54,7 +53,6 @@ class RestController extends BaseController
      * Create an instance of the entity
      *
      * @return \Wasp\Entity\Entity
-     * @author Dan Cox
      */
     public function entityInstance()
     {
@@ -66,7 +64,6 @@ class RestController extends BaseController
      *
      * @param String|Integer $id
      * @return \Wasp\Entity\Entity|NULL
-     * @author Dan Cox
      */
     public function findEntity($id)
     {
@@ -85,7 +82,6 @@ class RestController extends BaseController
      *
      * @param \Symfony\Component\Validator\ConstraintViolationList $errors
      * @return Array
-     * @author Dan Cox
      */
     public function formatErrors($errors)
     {
@@ -108,7 +104,6 @@ class RestController extends BaseController
      *
      * @param \Wasp\Entity\Entity $record
      * @return Response
-     * @author Dan Cox
      */
     public function updateAndValidate($record = null)
     {
@@ -138,7 +133,6 @@ class RestController extends BaseController
      * Gets options from the input param bag
      *
      * @return void
-     * @author Dan Cox
      */
     public function getQueryOptions()
     {
@@ -160,7 +154,6 @@ class RestController extends BaseController
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @method GET
-     * @author Dan Cox
      */
     public function all()
     {
@@ -183,7 +176,6 @@ class RestController extends BaseController
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @method GET
-     * @author Dan Cox
      */
     public function show($id)
     {
@@ -201,7 +193,6 @@ class RestController extends BaseController
      *
      * @return Response
      * @method POST
-     * @author Dan Cox
      */
     public function create()
     {
@@ -213,7 +204,6 @@ class RestController extends BaseController
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @method PATCH
-     * @author Dan Cox
      */
     public function update($id)
     {
@@ -232,7 +222,6 @@ class RestController extends BaseController
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @method DELETE
-     * @author Dan Cox
      */
     public function delete($id)
     {

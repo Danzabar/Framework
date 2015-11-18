@@ -26,7 +26,6 @@ trait TypeMapTrait
      * @param Array $params
      *
      * @return Mixed
-     * @author Dan Cox
      */
     public function map($type, $notFoundException = 'Exception', $params = array())
     {

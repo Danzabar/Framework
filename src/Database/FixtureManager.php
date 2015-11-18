@@ -54,7 +54,6 @@ class FixtureManager
     /**
      * Set up class dependencies
      *
-     * @author Dan Cox
      */
     public function __construct($connection)
     {
@@ -66,7 +65,6 @@ class FixtureManager
      * Loads fixtures from the directory
      *
      * @return void
-     * @author Dan Cox
      */
     public function load()
     {
@@ -80,7 +78,6 @@ class FixtureManager
      *
      * @param Boolean $append - Appends the fixtures rather than purging first.
      * @return void
-     * @author Dan Cox
      */
     public function import($append = false)
     {

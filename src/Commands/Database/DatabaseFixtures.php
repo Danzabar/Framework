@@ -32,7 +32,6 @@ class DatabaseFixtures extends BaseCommand
      * Set up command
      *
      * @return void
-     * @author Dan Cox
      */
     public function setup()
     {
@@ -45,7 +44,6 @@ class DatabaseFixtures extends BaseCommand
      * Fire command
      *
      * @return void
-     * @author Dan Cox
      */
     public function fire()
     {

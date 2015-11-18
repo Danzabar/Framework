@@ -21,7 +21,6 @@ class IncorrectFieldType extends \Exception
     /**
      * Fire exception
      *
-     * @author Dan Cox
      */
     public function __construct($type, $code = 0, \Exception $previous = null)
     {
@@ -33,7 +32,6 @@ class IncorrectFieldType extends \Exception
      * Returns the type
      *
      * @return String
-     * @author Dan Cox
      */
     public function getType()
     {

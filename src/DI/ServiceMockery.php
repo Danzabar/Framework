@@ -32,7 +32,6 @@ class ServiceMockery
      * Set up the Mockery instance
      *
      * @return void
-     * @author Dan Cox
      */
     public function __construct($name)
     {
@@ -44,7 +43,6 @@ class ServiceMockery
      * Returns this instance of the Library
      *
      * @return ServiceMockLibrary
-     * @author Dan Cox
      */
     public function getLibrary()
     {
@@ -55,7 +53,6 @@ class ServiceMockery
      * Returns a Service Mockery decorator instance for this
      *
      * @return ServiceMockeryDecorator
-     * @author Dan Cox
      */
     public function getMock()
     {
@@ -66,7 +63,6 @@ class ServiceMockery
      * Adds the Mockery instance to the library
      *
      * @return ServiceMockery
-     * @author Dan Cox
      */
     public function add()
     {
@@ -78,7 +74,6 @@ class ServiceMockery
      * Remove from the library
      *
      * @return ServiceMockery
-     * @author Dan Cox
      */
     public function remove()
     {

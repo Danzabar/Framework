@@ -23,7 +23,6 @@ class Entity
      *
      * @param Array $data
      * @return this
-     * @author Dan Cox
      */
     public function updateFromArray(Array $data)
     {
@@ -34,7 +33,6 @@ class Entity
      * Returns an array representation of the entity
      *
      * @return Array
-     * @author Dan Cox
      */
     public function toArray()
     {
@@ -45,7 +43,6 @@ class Entity
      * Returns json representation of the entity
      *
      * @return String
-     * @author Dan Cox
      */
     public function toJSON()
     {
@@ -58,7 +55,6 @@ class Entity
      * Saves the current state of the Entity
      *
      * @return void
-     * @author Dan Cox
      */
     public function save()
     {
@@ -71,7 +67,6 @@ class Entity
      * Delete the current iteration of the entity.
      *
      * @return void
-     * @author Dan Cox
      */
     public function delete()
     {
@@ -85,7 +80,6 @@ class Entity
      *
      * @param Mixed $key
      * @return Mixed
-     * @author Dan Cox
      */
     public function __get($key)
     {
@@ -102,7 +96,6 @@ class Entity
      * @param Mixed $key
      * @param Mixed $value
      * @return Entity
-     * @author Dan Cox
      */
     public function __set($key, $value)
     {

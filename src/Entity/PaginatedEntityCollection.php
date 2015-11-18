@@ -50,7 +50,6 @@ class PaginatedEntityCollection extends EntityCollection
      * @param Integer $totalPages
      * @param Integer $pageNo
      * @param Integer $pageSize
-     * @author Dan Cox
      */
     public function __construct(Array $collectable = array(), $total = 0, $totalPages = 0, $pageNo = 0, $pageSize = 0)
     {
@@ -67,7 +66,6 @@ class PaginatedEntityCollection extends EntityCollection
      *
      * @return String
      * @throws PaginationTemplateNotSet
-     * @author Dan Cox
      */
     public function pagination()
     {
@@ -92,7 +90,6 @@ class PaginatedEntityCollection extends EntityCollection
      * Returns the value for the Total var
      *
      * @return Integer
-     * @author Dan Cox
      */
     public function getTotal()
     {
@@ -103,7 +100,6 @@ class PaginatedEntityCollection extends EntityCollection
      * Returns the value for total pages
      *
      * @return Integer
-     * @author Dan Cox
      */
     public function getTotalPages()
     {
@@ -114,7 +110,6 @@ class PaginatedEntityCollection extends EntityCollection
      * Returns the value for page number
      *
      * @return Integer
-     * @author Dan Cox
      */
     public function getPageNo()
     {
@@ -125,7 +120,6 @@ class PaginatedEntityCollection extends EntityCollection
      * Returns the value for page size
      *
      * @return Integer
-     * @author Dan Cox
      */
     public function getPageSize()
     {

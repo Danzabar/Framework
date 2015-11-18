@@ -53,7 +53,6 @@ class Route
      * Load dependencies
      *
      * @param \Symfony\Component\Routing\RouteCollection $routeCollection
-     * @author Dan Cox
      **/
     public function __construct($routeCollection)
     {
@@ -71,7 +70,6 @@ class Route
      * @param String $host
      * @param Array $schemes
      * @return void
-     * @author Dan Cox
      **/
     public function add(
         $name,
@@ -105,7 +103,6 @@ class Route
      * @param String $controller
      *
      * @return void
-     * @author Dan Cox
      */
     public function resource($name, $uri, $entity, $controller = 'Wasp\Controller\RestController')
     {
@@ -126,7 +123,6 @@ class Route
      * @param Array $defaults
      *
      * @return void
-     * @author Dan Cox
      */
     public function rest($name, $uri, $action, $methods = array(), $defaults = array())
     {
@@ -155,7 +151,6 @@ class Route
      * @param Array $defaults
      *
      * @return void
-     * @author Dan Cox
      */
     public function addRestRoute($name, $uri, $action, $method, $defaults = array())
     {
@@ -168,7 +163,6 @@ class Route
      * @param String $name
      * @param SymfonyRoute $route
      * @return void
-     * @author Dan Cox
      **/
     public function processRoute($name, $route)
     {
@@ -186,7 +180,6 @@ class Route
      * @param Array $defaults
      * @param Closure $callback
      * @return void
-     * @author Dan Cox
      **/
     public function group(Array $defaults, $callback)
     {
@@ -204,7 +197,6 @@ class Route
      *
      * @param String $prefix
      * @return Route
-     * @author Dan Cox
      **/
     public function addPrefix($prefix)
     {
@@ -216,7 +208,6 @@ class Route
      * Adds the current active group
      *
      * @return void
-     * @author Dan Cox
      **/
     public function addGroup()
     {

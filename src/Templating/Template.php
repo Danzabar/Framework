@@ -42,7 +42,6 @@ class Template
      * Creates a delegating engine.
      *
      * @return void
-     * @author Dan Cox
      */
     public function start()
     {
@@ -59,7 +58,6 @@ class Template
      * @param String $template
      * @param Array $params
      * @return \Symfony\Component\HttpFoundation\Response
-     * @author Dan Cox
      */
     public function make($template, $params = array())
     {
@@ -72,7 +70,6 @@ class Template
      * @param String $template
      * @param Array $params
      * @return String
-     * @author Dan Cox
      */
     public function render($template, $params = array())
     {
@@ -84,7 +81,6 @@ class Template
      *
      * @param String $directory
      * @return Template
-     * @author Dan Cox
      */
     public function setDirectory($directory)
     {
@@ -105,7 +101,6 @@ class Template
      *
      * @param String $directory
      * @return void
-     * @author Dan Cox
      */
     public function addDirectory($directory)
     {
@@ -116,7 +111,6 @@ class Template
      * Clears the current values for the directory array
      *
      * @return Template
-     * @author Dan Cox
      */
     public function clearDirectory()
     {
@@ -128,7 +122,6 @@ class Template
      * Returns the template directory
      *
      * @return String
-     * @author Dan Cox
      */
     public function getDirectory()
     {
@@ -139,7 +132,6 @@ class Template
      * Returns the directory array as a string
      *
      * @return String
-     * @author Dan Cox
      */
     public function getDirectoryString()
     {
@@ -150,7 +142,6 @@ class Template
      * Adds an engine to the array
      *
      * @return Template
-     * @author Dan Cox
      */
     public function addEngine($engine)
     {

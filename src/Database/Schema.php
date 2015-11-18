@@ -44,7 +44,6 @@ class Schema
      * Set up dependencies
      *
      * @param Wasp\Database\Connection $connection
-     * @author Dan Cox
      */
     public function __construct($connection)
     {
@@ -58,7 +57,6 @@ class Schema
      * Loads the metadata for all classes
      *
      * @return Array
-     * @author Dan Cox
      */
     public function loadMetaData()
     {
@@ -69,7 +67,6 @@ class Schema
      * Create the Schema for the current connection
      *
      * @return void
-     * @author Dan Cox
      */
     public function create()
     {
@@ -80,7 +77,6 @@ class Schema
      * Returns the SQL to update the schema
      *
      * @return Array
-     * @author Dan Cox
      */
     public function getSql()
     {
@@ -91,7 +87,6 @@ class Schema
      * Updates the Schema Based on its entity classes for this connection
      *
      * @return void
-     * @author Dan Cox
      */
     public function update()
     {
@@ -102,7 +97,6 @@ class Schema
      * Drops all the tables
      *
      * @return void
-     * @author Dan Cox
      */
     public function dropTables()
     {
@@ -114,7 +108,6 @@ class Schema
      *
      * @param Array|String $classes
      * @return void
-     * @author Dan Cox
      */
     public function dropTable($classes)
     {
@@ -124,7 +117,6 @@ class Schema
     /**
      * Drops the database
      *
-     * @author Dan Cox
      */
     public function dropDatabase()
     {

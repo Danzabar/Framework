@@ -18,7 +18,6 @@ class BoxGroupOutput extends AbstractFieldOutput
      * Returns string representation of the field
      *
      * @return String
-     * @author Dan Cox
      */
     public function output(Array $extras = array())
     {

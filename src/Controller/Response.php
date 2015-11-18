@@ -21,7 +21,6 @@ class Response
      * Creates a response using the response.api class
      *
      * @return Symfony\Component\HttpFoundation\Response
-     * @author Dan Cox
      */
     public function createResponse()
     {
@@ -34,7 +33,6 @@ class Response
      * @param Array $content
      * @param Integer $code
      * @return Symfony\Component\HttpFoundation\Response
-     * @author Dan Cox
      */
     public function json($content = array(), $code = 200)
     {
@@ -52,7 +50,6 @@ class Response
      * @param Array $content
      * @param Integer $code
      * @return Symfony\Component\HttpFoundation\Response
-     * @author Dan Cox
      */
     public function jsonp($handler, $content = array(), $code = 200)
     {
@@ -68,7 +65,6 @@ class Response
      * @param String $content
      * @param Integer $code
      * @return Symfony\Component\HttpFoundation\Response
-     * @author Dan Cox
      */
     public function make($content = '', $code = 200)
     {
@@ -84,7 +80,6 @@ class Response
      *
      * @param String $file - Path to file
      * @return Symfony\Component\HttpFoundation\BinaryFileResponse
-     * @author Dan Cox
      */
     public function file($file)
     {
@@ -98,7 +93,6 @@ class Response
      *
      * @param String $url
      * @return Symfony\Component\HttpFoundation\RedirectResponse
-     * @author Dan Cox
      */
     public function redirect($url)
     {
@@ -109,7 +103,6 @@ class Response
      * Stores the current input in the session for the next request
      *
      * @return Response
-     * @author Dan Cox
      */
     public function persistInput()
     {

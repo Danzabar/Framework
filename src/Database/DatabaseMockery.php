@@ -24,7 +24,6 @@ class DatabaseMockery
     /**
      * Set up class dependencies
      *
-     * @author Dan Cox
      */
     public function __construct($DI)
     {
@@ -36,7 +35,6 @@ class DatabaseMockery
      *
      * @param String $entityDirectory
      * @return void
-     * @author Dan Cox
      */
     public function create($entityDirectory = '')
     {
@@ -59,7 +57,6 @@ class DatabaseMockery
      * Removes all the mocked rows and tables
      *
      * @return void
-     * @author Dan Cox
      */
     public function clearMockedData()
     {
@@ -70,7 +67,6 @@ class DatabaseMockery
      * Divert calls back to the database
      *
      * @return void
-     * @author Dan Cox
      */
     public function __call($method, $params = array())
     {

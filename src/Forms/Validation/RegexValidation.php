@@ -31,7 +31,6 @@ class RegexValidation extends AbstractRule
      * undocumented function
      *
      * @return void
-     * @author Dan Cox
      */
     public function __construct($message = null, $regexp = null)
     {
@@ -46,7 +45,6 @@ class RegexValidation extends AbstractRule
      * Validate against given regexp
      *
      * @return Boolean
-     * @author Dan Cox
      */
     public function validate()
     {

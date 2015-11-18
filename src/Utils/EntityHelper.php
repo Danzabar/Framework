@@ -17,7 +17,6 @@ class EntityHelper
      * @param Object $obj
      * @param Array $data
      * @return Object
-     * @author Dan Cox
      */
     public static function updateFromArray($obj, Array $data = array())
     {

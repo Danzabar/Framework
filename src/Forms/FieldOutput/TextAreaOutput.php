@@ -20,7 +20,6 @@ class TextAreaOutput extends AbstractFieldOutput
      * @param Array $extras
      * @param String $value
      * @return String
-     * @author Dan Cox
      */
     public function output(Array $extras = array())
     {

@@ -25,7 +25,6 @@ class Required extends AbstractRule
      * Validates the value
      *
      * @return Boolean
-     * @author Dan Cox
      */
     public function validate()
     {

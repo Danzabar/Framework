@@ -33,7 +33,6 @@ class InvalidRestOption extends \Exception
      * @param Array $list
      * @param Integer $code
      * @param \Exception $exception
-     * @author Dan Cox
      */
     public function __construct($option, $list, $code = 0, \Exception $previous = null)
     {
@@ -47,7 +46,6 @@ class InvalidRestOption extends \Exception
      * Returns the option
      *
      * @return String
-     * @author Dan Cox
      */
     public function getOption()
     {
@@ -58,7 +56,6 @@ class InvalidRestOption extends \Exception
      * Returns the list
      *
      * @return Array
-     * @author Dan Cox
      */
     public function getList()
     {

@@ -21,7 +21,6 @@ class CompilerHelper
     /**
      * Load container
      *
-     * @author Dan Cox
      */
     public function __construct(\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
@@ -32,7 +31,6 @@ class CompilerHelper
      * Creates a service definition
      *
      * @return \Symfony\Component\DependencyInjection\Definition
-     * @author Dan Cox
      */
     public function createDefinition($service, $class)
     {
@@ -45,7 +43,6 @@ class CompilerHelper
      * @param String $service
      * @param String $class
      * @return \Symfony\Component\DependencyInjection\Definition
-     * @author Dan Cox
      */
     public function updateDefinitionClass($service, $class)
     {
@@ -63,7 +60,6 @@ class CompilerHelper
      * @param String $service
      * @param Array $arguments
      * @return \Symfony\Component\DependencyInjection\Definition
-     * @author Dan Cox
      */
     public function updateDefinitionArguments($service, Array $arguments)
     {

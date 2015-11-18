@@ -23,7 +23,6 @@ class CommandLoader
      * Get dependencies
      *
      * @param \Wasp\Console\ConsoleApplication $console
-     * @author Dan Cox
      **/
     public function __construct($console)
     {
@@ -35,7 +34,6 @@ class CommandLoader
      *
      * @param String $file
      * @return void
-     * @author Dan Cox
      */
     public function fromFile($file)
     {
@@ -49,7 +47,6 @@ class CommandLoader
      *
      * @param Array $commands
      * @return void
-     * @author Dan Cox
      */
     public function fromArray($commands)
     {
@@ -63,7 +60,6 @@ class CommandLoader
      *
      * @param String $command - A Fully Qualified class
      * @return void
-     * @author Dan Cox
      */
     public function add($command)
     {
