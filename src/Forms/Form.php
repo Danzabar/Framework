@@ -188,14 +188,15 @@ class Form
     /**
      * Creates fields based on the public properties from the called form class
      *
+     * @param String $label - the key of this field.
      * @param Array $field
      * @return void
      */
-    public function addField(Array $field = array())
+    public function addField($label, Array $field = array())
     {
         $props = $this->formatPropertyArgs($field);
 
-        $this->fields[] = new Field(
+        $this->fields[$label] = new Field(
             $props['name'],
             $props['type'],
             $props['output'],
@@ -215,7 +216,7 @@ class Form
     public function processProperties()
     {
         foreach ($this->properties as $property) {
-            $this->addField($property->getValue($this));
+            $this->addField($property->getName(), $property->getValue($this));
         }
     }
 

@@ -64,7 +64,7 @@ class FormTest extends TestCase
         $form = new Wasp\Test\Forms\Forms\TestForm();
         $fields = $form->fields();
 
-        $username = $fields[0];
+        $username = $fields['username'];
 
         $this->assertEquals('Dan', $username->getValue());
         $this->assertEquals('<input type="text" name="username" id="username" value="Dan" />', $username->field());
@@ -100,7 +100,7 @@ class FormTest extends TestCase
         $form = new Wasp\Test\Forms\Forms\TestForm();
         $fields = $form->fields();
 
-        $username = $fields[0];
+        $username = $fields['username'];
 
         $this->assertEquals('Bob', $username->getValue());
     }
@@ -134,7 +134,7 @@ class FormTest extends TestCase
         $form = new Wasp\Test\Forms\Forms\TestForm();
         $fields = $form->fields();
 
-        $checkgroup = $fields[2];
+        $checkgroup = $fields['checkgroup'];
 
         $this->assertEquals('Y', $checkgroup->getValue());
         $this->assertEquals('<label><input type="checkbox" name="checkgroup" value="Y" checked="checked"/>Yes</label><label><input type="checkbox" name="checkgroup" value="N" />No</label>', $checkgroup->field());
@@ -151,7 +151,7 @@ class FormTest extends TestCase
         $form = new Wasp\Test\Forms\Forms\TestModelForm();
 
         $fields = $form->fields();
-        $name = $fields[0];
+        $name = $fields['name'];
 
         $this->assertEquals('Dan', $name->getValue());
     }
@@ -169,7 +169,7 @@ class FormTest extends TestCase
         $form = new Wasp\Test\Forms\Forms\TestModelForm();
 
         $fields = $form->fields();
-        $name = $fields[0];
+        $name = $fields['name'];
 
         $this->assertEquals('Bob', $name->getValue());
     }
