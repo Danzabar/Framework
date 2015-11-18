@@ -114,6 +114,17 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Loads routes file from directory
+     *
+     * @return void
+     */
+    public function loadRoutes($dir)
+    {
+        $route = $this->DI->get('route');
+        require_once ($dir . 'Routes.php');
+    }
+
+    /**
      * Uses the application to build a response object based on the current state of the request class
      *
      * @return void
