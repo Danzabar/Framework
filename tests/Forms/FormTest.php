@@ -54,6 +54,32 @@ class FormTest extends TestCase
     }
 
     /**
+     * Test that we have access to fields
+     *
+     * @return void
+     */
+    public function test_access_to_fields()
+    {
+        $form = new Wasp\Test\Forms\Forms\TestForm();
+
+        $username = $form->getField('username');
+
+        $this->assertEquals('username', $username->getId());
+    }
+
+    /**
+     * Test that we have access to field values
+     *
+     * @return void
+     */
+    public function test_access_to_values()
+    {
+        $form = new Wasp\Test\Forms\Forms\TestForm();
+
+        $this->assertEquals('Dan', $form->getValue('username'));
+    }
+
+    /**
      * Test the default values
      *
      * @return void

@@ -262,6 +262,30 @@ class Form
     }
 
     /**
+     * Returns a specific field
+     *
+     * @param String $label
+     * @return Field
+     */
+    public function getField($label)
+    {
+        return $this->fields->get($label);
+    }
+
+    /**
+     * Returns the value from a specific field
+     *
+     * @param String $label
+     * @return Mixed
+     */
+    public function getValue($label)
+    {
+        $field = $this->fields->get($label);
+
+        return $field->getValue();
+    }
+
+    /**
      * Calls the validation method for each fields rules
      *
      * @return Boolean
