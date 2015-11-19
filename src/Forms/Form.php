@@ -392,13 +392,13 @@ class Form
 
         $html = '';
         $html .= sprintf(
-            '<form action="%s" method="%s" %s>',
+            '<form action="%s" method="%s"%s>',
             $this->url,
             strtoupper($this->method),
             Str::arrayToHtmlProperties($properties)
         );
 
-        $html .= sprintf('<input type="hidden" name="token" value="%s" />', $this->token);
+        $html .= sprintf(' <input type="hidden" name="token" value="%s" />', $this->token);
 
         return $html;
     }

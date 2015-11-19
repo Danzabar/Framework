@@ -23,7 +23,7 @@ class FieldTest extends TestCase
     {
         $field = new Field('Testing', 'text');
         $field2 = new Field('Test2', 'text');
-        
+
         $this->assertEquals('<label for="testing">Testing</label>', $field->label());
         $this->assertEquals('<label class="label" for="test2">Test2</label>', $field2->label(Array('class' => 'label')));
     }
@@ -39,7 +39,7 @@ class FieldTest extends TestCase
         $field = new Field('test1', 'text');
         $field2 = new Field('test2', 'text');
 
-        $this->assertEquals('<input type="text" name="test1" id="test1" value="" />', $field->field());
+        $this->assertEquals('<input type="text" name="test1" id="test1" value=""/>', $field->field());
         $this->assertEquals('<input type="text" name="test2" id="test2" value="" class="form-control"/>', $field2->field(['class' => 'form-control']));
     }
 
@@ -53,7 +53,7 @@ class FieldTest extends TestCase
     {
         $field = new Field('select', 'select', 'Wasp\Forms\FieldOutput\SelectOutput', '', [], '', Array('Foo' => 'foo', 'Bar' => 'bar'));
 
-        $this->assertEquals('<select name="select" id="select" ><option value="foo">Foo</option><option value="bar">Bar</option></select>', $field->field());
+        $this->assertEquals('<select name="select" id="select"><option value="foo">Foo</option><option value="bar">Bar</option></select>', $field->field());
     }
 
     /**
@@ -66,7 +66,7 @@ class FieldTest extends TestCase
     {
         $field = new Field('text', 'textarea', 'Wasp\Forms\FieldOutput\TextAreaOutput');
 
-        $this->assertEquals('<textarea name="text" id="text" ></textarea>', $field->field());
+        $this->assertEquals('<textarea name="text" id="text"></textarea>', $field->field());
     }
 
     /**
@@ -104,7 +104,7 @@ class FieldTest extends TestCase
     public function test_requiredFieldRule()
     {
         $field = new Field('rule', 'text', NULL, '', [new Validation\Required()], '', Array(), Array('rule' => ''));
-        $field->validate(); 
+        $field->validate();
 
         $field2 = new Field('rule2', 'text', NULL, '', [new Validation\Required('The rule2 field is required')]);
         $field2->validate();

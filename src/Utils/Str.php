@@ -55,6 +55,6 @@ class Str
             $str .= sprintf(' %s="%s"', $key, $value);
         }
 
-        return ltrim($str, ' ');
+        return $str;
     }
 } // END class String

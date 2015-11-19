@@ -24,7 +24,7 @@ class TextAreaOutput extends AbstractFieldOutput
     public function output(Array $extras = array())
     {
         return sprintf(
-            '<textarea name="%1$s" id="%1$s" %2$s>%3$s</textarea>',
+            '<textarea name="%1$s" id="%1$s"%2$s>%3$s</textarea>',
             $this->field->id,
             Str::arrayToHtmlProperties($extras),
             $this->field->value

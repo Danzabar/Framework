@@ -93,7 +93,7 @@ class FormTest extends TestCase
         $username = $fields['username'];
 
         $this->assertEquals('Dan', $username->getValue());
-        $this->assertEquals('<input type="text" name="username" id="username" value="Dan" />', $username->field());
+        $this->assertEquals('<input type="text" name="username" id="username" value="Dan"/>', $username->field());
     }
 
     /**
@@ -163,7 +163,7 @@ class FormTest extends TestCase
         $checkgroup = $fields['checkgroup'];
 
         $this->assertEquals('Y', $checkgroup->getValue());
-        $this->assertEquals('<label><input type="checkbox" name="checkgroup" value="Y" checked="checked"/>Yes</label><label><input type="checkbox" name="checkgroup" value="N" />No</label>', $checkgroup->field());
+        $this->assertEquals('<label><input type="checkbox" name="checkgroup" value="Y" checked="checked"/>Yes</label><label><input type="checkbox" name="checkgroup" value="N"/>No</label>', $checkgroup->field());
     }
 
     /**

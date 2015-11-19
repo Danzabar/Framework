@@ -27,7 +27,7 @@ class BoxOutput extends AbstractFieldOutput
         }
 
         return sprintf(
-            '<input type="%1$s" name="%2$s" id="%2$s" value="%3$s" %4$s/>',
+            '<input type="%1$s" name="%2$s" id="%2$s" value="%3$s"%4$s/>',
             $this->field->type,
             $this->field->id,
             $this->field->value,

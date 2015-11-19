@@ -32,7 +32,7 @@ class BoxGroupOutput extends AbstractFieldOutput
 
             $group .= '<label>';
             $group .= sprintf(
-                '<input type="%s" name="%s" value="%s" %s/>',
+                '<input type="%s" name="%s" value="%s"%s/>',
                 $this->field->type,
                 $this->field->id,
                 $value,
