@@ -121,7 +121,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     public function loadRoutes($dir)
     {
         $route = $this->DI->get('route');
-        require_once ($dir . 'Routes.php');
+        require ($dir . 'Routes.php');
     }
 
     /**
