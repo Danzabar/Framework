@@ -11,7 +11,7 @@ use Wasp\Utils\Str;
  */
 class StringTest extends \PHPUnit_Framework_TestCase
 {
-    
+
     /**
      * Test slugifing some words
      *
@@ -54,7 +54,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
     {
         $arr = Array('class' => 'my-class', 'data-object' => '5');
 
-        $this->assertEquals('class="my-class" data-object="5"', Str::arrayToHtmlProperties($arr));
+        $this->assertEquals(' class="my-class" data-object="5"', Str::arrayToHtmlProperties($arr));
     }
 
 
