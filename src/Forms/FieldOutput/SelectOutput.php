@@ -34,7 +34,7 @@ class SelectOutput extends AbstractFieldOutput
         }
 
         return sprintf(
-            '<select name="%1$s" id="%1$s" %2$s>%3$s</select>',
+            '<select name="%1$s" id="%1$s"%2$s>%3$s</select>',
             $this->field->id,
             Str::arrayToHtmlProperties($extras),
             $options

@@ -201,7 +201,7 @@ class Field
     {
         $elementExtras = array_merge($elementExtras, ['for' => $this->id]);
 
-        return sprintf('<label %s>%s</label>', Str::arrayToHtmlProperties($elementExtras), $this->label);
+        return sprintf('<label%s>%s</label>', Str::arrayToHtmlProperties($elementExtras), $this->label);
     }
 
     /**

@@ -125,6 +125,7 @@ class AppBuilder
         // Public folders
         $this->fs->mkdir($this->appDir . '/public');
         $this->fs->mkdir($this->appDir . '/bootstrap');
+        $this->fs->mkdir($this->appDir . '/tests');
 
         // Cache
         $this->fs->mkdir($this->appDir . '/cache');
@@ -161,6 +162,11 @@ class AppBuilder
         $this->fs->dumpFile(
             sprintf('%s/bootstrap/bootstrap.php', $this->appDir),
             $this->getFileContents(__DIR__ . '/AppTemplates/bootstrap')
+        );
+
+        $this->fs->dumpFile(
+            sprintf('%s/tests/bootstrap.php', $this->appDir),
+            $this->getFileContents(__DIR__ . '/AppTemplates/testbootstrap')
         );
 
         // Index

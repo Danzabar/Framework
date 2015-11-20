@@ -188,14 +188,15 @@ class Form
     /**
      * Creates fields based on the public properties from the called form class
      *
+     * @param String $label - the key of this field.
      * @param Array $field
      * @return void
      */
-    public function addField(Array $field = array())
+    public function addField($label, Array $field = array())
     {
         $props = $this->formatPropertyArgs($field);
 
-        $this->fields[] = new Field(
+        $this->fields[$label] = new Field(
             $props['name'],
             $props['type'],
             $props['output'],
@@ -215,7 +216,7 @@ class Form
     public function processProperties()
     {
         foreach ($this->properties as $property) {
-            $this->addField($property->getValue($this));
+            $this->addField($property->getName(), $property->getValue($this));
         }
     }
 
@@ -258,6 +259,30 @@ class Form
     public function fields()
     {
         return $this->fields;
+    }
+
+    /**
+     * Returns a specific field
+     *
+     * @param String $label
+     * @return Field
+     */
+    public function getField($label)
+    {
+        return $this->fields->get($label);
+    }
+
+    /**
+     * Returns the value from a specific field
+     *
+     * @param String $label
+     * @return Mixed
+     */
+    public function getValue($label)
+    {
+        $field = $this->fields->get($label);
+
+        return $field->getValue();
     }
 
     /**
@@ -367,13 +392,13 @@ class Form
 
         $html = '';
         $html .= sprintf(
-            '<form action="%s" method="%s" %s>',
+            '<form action="%s" method="%s"%s>',
             $this->url,
             strtoupper($this->method),
             Str::arrayToHtmlProperties($properties)
         );
 
-        $html .= sprintf('<input type="hidden" name="token" value="%s" />', $this->token);
+        $html .= sprintf(' <input type="hidden" name="token" value="%s" />', $this->token);
 
         return $html;
     }
