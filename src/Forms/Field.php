@@ -146,7 +146,7 @@ class Field
         $this->value = '';
 
         // Check if there is a default value set
-        if (!is_null($this->default)) {
+        if (!empty($this->default)) {
             $this->value = $this->default;
         }
 
