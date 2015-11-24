@@ -333,6 +333,22 @@ class Form
             $this->errors->addAll($session->get("form_errors_{$this->name}"));
             $session->remove("form_errors_{$this->name}");
         }
+
+        $this->reinstateFieldErrors();
+    }
+
+    /**
+     * Adds errors to specific fields for clarity
+     *
+     * @return void
+     */
+    public function reinstateFieldErrors()
+    {
+        foreach ($this->fields as $field) {
+            if ($this->errors->exists($field->id)) {
+                $field->errors->addAll($this->errors->get($field->id)->all());
+            }
+        }
     }
 
     /**

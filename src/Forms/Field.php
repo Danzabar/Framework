@@ -71,7 +71,7 @@ class Field
      *
      * @var Wasp\Utils\Collection
      */
-    protected $errors;
+    public $errors;
 
     /**
      * Input array from the form class
