@@ -286,5 +286,27 @@ class FormTest extends TestCase
         $this->assertEquals(0, count($form->getErrors()));
     }
 
+    /**
+     * Test that we can persist errors by field too
+     *
+     * @return void
+     */
+    public function test_persistErrorOnFields()
+    {
+        $this->DI->get('request')->make('/form', 'POST', []);
+        $form = new Wasp\Test\Forms\Forms\TestForm();
+        $form->validate();
+
+        $field = $form->getField('password');
+
+        $this->assertEquals(1, count($field->errors()));
+
+        $this->DI->get('request')->make('/form', 'POST', []);
+
+        $form = new Wasp\Test\Forms\Forms\TestForm();
+        $field = $form->getField('password');
+
+        $this->assertEquals(1, count($field->errors()));
+    }
 
 } // END class FormTest extends TestCase

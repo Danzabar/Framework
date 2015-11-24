@@ -164,7 +164,7 @@ class Form
          */
         $request = $this->container->get('request');
 
-        $this->input = $request->getInput()->all();
+        $this->input = ($this->method == 'GET' ? $request->query->all() : $request->request->all());
 
         if (!is_null($this->model) && empty($this->input)) {
         // Grab an array representation of the entity
@@ -332,6 +332,22 @@ class Form
         if ($session->has("form_errors_{$this->name}")) {
             $this->errors->addAll($session->get("form_errors_{$this->name}"));
             $session->remove("form_errors_{$this->name}");
+        }
+
+        $this->reinstateFieldErrors();
+    }
+
+    /**
+     * Adds errors to specific fields for clarity
+     *
+     * @return void
+     */
+    public function reinstateFieldErrors()
+    {
+        foreach ($this->fields as $field) {
+            if ($this->errors->exists($field->id)) {
+                $field->errors->addAll($this->errors->get($field->id)->all());
+            }
         }
     }
 
