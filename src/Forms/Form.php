@@ -164,7 +164,7 @@ class Form
          */
         $request = $this->container->get('request');
 
-        $this->input = $request->getInput()->all();
+        $this->input = ($this->method == 'GET' ? $request->query->all() : $request->request->all());
 
         if (!is_null($this->model) && empty($this->input)) {
         // Grab an array representation of the entity
