@@ -4,5 +4,5 @@ $loader = require_once ('[BaseDir]/vendor/autoload.php');
 
 Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 
-define('BASE',      dirname(__DIR__));
-define('MODELS',    BASE . '/src/Models/');
+define('BASE',      dirname(__DIR__) . '/');
+define('MODELS',    BASE . 'src/Models/');
