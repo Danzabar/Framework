@@ -23,7 +23,7 @@ class RouteTest extends TestCase
         $collection = $this->DI->get('route.collection');
 
         $route->add(
-            'test.route', 
+            'test.route',
             '/',
             Array('GET'),
             Array('controller' => 'Test')
@@ -52,6 +52,26 @@ class RouteTest extends TestCase
 
         $match = $collection->get('test.group');
         $this->assertEquals('/group', $match->getPath());
+    }
+
+    /**
+     * Test that default settings on route groups cascade
+     *
+     * @return void
+     */
+    public function test_default_settings_on_RouteGroup()
+    {
+        $route = $this->DI->get('route');
+        $collection = $this->DI->get('route.collection');
+
+        $route->group(['before' => ['test']], function ($route) {
+            $route->add('test.group', '/', ['GET'], ['controller' => 'TestController']);
+        });
+
+        $match = $collection->get('test.group');
+        $defaults = $match->getDefaults();
+
+        $this->assertTrue(array_key_exists('before', $defaults));
     }
 
     /**

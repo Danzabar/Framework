@@ -112,15 +112,7 @@ class AppBuilder
         $this->fs->mkdir($this->appSrcDir);
 
         // App Folders
-        $this->fs->mkdir($this->appSrcDir . '/Commands');
         $this->fs->mkdir($this->appSrcDir . '/Config');
-        $this->fs->mkdir($this->appSrcDir . '/Controllers');
-        $this->fs->mkdir($this->appSrcDir . '/Extensions');
-        $this->fs->mkdir($this->appSrcDir . '/Filters');
-        $this->fs->mkdir($this->appSrcDir . '/Fixtures');
-        $this->fs->mkdir($this->appSrcDir . '/Forms');
-        $this->fs->mkdir($this->appSrcDir . '/Models');
-        $this->fs->mkdir($this->appSrcDir . '/Views');
 
         // Public folders
         $this->fs->mkdir($this->appDir . '/public');

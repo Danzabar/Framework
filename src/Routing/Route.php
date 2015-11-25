@@ -28,6 +28,13 @@ class Route
     protected $activeGroup;
 
     /**
+     * An array of defaults for the current active route group
+     *
+     * @var Array
+     */
+    protected $activeGroupDefaults;
+
+    /**
      * Route prefix
      *
      * @var string
@@ -80,6 +87,10 @@ class Route
         $host = '',
         $schemes = array()
     ) {
+        if (!is_null($this->activeGroup)) {
+            $defaults = array_merge($defaults, $this->activeGroupDefaults);
+        }
+
         $route = new SymfonyRoute(
             (is_null($this->prefix) ? $uri : $this->prefix . $uri),
             $defaults,
@@ -184,6 +195,7 @@ class Route
     public function group(Array $defaults, $callback)
     {
         $this->activeGroup = new \Symfony\Component\Routing\RouteCollection;
+        $this->activeGroupDefaults = $defaults;
         $this->activeGroup->addDefaults($defaults);
 
         call_user_func_array($callback, [$this]);
@@ -214,5 +226,6 @@ class Route
         $this->collection->addCollection($this->activeGroup);
 
         $this->activeGroup = null;
+        $this->activeGroupDefaults = array();
     }
 } // END class Route
