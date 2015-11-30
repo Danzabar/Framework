@@ -1,6 +1,7 @@
 <?php
 
 use Wasp\Test\TestCase;
+use Wasp\Test\Entity\Entities\Contact;
 
 /**
  * Test case for the form classes
@@ -307,6 +308,26 @@ class FormTest extends TestCase
         $field = $form->getField('password');
 
         $this->assertEquals(1, count($field->errors()));
+    }
+
+    /**
+     * Test that a form can save directly to the entity
+     *
+     * @return void
+     */
+    public function test_it_saves_on_the_entity()
+    {
+        $this->DI->get('request')
+                 ->make('/form/test', 'POST', ['name' => 'Rulf Magnarsson', 'message' => 'test message']);
+
+        $form = new Wasp\Test\Forms\Forms\TestModelForm();
+        $form->save();
+
+        $contact = $this->DI->get('database')
+                            ->setEntity('Wasp\Test\Entity\Entities\Contact')
+                            ->findOneBy(['name' => 'Rulf Magnarsson']);
+
+        $this->assertEquals('test message', $contact->message);
     }
 
 } // END class FormTest extends TestCase
