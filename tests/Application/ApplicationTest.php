@@ -14,6 +14,18 @@ use Wasp\Test\TestCase;
 class ApplicationTest extends TestCase
 {
     /**
+     * Set up test env
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->DI->get('route')->add('test.route', '/', Array('GET'), Array('_controller' => 'Wasp\Test\Controller\Controller::returnObject'));
+    }
+
+    /**
      * Test the respond function
      *
      * @return void
@@ -24,9 +36,8 @@ class ApplicationTest extends TestCase
         $app = $this->application;
 
         // Add a route
-        $DI = $app->getDI();
+        $DI = $this->DI;
 
-        $DI->get('route')->add('test.route', '/', Array('GET'), Array('_controller' => 'Wasp\Test\Controller\Controller::returnObject'));
         $DI->get('request')->make('/', 'GET', []);
 
         ob_start();
@@ -38,6 +49,26 @@ class ApplicationTest extends TestCase
         ob_end_clean();
 
         $this->assertEquals('Foo', $response);
+    }
+
+    /**
+     * Test that it sets the current route name on a request
+     *
+     * @return void
+     */
+    public function test_it_sets_the_current_route_name()
+    {
+        $app = $this->application;
+
+        $this->DI->get('request')->make('/', 'GET', []);
+
+        ob_start();
+
+            $app->respond();
+
+        ob_end_clean();
+
+        $this->assertEquals('test.route', $this->DI->get('request')->route);
     }
 
 } // END class ApplicationTest extends TestCase
