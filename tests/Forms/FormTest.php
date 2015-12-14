@@ -330,4 +330,18 @@ class FormTest extends TestCase
         $this->assertEquals('test message', $contact->message);
     }
 
+    /**
+     * Test that it just returns false when theres no entity set and save is called
+     *
+     * @return void
+     */
+    public function test_it_returns_false_when_saving_with_no_entity()
+    {
+        $form = new Wasp\Test\Forms\Forms\TestForm();
+
+        $result = $form->save();
+
+        $this->assertFalse($result);
+    }
+
 } // END class FormTest extends TestCase
