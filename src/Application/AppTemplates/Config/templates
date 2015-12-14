@@ -8,7 +8,7 @@ return array (
 
     'twig'                      => array(
 
-        'cache'                 => '[AppDir]/cache/',
+        'cache'                 => dirname(dirname(__DIR__)) . '/cache/',
 
         'debug'                 => true,
 
