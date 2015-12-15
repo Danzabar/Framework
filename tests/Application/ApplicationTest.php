@@ -71,4 +71,14 @@ class ApplicationTest extends TestCase
         $this->assertEquals('test.route', $this->DI->get('request')->route);
     }
 
+    /**
+     * Test that you can access dependencies through the application object
+     *
+     * @return void
+     */
+    public function test_it_has_DI_access()
+    {
+        $this->assertInstanceOf('Wasp\DI\DI', $this->application->getDI());
+    }
+
 } // END class ApplicationTest extends TestCase
