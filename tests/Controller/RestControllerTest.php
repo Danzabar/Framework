@@ -140,7 +140,7 @@ class RestControllerTest extends TestCase
         $ent->save();
 
         $data = ['message' => 'The New message'];
-        $response = $this->fakeRequest('/test/update/1', 'PATCH', $data);
+        $response = $this->fakeRequest('/test/update/1', 'PUT', $data);
 
         $obj = json_decode($response->getContent());
 
@@ -160,7 +160,7 @@ class RestControllerTest extends TestCase
      */
     public function test_updateRouteInvalid()
     {
-        $response = $this->fakeRequest('/test/update/1', 'PATCH');
+        $response = $this->fakeRequest('/test/update/1', 'PUT');
 
         $obj = json_decode($response->getContent());
 
@@ -181,7 +181,7 @@ class RestControllerTest extends TestCase
         $ent->message = 'Validation error';
         $ent->save();
 
-        $response = $this->fakeRequest('/test/update/1', 'PATCH', ['message' => '']);
+        $response = $this->fakeRequest('/test/update/1', 'PUT', ['message' => '']);
 
         $obj = json_decode($response->getContent());
 

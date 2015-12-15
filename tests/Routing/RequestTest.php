@@ -50,7 +50,7 @@ class RequestTest extends TestCase
     {
         $request = $this->DI->get('request');
         $request->make('/blog', 'GET', Array('page' => '3'));
-        
+
         $this->assertEquals('/blog?page=3', $request->getRequestUri());
         $this->assertEquals(3, $request->query->get('page'));
     }
@@ -62,7 +62,7 @@ class RequestTest extends TestCase
      * @author Dan Cox
      */
     public function test_createSimulatedRequestPOST()
-    {   
+    {
         $request = $this->DI->get('request');
         $request->make('/login', 'POST', Array('username' => 'bob'));
 
@@ -120,8 +120,8 @@ class RequestTest extends TestCase
     public function test_getOldInput()
     {
         $request = $this->DI->get('request')->fromGlobals();
-        
-        $this->assertEquals('bar', $request->request->get('foo'));  
+
+        $this->assertEquals('bar', $request->request->get('foo'));
     }
 
     /**
@@ -137,7 +137,7 @@ class RequestTest extends TestCase
 
         $request = $this->DI->get('request')->fromGlobals();
 
-        $this->assertEquals('foo', $request->query->get('bar'));    
+        $this->assertEquals('foo', $request->query->get('bar'));
     }
 
 } // END class RequestTest extends TestCase

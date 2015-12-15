@@ -150,6 +150,22 @@ class Form
     }
 
     /**
+     * Saves the data against the given entity
+     *
+     * @return Boolean
+     */
+    public function save()
+    {
+        if (!is_null($this->model)) {
+            $this->model->updateFromArray($this->input);
+            $this->model->save();
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Determines what input source to use
      *
      * @return void

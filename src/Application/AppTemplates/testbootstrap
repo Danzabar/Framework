@@ -1,6 +1,6 @@
 <?php
 
-$loader = require_once ('[BaseDir]/vendor/autoload.php');
+$loader = require_once ( VENDOR . '/autoload.php' );
 
 Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 

@@ -27,6 +27,12 @@ class Request
      */
     protected $session;
 
+    /**
+     * The current route name
+     *
+     * @var String
+     */
+    public $route;
 
     /**
      * Load dependencies
@@ -110,6 +116,16 @@ class Request
         }
 
         return $this->request->request;
+    }
+
+    /**
+     * Sets the current route from the active request
+     *
+     * @return void
+     */
+    public function setCurrentRoute()
+    {
+        $this->route = $this->request->get('_route');
     }
 
     /**

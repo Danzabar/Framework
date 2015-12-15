@@ -48,12 +48,14 @@ class Application
      */
     public function react()
     {
+        $request = $this->DI->get('request')->getRequest();
+
         // Add filter listeners to the Kernel
         $dispatcher = $this->DI->get('kernel.dispatcher');
         $dispatcher->addListener(KernelEvents::REQUEST, [$this->DI->get('filter.listener'), 'beforeRequest']);
         $dispatcher->addListener(KernelEvents::RESPONSE, [$this->DI->get('filter.listener'), 'onResponse']);
 
-        return $this->DI->get('kernel')->handle($this->DI->get('request')->getRequest());
+        return $this->DI->get('kernel')->handle($request);
     }
 
     /**
@@ -64,6 +66,8 @@ class Application
     public function respond()
     {
         $response = $this->react();
+
+        $this->DI->get('request')->setCurrentRoute();
 
         $response->send();
 

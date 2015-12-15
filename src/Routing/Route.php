@@ -52,7 +52,7 @@ class Route
         'edit'          => ['uri' => '/edit/{id}', 'method' => ['GET']],
         'create'        => ['uri' => '/new', 'method' => ['POST']],
         'new'           => ['uri' => '/new', 'method' => ['GET']],
-        'update'        => ['uri' => '/update/{id}', 'method' => ['PATCH']],
+        'update'        => ['uri' => '/update/{id}', 'method' => ['PUT']],
         'delete'        => ['uri' => '/delete/{id}', 'method' => ['DELETE']]
     ];
 

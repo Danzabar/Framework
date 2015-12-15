@@ -131,7 +131,7 @@ class PaginatorTest extends TestCase
 
         $record = $records[0];
 
-        $this->assertEquals('Test 20', $record->name);
+        $this->assertEquals('Test 10', $record->name);
     }
 
     /**

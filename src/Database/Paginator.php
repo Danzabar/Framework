@@ -126,7 +126,7 @@ class Paginator
         $offset = 0;
 
         if ($this->pageNo > 1) {
-            $offset = ($pageSize * $this->pageNo);
+            $offset = ($pageSize * ($this->pageNo - 1));
         }
 
         $records = $this->database->setEntity($this->entity)
