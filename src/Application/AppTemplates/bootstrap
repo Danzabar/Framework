@@ -6,7 +6,7 @@ use [AppNs]\[AppName]Environment;
  *  Bootstrapping your app!
  *
  */
-$autoloader = require_once VENDOR . '/autoload.php';
+$autoloader = require_once dirname(dirname(__DIR__)) . '/vendor/autoload.php';
 
 /**
  *  Build the Environment

@@ -13,7 +13,7 @@ class [AppName]Environment extends AbstractEnvironment
 
     public function config()
     {
-        $profiles = require BASE . '/profiles.php';
+        $profiles = require dirname(dirname(__DIR__)) . '/profiles.php';
 
         $this->config->add('profiles',  $profiles);
         $this->config->add('config_dir', __DIR__ . '/Config/');

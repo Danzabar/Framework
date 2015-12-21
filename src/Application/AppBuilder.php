@@ -113,6 +113,7 @@ class AppBuilder
 
         // App Folders
         $this->fs->mkdir($this->appSrcDir . '/Config');
+        $this->fs->mkdir($this->appSrcDir . '/Views');
 
         // Public folders
         $this->fs->mkdir($this->appDir . '/public');
